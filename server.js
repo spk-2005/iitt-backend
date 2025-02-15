@@ -6,15 +6,13 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-// MongoDB Connection
 const dburi = process.env.MONGO_URI || "mongodb+srv://prasannasimha5002:spk@cluster0.6476o.mongodb.net/";
 mongoose.connect(dburi, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log("Error:", err));
   
   const TaskSchema = new mongoose.Schema({
-    email: { type: String, required: true }, // Ensure email is stored with the task
+    email: { type: String, required: true }, 
     task: { type: String, required: true },
     desc: { type: String, default: "" },
     status: { type: String, default: "pending" },
@@ -31,7 +29,6 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-// Route to store user data
 app.post("/api/users", async (req, res) => {
   const { name, email } = req.body;
   
@@ -75,7 +72,7 @@ app.post("/addTask", async (req, res) => {
 
 app.put("/updatestatus/:id", async (req, res) => {
   try {
-    const { status } = req.body; // Get status from request body
+    const { status } = req.body; 
     if (!status) {
       return res.status(400).json({ error: "Status is required" });
     }
@@ -110,7 +107,6 @@ app.put("/updateTask/:id", async (req, res) => {
   }
 });
 
-// Delete Task
 app.delete("/deleteTask/:id", async (req, res) => {
   try {
     await Task.findByIdAndDelete(req.params.id);
@@ -120,6 +116,5 @@ app.delete("/deleteTask/:id", async (req, res) => {
   }
 });
 
-// Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server Running on port ${PORT}`));
