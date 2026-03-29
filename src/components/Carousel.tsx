@@ -343,9 +343,9 @@ const DesktopCarousel = () => {
     offset: ["start start", "end end"],
   });
   const slideIndexSpring = useSpring(0, {
-    stiffness: 260,
+    stiffness: 250,
     damping: 32,
-    mass: 0.6,
+    mass: 0.1,
   });
   const xOffset = useTransform(
     slideIndexSpring,

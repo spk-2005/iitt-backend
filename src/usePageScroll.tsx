@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const SCROLL_THRESHOLD = 60;  // accumulated delta before triggering
+const SCROLL_THRESHOLD = 120;  // accumulated delta before triggering
 const SNAP_DURATION = 900;    // ms to lock out further snaps
 
 export function usePageSroll(sectionSelector: string) {
@@ -8,11 +8,15 @@ export function usePageSroll(sectionSelector: string) {
   const accDeltaRef = useRef(0);
   const lastWheelTimeRef = useRef(0);
 
+
   useEffect(() => {
+    
     const handleWheel = (e: WheelEvent) => {
       // Only on pointer devices
       if (!window.matchMedia("(hover: hover)").matches) return;
       if (isSnappingRef.current) return;
+
+      e.preventDefault();
 
       const now = Date.now();
       // Reset accumulator if user paused
@@ -45,6 +49,34 @@ export function usePageSroll(sectionSelector: string) {
           currentIdx = i;
         }
       });
+
+      const currentSection = sections[currentIdx];
+      const sectionTop = currentSection.offsetTop;
+      const sectionHeight = currentSection.offsetHeight;
+      const sectionBottom = sectionTop + sectionHeight;
+
+      // Scrolling DOWN: only snap if user is past 90% of section
+      if (direction === 1) {
+        const remainingBelowViewport =
+          sectionBottom - (window.scrollY + window.innerHeight);
+        const remainingRatio = remainingBelowViewport / sectionHeight;
+        // Still more than 10% of section below the fold → don't snap yet
+        if (remainingRatio > 0.1) {
+          accDeltaRef.current = 0;
+          return;
+        }
+      }
+
+      // For scrolling UP: check how far section top is above viewport top.
+      if (direction === -1) {
+        const aboveViewport = window.scrollY - sectionTop;
+        const aboveRatio = aboveViewport / sectionHeight;
+        // Still more than 10% of section above viewport top → don't snap yet
+        if (aboveRatio > 0.1) {
+          accDeltaRef.current = 0;
+          return;
+        }
+      }
 
       const nextIdx = Math.max(
         0,

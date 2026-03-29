@@ -308,7 +308,7 @@ export default function ProblemSection() {
   ];
 
   return (
-    <div className="w-full pt-10 font-sans">
+    <div className="w-full pt-20 font-sans">
       <div className="max-w-[1240px] mx-auto px-6">
         {/* Header Area */}
         <div className="mb-14 md:mb-5">

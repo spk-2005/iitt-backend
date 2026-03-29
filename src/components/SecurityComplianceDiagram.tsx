@@ -37,7 +37,7 @@ const nodeData = [
 export default function SecurityComplianceDiagram() {
   return (
     <div className="w-full bg-white overflow-hidden px-6 md:px-12 font-sans">
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-[1200px] mx-auto pt-16">
         
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-end gap-12 mb-15">
@@ -62,7 +62,7 @@ export default function SecurityComplianceDiagram() {
             Labels are absolutely positioned outside the box — that's fine
             on md+ where there's plenty of room.
           */}
-          <div className="hidden md:flex justify-center w-full">
+          <div className="hidden md:flex justify-center w-full pt-10 pb-5">
             {/* Outer positioning context – sized to include the label overhang */}
             <div className="relative" style={{ width: "910px", height: "560px" }}>
 
@@ -96,7 +96,7 @@ export default function SecurityComplianceDiagram() {
                   <div className="relative w-[86px] h-[86px] rounded-full overflow-hidden flex items-center justify-center p-5 translate-y-8" style={{ background: "linear-gradient(135deg, #2837A2 0%, #5B82E2 100%)" }}>
                     <img src={accessai} alt="" />
                   </div>
-                  <div className="absolute left-[calc(100%+24px)] top-1/2 -translate-y-1/2 w-[200px] text-left">
+                  <div className="absolute -left-3/4 -top-1/4 -translate-y-1/2 w-[280px] text-left">
                     <h4 className="font-medium text-[#111827] mb-1.5 leading-tight">Responsible AI & Model Usage</h4>
                     <p className="text-[14px] text-[#6b7280] leading-relaxed">Customer data is never used to train shared or public AI models.</p>
                   </div>
@@ -107,7 +107,7 @@ export default function SecurityComplianceDiagram() {
                   <div className="relative w-[86px] h-[86px] rounded-full overflow-hidden flex items-center justify-center p-5" style={{ background: "linear-gradient(180deg, #fe404b 0%, #61b6ef 100%)" }}>
                     <img src={verified} alt="" />
                   </div>
-                  <div className="absolute left-[calc(100%+24px)] top-1/2 -translate-y-1/2 w-[200px] text-left">
+                  <div className="absolute left-[calc(100%+24px)] top-1/2 -translate-y-1/2 w-[280px] text-left">
                     <h4 className="font-medium text-[#111827] mb-1.5 leading-tight">Verifiable & Trusted Answers</h4>
                     <p className="text-[14px] text-[#6b7280] leading-relaxed">Every response is grounded in your company knowledge with traceable sources and review workflows.</p>
                   </div>
@@ -118,7 +118,7 @@ export default function SecurityComplianceDiagram() {
                   <div className="relative w-[86px] h-[86px] rounded-full overflow-hidden flex items-center justify-center p-5 -translate-y-10" style={{ background: "linear-gradient(180deg, #2b2b2bff 0%, #5B21B6 100%)" }}>
                     <img src={chip} alt="" />
                   </div>
-                  <div className="absolute right-[calc(100%+24px)] top-1/2 -translate-y-1/2 w-[200px] text-right">
+                  <div className="absolute -right-[calc(100%)] top-[125%] -translate-y-1/2 w-[280px] text-left">
                     <h4 className="font-medium text-[#111827] mb-1.5 leading-tight">Access Control & Governance</h4>
                     <p className="text-[14px] text-[#6b7280] leading-relaxed">Granular permissions and audit logs ensure only authorized users can access sensitive information.</p>
                   </div>
@@ -129,7 +129,7 @@ export default function SecurityComplianceDiagram() {
                   <div className="relative w-[86px] h-[86px] rounded-full overflow-hidden flex items-center justify-center p-5" style={{ background: "linear-gradient(180deg, #71B2CC 0%, #D4D145 100%)" }}>
                     <img src={lock} alt="" />
                   </div>
-                  <div className="absolute right-[calc(100%+24px)] top-1/2 -translate-y-1/2 w-[200px] text-right">
+                  <div className="absolute right-[calc(80%)] top-1/2 -translate-y-1/2 w-[280px] text-left">
                     <h4 className="font-medium text-[#111827] mb-1.5 leading-tight">Secure Infrastructure</h4>
                     <p className="text-[14px] text-[#6b7280] leading-relaxed">Your data is protected with encryption, secure storage, and isolated customer environments.</p>
                   </div>

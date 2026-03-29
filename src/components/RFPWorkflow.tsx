@@ -115,7 +115,7 @@ export default function RFPWorkflow() {
       
       {/* ── Header ── */}
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between md:items-end mt-4 gap-6">
+        <div className="flex flex-col md:flex-row justify-between md:items-end pt-16 gap-6">
           <div>
             <p className="anseru-section-tag">
               The Future Of RFP Responses
@@ -132,7 +132,7 @@ export default function RFPWorkflow() {
       </div>
 
       {/* ── Graphic ── */}
-      <svg viewBox="0 150 1100 800" className="pt-22 bg-white mx-auto block w-full max-w-[1100px]">
+      <svg viewBox="0 150 1100 800" className="pt-20 bg-white mx-auto block w-full max-w-[1100px]">
         <defs>
           {nodes.map((n, i) => (
             <linearGradient key={i} id={`g${i}`} x1="0%" y1="0%" x2="0%" y2="100%">

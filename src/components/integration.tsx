@@ -33,7 +33,7 @@ export default function Integrations() {
   );
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-18 bg-white">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-24 items-center">
         
         {/* TEXT SECTION – order-first on mobile, order-last on md */}

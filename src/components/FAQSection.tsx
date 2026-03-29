@@ -95,7 +95,7 @@ const faqs = [
   };
 
   return (
-    <section className="w-full py-16 md:py-24">
+    <section className="w-full pt-16 md:py-24">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="mb-10">
