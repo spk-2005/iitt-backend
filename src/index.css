@@ -219,3 +219,22 @@ html {
 .anseru-h4{
   @apply text-[20px] font-normal whitespace-pre-line leading-[1.4] tracking-[-0.02em];
 }
+/* ── 3D flip cards ─────────────────────────────────────────────── */
+@media (hover: hover) {
+  .team-card:hover .team-card-inner {
+    transform: rotateY(180deg);
+  }
+}
+.team-card.flipped .team-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* ── Integration infinite scroll columns ───────────────────────── */
+@keyframes integrationUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+@keyframes integrationDown {
+  from { transform: translateY(-50%); }
+  to   { transform: translateY(0); }
+}
