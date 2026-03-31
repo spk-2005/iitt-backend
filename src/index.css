@@ -87,22 +87,25 @@ html {
 
   body {
     @apply bg-white text-black;
-    font-family: 'DM Sans', sans-serif;
+    font-family: "DM Sans", sans-serif;
   }
 
-  h1, .h1 {
+  h1,
+  .h1 {
     font-size: 36px;
     line-height: 1;
     letter-spacing: -0.03em;
   }
 
-  h2, .h2 {
+  h2,
+  .h2 {
     font-size: 32px;
     line-height: 1;
     letter-spacing: -0.02em;
   }
 
-  h3, .h3 {
+  h3,
+  .h3 {
     font-size: 24px;
     line-height: 1;
     letter-spacing: -0.02em;
@@ -126,32 +129,38 @@ html {
     letter-spacing: 0;
   }
 
-  h1, .h1,
-  h2, .h2,
-  h3, .h3,
-  h4, .h4,
-  h5, .h5,
-  h6, .h6 {
-    font-family: 'DM Sans', sans-serif;
+  h1,
+  .h1,
+  h2,
+  .h2,
+  h3,
+  .h3,
+  h4,
+  .h4,
+  h5,
+  .h5,
+  h6,
+  .h6 {
+    font-family: "DM Sans", sans-serif;
     font-weight: 400; /* Regular as per image */
   }
 }
 
 /* Anseru gradient utilities */
 .gradient-a2 {
-  background: linear-gradient(0deg, #6AA4EE 0%, #201CAE 100%);
+  background: linear-gradient(0deg, #6aa4ee 0%, #201cae 100%);
 }
 
 .gradient-a3 {
-  background: linear-gradient(180deg, #FF3F49 0%, #5EBDF9 100%);
+  background: linear-gradient(180deg, #ff3f49 0%, #5ebdf9 100%);
 }
 
 .gradient-a4 {
-  background: linear-gradient(0deg, #F3E21F 0%, #6DA8EF 111.83%);
+  background: linear-gradient(0deg, #f3e21f 0%, #6da8ef 111.83%);
 }
 
 .gradient-brand {
-  background: linear-gradient(90deg, #1D80F9 0%, #E74F62 100%);
+  background: linear-gradient(90deg, #1d80f9 0%, #e74f62 100%);
 }
 
 .card-gradient-a1 {
@@ -171,14 +180,14 @@ html {
 }
 
 .text-gradient-brand {
-  background: linear-gradient(90deg, #1D80F9 0%, #E74F62 100%);
+  background: linear-gradient(90deg, #1d80f9 0%, #e74f62 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-a4 {
-  background: linear-gradient(0deg, #F3E21F 0%, #6DA8EF 111.83%);
+  background: linear-gradient(0deg, #f3e21f 0%, #6da8ef 111.83%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -186,15 +195,15 @@ html {
 
 /* Carousel slide-specific backgrounds */
 .gradient-royal-blue {
-  background: #2A41C7;
+  background: #2a41c7;
 }
 
 .gradient-blue-crimson {
-  background: linear-gradient(90deg, #2A41C7 0%, #C7192A 100%);
+  background: linear-gradient(90deg, #2a41c7 0%, #c7192a 100%);
 }
 
 .gradient-violet {
-  background: #3B0B98;
+  background: #3b0b98;
 }
 
 .anseru-section-tag {
@@ -216,7 +225,7 @@ html {
   @apply text-[24px] font-normal whitespace-pre-line leading-none tracking-[-0.02em];
 }
 
-.anseru-h4{
+.anseru-h4 {
   @apply text-[20px] font-normal whitespace-pre-line leading-[1.4] tracking-[-0.02em];
 }
 /* ── 3D flip cards ─────────────────────────────────────────────── */
@@ -231,10 +240,65 @@ html {
 
 /* ── Integration infinite scroll columns ───────────────────────── */
 @keyframes integrationUp {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-50%); }
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
 }
 @keyframes integrationDown {
-  from { transform: translateY(-50%); }
-  to   { transform: translateY(0); }
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Scroll down vertical text on the far left */
+.scroll-down-container {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 30;
+}
+
+.scroll-down-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ff3f49;
+  font-weight: 600;
+}
+
+.scroll-down-line {
+  width: 1px;
+  height: 60px;
+  background-color: #ff3f49;
+}
+
+/* Red Gradient for the Right side slide cards */
+.card-gradient-red {
+  background: linear-gradient(180deg, #fe3f49 0%, #49abf5 100%);
+}
+
+/* Hide scrollbar for the container */
+#carousel-desktop::-webkit-scrollbar {
+  display: none;
+}
+.scroll-down-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ff4d4d;
 }
