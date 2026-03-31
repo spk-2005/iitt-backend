@@ -83,17 +83,24 @@ function initDesktopCarousel() {
     start: "top top",
     end: "bottom bottom",
     scrub: 1, // Smooth scrolling
+    snap: {
+      snapTo: 1 / 3, // Snap to index (4 slides = 3 durations)
+      duration: { min: 0.2, max: 0.5 },
+      delay: 0.1,
+      ease: "power1.inOut"
+    },
     onUpdate: (self) => {
       // 1. Move the strip horizontally
       const xMove = -self.progress * 75; // moves from 0 to -75% of the 400vw width
       gsap.to(strip, { xPercent: xMove, duration: 0.1, overwrite: "auto" });
 
-      // 2. Update Progress Bars
-      const activeIdx = Math.floor(self.progress * 3.99);
+      // 2. Update Progress Bars continuously
       for (let i = 0; i < slides; i++) {
-        const bar = document.getElementById(`prog-${i}`);
-        if (bar) {
-          bar.style.backgroundColor = i === activeIdx ? "#000000" : "#E5E7EB";
+        const fillBar = document.getElementById(`prog-${i}`);
+        if (fillBar) {
+          // Calculate the exact fractional completion of this segment
+          const segmentProgress = Math.max(0, Math.min(1, (self.progress * slides) - i));
+          fillBar.style.width = `${segmentProgress * 100}%`;
         }
       }
 
@@ -105,6 +112,20 @@ function initDesktopCarousel() {
     },
   });
 }
+
+window.scrollToDesktopSlide = function (index) {
+  const container = document.getElementById("carousel-desktop");
+  if (!container) return;
+  // Use absolute document math to prevent nested offset bugs
+  const absoluteTop = container.getBoundingClientRect().top + window.scrollY;
+  const scrollTarget = absoluteTop + (index * window.innerHeight);
+  
+  window.scrollTo({
+    top: scrollTarget,
+    behavior: "smooth"
+  });
+};
+
 // ── Two Agents ────────────────────────────────────────────────────────────────
 window.switchAgent = function (name) {
   document
@@ -492,10 +513,14 @@ function buildRFPWorkflow() {
       ng.glow.setAttribute("opacity", isActive ? "0.6" : "0");
       ng.mask.setAttribute("r", isActive ? NR + 4 : NR);
       ng.ball.setAttribute("r", isActive ? NR + 4 : NR);
-      ng.ball.setAttribute("opacity", isActive ? "1" : "0.4");
+      
+      // Node is gray when inactive, full gradient color only when active
+      ng.ball.setAttribute("fill", isActive ? `url(#rfpg${i})` : "#E5E7EB");
+      ng.ball.setAttribute("opacity", "1");
+      
       if (isActive) ng.ball.setAttribute("filter", "url(#rfpglow)");
       else ng.ball.removeAttribute("filter");
-      ng.tg.style.opacity = isActive ? "1" : "0.6";
+      ng.tg.style.opacity = isActive ? "1" : "0.5";
     });
   }
   updateNodes(0);
