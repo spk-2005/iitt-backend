@@ -237,7 +237,7 @@ html {
 .prob-card {
   position: relative;
   width: 100%;
-  height: clamp(380px, 130vw, 520px);
+  height: clamp(260px, 90vw, 340px);
   perspective: 1000px;
 }
 

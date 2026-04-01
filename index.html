@@ -483,7 +483,7 @@
             .prob-card {
               position: relative;
               width: 100%;
-              height: clamp(360px, 125vw, 500px);
+              height: clamp(260px, 90vw, 340px);
               perspective: 1000px;
             }
 
@@ -913,7 +913,7 @@
         <!-- DESKTOP -->
         <div class="hidden md:grid grid-cols-3 gap-6 md:gap-8">
           <!-- Sales Card -->
-          <div class="team-card relative h-135 w-full cursor-default" style="perspective:1000px">
+          <div class="team-card relative h-110 w-full cursor-default" style="perspective:1000px">
             <div class="team-card-inner relative w-full h-full"
               style="transform-style:preserve-3d;transition:transform 0.6s cubic-bezier(0.23,1,0.32,1);">
               <div class="team-card-face team-card-front absolute inset-0 bg-[#F8F9FB] overflow-hidden"
@@ -1043,7 +1043,7 @@
           </div>
 
           <!-- Compliance Card -->
-          <div class="team-card relative h-135 w-full cursor-default" style="perspective:1000px">
+          <div class="team-card relative h-110 w-full cursor-default" style="perspective:1000px">
             <div class="team-card-inner relative w-full h-full"
               style="transform-style:preserve-3d;transition:transform 0.6s cubic-bezier(0.23,1,0.32,1);">
               <div class="team-card-face team-card-front absolute inset-0 bg-[#F8F9FB] overflow-hidden"
@@ -3039,6 +3039,36 @@
 
       </div>
     </section>
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const items = document.querySelectorAll(".faq-item");
+
+    items.forEach(item => {
+      const trigger = item.querySelector(".faq-trigger");
+      const answer  = item.querySelector(".faq-answer");
+      const icon    = item.querySelector(".faq-icon");
+
+      trigger.addEventListener("click", () => {
+        const isOpen = answer.style.maxHeight !== "0px" && answer.style.maxHeight !== "";
+
+        // Close all
+        items.forEach(i => {
+          i.querySelector(".faq-answer").style.maxHeight = "0px";
+          i.querySelector(".faq-answer").style.opacity  = "0";
+          i.querySelector(".faq-icon").textContent       = "+";
+        });
+
+        // Open clicked one if it was closed
+        if (!isOpen) {
+          answer.style.maxHeight = answer.scrollHeight + "px";
+          answer.style.opacity   = "1";
+          icon.textContent       = "−";
+        }
+      });
+    });
+  });
+</script>
+
   </section>
 
   <div data-section class="w-full flex flex-col font-sans">

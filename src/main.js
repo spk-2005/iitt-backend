@@ -733,7 +733,6 @@ window.scrollToSection = function (id) {
 function initFlipCards() {
   document.querySelectorAll(".team-card").forEach((card) => {
     card.addEventListener("click", () => {
-      if (window.matchMedia("(hover: hover)").matches) return;
       card.classList.toggle("flipped");
     });
   });
