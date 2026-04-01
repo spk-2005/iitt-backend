@@ -332,7 +332,7 @@
         <img src="./src/assets/hero (3).png" alt="Deal Intelligence Architecture Desktop"
           class="hidden md:block w-full h-auto object-contain md:h-[515px]" loading="eager" />
         <img src="./src/assets/hero-mob.png" alt="Deal Intelligence Architecture Mobile"
-          class="block md:hidden w-full h-auto object-contain" loading="eager" />
+          class="block md:hidden w-full h-auto object-contain max-h-[45vh]" loading="eager" />
       </div>
     </div>
   </section>
@@ -347,180 +347,137 @@
 </div>
 
 <section data-section id="problem" class="scroll-mt-20 mt-6">
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const track = document.getElementById('problem-carousel-track');
-      const dots = document.querySelectorAll('.problem-dot');
-      if (!track) return;
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const textContainer = document.getElementById("mobile-reveal-text");
+  if (!textContainer) return;
 
-      const SLIDE_COUNT = 3;
-      const GAP = 16;
-      let current = 0;
-      let autoSlideTimer = null;
-      let userTouching = false;
+  // --- 1. Parse words ---
+  const alwaysBlueSpan = textContainer.querySelector("span");
+  const alwaysBlueWords = alwaysBlueSpan
+    ? alwaysBlueSpan.textContent.trim().split(/\s+/) : [];
+  const ALWAYS_VISIBLE_COUNT = alwaysBlueWords.length;
 
-      function getSlideWidth() {
-        const firstSlide = track.querySelector('.flex-shrink-0');
-        return firstSlide ? firstSlide.offsetWidth + GAP : track.offsetWidth;
-      }
+  let restText = "";
+  textContainer.childNodes.forEach(node => {
+    if (node.nodeType === Node.TEXT_NODE) restText += node.textContent;
+  });
+  const restWords = restText.trim().split(/\s+/).filter(Boolean);
 
-      function updateDots(idx) {
-        dots.forEach((d, i) => {
-          d.classList.toggle('w-5', i === idx);
-          d.classList.toggle('w-2', i !== idx);
-          d.classList.toggle('bg-gray-700', i === idx);
-          d.classList.toggle('bg-gray-300', i !== idx);
-        });
-      }
+  // --- 2. Configuration ---
+  // Only the words inside the initially colored span will remain always visible.
+  const FIRST_TWO_LINES_COUNT = ALWAYS_VISIBLE_COUNT;
 
-      function goTo(idx) {
-        current = (idx + SLIDE_COUNT) % SLIDE_COUNT;
-        track.scrollTo({ left: current * getSlideWidth(), behavior: 'smooth' });
-        updateDots(current);
-      }
+  // --- 3. Rebuild DOM ---
+  textContainer.innerHTML = "";
 
-  
-function startAutoSlide() {
-  clearInterval(autoSlideTimer);
-  autoSlideTimer = setInterval(() => {
-    if (!userTouching) goTo(current + 1);
-  }, 3000);
-}
+  // Blue words (always visible, always blue)
+  alwaysBlueWords.forEach(word => {
+    const span = document.createElement("span");
+    span.textContent = word + " ";
+    span.className = "reveal-word";
+    span.style.cssText = "color: #2C48DB;";
+    textContainer.appendChild(span);
+  });
 
-function stopAutoSlide() {
-  clearInterval(autoSlideTimer);
-  autoSlideTimer = null;
-}
+  // Rest of words
+  restWords.forEach((word, i) => {
+    const span = document.createElement("span");
+    span.textContent = word + " ";
+    span.className = "reveal-word";
+    const globalIdx = ALWAYS_VISIBLE_COUNT + i;
 
-// IntersectionObserver to control auto-slide
-const section = document.getElementById('problem-carousel-track')
-  ?.closest('section');
+    // Words that are part of first 2 lines → always visible
+    if (globalIdx < FIRST_TWO_LINES_COUNT) {
+      span.style.cssText = "color: #2C48DB;";
+      span.dataset.alwaysVisible = "true";
+      span.dataset.revealed = "true";
+    } else {
+      // Hidden until scroll reveals them
+      span.style.cssText = "color: #D1D5DB; transition: color 0.35s ease;";
+      span.dataset.alwaysVisible = "false";
+      span.dataset.revealed = "false";
+    }
+    textContainer.appendChild(span);
+  });
 
-if (section) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        startAutoSlide();
+  const wordSpans = Array.from(textContainer.querySelectorAll(".reveal-word"));
+
+  // --- 4. Simple flash animation (no transforms, no display toggle) ---
+  function flashSpan(span) {
+    span.style.transition = "color 0.4s ease-out, text-shadow 0.4s ease-out";
+    span.style.color = "#ffffff";
+    span.style.textShadow = "0 0 12px rgba(44,72,219,0.8), 0 0 20px rgba(44,72,219,0.5)";
+    setTimeout(() => {
+      span.style.transition = "color 0.5s ease-in, text-shadow 0.5s ease-in";
+      span.style.color = "#2C48DB";
+      span.style.textShadow = "none";
+    }, 200);
+  }
+
+  // --- 5. Scroll handler — ONLY fires on scroll ---
+  let scrollHasFired = false;
+
+  function handleReveal() {
+    scrollHasFired = true;
+    const rect = textContainer.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // If scrolled past, reveal all
+    if (rect.top < 0) {
+      wordSpans.forEach(span => {
+        if (span.dataset.revealed !== "true") {
+          span.dataset.revealed = "true";
+          span.style.color = "#2C48DB";
+          span.style.textShadow = "none";
+        }
+      });
+      return;
+    }
+
+    // Progress: 0 when element enters at 85vh, 1 when at 15vh
+    const start = windowHeight * 0.85;
+    const end = windowHeight * 0.15;
+    let progress = 0;
+
+    if (rect.top <= start && rect.top >= end) {
+      progress = (start - rect.top) / (start - end);
+    } else if (rect.top < end) {
+      progress = 1;
+    }
+
+    progress = Math.max(0, Math.min(1, progress));
+
+    const revealableCount = wordSpans.length - FIRST_TWO_LINES_COUNT;
+    const revealCount = FIRST_TWO_LINES_COUNT + Math.floor(progress * revealableCount);
+
+    wordSpans.forEach((span, index) => {
+      // Always-visible words: skip
+      if (index < FIRST_TWO_LINES_COUNT) return;
+
+      if (index < revealCount) {
+        // Reveal with flash
+        if (span.dataset.revealed !== "true") {
+          span.dataset.revealed = "true";
+          span.style.color = "#2C48DB";
+          flashSpan(span);
+        }
       } else {
-        stopAutoSlide();
+        // Hide again on scroll up
+        if (span.dataset.alwaysVisible !== "true" && span.dataset.revealed !== "false") {
+          span.dataset.revealed = "false";
+          span.style.transition = "color 0.2s ease";
+          span.style.color = "#D1D5DB";
+          span.style.textShadow = "none";
+        }
       }
     });
-  }, { threshold: 0.3 }); // starts when 30% of section is visible
+  }
 
-  observer.observe(section);
-}
-
-// REMOVE the startAutoSlide() call at the bottom
-// updateDots(0);
-// startAutoSlide();  <-- remove this line, keep only:
-updateDots(0);
-      startAutoSlide();
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const textContainer = document.getElementById("mobile-reveal-text");
-      if (!textContainer) return;
-
-      const alwaysBlueSpan = textContainer.querySelector("span");
-      const alwaysBlueWords = alwaysBlueSpan
-        ? alwaysBlueSpan.textContent.trim().split(/\s+/) : [];
-      const ALWAYS_VISIBLE_COUNT = alwaysBlueWords.length;
-
-      let restText = "";
-      textContainer.childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) restText += node.textContent;
-      });
-      const restWords = restText.trim().split(/\s+/).filter(Boolean);
-
-      textContainer.innerHTML = "";
-
-      alwaysBlueWords.forEach(word => {
-        const span = document.createElement("span");
-        span.textContent = word + " ";
-        span.className = "reveal-word text-[#2C48DB]";
-        textContainer.appendChild(span);
-      });
-
-      restWords.forEach(word => {
-        const span = document.createElement("span");
-        span.textContent = word + " ";
-        span.className = "reveal-word transition-colors duration-300 text-[#E5E7EB]";
-        textContainer.appendChild(span);
-      });
-
-      const wordSpans = Array.from(textContainer.querySelectorAll(".reveal-word"));
-
-      function flashSpan(span) {
-        span.style.display = 'inline-block';
-        span.style.whiteSpace = 'pre';
-        span.style.transition = 'transform 0.15s cubic-bezier(0.34,1.56,0.64,1), text-shadow 0.05s ease';
-        span.style.transform = 'scale(1.05) translateY(-3px)';
-        span.style.textShadow = '0 0 4px rgba(44,72,219,0.3), 0 0 28px rgba(44,72,219,0.2)';
-        setTimeout(() => {
-          span.style.transform = 'scale(1) translateY(0)';
-          span.style.textShadow = '0 0 6px rgba(44,72,219,0.25)';
-          setTimeout(() => {
-            span.style.transition = '';
-            span.style.transform = '';
-            span.style.textShadow = '';
-            span.style.display = 'inline';
-            span.style.whiteSpace = '';
-          }, 250);
-        }, 160);
-      }
-
-      let hasScrolled = false;
-      window.addEventListener("scroll", () => { hasScrolled = true; }, { once: true, passive: true });
-
-      const handleScroll = () => {
-        if (!hasScrolled) return;
-
-        const rect = textContainer.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-
-        if (rect.top < 0) {
-          wordSpans.forEach(span => {
-            span.classList.remove("text-[#E5E7EB]");
-            span.classList.add("text-[#2C48DB]");
-          });
-          return;
-        }
-
-        const start = windowHeight * 0.85;
-        const end = windowHeight * 0.15;
-        let progress = 0;
-        if (rect.top > start) {
-          progress = 0;
-        } else if (rect.top < end) {
-          progress = 1;
-        } else {
-          progress = (start - rect.top) / (start - end);
-        }
-        progress = Math.max(0, Math.min(1, progress));
-
-        const revealableWords = wordSpans.length - ALWAYS_VISIBLE_COUNT;
-        const revealCount = ALWAYS_VISIBLE_COUNT + Math.floor(progress * revealableWords);
-
-        wordSpans.forEach((span, index) => {
-          if (index < ALWAYS_VISIBLE_COUNT) return;
-          if (index < revealCount) {
-            if (span.classList.contains("text-[#E5E7EB]")) {
-              span.classList.remove("text-[#E5E7EB]");
-              span.classList.add("text-[#2C48DB]");
-              flashSpan(span);
-            }
-          } else {
-            if (span.classList.contains("text-[#2C48DB]")) {
-              span.classList.remove("text-[#2C48DB]");
-              span.classList.add("text-[#E5E7EB]");
-            }
-          }
-        });
-      };
-
-      window.addEventListener("scroll", handleScroll, { passive: true });
-    });
-  </script>
+  // Only attach scroll listener — never call on load
+  window.addEventListener("scroll", handleReveal, { passive: true });
+});
+</script>
 
   <div class="w-full pt-4 md:pt-20 font-sans mt-2">
     <div class="max-w-310 mx-auto px-2 min-[250px]:px-6">
