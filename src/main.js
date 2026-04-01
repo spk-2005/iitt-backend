@@ -614,6 +614,40 @@ window.scrollToSection = function (id) {
   if (el) el.scrollIntoView({ behavior: "smooth" });
 };
 
+// ── Problem section scroll animation ───────────────────────────────────────
+function initProblemCarousel() {
+  ScrollTrigger.matchMedia({
+    "(max-width: 767px)": function () {
+      const parentWrap = document.getElementById("problem-how-wrapper");
+      const pinTarget = document.getElementById("problem-pin-target");
+      const track = document.getElementById("problem-carousel-track");
+      if (!parentWrap || !pinTarget || !track) return;
+
+      setTimeout(() => {
+        const maxScrollDist = track.scrollWidth - window.innerWidth + 32;
+
+        gsap.to(track, {
+          x: () => -maxScrollDist,
+          ease: "none",
+          scrollTrigger: {
+            trigger: parentWrap,
+            start: "top top",
+            end: () => `+=${maxScrollDist * 2}`,
+            pin: true,
+            scrub: 1,
+            snap: {
+              snapTo: 1 / 2,
+              duration: 0.3,
+              delay: 0.1,
+              ease: "power1.inOut"
+            }
+          }
+        });
+      }, 50);
+    }
+  });
+}
+
 
 // ── 3D flip cards ────────────────────────────────────────────────────────────
 function initFlipCards() {
@@ -629,7 +663,7 @@ document.addEventListener("DOMContentLoaded", () => {
   applyAssets();
   initNavbar();
   initFlipCards();
-
+  initProblemCarousel();
 
   initMobileCarousel();
   initDesktopCarousel();

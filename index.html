@@ -348,7 +348,8 @@
     </p>
   </div>
 
-  <section data-section id="problem" class="scroll-mt-20 mt-6">
+<div id="problem-how-wrapper" class="w-full relative">
+  <section data-section id="problem" class="scroll-mt-20 mt-6 md:mt-10">
     <script>
   document.addEventListener("DOMContentLoaded", () => {
     const textContainer = document.getElementById("mobile-reveal-text");
@@ -633,7 +634,7 @@
             }
           </style>
 
-          <div id="problem-carousel-track" class="flex gap-6 overflow-x-auto snap-x snap-mandatory flex-nowrap pb-4 hide-[scrollbar] overflow-y-hidden" style="scrollbar-width: none; -ms-overflow-style: none;">
+          <div id="problem-carousel-track" class="flex gap-6 w-max flex-nowrap pb-4">
 
             <!-- Card 1: Sales -->
             <div class="prob-card-wrap snap-center">
@@ -1064,7 +1065,7 @@
           <div class="flex-shrink-0 snap-center snap-always px-4 sm:px-6" style="width: 100vw">
             <div class="space-y-5">
               <div class="space-y-3">
-                <h2 class="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug">1. Connect your knowledge</h2>
+                <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">1. Connect your knowledge</h2>
                 <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
                   Your single living source of truth. Anseru connects to where your knowledge already lives. Sync Google Drive, SharePoint, Teams, Jira, Slack,
                   and Dropbox or upload your internal documents directly. Your answer library builds itself and stays current automatically.
@@ -1105,10 +1106,10 @@
                 <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
                 <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
                 <div class="relative z-20 p-6 md:p-8 space-y-2">
-                  <h2 class="font-medium max-w-[360px] text-[17px] md:text-[21px] leading-snug">Turn complex RFPs into clear, winning responses</h2>
+                  <h2 class="font-medium text-[15px] sm:text-[16px] md:text-[18px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
                 </div>
-                <div class="absolute z-10 bottom-0 right-0 flex justify-end">
-                  <img src="./src/assets/Intro-Page.webp" alt="1. Connect your knowledge" class="h-auto w-[75%] object-top rounded-b-[10px]" />
+                <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                  <img src="./src/assets/Intro-Page.webp" alt="1. Connect your knowledge" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
                 </div>
               </div>
             </div>
@@ -1116,7 +1117,7 @@
           <div class="flex-shrink-0 snap-center snap-always px-4 sm:px-6" style="width: 100vw">
             <div class="space-y-5">
               <div class="space-y-3">
-                <h2 class="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug">2. Upload RFPs &amp; Security Questionnaires</h2>
+                <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">2. Upload RFPs &amp; Security Questionnaires</h2>
                 <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
                   Drop in any document in any format. Anseru reads the full document, identifies every requirement, and maps each question to your verified
                   knowledge base, in seconds.
@@ -1154,10 +1155,10 @@
                 <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
                 <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
                 <div class="relative z-20 p-6 md:p-8 space-y-2">
-                  <h2 class="font-medium max-w-[340px] text-[17px] md:text-[21px] leading-snug">Turn complex RFPs into clear, winning responses</h2>
+                  <h2 class="font-medium text-[15px] sm:text-[16px] md:text-[18px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
                 </div>
-                <div class="absolute z-10 bottom-0 right-0 flex justify-end">
-                  <img src="./src/assets/Intro Page (3).png" alt="2. Upload RFPs" class="h-auto w-[75%] object-top rounded-b-[10px]" />
+                <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                  <img src="./src/assets/Intro Page (3).png" alt="2. Upload RFPs" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
                 </div>
               </div>
             </div>
@@ -1165,7 +1166,7 @@
           <div class="flex-shrink-0 snap-center snap-always px-4 sm:px-6" style="width: 100vw">
             <div class="space-y-5">
               <div class="space-y-3">
-                <h2 class="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug">3. Generate AI Draft Responses</h2>
+                <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">3. Generate AI Draft Responses</h2>
                 <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
                   Anseru generates a full response draft using your verified documentation and past approved answers. Every answer is traceable to a real
                   source, so drafts arrive ready for review, not ready to be rewritten from scratch.
@@ -1206,10 +1207,10 @@
                 <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
                 <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
                 <div class="relative z-20 p-6 md:p-8 space-y-2">
-                  <h2 class="font-medium max-w-[340px] text-[17px] md:text-[21px] leading-snug">Turn complex RFPs into clear, winning responses</h2>
+                  <h2 class="font-medium text-[15px] sm:text-[16px] md:text-[18px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
                 </div>
-                <div class="absolute z-10 bottom-0 right-0 flex justify-end">
-                  <img src="./src/assets/Intro Page (8).png" alt="3. Generate AI Draft Responses" class="h-auto w-[85%] object-top rounded-b-[10px]" />
+                <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                  <img src="./src/assets/Intro Page (8).png" alt="3. Generate AI Draft Responses" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
                 </div>
               </div>
             </div>
@@ -1217,7 +1218,7 @@
           <div class="flex-shrink-0 snap-center snap-always px-4 sm:px-6" style="width: 100vw">
             <div class="space-y-5">
               <div class="space-y-3">
-                <h2 class="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug">4. SME Review &amp; Approval</h2>
+                <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">4. SME Review &amp; Approval</h2>
                 <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
                   Anseru focuses your experts on what only they can answer. Standard questions arrive pre-drafted and ready to approve. Novel, flagged, and
                   high-risk items are surfaced for review before anything leaves the building.
@@ -1258,10 +1259,10 @@
                 <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
                 <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
                 <div class="relative z-20 p-6 md:p-8 space-y-2">
-                  <h2 class="font-medium max-w-[340px] text-[17px] md:text-[21px] leading-snug">Turn complex RFPs into clear, winning responses</h2>
+                  <h2 class="font-medium text-[15px] sm:text-[16px] md:text-[18px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
                 </div>
-                <div class="absolute z-10 bottom-0 right-0 flex justify-end">
-                  <img src="./src/assets/Intro Page (1).png" alt="4. SME Review & Approval" class="h-auto w-[85%] object-top rounded-b-[10px]" />
+                <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                  <img src="./src/assets/Intro Page (1).png" alt="4. SME Review & Approval" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
                 </div>
               </div>
             </div>
@@ -1340,7 +1341,7 @@
                     >
                       <div class="w-full space-y-5">
                         <div class="space-y-3">
-                          <h2 class="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug">1. Connect your knowledge</h2>
+                          <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">1. Connect your knowledge</h2>
                           <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
                             Your single living source of truth. Anseru connects to where your knowledge already lives. Sync Google Drive, SharePoint, Teams,
                             Jira, Slack, and Dropbox or upload your internal documents directly. Your answer library builds itself and stays current
@@ -1393,10 +1394,10 @@
                         <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
                         <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
                         <div class="relative z-20 p-6 md:p-8 space-y-2">
-                          <h2 class="font-medium max-w-[360px] text-[17px] md:text-[21px] leading-snug">Turn complex RFPs <br /> into clear, winning<br /> responses</h2>
+                          <h2 class="font-medium text-[15px] sm:text-[16px] md:text-[18px] z-20 w-[95%] leading-snug">Turn complex RFPs <br /> into clear, winning<br /> responses</h2>
                         </div>
-                        <div class="absolute z-10 bottom-0 right-0 flex justify-end">
-                          <img src="./src/assets/Intro-Page.webp" alt="1. Connect your knowledge" class="h-auto w-[75%] max-h-[65vh] object-bottom rounded-b-[10px]" />
+                        <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                          <img src="./src/assets/Intro-Page.webp" alt="1. Connect your knowledge" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top max-h-[65vh] object-bottom rounded-b-[10px]" />
                         </div>
                       </div>
                     </div>
@@ -1419,7 +1420,7 @@
                     >
                       <div class="w-full space-y-5">
                         <div class="space-y-3">
-                          <h2 class="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug">2. Upload RFPs &amp; Security Questionnaires</h2>
+                          <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">2. Upload RFPs &amp; Security Questionnaires</h2>
                           <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
                             Drop in any document in any format. Anseru reads the full document, identifies every requirement, and maps each question to your
                             verified knowledge base, in seconds.
@@ -1469,10 +1470,10 @@
                         <img src="./src/assets/Group 1437253216.png" loading="lazy" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
                         <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
                         <div class="relative z-20 p-6 md:p-8 space-y-2">
-                          <h2 class="font-medium max-w-[340px] text-[17px] md:text-[21px] leading-snug">Turn complex RFPs into clear, winning responses</h2>
+                          <h2 class="font-medium text-[15px] sm:text-[16px] md:text-[18px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
                         </div>
-                        <div class="absolute z-10 bottom-0 right-0 flex justify-end">
-                          <img src="./src/assets/Intro Page (3).png" loading="lazy" alt="2. Upload RFPs" class="h-auto w-[75%] object-top rounded-b-[10px]" />
+                        <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                          <img src="./src/assets/Intro Page (3).png" loading="lazy" alt="2. Upload RFPs" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
                         </div>
                       </div>
                     </div>
@@ -1495,7 +1496,7 @@
                     >
                       <div class="w-full space-y-5">
                         <div class="space-y-3">
-                          <h2 class="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug">3. Generate AI Draft Responses</h2>
+                          <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">3. Generate AI Draft Responses</h2>
                           <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
                             Anseru generates a full response draft using your verified documentation and past approved answers. Every answer is traceable to a
                             real source, so drafts arrive ready for review, not ready to be rewritten from scratch.
@@ -1546,10 +1547,10 @@
                         <img src="./src/assets/Group 1437253216.png" loading="lazy" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
                         <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
                         <div class="relative z-20 p-6 md:p-8 space-y-2">
-                          <h2 class="font-medium max-w-[340px] text-[17px] md:text-[21px] leading-snug">Turn complex RFPs into clear, winning responses</h2>
+                          <h2 class="font-medium text-[15px] sm:text-[16px] md:text-[18px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
                         </div>
-                        <div class="absolute z-10 bottom-0 right-0 flex justify-end">
-                          <img src="./src/assets/Intro Page (8).png" loading="lazy" alt="3. Generate AI Draft Responses" class="h-auto w-[85%] object-top rounded-b-[10px]" />
+                        <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                          <img src="./src/assets/Intro Page (8).png" loading="lazy" alt="3. Generate AI Draft Responses" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
                         </div>
                       </div>
                     </div>
@@ -1572,7 +1573,7 @@
                     >
                       <div class="w-full space-y-5">
                         <div class="space-y-3">
-                          <h2 class="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug">4. SME Review &amp; Approval</h2>
+                          <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">4. SME Review &amp; Approval</h2>
                           <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
                             Anseru focuses your experts on what only they can answer. Standard questions arrive pre-drafted and ready to approve. Novel,
                             flagged, and high-risk items are surfaced for review before anything leaves the building.
@@ -1624,10 +1625,10 @@
                         <img src="./src/assets/Group 1437253216.png" loading="lazy" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
                         <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
                         <div class="relative z-20 p-6 md:p-8 space-y-2">
-                          <h2 class="font-medium max-w-[340px] text-[17px] md:text-[21px] leading-snug">Turn complex RFPs into clear, winning responses</h2>
+                          <h2 class="font-medium text-[15px] sm:text-[16px] md:text-[18px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
                         </div>
-                        <div class="absolute z-10 bottom-0 right-0 flex justify-end">
-                          <img src="./src/assets/Intro Page (1).png" loading="lazy" alt="4. SME Review & Approval" class="h-auto w-[85%] object-top rounded-b-[10px]" />
+                        <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                          <img src="./src/assets/Intro Page (1).png" loading="lazy" alt="4. SME Review & Approval" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
                         </div>
                       </div>
                     </div>
@@ -1639,6 +1640,7 @@
         </div>
       </div>
     </section>
+</div>
 
   <section data-section id="product" class="scroll-mt-4">
     <div id="agents-mobile-carousel" class="lg:hidden relative w-full bg-white" style="height: 300vh">
