@@ -211,6 +211,7 @@ html {
 .anseru-section-title {
   font-size: clamp(18px, 6.97vw, 46px);
   font-weight: 400;
+  margin-top:5px;
   letter-spacing: 0;
 }
 .anseru-section-tag {
@@ -266,7 +267,7 @@ html {
 .prob-body {
   position: relative;
   padding: clamp(14px, 4.5vw, 22px);
-  height: 100%;
+  
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -276,6 +277,7 @@ html {
 
 .prob-body-back {
   padding-top: clamp(16px, 5vw, 28px);
+
 }
 
 .prob-svg-wrap {

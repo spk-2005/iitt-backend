@@ -614,6 +614,42 @@ window.scrollToSection = function (id) {
   if (el) el.scrollIntoView({ behavior: "smooth" });
 };
 
+// ── Problem section gap elimination ──────────────────────────────────────────
+function eliminateGap() {
+  const pSection = document.getElementById("problem");
+  const pMobileGsap = document.getElementById("problem-mobile-gsap");
+  const hSection = document.getElementById("how-it-works");
+
+  if (!pMobileGsap || !hSection) return;
+
+  const stickyContent = pMobileGsap.querySelector(".sticky");
+  if (!stickyContent) return;
+
+  // Reset to calculate cleanly
+  hSection.style.marginTop = "0px";
+  hSection.style.paddingTop = "0px";
+
+  // Only apply if we are on mobile where the 150vh layout is active
+  if (window.innerWidth >= 768) return;
+
+  const problemHeight = pMobileGsap.offsetHeight;
+  const stickyHeight = stickyContent.offsetHeight;
+  const gap = problemHeight - stickyHeight;
+
+  if (gap > 0) {
+    // We add margin-top to pull How It Works up so there is no gap.
+    // We add padding-top so its background covers the gap, but its content starts right below the sticky element.
+    hSection.style.marginTop = `-${gap}px`;
+    hSection.style.paddingTop = `${gap}px`;
+    
+    // Ensure layering is correct (Problem on top during scroll)
+    if (pSection) pSection.style.position = "relative";
+    if (pSection) pSection.style.zIndex = "10";
+    hSection.style.position = "relative";
+    hSection.style.zIndex = "5";
+  }
+}
+
 // ── Problem section scroll animation ───────────────────────────────────────
 function initProblemCarousel() {
   ScrollTrigger.matchMedia({
@@ -696,6 +732,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initNavbar();
   initFlipCards();
   initProblemCarousel();
+  
+  // Call gap eliminator on load and resize
+  eliminateGap();
+  window.addEventListener("resize", eliminateGap);
 
   initMobileCarousel();
   initDesktopCarousel();

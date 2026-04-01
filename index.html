@@ -339,122 +339,141 @@
       </div>
     </div>
   </section>
-  <div class="md:hidden w-full px-2 min-[250px]:px-6 pt-6 pb-8">
-    <p id="mobile-reveal-text" class="text-[clamp(12px,5.97vw,24px)] leading-[1.3] font-medium text-[#111827]">
-      <span class="text-[#2C48DB]">We are a vertical</span> AI-Native B2B SaaS Platform that helps Modern Sales Teams
-      win deals faster using AI Agents to
-      draft context-aware responses to RFP's & Security Questionnaire grounded in your knowledge base keeping
-      humans-in-loop
-    </p>
-  </div>
-
-<div id="problem-how-wrapper" class="w-full relative">
-  <section data-section id="problem" class="scroll-mt-20 mt-6 md:mt-10">
+  <div class="md:hidden w-full px-2 min-[250px]:px-6 pt-6 pb-4">
+  <p id="mobile-reveal-text" class="text-[clamp(12px,5.97vw,24px)] leading-[1.3] font-medium text-[#111827]">
+    <span class="text-[#2C48DB]">We are a vertical</span> AI-Native B2B SaaS Platform that helps Modern Sales Teams
+    win deals faster using AI Agents to
+    draft context-aware responses to RFP's & Security Questionnaire grounded in your knowledge base keeping
+    humans-in-loop
+  </p>
+</div>
+  <section data-section id="problem" class="scroll-mt-20">
     <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const textContainer = document.getElementById("mobile-reveal-text");
-    if (!textContainer) return;
+      document.addEventListener("DOMContentLoaded", () => {
+        const textContainer = document.getElementById("mobile-reveal-text");
+        if (!textContainer) return;
 
-    // --- 1. Parse words ---
-    const alwaysBlueSpan = textContainer.querySelector("span");
-    const alwaysBlueWords = alwaysBlueSpan
-      ? alwaysBlueSpan.textContent.trim().split(/\s+/) : [];
-    const ALWAYS_VISIBLE_COUNT = alwaysBlueWords.length;
+        // --- 1. Parse words ---
+        const alwaysBlueSpan = textContainer.querySelector("span");
+        const alwaysBlueWords = alwaysBlueSpan
+          ? alwaysBlueSpan.textContent.trim().split(/\s+/) : [];
+        const ALWAYS_VISIBLE_COUNT = alwaysBlueWords.length;
 
-    let restText = "";
-    textContainer.childNodes.forEach(node => {
-      if (node.nodeType === Node.TEXT_NODE) restText += node.textContent;
-    });
-    const restWords = restText.trim().split(/\s+/).filter(Boolean);
-
-    const FIRST_TWO_LINES_COUNT = ALWAYS_VISIBLE_COUNT;
-
-    // --- 2. Rebuild DOM ---
-    textContainer.innerHTML = "";
-
-    alwaysBlueWords.forEach(word => {
-      const span = document.createElement("span");
-      span.textContent = word + " ";
-      span.className = "reveal-word";
-      span.style.cssText = "color: #2C48DB;";
-      span.dataset.alwaysVisible = "true";
-      textContainer.appendChild(span);
-    });
-
-    restWords.forEach((word) => {
-      const span = document.createElement("span");
-      span.textContent = word + " ";
-      span.className = "reveal-word";
-      span.style.cssText = "color: #D1D5DB; transition: color 0.35s ease;";
-      span.dataset.alwaysVisible = "false";
-      span.dataset.revealed = "false";
-      textContainer.appendChild(span);
-    });
-
-    const wordSpans = Array.from(textContainer.querySelectorAll(".reveal-word"));
-
-    // --- 3. Scroll handler ---
-    function handleReveal() {
-      const rect = textContainer.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // If scrolled past, reveal all
-      if (rect.top < 0) {
-        wordSpans.forEach(span => {
-          if (span.dataset.alwaysVisible === "false" && span.dataset.revealed === "false") {
-            span.dataset.revealed = "true";
-            span.style.transition = "color 0.3s ease";
-            span.style.color = "#2C48DB";
-          }
+        let restText = "";
+        textContainer.childNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE) restText += node.textContent;
         });
-        return;
-      }
+        const restWords = restText.trim().split(/\s+/).filter(Boolean);
 
-      const start = windowHeight * 0.85;
-      const end = windowHeight * 0.15;
-      let progress = 0;
+        // ONLY "We are a vertical" should be colored initially.
+        const FIRST_TWO_LINES_COUNT = ALWAYS_VISIBLE_COUNT; 
 
-      if (rect.top <= start && rect.top >= end) {
-        progress = (start - rect.top) / (start - end);
-      } else if (rect.top < end) {
-        progress = 1;
-      }
+        // --- 2. Rebuild DOM ---
+        textContainer.innerHTML = "";
 
-      progress = Math.max(0, Math.min(1, progress));
+        // Blue words (always visible, always blue)
+        alwaysBlueWords.forEach(word => {
+          const span = document.createElement("span");
+          span.textContent = word + " ";
+          span.className = "reveal-word";
+          span.style.cssText = "color: #2C48DB;";
+          span.dataset.alwaysVisible = "true";
+          textContainer.appendChild(span);
+        });
 
-      const revealableCount = wordSpans.length - FIRST_TWO_LINES_COUNT;
-      const revealCount = FIRST_TWO_LINES_COUNT + Math.floor(progress * revealableCount);
+        // Rest of words
+        restWords.forEach((word, i) => {
+          const span = document.createElement("span");
+          span.textContent = word + " ";
+          span.className = "reveal-word";
+          
+          span.style.cssText = "color: #D1D5DB; transition: color 0.35s ease;";
+          span.dataset.alwaysVisible = "false";
+          span.dataset.revealed = "false"; // Track state securely
+          
+          textContainer.appendChild(span);
+        });
 
-      wordSpans.forEach((span, index) => {
-        if (span.dataset.alwaysVisible === "true") return;
+        const wordSpans = Array.from(textContainer.querySelectorAll(".reveal-word"));
 
-        if (index < revealCount) {
-          if (span.dataset.revealed === "false") {
-            span.dataset.revealed = "true";
-            span.style.transition = "color 0.35s ease";
+        // --- 3. Simple flash animation ---
+        function flashSpan(span) {
+          span.style.transition = "color 0.4s ease-out, text-shadow 0.4s ease-out";
+          span.style.color = "#ffffff";
+          setTimeout(() => {
+            span.style.transition = "color 0.5s ease-in, text-shadow 0.5s ease-in";
             span.style.color = "#2C48DB";
-          }
-        } else {
-          if (span.dataset.revealed === "true") {
-            span.dataset.revealed = "false";
-            span.style.transition = "color 0.2s ease";
-            span.style.color = "#D1D5DB";
-          }
+            span.style.textShadow = "none";
+          }, 200);
         }
+
+        // --- 4. Scroll handler — ONLY fires on scroll ---
+        function handleReveal() {
+          const rect = textContainer.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+
+          // If scrolled past, gently reveal all without flash
+          if (rect.top < 0) {
+            wordSpans.forEach(span => {
+              if (span.dataset.alwaysVisible === "false" && span.dataset.revealed === "false") {
+                span.dataset.revealed = "true";
+                span.style.transition = "color 0.3s ease";
+                span.style.color = "#2C48DB";
+              }
+            });
+            return;
+          }
+
+          // Progress: 0 when element enters at 85vh, 1 when at 15vh
+          const start = windowHeight * 0.85;
+          const end = windowHeight * 0.15;
+          let progress = 0;
+
+          if (rect.top <= start && rect.top >= end) {
+            progress = (start - rect.top) / (start - end);
+          } else if (rect.top < end) {
+            progress = 1;
+          }
+
+          progress = Math.max(0, Math.min(1, progress));
+
+          const revealableCount = wordSpans.length - FIRST_TWO_LINES_COUNT;
+          const revealCount = FIRST_TWO_LINES_COUNT + Math.floor(progress * revealableCount);
+
+          wordSpans.forEach((span, index) => {
+            // Always-visible words: skip
+            if (span.dataset.alwaysVisible === "true") return;
+
+            if (index < revealCount) {
+              // Reveal with flash nicely, exactly once per crossing
+              if (span.dataset.revealed === "false") {
+                span.dataset.revealed = "true";
+                flashSpan(span);
+              }
+            } else {
+              // Hide again on scroll up
+              if (span.dataset.revealed === "true") {
+                span.dataset.revealed = "false";
+                span.style.transition = "color 0.2s ease";
+                span.style.color = "#D1D5DB";
+                span.style.textShadow = "none"; // Safety cleanup
+              }
+            }
+          });
+        }
+
+        window.addEventListener("scroll", handleReveal, { passive: true });
+        // Run once on load to ensure correct starting colors
+        handleReveal(); 
       });
-    }
+    </script>
 
-    window.addEventListener("scroll", handleReveal, { passive: true });
-    handleReveal();
-  });
-</script>
-
-
-    <div id="problem-pin-target" class="w-full pt-6 md:pt-10 pb-2 md:pb-0 font-sans bg-white overflow-hidden md:overflow-visible flex flex-col justify-center ">
+    <div class="w-full font-sans">
       <div class="max-w-310 mx-auto px-2 min-[250px]:px-6">
-        <div class="mb-8 md:mb-5">
+      <div class="max-w-310 mx-auto md:px-8 lg:px-12">
+        <div class="mb-8 md:mb-8 hidden md:block">
           <p class="anseru-section-tag">Customer Problem</p>
-          <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 text-left">
+          <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-8 text-left">
             <h2 class="anseru-section-title">
               Built for Teams Navigating <br class="hidden md:block" />
               Complex Deals
@@ -467,24 +486,49 @@
         </div>
 
         <!-- MOBILE CAROUSEL -->
-        <div class="md:hidden relative">
+        <div id="problem-mobile-gsap" class="md:hidden relative w-full bg-white" style="height: 150vh;">
+          <div class="sticky top-0 w-full bg-white flex flex-col" style="
+            height: auto;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: clamp(60px, 14vw, 72px) 0 clamp(16px, 4vw, 24px);
+          ">
+            
+            <!-- Mobile Header -->
+            <div class="px-4 min-[250px]:px-6 shrink-0 mb-2">
+              <p class="text-[#6B7280] text-[15px] leading-relaxed mb-[10px] font-normal tracking-wide">Customer Problem</p>
+              <div class="flex flex-col gap-[14px] text-left">
+                <h2 class="text-[#111827] text-[clamp(26px,8vw,32px)] leading-[1.1] font-normal tracking-[-0.03em]">
+                  Built for Teams Navigating <br />
+                  Complex Deals
+                </h2>
+                <p class="text-[#6B7280] text-[15px] leading-[1.5] max-w-[320px] pr-2">
+                  Sales, security, and compliance teams rely on Anseru to generate accurate responses faster.
+                </p>
+              </div>
+            </div>
           <style>
-            .prob-card-wrap {
-              flex-shrink: 0;
-              min-width: 0;
-              width: 85vw;
-            }
+      .prob-card-wrap {
+  flex-shrink: 0;
+  min-width: 0;
+  width: 100%;
+  padding: 0 clamp(16px, 4vw, 24px);
+  margin-top: 20px;
+  box-sizing: border-box;
+}
 
             @media (min-width: 400px) {
-              .prob-card-wrap {
-                width: 75vw;
-              }
+            .prob-card-wrap {
+    width: 100%;
+  }
             }
 
             .prob-card {
               position: relative;
               width: 100%;
-              height: clamp(260px, 90vw, 340px);
+              max-width: 313px;
+              height: clamp(300px, 90vw, 362px);
+              margin: 0 auto;
               perspective: 1000px;
             }
 
@@ -500,7 +544,7 @@
               inset: 0;
               background: #F8F9FB;
               overflow: hidden;
-              border-radius: 12px;
+              border-radius: 0;
               backface-visibility: hidden;
               -webkit-backface-visibility: hidden;
               transform: rotateY(0deg);
@@ -531,7 +575,7 @@
 
             .prob-body {
               position: relative;
-              padding: clamp(10px, 4.5vw, 12px);
+              padding: 24px;
               height: 100%;
               width: 100%;
               display: flex;
@@ -541,63 +585,69 @@
             }
 
             .prob-body-back {
-               justify-content: flex-start;
+              justify-content: space-between;
             }
 
-            .prob-heading {
-              font-weight: 400;
-              color: #111827;
-              line-height: 1.25;
-               margin-bottom: clamp(6px, 2vw, 10px);
-              font-size: clamp(18px, 6.5vw, 26px);
-            }
+           .prob-heading {
+  font-weight: 400;
+  color: #111827;
+  line-height: 1.1;
+  margin-bottom: clamp(12px, 3.5vw, 16px);
+  font-size: clamp(24px, 7vw, 28px);
+}
 
-            .prob-desc {
-              color: #6B7280;
-              line-height: 1.5;
-              font-size: clamp(14px, 4vw, 17px);
-            }
+.prob-desc {
+  color: #6B7280;
+  line-height: 1.5;
+  font-size: clamp(14px, 4vw, 15px);
+}
 
             .prob-svg-wrap {
               flex: 1;
               display: flex;
               justify-content: center;
               align-items: center;
-              padding-top: clamp(4px, 1.5vw, 8px);
-
+              padding-top: clamp(8px, 3vw, 16px);
               min-height: 0;
             }
 
             .prob-svg-inner {
-              width: clamp(100px, 55%, 160px);
+              width: clamp(130px, 72%, 210px);
+              height: 100%;
               opacity: 0.9;
               display: flex;
               align-items: center;
               justify-content: center;
+            }
+            .prob-svg-inner svg {
+              max-height: 100%;
+              width: auto;
+              max-width: 100%;
+              object-fit: contain;
             }
 
             .prob-tap-hint {
               text-align: center;
               font-size: 11px;
               color: #9CA3AF;
-               margin-top: 4px;
+              margin-top: 8px;
             }
 
-            .prob-back-heading {
-              font-weight: 400;
-              color: #111827;
-              line-height: 1.25;
-              font-size: clamp(18px, 6.5vw, 26px);
-              margin-bottom: clamp(8px, 2.5vw, 12px);
-              flex-shrink: 0;
-            }
+          .prob-back-heading {
+  font-weight: 400;
+  color: #111827;
+  line-height: 1.1;
+  font-size: clamp(24px, 7vw, 28px);
+  margin-bottom: clamp(16px, 4vw, 20px);
+  flex-shrink: 0;
+}
+
 
             .prob-bullets {
               display: flex;
               flex-direction: column;
               flex: 1;
-               justify-content: flex-start;
- gap: clamp(12px, 3.5vw, 18px);
+              justify-content: space-evenly;
             }
 
             .prob-bullet-row {
@@ -607,18 +657,19 @@
             }
 
             .prob-bullet-icon {
-              width: clamp(13px, 3.8vw, 16px);
-              height: clamp(13px, 3.8vw, 16px);
+              width: clamp(16px, 5vw, 22px);
+              height: clamp(16px, 5vw, 22px);
               object-fit: contain;
-              margin-top: 3px;
+              margin-top: 2px;
               flex-shrink: 0;
             }
 
-            .prob-bullet-text {
-              color: rgba(0, 0, 0, 0.7);
-              line-height: 1.45;
-              font-size: clamp(14px, 4.2vw, 16px);
-            }
+       
+.prob-bullet-text {
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 1.5;
+  font-size: clamp(12px, 3.8vw, 15px);
+}
 
             .prob-accent {
               color: #2C48DB;
@@ -629,14 +680,25 @@
               position: absolute;
               bottom: 0;
               right: 0;
-              width: 6px;
+              width: 24px;
               height: 55%;
+              z-index: 5;
             }
           </style>
 
-          <div id="problem-carousel-track" class="flex gap-6 w-max flex-nowrap pb-4">
+            <!-- Cards Track Container -->
+            <div class="relative min-h-0 flex flex-col w-full">
+              <div id="problem-mobile-track" style="
+                display: flex;
+                height: 100%;
+                width: 300%;
+                transform: translateX(0);
+                will-change: transform;
+                align-items: center;
+              ">
 
             <!-- Card 1: Sales -->
+                <div style="width: 33.333333%; display: flex; justify-content: center; flex-shrink: 0;">
             <div class="prob-card-wrap snap-center">
               <div class="prob-card team-card">
                 <div class="prob-card-inner team-card-inner">
@@ -645,7 +707,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#11119A,#4A86E8);"></div>
                     <div class="prob-body">
-                      <h3 class="prob-heading">Sales Teams</h3>
+                      <h3 class="prob-heading">Sales<br/>Teams</h3>
                       <p class="prob-desc">Responding to RFPs and RFIs requires collecting information from different
                         teams &amp; documents, which slows down deal cycles.</p>
                       <div class="prob-svg-wrap">
@@ -670,7 +732,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#11119A,#4A86E8);"></div>
                     <div class="prob-body prob-body-back">
-                      <h3 class="prob-back-heading">Sales Teams</h3>
+                      <h3 class="prob-back-heading">Sales<br/>Teams</h3>
                       <div class="prob-bullets">
                         <div class="prob-bullet-row">
                           <img src="./src/assets/Group.png" loading="lazy" alt="" class="prob-bullet-icon" />
@@ -693,8 +755,10 @@
                 </div>
               </div>
             </div>
+                </div>
 
             <!-- Card 2: Security -->
+                <div style="width: 33.333333%; display: flex; justify-content: center; flex-shrink: 0;">
             <div class="prob-card-wrap snap-center">
               <div class="prob-card team-card">
                 <div class="prob-card-inner team-card-inner">
@@ -703,7 +767,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#D53B44,#3B82F6);"></div>
                     <div class="prob-body">
-                      <h3 class="prob-heading">Security Teams</h3>
+                      <h3 class="prob-heading">Security<br/>Teams</h3>
                       <p class="prob-desc">Vendor security questionnaires require detailed answers about policies,
                         compliance, and infrastructure.</p>
                       <div class="prob-svg-wrap">
@@ -735,7 +799,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#D53B44,#3B82F6);"></div>
                     <div class="prob-body prob-body-back">
-                      <h3 class="prob-back-heading">Security Teams</h3>
+                      <h3 class="prob-back-heading">Security<br/>Teams</h3>
                       <div class="prob-bullets">
                         <div class="prob-bullet-row">
                           <img src="./src/assets/Group (1).png" loading="lazy" alt="" class="prob-bullet-icon" />
@@ -756,8 +820,10 @@
                 </div>
               </div>
             </div>
+                </div>
 
             <!-- Card 3: Compliance -->
+                <div style="width: 33.333333%; display: flex; justify-content: center; flex-shrink: 0;">
             <div class="prob-card-wrap snap-center">
               <div class="prob-card team-card">
                 <div class="prob-card-inner team-card-inner">
@@ -766,7 +832,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#658CA6,#C9C21A);"></div>
                     <div class="prob-body">
-                      <h3 class="prob-heading">Compliance Teams</h3>
+                      <h3 class="prob-heading">Compliance<br/>Teams</h3>
                       <p class="prob-desc">Compliance teams spend hours preparing responses for audits, vendor reviews,
                         and regulatory forms.</p>
                       <div class="prob-svg-wrap">
@@ -791,7 +857,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#658CA6,#C9C21A);"></div>
                     <div class="prob-body prob-body-back">
-                      <h3 class="prob-back-heading">Compliance Teams</h3>
+                      <h3 class="prob-back-heading">Compliance<br/>Teams</h3>
                       <div class="prob-bullets">
                         <div class="prob-bullet-row">
                           <img src="./src/assets/Group (2).png" loading="lazy" alt="" class="prob-bullet-icon" />
@@ -811,14 +877,79 @@
                 </div>
               </div>
             </div>
+                </div>
 
           </div>
+            </div>
+
+          <!-- Dots -->
+            <div id="problem-dots-mobile" class="flex justify-center gap-2 mt-4 pb-2 shrink-0">
+            <button data-idx="0"
+              class="problem-dot transition-all duration-300 w-5 h-2 bg-gray-700 rounded-full"></button>
+            <button data-idx="1"
+              class="problem-dot transition-all duration-300 w-2 h-2 bg-gray-300 rounded-full"></button>
+            <button data-idx="2"
+              class="problem-dot transition-all duration-300 w-2 h-2 bg-gray-300 rounded-full"></button>
+          </div>
+          </div>
         </div>
+        <script>
+          (function () {
+            const pSection = document.getElementById('problem-mobile-gsap');
+            if (!pSection) return;
+
+            const pTrack = document.getElementById('problem-mobile-track');
+            if (!pTrack) return;
+            const pDots = document.querySelectorAll('#problem-dots-mobile .problem-dot');
+            const SLIDES = 3;
+
+            function updateDots(activeIdx) {
+              pDots.forEach((dot, i) => {
+                if (i === activeIdx) {
+                  dot.className = "problem-dot transition-all duration-300 w-5 h-2 bg-gray-700 rounded-full";
+                } else {
+                  dot.className = "problem-dot transition-all duration-300 w-2 h-2 bg-gray-300 rounded-full";
+                }
+              });
+            }
+
+            function pOnScroll() {
+              const sectionTop = pSection.getBoundingClientRect().top + window.scrollY;
+              const scrolled = window.scrollY - sectionTop;
+              // allow a little offset so it only starts when the header is reached
+              const headerOffset = 0; 
+              const range = pSection.offsetHeight - window.innerHeight;
+              const progress = Math.min(1, Math.max(0, (scrolled - headerOffset) / range));
+              
+              const maxTranslate = (SLIDES - 1) * (100 / SLIDES);
+              pTrack.style.transform = `translateX(-${progress * maxTranslate}%)`;
+
+              const activeIdx = Math.round(progress * (SLIDES - 1));
+              updateDots(activeIdx);
+            }
+
+            window.scrollToProblemMobileSlide = function (idx) {
+              idx = Math.max(0, Math.min(SLIDES - 1, idx));
+              const sectionTop = pSection.getBoundingClientRect().top + window.scrollY;
+              const range = pSection.offsetHeight - window.innerHeight;
+              const targetY = sectionTop + (idx / (SLIDES - 1)) * range;
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
+            };
+
+            pDots.forEach((dot, idx) => {
+              dot.addEventListener('click', () => window.scrollToProblemMobileSlide(idx));
+            });
+
+            window.addEventListener('scroll', pOnScroll, { passive: true });
+            window.addEventListener('resize', pOnScroll);
+            pOnScroll();
+          })();
+        </script>
 
         <!-- DESKTOP -->
         <div class="hidden md:grid grid-cols-3 gap-6 md:gap-8">
           <!-- Sales Card -->
-          <div class="team-card relative h-110 w-full cursor-default" style="perspective:1000px">
+          <div class="team-card relative h-135 w-full cursor-default" style="perspective:1000px">
             <div class="team-card-inner relative w-full h-full"
               style="transform-style:preserve-3d;transition:transform 0.6s cubic-bezier(0.23,1,0.32,1);">
               <div class="team-card-face team-card-front absolute inset-0 bg-[#F8F9FB] overflow-hidden"
@@ -860,18 +991,18 @@
                   <h3 class="font-normal text-[#111827] mb-10 text-[24px] leading-tight">Sales<br />Teams</h3>
                   <div class="flex flex-col gap-6 pr-4">
                     <div class="flex items-start gap-4"><img src="./src/assets/Group.png" loading="lazy" alt=""
-                        class="w-5 h-5 object-contain mt-0.5 shrink-0" />
-                      <p class="text-[17px] leading-[1.6] text-black/80">Auto-assemble deal context from CRM data,
+                        class="w-6 h-6 object-contain mt-0.5 shrink-0" />
+                      <p class="anseru-section-description leading-normal">Auto-assemble deal context from CRM data,
                         call transcripts, and competitive insights</p>
                     </div>
                     <div class="flex items-start gap-4"><img src="./src/assets/Group.png" loading="lazy" alt=""
-                        class="w-5 h-5 object-contain mt-0.5 shrink-0" />
-                      <p class="text-[17px] leading-[1.6] text-black/80">Detect requirements and map proof points to
+                        class="w-6 h-6 object-contain mt-0.5 shrink-0" />
+                      <p class="anseru-section-description leading-normal">Detect requirements and map proof points to
                         your strongest capabilities</p>
                     </div>
                     <div class="flex items-start gap-4"><img src="./src/assets/Group.png" loading="lazy" alt=""
-                        class="w-5 h-5 object-contain mt-0.5 shrink-0" />
-                      <p class="text-[17px] leading-[1.6] text-black/80">Reduce proposal assembly time by <span
+                        class="w-6 h-6 object-contain mt-0.5 shrink-0" />
+                      <p class="anseru-section-description leading-normal">Reduce proposal assembly time by <span
                           class="text-[#2C48DB] font-semibold">60%+</span> with AI-generated first drafts</p>
                     </div>
                   </div>
@@ -881,7 +1012,7 @@
           </div>
 
           <!-- Security Card -->
-          <div class="team-card relative h-110 w-full cursor-default" style="perspective:1000px">
+          <div class="team-card relative h-135 w-full cursor-default" style="perspective:1000px">
             <div class="team-card-inner relative w-full h-full"
               style="transform-style:preserve-3d;transition:transform 0.6s cubic-bezier(0.23,1,0.32,1);">
               <div class="team-card-face team-card-front absolute inset-0 bg-[#F8F9FB] overflow-hidden"
@@ -927,18 +1058,18 @@
                   <h3 class="font-normal text-[#111827] mb-10 text-[24px] leading-tight">Security<br />Teams</h3>
                   <div class="flex flex-col gap-6 pr-4">
                     <div class="flex items-start gap-4"><img src="./src/assets/Group (1).png" loading="lazy" alt=""
-                        class="w-5 h-5 object-contain mt-0.5 shrink-0" />
-                      <p class="text-[17px] leading-[1.6] text-black/80">Auto-draft security responses from your
+                        class="w-6 h-6 object-contain mt-0.5 shrink-0" />
+                      <p class="anseru-section-description leading-normal">Auto-draft security responses from your
                         verified security documentation</p>
                     </div>
                     <div class="flex items-start gap-4"><img src="./src/assets/Group (1).png" loading="lazy" alt=""
-                        class="w-5 h-5 object-contain mt-0.5 shrink-0" />
-                      <p class="text-[17px] leading-[1.6] text-black/80">Ground answers in verified security evidence
+                        class="w-6 h-6 object-contain mt-0.5 shrink-0" />
+                      <p class="anseru-section-description leading-normal">Ground answers in verified security evidence
                       </p>
                     </div>
                     <div class="flex items-start gap-4"><img src="./src/assets/Group (1).png" loading="lazy" alt=""
-                        class="w-5 h-5 object-contain mt-0.5 shrink-0" />
-                      <p class="text-[17px] leading-[1.6] text-black/80">Cut security review time from hours to
+                        class="w-6 h-6 object-contain mt-0.5 shrink-0" />
+                      <p class="anseru-section-description leading-normal">Cut security review time from hours to
                         minutes</p>
                     </div>
                   </div>
@@ -948,7 +1079,7 @@
           </div>
 
           <!-- Compliance Card -->
-          <div class="team-card relative h-110 w-full cursor-default" style="perspective:1000px">
+          <div class="team-card relative h-135 w-full cursor-default" style="perspective:1000px">
             <div class="team-card-inner relative w-full h-full"
               style="transform-style:preserve-3d;transition:transform 0.6s cubic-bezier(0.23,1,0.32,1);">
               <div class="team-card-face team-card-front absolute inset-0 bg-[#F8F9FB] overflow-hidden"
@@ -987,18 +1118,18 @@
                   <h3 class="font-normal text-[#111827] mb-10 text-[24px] leading-tight">Compliance<br />Teams</h3>
                   <div class="flex flex-col gap-6 pr-4">
                     <div class="flex items-start gap-4"><img src="./src/assets/Group (2).png" loading="lazy" alt=""
-                        class="w-5 h-5 object-contain mt-[2px] shrink-0" />
-                      <p class="text-[17px] leading-[1.6] text-black/80">Generate compliance responses with
+                        class="w-6 h-6 object-contain mt-[2px] shrink-0" />
+                      <p class="anseru-section-description leading-[1.5]">Generate compliance responses with
                         source-backed citations</p>
                     </div>
                     <div class="flex items-start gap-4"><img src="./src/assets/Group (2).png" loading="lazy" alt=""
-                        class="w-5 h-5 object-contain mt-[2px] shrink-0" />
-                      <p class="text-[17px] leading-[1.6] text-black/80">Enforce mandatory human review for regulatory
+                        class="w-6 h-6 object-contain mt-[2px] shrink-0" />
+                      <p class="anseru-section-description leading-[1.5]">Enforce mandatory human review for regulatory
                         answers</p>
                     </div>
                     <div class="flex items-start gap-4"><img src="./src/assets/Group (2).png" loading="lazy" alt=""
-                        class="w-5 h-5 object-contain mt-[2px] shrink-0" />
-                      <p class="text-[17px] leading-[1.6] text-black/80">Maintain a complete audit trail for every
+                        class="w-6 h-6 object-contain mt-[2px] shrink-0" />
+                      <p class="anseru-section-description leading-[1.5]">Maintain a complete audit trail for every
                         response</p>
                     </div>
                   </div>
@@ -1012,7 +1143,7 @@
     </div>
   </section>
 
-    <section data-section id="how-it-works" class="scroll-mt-5">
+  <section data-section id="how-it-works" class="scroll-mt-5">
       <!-- MOBILE carousel -->
       <div class="lg:hidden w-full bg-white pb-10">
         <div class="pt-2 pb-4 px-4 text-center">
@@ -2015,14 +2146,322 @@
   </div>
 </section>
 
-<style>
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% center; }
-  50% { background-position: 100% center; }
-}
-</style>
-  <section data-section id="features" class="scroll-mt-12 mt-8 md:mt-12">
-    <div class="w-full pt-12 bg-white overflow-hidden">
+
+  <section data-section id="product" class="scroll-mt-4">
+    <div id="agents-mobile-carousel" class="lg:hidden relative w-full bg-white" style="height: 200vh">
+      <div class="sticky top-0 w-full bg-white" style="overflow-x:hidden;">
+
+        <!-- Header -->
+        <div style="padding: clamp(56px,14vw,72px) clamp(14px,4vw,20px) 0;" class="flex flex-col">
+          <p style="font-size: clamp(11px, 3.48vw, 14px); color:#6b7280; margin-bottom:4px; font-weight:400;">Proven
+            Results</p>
+          <h2
+            style="font-size: clamp(13px, 5.97vw, 36px); line-height:1.1; font-weight:400; letter-spacing:-0.02em; color:#000; margin:0 0 clamp(12px,3vw,16px);">
+            Two Super Agents
+          </h2>
+        </div>
+
+        <!-- Tab Pills -->
+        <div style="padding: 0 clamp(10px,4vw,20px); margin-bottom: clamp(12px,3vw,16px);">
+          <div
+            class="inline-flex w-fit items-center gap-0.5 min-[250px]:gap-1 bg-gray-100 p-0.5 min-[250px]:p-1 rounded-xl flex-wrap">
+            <button id="mobile-tab-archer"
+              onclick="if(window.scrollToAgentMobileSlide) window.scrollToAgentMobileSlide(0)"
+              style="font-size: clamp(9px, 2.74vw, 14px);"
+              class="flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-black text-white whitespace-nowrap">
+              Meet Archer
+              <img src="./src/assets/Sud.png" loading="lazy" alt="archer"
+                class="brightness-0 invert w-3 min-[250px]:w-4 h-3 min-[250px]:h-4" />
+            </button>
+            <button id="mobile-tab-knox"
+              onclick="if(window.scrollToAgentMobileSlide) window.scrollToAgentMobileSlide(1)"
+              style="font-size: clamp(9px, 2.74vw, 14px)"
+              class="flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-transparent text-black hover:bg-gray-200 whitespace-nowrap">
+              Meet Knox
+              <img src="./src/assets/kg.png" loading="lazy" alt="knox"
+                class="w-3 min-[250px]:w-4 h-3 min-[250px]:h-4" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Slide Track Wrapper — clips horizontally only -->
+        <div style="overflow-x:hidden; overflow-y:visible;">
+          <div id="agents-mobile-track" style="
+          display:flex;
+          width:200vw;
+          transform:translateX(0);
+          will-change:transform;
+          transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+          align-items:flex-start;
+        ">
+
+            <!-- Slide 0: Archer -->
+            <div
+              style="width:100vw; flex-shrink:0; padding: 0 clamp(14px,4vw,20px) clamp(24px,6vw,40px); box-sizing:border-box;">
+              <div class="border border-[#e5e7eb] rounded-xl overflow-hidden flex flex-col">
+
+                <!-- Hero Card -->
+                <div class="bg-white border-b border-[#e5e7eb]">
+                  <div class="relative flex flex-col justify-between overflow-hidden" style="
+                  background: linear-gradient(180deg, #201cae 0%, #6aa4ee 100%);
+                  padding: clamp(16px, 5vw, 32px);
+                  height: clamp(200px, 60vw, 300px);
+                  border-radius: 8px;
+                ">
+                    <div class="noise-overlay absolute inset-0 opacity-100 pointer-events-none"></div>
+                    <div class="relative">
+                      <img src="./src/assets/Frame (9).png" loading="lazy" alt=""
+                        style="width: clamp(60px, 18vw, 112px); height: auto; opacity: 0.9;" />
+                    </div>
+                    <div class="relative mt-auto">
+                      <h3
+                        style="font-size: clamp(16px, 6.7vw, 32px); font-weight:400; color:#fff; margin-bottom: clamp(8px,2.5vw,16px); line-height:1.1;">
+                        RFP Agent
+                      </h3>
+                      <div class="flex flex-wrap" style="gap: clamp(4px, 1.5vw, 8px);">
+                        <span
+                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Instant RFP
+                          breakdown</span>
+                        <span
+                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Terminology
+                          translation</span>
+                        <span
+                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Proposal-ready
+                          answers</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Feature Grid -->
+                <div class="p-2 min-[250px]:p-4 relative overflow-hidden">
+                  <div class="absolute pointer-events-none"
+                    style="background-image: linear-gradient(to right,#000 1px,transparent 1px), linear-gradient(to bottom,#000 1px,transparent 1px); background-size:150px 150px;">
+                  </div>
+                  <div
+                    class="grid grid-cols-1 min-[250px]:grid-cols-2 grid-rows-4 min-[250px]:grid-rows-2 bg-[#f4f4f5] relative z-10">
+
+                    <div class="flex flex-col justify-between border-b min-[250px]:border-r border-[#e5e7eb]"
+                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
+                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
+                        Instant RFP<br />intelligence
+                      </h4>
+                      <p
+                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                        Automatically extracts key requirements, timelines, stakeholders, and evaluation criteria.
+                      </p>
+                    </div>
+
+                    <div class="flex flex-col justify-between border-b border-[#e5e7eb]"
+                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
+                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
+                        Terminology<br />mapping
+                      </h4>
+                      <p
+                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                        Translates feature requirements to your internal product language.
+                      </p>
+                    </div>
+
+                    <div
+                      class="flex flex-col justify-between border-b min-[250px]:border-b-0 min-[250px]:border-r border-[#e5e7eb]"
+                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
+                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
+                        Bid / No-Bid<br />clarity
+                      </h4>
+                      <p
+                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                        Helps teams decide whether to pursue.
+                      </p>
+                    </div>
+
+                    <div class="flex flex-col justify-between border-[#e5e7eb]"
+                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
+                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
+                        Structured proposal<br />generation
+                      </h4>
+                      <p
+                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                        Generates responses across technical, product, security, and legal sections with contextual
+                        intelligence.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 1: Knox -->
+            <div
+              style="width:100vw; flex-shrink:0; padding: 0 clamp(14px,4vw,20px) clamp(24px,6vw,40px); box-sizing:border-box;">
+              <div class="border border-[#e5e7eb] rounded-xl overflow-hidden flex flex-col">
+
+                <!-- Hero Card -->
+                <div class="p-3.5 bg-white border-b border-[#e5e7eb]">
+                  <div class="relative flex flex-col justify-between overflow-hidden" style="
+                  background: linear-gradient(45deg, #1d80f9 0%, #e74f62 100%);
+                  padding: clamp(16px, 5vw, 32px);
+                  height: clamp(200px, 60vw, 300px);
+                  border-radius: 8px;
+                ">
+                    <div class="noise-overlay absolute inset-0 opacity-100 pointer-events-none"></div>
+                    <div class="relative">
+                      <img src="./src/assets/Frame (10).png" loading="lazy" alt=""
+                        style="width: clamp(60px, 18vw, 112px); height: auto; opacity: 0.9;" />
+                    </div>
+                    <div class="relative mt-auto">
+                      <h3
+                        style="font-size: clamp(14px, 5.97vw, 32px); font-weight:400; color:#fff; margin-bottom: clamp(8px,2.5vw,16px); line-height:1.1;">
+                        Security<br />Questionnaire Agent
+                      </h3>
+                      <div class="flex flex-wrap" style="gap: clamp(4px, 1.5vw, 8px);">
+                        <span
+                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Evidence-backed
+                          answers</span>
+                        <span
+                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">No
+                          contradictions</span>
+                        <span
+                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Compliance-ready</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Feature Grid -->
+                <div class="p-2 min-[250px]:p-4 relative overflow-hidden">
+                  <div class="absolute pointer-events-none opacity-[0.1]"
+                    style="background-image: linear-gradient(to right,#000 1px,transparent 1px), linear-gradient(to bottom,#000 1px,transparent 1px); background-size:150px 150px;">
+                  </div>
+                  <div
+                    class="grid grid-cols-1 min-[250px]:grid-cols-2 grid-rows-4 min-[250px]:grid-rows-2 bg-[#f4f4f5] relative z-10">
+
+                    <div class="flex flex-col justify-between border-b min-[250px]:border-r border-[#e5e7eb]"
+                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
+                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
+                        95%+ response<br />accuracy
+                      </h4>
+                      <p
+                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                        Generated from verified security documentation.
+                      </p>
+                    </div>
+
+                    <div class="flex flex-col justify-between border-b border-[#e5e7eb]"
+                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
+                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
+                        70-90% faster<br />reviews
+                      </h4>
+                      <p
+                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                        Eliminates repetitive questionnaires saving SME time.
+                      </p>
+                    </div>
+
+                    <div
+                      class="flex flex-col justify-between border-b min-[250px]:border-b-0 min-[250px]:border-r border-[#e5e7eb]"
+                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
+                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
+                        Audit-ready<br />answers
+                      </h4>
+                      <p
+                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                        Aligned with current policies and controls.
+                      </p>
+                    </div>
+
+                    <div class="flex flex-col justify-between border-[#e5e7eb]"
+                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
+                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
+                        Evidence-backed<br />responses
+                      </h4>
+                      <p
+                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                        Every answer is grounded in policies, certifications, and security evidence.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- end track -->
+        </div><!-- end track wrapper -->
+
+      </div><!-- end sticky -->
+    </div><!-- end outer 200vh -->
+
+    <script>
+      (function () {
+        var aSection = document.getElementById('agents-mobile-carousel');
+        if (!aSection) return;
+
+        var aTrack = document.getElementById('agents-mobile-track');
+        var aPills = [
+          document.getElementById('mobile-tab-archer'),
+          document.getElementById('mobile-tab-knox')
+        ];
+        var SLIDES = 2;
+
+        function aSetActive(idx) {
+          idx = Math.max(0, Math.min(SLIDES - 1, idx));
+          aPills.forEach(function (b, i) {
+            if (!b) return;
+            var isActive = i === idx;
+            b.className = isActive
+              ? 'flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-black text-white whitespace-nowrap'
+              : 'flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-transparent text-black hover:bg-gray-200 whitespace-nowrap';
+            var img = b.querySelector('img');
+            if (img) {
+              img.className = isActive
+                ? 'brightness-0 invert w-3 min-[250px]:w-4 h-3 min-[250px]:h-4'
+                : 'w-3 min-[250px]:w-4 h-3 min-[250px]:h-4';
+            }
+          });
+          aTrack.style.transition = 'transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94)';
+          aTrack.style.transform = 'translateX(-' + (idx * 100) + 'vw)';
+        }
+
+        function aOnScroll() {
+          var sectionTop = aSection.getBoundingClientRect().top + window.scrollY;
+          var scrolled = window.scrollY - sectionTop;
+          var range = aSection.offsetHeight - window.innerHeight;
+          var progress = Math.min(1, Math.max(0, scrolled / range));
+          var idx = Math.min(SLIDES - 1, Math.floor(progress * SLIDES));
+          aSetActive(idx);
+        }
+
+        window.scrollToAgentMobileSlide = function (idx) {
+          idx = Math.max(0, Math.min(SLIDES - 1, idx));
+          var sectionTop = aSection.getBoundingClientRect().top + window.scrollY;
+          var range = aSection.offsetHeight - window.innerHeight;
+          var targetY = sectionTop + (idx / SLIDES) * range + 1;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        };
+
+        window.addEventListener('scroll', aOnScroll, { passive: true });
+        window.addEventListener('resize', aOnScroll);
+        aSetActive(0);
+      })();
+    </script>
+
+    <!-- Desktop section unchanged -->
+    <div id="two-agents-desktop" class="hidden lg:block w-full bg-white relative" style="height: 200vh">
+      <!-- ... your existing desktop code stays exactly as-is ... -->
+    </div>
+  </section>
+
+
+  <section data-section id="features" class="scroll-mt-12 mt-[1120px] md:mt-[200px] lg:mt-[280px]">
+    <div class="w-full pt-16 bg-white overflow-hidden">
       <div class="max-w-[1400px] mx-auto px-3 min-[250px]:px-6 md:px-12">
 
         <div class="flex flex-col md:flex-row justify-between items-start mb-10 md:mb-16 gap-4 md:gap-8">
@@ -2528,154 +2967,152 @@
       </div>
     </div>
   </section>
-  <section data-section id="integration" class="scroll-mt-5">
-    <section class="py-12 bg-white">
-      <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-24 items-center">
-        <div class="text-center md:text-left flex-1 order-first md:order-last">
-          <p class="anseru-section-tag">Integrations</p>
-          <h2 class="anseru-section-title">Connect to the Tools <br class="hidden md:block" />You Already Use</h2>
-        </div>
-        <div
-          class="w-full max-w-105 aspect-square bg-gray-50 rounded-3xl overflow-hidden flex items-center justify-center relative pointer-events-none order-last md:order-first">
-          <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white to-transparent z-10"></div>
-          <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent z-10"></div>
-          <div class="flex gap-3 md:gap-4 items-center h-[200%]">
-            <!-- Column 1 - scrolling up -->
-            <div class="mt-10 md:mt-20 overflow-visible">
-              <div class="integration-col-up flex flex-col gap-3 md:gap-4"
-                style="animation: integrationUp 15s linear infinite">
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/drive icon.png" loading="lazy" alt="drive"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <!-- duplicate for seamless loop -->
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/drive icon.png" loading="lazy" alt="drive"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-              </div>
-            </div>
-            <div class="overflow-visible">
-              <div class="integration-col-down flex flex-col gap-3 md:gap-4"
-                style="animation: integrationDown 18s linear infinite">
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/slack icon.png" loading="lazy" alt="slack"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/gong icon.png" loading="lazy" alt="gong"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/slack icon.png" loading="lazy" alt="slack"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/gong icon.png" loading="lazy" alt="gong"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+   <section data-section id="integration" class="scroll-mt-5">
+      <section class="py-18 bg-white">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-24 items-center">
+          <div class="text-center md:text-left flex-1 order-first md:order-last">
+            <p class="anseru-section-tag">Integrations</p>
+            <h2 class="anseru-section-title">Connect to the Tools <br class="hidden md:block" />You Already Use</h2>
+          </div>
+          <div
+            class="w-full max-w-105 aspect-square bg-gray-50 rounded-3xl overflow-hidden flex items-center justify-center relative pointer-events-none order-last md:order-first"
+          >
+            <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white to-transparent z-10"></div>
+            <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent z-10"></div>
+            <div class="flex gap-3 md:gap-4 items-center h-[200%]">
+              <!-- Column 1 - scrolling up -->
+              <div class="mt-10 md:mt-20 overflow-visible">
+                <div class="integration-col-up flex flex-col gap-3 md:gap-4" style="animation: integrationUp 15s linear infinite">
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/drive icon.png" loading="lazy" alt="drive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <!-- duplicate for seamless loop -->
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/drive icon.png" loading="lazy" alt="drive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="mt-5 md:mt-10 overflow-visible">
-              <div class="integration-col-up flex flex-col gap-3 md:gap-4"
-                style="animation: integrationUp 20s linear infinite">
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              <div class="overflow-visible">
+                <div class="integration-col-down flex flex-col gap-3 md:gap-4" style="animation: integrationDown 18s linear infinite">
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/slack icon.png" loading="lazy" alt="slack" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/gong icon.png" loading="lazy" alt="gong" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/slack icon.png" loading="lazy" alt="slack" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/gong icon.png" loading="lazy" alt="gong" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
                 </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/notion icon.png" loading="lazy" alt="notion"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/teams icon.png" loading="lazy" alt="teams"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/notion icon.png" loading="lazy" alt="notion"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                </div>
-                <div
-                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-                  <img src="./src/assets/teams icon.png" loading="lazy" alt="teams"
-                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+              </div>
+              <div class="mt-5 md:mt-10 overflow-visible">
+                <div class="integration-col-up flex flex-col gap-3 md:gap-4" style="animation: integrationUp 20s linear infinite">
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/notion icon.png" loading="lazy" alt="notion" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/teams icon.png" loading="lazy" alt="teams" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/notion icon.png" loading="lazy" alt="notion" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/teams icon.png" loading="lazy" alt="teams" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </section>
-  </section>
 
 
   <section data-section id="faq" class="scroll-mt-5">
-    <section class="w-full pt-10 md:py-16 bg-[#f3f4f6]">
+    <section class="w-full pt-16 md:py-24 bg-[#f3f4f6]">
       <div class="max-w-[1400px] mx-auto px-4 min-[250px]:px-6 md:px-12">
 
         <!-- Header -->
@@ -2875,40 +3312,10 @@
         </div>
 
         <!-- Bottom padding -->
-        <div class="pb-10 md:pb-16"></div>
+        <div class="pb-16 md:pb-24"></div>
 
       </div>
     </section>
-    <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const items = document.querySelectorAll(".faq-item");
-
-    items.forEach(item => {
-      const trigger = item.querySelector(".faq-trigger");
-      const answer  = item.querySelector(".faq-answer");
-      const icon    = item.querySelector(".faq-icon");
-
-      trigger.addEventListener("click", () => {
-        const isOpen = answer.style.maxHeight !== "0px" && answer.style.maxHeight !== "";
-
-        // Close all
-        items.forEach(i => {
-          i.querySelector(".faq-answer").style.maxHeight = "0px";
-          i.querySelector(".faq-answer").style.opacity  = "0";
-          i.querySelector(".faq-icon").textContent       = "+";
-        });
-
-        // Open clicked one if it was closed
-        if (!isOpen) {
-          answer.style.maxHeight = answer.scrollHeight + "px";
-          answer.style.opacity   = "1";
-          icon.textContent       = "−";
-        }
-      });
-    });
-  });
-</script>
-
   </section>
 
   <div data-section class="w-full flex flex-col font-sans">
