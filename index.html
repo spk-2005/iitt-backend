@@ -571,14 +571,14 @@
               font-weight: 400;
               color: #111827;
               line-height: 1.25;
-              margin-bottom: clamp(8px, 2.5vw, 12px);
-              font-size: clamp(16px, 5.2vw, 22px);
+              margin-bottom: clamp(10px, 3vw, 14px);
+              font-size: clamp(18px, 6.5vw, 26px);
             }
 
             .prob-desc {
               color: #6B7280;
               line-height: 1.5;
-              font-size: clamp(15px, 3vw, 13px);
+              font-size: clamp(14px, 4vw, 17px);
             }
 
             .prob-svg-wrap {
@@ -609,8 +609,8 @@
               font-weight: 400;
               color: #111827;
               line-height: 1.25;
-              font-size: clamp(16px, 5.2vw, 22px);
-              margin-bottom: clamp(10px, 3vw, 16px);
+              font-size: clamp(18px, 6.5vw, 26px);
+              margin-bottom: clamp(14px, 4vw, 20px);
               flex-shrink: 0;
             }
 
@@ -624,12 +624,12 @@
             .prob-bullet-row {
               display: flex;
               align-items: flex-start;
-              gap: clamp(8px, 2.5vw, 12px);
+              gap: clamp(12px, 3.5vw, 16px);
             }
 
             .prob-bullet-icon {
-              width: clamp(14px, 4vw, 18px);
-              height: clamp(14px, 4vw, 18px);
+              width: clamp(16px, 5vw, 22px);
+              height: clamp(16px, 5vw, 22px);
               object-fit: contain;
               margin-top: 2px;
               flex-shrink: 0;
@@ -638,7 +638,7 @@
             .prob-bullet-text {
               color: rgba(0, 0, 0, 0.6);
               line-height: 1.5;
-              font-size: clamp(18px, 3.2vw, 14px);
+              font-size: clamp(14px, 4.5vw, 17px);
             }
 
             .prob-accent {
@@ -667,7 +667,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#11119A,#4A86E8);"></div>
                     <div class="prob-body">
-                      <h3 class="prob-heading">Sales<br />Teams</h3>
+                      <h3 class="prob-heading">Sales Teams</h3>
                       <p class="prob-desc">Responding to RFPs and RFIs requires collecting information from different
                         teams &amp; documents, which slows down deal cycles.</p>
                       <div class="prob-svg-wrap">
@@ -692,7 +692,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#11119A,#4A86E8);"></div>
                     <div class="prob-body prob-body-back">
-                      <h3 class="prob-back-heading">Sales<br />Teams</h3>
+                      <h3 class="prob-back-heading">Sales Teams</h3>
                       <div class="prob-bullets">
                         <div class="prob-bullet-row">
                           <img src="./src/assets/Group.png" loading="lazy" alt="" class="prob-bullet-icon" />
@@ -725,7 +725,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#D53B44,#3B82F6);"></div>
                     <div class="prob-body">
-                      <h3 class="prob-heading">Security<br />Teams</h3>
+                      <h3 class="prob-heading">Security Teams</h3>
                       <p class="prob-desc">Vendor security questionnaires require detailed answers about policies,
                         compliance, and infrastructure.</p>
                       <div class="prob-svg-wrap">
@@ -757,7 +757,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#D53B44,#3B82F6);"></div>
                     <div class="prob-body prob-body-back">
-                      <h3 class="prob-back-heading">Security<br />Teams</h3>
+                      <h3 class="prob-back-heading">Security Teams</h3>
                       <div class="prob-bullets">
                         <div class="prob-bullet-row">
                           <img src="./src/assets/Group (1).png" loading="lazy" alt="" class="prob-bullet-icon" />
@@ -788,7 +788,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#658CA6,#C9C21A);"></div>
                     <div class="prob-body">
-                      <h3 class="prob-heading">Compliance<br />Teams</h3>
+                      <h3 class="prob-heading">Compliance Teams</h3>
                       <p class="prob-desc">Compliance teams spend hours preparing responses for audits, vendor reviews,
                         and regulatory forms.</p>
                       <div class="prob-svg-wrap">
@@ -813,7 +813,7 @@
                     <div class="prob-grid-overlay"></div>
                     <div class="prob-bar" style="background:linear-gradient(to bottom,#658CA6,#C9C21A);"></div>
                     <div class="prob-body prob-body-back">
-                      <h3 class="prob-back-heading">Compliance<br />Teams</h3>
+                      <h3 class="prob-back-heading">Compliance Teams</h3>
                       <div class="prob-bullets">
                         <div class="prob-bullet-row">
                           <img src="./src/assets/Group (2).png" loading="lazy" alt="" class="prob-bullet-icon" />
@@ -845,6 +845,91 @@
             <button data-idx="2"
               class="problem-dot transition-all duration-300 w-2 h-2 bg-gray-300 rounded-full"></button>
           </div>
+          <!-- Auto-Slide Script for Mobile Carousel -->
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              const track = document.getElementById("problem-carousel-track");
+              const dots = document.querySelectorAll("#problem-dots .problem-dot");
+              if (!track || !dots.length) return;
+
+              let activeIndex = 0;
+              let autoSlideInterval = null;
+              
+              function updateDots(index) {
+                if (index === activeIndex) return; // Ignore unchanged
+                activeIndex = index;
+                dots.forEach((dot, i) => {
+                  if (i === index) {
+                    dot.className = "problem-dot transition-all duration-300 w-5 h-2 bg-gray-700 rounded-full";
+                  } else {
+                    dot.className = "problem-dot transition-all duration-300 w-2 h-2 bg-gray-300 rounded-full";
+                  }
+                });
+              }
+
+              // Track scroll to update dots
+              let scrollTimeout;
+              track.addEventListener("scroll", () => {
+                if (scrollTimeout) clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                  const cardWidth = track.clientWidth;
+                  if (!cardWidth) return;
+                  const index = Math.round(track.scrollLeft / cardWidth);
+                  if (index >= 0 && index < dots.length) {
+                    updateDots(index);
+                  }
+                }, 50); // debounce scroll event
+              }, { passive: true });
+
+              // Click to slide
+              dots.forEach((dot, idx) => {
+                dot.addEventListener("click", () => {
+                  track.scrollTo({ left: idx * track.clientWidth, behavior: 'smooth' });
+                  resetAutoSlide(); 
+                });
+              });
+
+              // Interval sliding logic
+              function slideNext() {
+                let nextIdx = activeIndex + 1;
+                if (nextIdx >= dots.length) nextIdx = 0;
+                track.scrollTo({ left: nextIdx * track.clientWidth, behavior: 'smooth' });
+              }
+
+              function startAutoSlide() {
+                if (!autoSlideInterval) autoSlideInterval = setInterval(slideNext, 5000);
+              }
+
+              function stopAutoSlide() {
+                if (autoSlideInterval) {
+                  clearInterval(autoSlideInterval);
+                  autoSlideInterval = null;
+                }
+              }
+
+              function resetAutoSlide() {
+                stopAutoSlide();
+                startAutoSlide();
+              }
+
+              // Pause auto-sliding gracefully when user interacts
+              track.addEventListener("touchstart", stopAutoSlide, { passive: true });
+              track.addEventListener("touchend", startAutoSlide, { passive: true });
+
+              // Observer: Only run timer when the carousel is actually visible on screen
+              const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    startAutoSlide();
+                  } else {
+                    stopAutoSlide();
+                  }
+                });
+              }, { threshold: 0.2 });
+              
+              observer.observe(track.parentElement);
+            });
+          </script>
         </div>
 
         <!-- DESKTOP -->
