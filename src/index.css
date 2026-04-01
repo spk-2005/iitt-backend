@@ -311,17 +311,17 @@ html {
 }
 
 .prob-bullet-icon {
-  width: clamp(14px, 4vw, 18px);
-  height: clamp(14px, 4vw, 18px);
+  width: clamp(13px, 3.8vw, 16px);
+  height: clamp(13px, 3.8vw, 16px);
   object-fit: contain;
-  margin-top: 2px;
+  margin-top: 3px;
   flex-shrink: 0;
 }
 
 .prob-bullet-text {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.7);
   line-height: 1.45;
-  font-size: clamp(11px, 3.2vw, 14px);
+  font-size: clamp(14px, 4.2vw, 16px);
 }
 /* ── 3D flip cards ─────────────────────────────────────────────── */
 @media (hover: hover) {
