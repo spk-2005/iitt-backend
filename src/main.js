@@ -61,53 +61,55 @@ function initDesktopCarousel() {
 
   const slides = 4;
 
-  let mm = gsap.matchMedia();
-  mm.add("(min-width: 1024px)", () => {
-    ScrollTrigger.create({
-      trigger: container,
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 1, // Smooth scrolling
-      snap: {
-        snapTo: 1 / 3, // Snap to index (4 slides = 3 durations)
-        duration: { min: 0.2, max: 0.5 },
-        delay: 0.1,
-        ease: "power1.inOut"
-      },
-      onUpdate: (self) => {
-        // 1. Move the strip horizontally
-        const xMove = -self.progress * 75; // moves from 0 to -75% of the 400vw width
-        gsap.to(strip, { xPercent: xMove, duration: 0.1, overwrite: "auto" });
+  strip.addEventListener("scroll", () => {
+    const scrollLeft = strip.scrollLeft;
+    const maxScroll = strip.scrollWidth - strip.clientWidth;
+    // progress is 0 to 1 based on how far we scrolled horizontally
+    const progress = maxScroll > 0 ? scrollLeft / maxScroll : 0;
 
-        // 2. Update Progress Bars continuously
-        for (let i = 0; i < slides; i++) {
-          const fillBar = document.getElementById(`prog-${i}`);
-          if (fillBar) {
-            // Calculate the exact fractional completion of this segment
-            const segmentProgress = Math.max(0, Math.min(1, (self.progress * slides) - i));
-            fillBar.style.width = `${segmentProgress * 100}%`;
-          }
-        }
-
-        // 3. Fade the "Scroll Down" indicator out on the last slide
-        const scrollDown = document.querySelector(".scroll-down-container");
-        if (scrollDown) {
-          scrollDown.style.opacity = self.progress > 0.9 ? 0 : 1;
-        }
-      },
-    });
-  });
+    for (let i = 0; i < slides; i++) {
+      const fillBar = document.getElementById(`prog-${i}`);
+      if (fillBar) {
+        // We have 4 slides, so 3 intervals of scrolling to complete.
+        // Wait, progress over the entire scroll width represents 3 transitions.
+        // The bar logic requires: progress * slides
+        // Except wait, if progress is 1, (1 * 4) = 4, but we want the last bar to be full when we hit the last slide.
+        // Actually, since there are 4 slides, total transitions = 3.
+        // At slide 0 (scrollLeft 0), progress = 0.
+        // At slide 1 (1/3rd maxScroll), progress = 0.333. 
+        // We want bar 0 to fill between slide 0 and 1.
+        // Wait, the original logic had `self.progress * slides`. If self.progress goes from 0 to 1 over 3 intervals... wait, `self.progress` in original GSAP was tied to the total scrub distance (400vh), so it was 0 to 1 over 3 slide transitions + 1 slide's worth of scrolling.
+        // Let's just use the exact horizontal ratio. A slide's width is window.innerWidth.
+        const effectiveProgress = scrollLeft / window.innerWidth;
+        const segmentProgress = Math.max(0, Math.min(1, effectiveProgress - i + 1));
+        
+        // Wait, if effectiveProgress = 0, bar 0 is full? Let's check original.
+        // Original: segmentProgress = Math.max(0, Math.min(1, (self.progress * slides) - i))
+        // meaning if progress = 0, bar 0 is 0. But wait, at slide 0, is it an active tab or full?
+        // Let's just set the bar to 0 if we haven't reached it, or fill it as we scroll past.
+        // Actually, a simpler approach: 
+        // bar `i` fills from 0 to 100% as we scroll from slide `i` to slide `i+1`.
+        const barFill = Math.max(0, Math.min(1, scrollLeft / window.innerWidth - i + 1));
+        // We'll set the fill based on how much distance is covered up to this slide.
+        // Actually if i=0 and scrollLeft=0, barFill math: 0 - 0 + 1 = 1 (100%).
+        // But original we wanted bars to represent progress.
+        // To precisely match the original visual: we assume the user wanted bars to fill across the segments.
+        // If we are on slide index `currentIdx`:
+        // bar `i` should be 100% if currentIdx >= i.
+        fillBar.style.width = `${Math.max(0, Math.min(1, scrollLeft / window.innerWidth - i + 1)) * 100}%`;
+      }
+    }
+  }, { passive: true });
+  
+  // Trigger once to paint initial state
+  strip.dispatchEvent(new Event("scroll"));
 }
 
 window.scrollToDesktopSlide = function (index) {
-  const container = document.getElementById("carousel-desktop");
-  if (!container) return;
-  // Use absolute document math to prevent nested offset bugs
-  const absoluteTop = container.getBoundingClientRect().top + window.scrollY;
-  const scrollTarget = absoluteTop + (index * window.innerHeight);
-  
-  window.scrollTo({
-    top: scrollTarget,
+  const strip = document.getElementById("carousel-strip");
+  if (!strip) return;
+  strip.scrollTo({
+    left: index * window.innerWidth,
     behavior: "smooth"
   });
 };

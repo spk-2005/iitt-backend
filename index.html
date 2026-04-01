@@ -367,7 +367,7 @@
         const restWords = restText.trim().split(/\s+/).filter(Boolean);
 
         // ONLY "We are a vertical" should be colored initially.
-        const FIRST_TWO_LINES_COUNT = ALWAYS_VISIBLE_COUNT; 
+        const FIRST_TWO_LINES_COUNT = ALWAYS_VISIBLE_COUNT;
 
         // --- 2. Rebuild DOM ---
         textContainer.innerHTML = "";
@@ -387,11 +387,11 @@
           const span = document.createElement("span");
           span.textContent = word + " ";
           span.className = "reveal-word";
-          
+
           span.style.cssText = "color: #D1D5DB; transition: color 0.35s ease;";
           span.dataset.alwaysVisible = "false";
           span.dataset.revealed = "false"; // Track state securely
-          
+
           textContainer.appendChild(span);
         });
 
@@ -466,7 +466,7 @@
 
         window.addEventListener("scroll", handleReveal, { passive: true });
         // Run once on load to ensure correct starting colors
-        handleReveal(); 
+        handleReveal();
       });
     </script>
 
@@ -1131,8 +1131,8 @@
    MOBILE CAROUSEL  (hidden on lg+)
 ════════════════════════════════════════════ -->
     <div id="carousel-mobile-gsap" class="lg:hidden relative w-full bg-white" style="height: 400vh">
- <!-- AFTER -->
-<div class="sticky top-0 w-full bg-white flex flex-col" style="
+      <!-- AFTER -->
+      <div class="sticky top-0 w-full bg-white flex flex-col" style="
   height: 100dvh;
   overflow-x: hidden;
   overflow-y: visible;
@@ -1140,7 +1140,7 @@
   padding: clamp(52px,14vw,72px) 0 clamp(8px,2vw,12px);
 ">
         <!-- Header -->
-       <div style="padding: 0 clamp(14px,4vw,20px); margin-bottom: clamp(10px,2.5vw,16px); flex-shrink:0;">
+        <div style="padding: 0 clamp(14px,4vw,20px); margin-bottom: clamp(10px,2.5vw,16px); flex-shrink:0;">
 
           <p style="font-size: clamp(11px, 3.48vw, 14px); color:#9ca3af; margin-bottom:4px; font-weight:400;">How it
             Works</p>
@@ -1189,7 +1189,7 @@
         <!-- Slide Track Wrapper -->
         <div class="relative min-h-0" style="flex: 1 1 0; overflow-x:hidden; overflow-y:visible; isolation: isolate;">
 
-      <div id="carousel-mobile-track" style="
+          <div id="carousel-mobile-track" style="
   display: flex;
   height: 100%;
   width: 400vw;
@@ -2745,148 +2745,150 @@
       </div>
     </div>
   </section>
-   <section data-section id="integration" class="scroll-mt-5">
-      <section class="py-18 bg-white">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-24 items-center">
-          <div class="text-center md:text-left flex-1 order-first md:order-last">
-            <p class="anseru-section-tag">Integrations</p>
-            <h2 class="anseru-section-title">Connect to the Tools <br class="hidden md:block" />You Already Use</h2>
-          </div>
-          <div
-            class="w-full max-w-105 aspect-square bg-gray-50 rounded-3xl overflow-hidden flex items-center justify-center relative pointer-events-none order-last md:order-first"
-          >
-            <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white to-transparent z-10"></div>
-            <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent z-10"></div>
-            <div class="flex gap-3 md:gap-4 items-center h-[200%]">
-              <!-- Column 1 - scrolling up -->
-              <div class="mt-10 md:mt-20 overflow-visible">
-                <div class="integration-col-up flex flex-col gap-3 md:gap-4" style="animation: integrationUp 15s linear infinite">
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/drive icon.png" loading="lazy" alt="drive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <!-- duplicate for seamless loop -->
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/drive icon.png" loading="lazy" alt="drive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
+  <section data-section id="integration" class="scroll-mt-5">
+    <section class="py-18 bg-white">
+      <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-24 items-center">
+        <div class="text-center md:text-left flex-1 order-first md:order-last">
+          <p class="anseru-section-tag">Integrations</p>
+          <h2 class="anseru-section-title">Connect to the Tools <br class="hidden md:block" />You Already Use</h2>
+        </div>
+        <div
+          class="w-full max-w-105 aspect-square bg-gray-50 rounded-3xl overflow-hidden flex items-center justify-center relative pointer-events-none order-last md:order-first">
+          <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white to-transparent z-10"></div>
+          <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent z-10"></div>
+          <div class="flex gap-3 md:gap-4 items-center h-[200%]">
+            <!-- Column 1 - scrolling up -->
+            <div class="mt-10 md:mt-20 overflow-visible">
+              <div class="integration-col-up flex flex-col gap-3 md:gap-4"
+                style="animation: integrationUp 15s linear infinite">
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/drive icon.png" loading="lazy" alt="drive"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <!-- duplicate for seamless loop -->
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/drive icon.png" loading="lazy" alt="drive"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                 </div>
               </div>
-              <div class="overflow-visible">
-                <div class="integration-col-down flex flex-col gap-3 md:gap-4" style="animation: integrationDown 18s linear infinite">
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/slack icon.png" loading="lazy" alt="slack" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/gong icon.png" loading="lazy" alt="gong" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/slack icon.png" loading="lazy" alt="slack" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/gong icon.png" loading="lazy" alt="gong" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
+            </div>
+            <div class="overflow-visible">
+              <div class="integration-col-down flex flex-col gap-3 md:gap-4"
+                style="animation: integrationDown 18s linear infinite">
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/slack icon.png" loading="lazy" alt="slack"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/gong icon.png" loading="lazy" alt="gong"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/slack icon.png" loading="lazy" alt="slack"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/gong icon.png" loading="lazy" alt="gong"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                 </div>
               </div>
-              <div class="mt-5 md:mt-10 overflow-visible">
-                <div class="integration-col-up flex flex-col gap-3 md:gap-4" style="animation: integrationUp 20s linear infinite">
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/notion icon.png" loading="lazy" alt="notion" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/teams icon.png" loading="lazy" alt="teams" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/notion icon.png" loading="lazy" alt="notion" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
-                  <div
-                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
-                  >
-                    <img src="./src/assets/teams icon.png" loading="lazy" alt="teams" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
-                  </div>
+            </div>
+            <div class="mt-5 md:mt-10 overflow-visible">
+              <div class="integration-col-up flex flex-col gap-3 md:gap-4"
+                style="animation: integrationUp 20s linear infinite">
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/notion icon.png" loading="lazy" alt="notion"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/teams icon.png" loading="lazy" alt="teams"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/notion icon.png" loading="lazy" alt="notion"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                </div>
+                <div
+                  class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
+                  <img src="./src/assets/teams icon.png" loading="lazy" alt="teams"
+                    class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </section>
+  </section>
 
 
   <section data-section id="faq" class="scroll-mt-5">
