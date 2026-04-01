@@ -244,7 +244,8 @@
       sections.forEach((section) => observer.observe(section));
     });
   </script>
-  <section data-section id="home" class="overflow-hidden bg-white max-[450px]:h-[calc(100svh-55px)] max-[450px]:flex max-[450px]:flex-col">
+  <section data-section id="home"
+    class="overflow-hidden bg-white max-[450px]:h-[calc(100svh-55px)] max-[450px]:flex max-[450px]:flex-col">
     <div class="relative w-full overflow-hidden shrink-0" style="height: clamp(120px,62vw, 370px);">
       <!-- Background: full image, no cutoff, scales with container -->
       <div class="absolute inset-0 w-full h-full" style="
@@ -328,11 +329,13 @@
 
     <!-- Hero image -->
     <div class="w-full bg-white flex justify-center max-[450px]:flex-1 max-[450px]:min-h-0">
-      <div class="w-full max-w-[1441px] max-[450px]:h-full max-[450px]:flex max-[450px]:items-start max-[450px]:overflow-hidden">
+      <div
+        class="w-full max-w-[1441px] max-[450px]:h-full max-[450px]:flex max-[450px]:items-start max-[450px]:overflow-hidden">
         <img src="./src/assets/hero (3).png" alt="Deal Intelligence Architecture Desktop"
           class="hidden md:block w-full h-auto object-contain md:h-[515px]" loading="eager" />
         <img src="./src/assets/hero-mob.png" alt="Deal Intelligence Architecture Mobile"
-          class="block md:hidden w-full max-[450px]:h-full max-[450px]:object-cover max-[450px]:object-top" loading="eager" />
+          class="block md:hidden w-full max-[450px]:h-full max-[450px]:object-cover max-[450px]:object-top"
+          loading="eager" />
       </div>
     </div>
   </section>
@@ -363,13 +366,10 @@
         });
         const restWords = restText.trim().split(/\s+/).filter(Boolean);
 
-        // --- 2. Estimate words per line for iPhone/mobile ---
-        // "We are a vertical AI-Native B2B SaaS Platform" ≈ first 2 lines
-        // Count approximately 8 words per line at clamp(12px, 5.97vw, 24px)
-        // Safe approach: always show first 10 words as "always visible"
-        const FIRST_TWO_LINES_COUNT = 10; // tweak if needed
+        // ONLY "We are a vertical" should be colored initially.
+        const FIRST_TWO_LINES_COUNT = ALWAYS_VISIBLE_COUNT; 
 
-        // --- 3. Rebuild DOM ---
+        // --- 2. Rebuild DOM ---
         textContainer.innerHTML = "";
 
         // Blue words (always visible, always blue)
@@ -378,6 +378,7 @@
           span.textContent = word + " ";
           span.className = "reveal-word";
           span.style.cssText = "color: #2C48DB;";
+          span.dataset.alwaysVisible = "true";
           textContainer.appendChild(span);
         });
 
@@ -386,23 +387,17 @@
           const span = document.createElement("span");
           span.textContent = word + " ";
           span.className = "reveal-word";
-          const globalIdx = ALWAYS_VISIBLE_COUNT + i;
-
-          // Words that are part of first 2 lines → always visible
-          if (globalIdx < FIRST_TWO_LINES_COUNT) {
-            span.style.cssText = "color: #2C48DB;";
-            span.dataset.alwaysVisible = "true";
-          } else {
-            // Hidden until scroll reveals them
-            span.style.cssText = "color: #D1D5DB; transition: color 0.35s ease;";
-            span.dataset.alwaysVisible = "false";
-          }
+          
+          span.style.cssText = "color: #D1D5DB; transition: color 0.35s ease;";
+          span.dataset.alwaysVisible = "false";
+          span.dataset.revealed = "false"; // Track state securely
+          
           textContainer.appendChild(span);
         });
 
         const wordSpans = Array.from(textContainer.querySelectorAll(".reveal-word"));
 
-        // --- 4. Simple flash animation (no transforms, no display toggle) ---
+        // --- 3. Simple flash animation ---
         function flashSpan(span) {
           span.style.transition = "color 0.4s ease-out, text-shadow 0.4s ease-out";
           span.style.color = "#ffffff";
@@ -414,18 +409,17 @@
           }, 200);
         }
 
-        // --- 5. Scroll handler — ONLY fires on scroll ---
-        let scrollHasFired = false;
-
+        // --- 4. Scroll handler — ONLY fires on scroll ---
         function handleReveal() {
-          scrollHasFired = true;
           const rect = textContainer.getBoundingClientRect();
           const windowHeight = window.innerHeight;
 
-          // If scrolled past, reveal all
+          // If scrolled past, gently reveal all without flash
           if (rect.top < 0) {
             wordSpans.forEach(span => {
-              if (span.style.color !== "#2C48DB") {
+              if (span.dataset.alwaysVisible === "false" && span.dataset.revealed === "false") {
+                span.dataset.revealed = "true";
+                span.style.transition = "color 0.3s ease";
                 span.style.color = "#2C48DB";
               }
             });
@@ -450,26 +444,29 @@
 
           wordSpans.forEach((span, index) => {
             // Always-visible words: skip
-            if (index < FIRST_TWO_LINES_COUNT) return;
+            if (span.dataset.alwaysVisible === "true") return;
 
             if (index < revealCount) {
-              // Reveal with flash
-              if (span.style.color !== "#2C48DB") {
-                span.style.color = "#2C48DB";
+              // Reveal with flash nicely, exactly once per crossing
+              if (span.dataset.revealed === "false") {
+                span.dataset.revealed = "true";
                 flashSpan(span);
               }
             } else {
               // Hide again on scroll up
-              if (span.dataset.alwaysVisible !== "true" && span.style.color !== "#D1D5DB") {
+              if (span.dataset.revealed === "true") {
+                span.dataset.revealed = "false";
                 span.style.transition = "color 0.2s ease";
                 span.style.color = "#D1D5DB";
+                span.style.textShadow = "none"; // Safety cleanup
               }
             }
           });
         }
 
-        // Only attach scroll listener — never call on load
         window.addEventListener("scroll", handleReveal, { passive: true });
+        // Run once on load to ensure correct starting colors
+        handleReveal(); 
       });
     </script>
 
@@ -854,7 +851,7 @@
 
               let activeIndex = 0;
               let autoSlideInterval = null;
-              
+
               function updateDots(index) {
                 if (index === activeIndex) return; // Ignore unchanged
                 activeIndex = index;
@@ -885,7 +882,7 @@
               dots.forEach((dot, idx) => {
                 dot.addEventListener("click", () => {
                   track.scrollTo({ left: idx * track.clientWidth, behavior: 'smooth' });
-                  resetAutoSlide(); 
+                  resetAutoSlide();
                 });
               });
 
@@ -926,7 +923,7 @@
                   }
                 });
               }, { threshold: 0.2 });
-              
+
               observer.observe(track.parentElement);
             });
           </script>
