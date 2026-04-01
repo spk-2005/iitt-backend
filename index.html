@@ -1131,14 +1131,17 @@
    MOBILE CAROUSEL  (hidden on lg+)
 ════════════════════════════════════════════ -->
     <div id="carousel-mobile-gsap" class="lg:hidden relative w-full bg-white" style="height: 400vh">
-      <div class="sticky top-7  w-full h-[100dvh] flex flex-col bg-white" style="
-      
-      
-      overflow-x:hidden; overflow-y:visible;
-      box-sizing: border-box;
-    ">
+ <!-- AFTER -->
+<div class="sticky top-0 w-full bg-white flex flex-col" style="
+  height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: visible;
+  box-sizing: border-box;
+  padding: clamp(52px,14vw,72px) 0 clamp(8px,2vw,12px);
+">
         <!-- Header -->
-        <div style="padding: 0 clamp(14px,4vw,20px); margin-bottom: clamp(8px,2vw,12px); flex-shrink:0;">
+       <div style="padding: 0 clamp(14px,4vw,20px); margin-bottom: clamp(10px,2.5vw,16px); flex-shrink:0;">
+
           <p style="font-size: clamp(11px, 3.48vw, 14px); color:#9ca3af; margin-bottom:4px; font-weight:400;">How it
             Works</p>
           <h2
@@ -1184,13 +1187,17 @@
         </div>
 
         <!-- Slide Track Wrapper -->
-        <div class="relative flex-1 min-h-0" style="overflow-x:hidden; overflow-y:visible; isolation: isolate;">
-          <div id="carousel-mobile-track" style="
-        display:flex; height:100%; width:400vw;
-        transform:translateX(0); will-change:transform;
-        transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
-      ">
+        <div class="relative min-h-0" style="flex: 1 1 0; overflow-x:hidden; overflow-y:visible; isolation: isolate;">
 
+      <div id="carousel-mobile-track" style="
+  display: flex;
+  height: 100%;
+  width: 400vw;
+  transform: translateX(0);
+  will-change: transform;
+  transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+  align-items: stretch;
+">
             <!-- ── Slide 0: Connect ── -->
             <div style="
   width:100vw;
@@ -1272,10 +1279,14 @@
 
             <!-- ── Slide 1: Upload ── -->
             <div style="
-  width:100vw;
-  display:flex; flex-direction:column;
-  padding: 0 clamp(14px,4vw,20px);
+  width: 100vw;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 clamp(14px,4vw,20px);
+  height: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
 ">
               <h3
                 style="font-size:clamp(18px,5.5vw,24px);font-weight:400;color:#111827;margin:0 0 clamp(10px,3vw,16px);line-height:1.2;">
@@ -1346,10 +1357,14 @@
 
             <!-- ── Slide 2: Respond ── -->
             <div style="
-  width:100vw;
-  display:flex; flex-direction:column;
-  padding: 0 clamp(14px,4vw,20px);
+  width: 100vw;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 clamp(14px,4vw,20px);
+  height: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
 ">
               <h3
                 style="font-size:clamp(18px,5.5vw,24px);font-weight:400;color:#111827;margin:0 0 clamp(10px,3vw,16px);line-height:1.2;">
@@ -1421,10 +1436,14 @@
 
             <!-- ── Slide 3: Approve ── -->
             <div style="
-  width:100vw;
-  display:flex; flex-direction:column;
-  padding: 0 clamp(14px,4vw,20px);
+  width: 100vw;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 clamp(14px,4vw,20px);
+  height: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
 ">
               <h3
                 style="font-size:clamp(18px,5.5vw,24px);font-weight:400;color:#111827;margin:0 0 clamp(10px,3vw,16px);line-height:1.2;">
