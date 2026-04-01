@@ -209,7 +209,7 @@ html {
   background: #3b0b98;
 }
 .anseru-section-title {
-  font-size: clamp(16px, 5.97vw, 36px);
+  font-size: clamp(18px, 6.97vw, 46px);
   font-weight: 400;
   letter-spacing: 0;
 }
@@ -237,14 +237,12 @@ html {
 .prob-card {
   position: relative;
   width: 100%;
-  height: clamp(360px, 128vw, 500px);
+  height: clamp(380px, 130vw, 520px);
   perspective: 1000px;
-  transform-style: preserve-3d;
 }
 
 .prob-card-inner {
-  position: absolute;
-  inset: 0;
+  position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
@@ -259,11 +257,71 @@ html {
   border-radius: 12px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transform: rotateY(0deg); /* forces GPU layer, fixes backface on Safari/iOS */
 }
 
 .prob-face-back {
   transform: rotateY(180deg);
+}
+
+.prob-body {
+  position: relative;
+  padding: clamp(14px, 4.5vw, 22px);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.prob-body-back {
+  padding-top: clamp(16px, 5vw, 28px);
+}
+
+.prob-svg-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: clamp(8px, 3vw, 16px);
+  min-height: 0;
+}
+
+.prob-svg-inner {
+  width: clamp(120px, 70%, 200px);
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prob-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 3.5vw, 18px);
+  padding-right: 0;
+  flex: 1;
+}
+
+.prob-bullet-row {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(8px, 2.5vw, 12px);
+  flex: 1;
+}
+
+.prob-bullet-icon {
+  width: clamp(14px, 4vw, 18px);
+  height: clamp(14px, 4vw, 18px);
+  object-fit: contain;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.prob-bullet-text {
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 1.45;
+  font-size: clamp(11px, 3.2vw, 14px);
 }
 /* ── 3D flip cards ─────────────────────────────────────────────── */
 @media (hover: hover) {
