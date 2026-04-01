@@ -658,6 +658,38 @@ function initFlipCards() {
   });
 }
 
+// ── Workflow Section Animations ────────────────────────────────────────────────
+function initWorkflowHeaderAnimations() {
+  const items = document.querySelectorAll(".workflow-anim-item");
+  const container = document.getElementById("workflow-header-container");
+
+  if (!items.length || !container) return;
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: container,
+      start: "top 80%",
+      toggleActions: "play none none reverse"
+    }
+  });
+
+  tl.to(items[0], {
+    y: 0, opacity: 1,
+    duration: 0.6,
+    ease: "power3.out"
+  })
+  .to(items[1], {
+    y: 0, opacity: 1,
+    duration: 1.0,
+    ease: "expo.out"
+  }, "-=0.3")
+  .to(items[2], {
+    y: 0, opacity: 1,
+    duration: 0.7,
+    ease: "power2.out"
+  }, "-=0.5");
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   applyAssets();
@@ -669,6 +701,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initDesktopCarousel();
   initDesktopTwoAgents();
   buildRFPWorkflow();
+  initWorkflowHeaderAnimations();
   initFAQ();
   initFeatures();
 });
