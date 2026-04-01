@@ -14,6 +14,7 @@ function applyAssets() {
   });
 }
 
+
 // ── Carousel ──────────────────────────────────────────────────────────────────
 const SLIDE_COUNT = 4;
 
@@ -38,38 +39,20 @@ function initCarouselIndicators(containerId, goTo) {
   });
 }
 
-function initMobileCarousel() {
-  const track = document.getElementById("carousel-mobile-track");
-  const dots = document.getElementById("carousel-dots-mobile");
-  if (!track || !dots) return;
-
-  let activeSlide = 0;
-
-  function goTo(i) {
-    track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
-  }
-
-  initCarouselIndicators("carousel-indicators-mobile", goTo);
-
-  dots.querySelectorAll(".carousel-dot").forEach((dot) => {
-    dot.addEventListener("click", () => goTo(Number(dot.dataset.dot)));
+window.scrollToMobileSlide = function (index) {
+  const container = document.getElementById("carousel-mobile-gsap");
+  if (!container) return;
+  // Use absolute document math to prevent nested offset bugs
+  const absoluteTop = container.getBoundingClientRect().top + window.scrollY;
+  const scrollTarget = absoluteTop + (index * window.innerHeight);
+  
+  window.scrollTo({
+    top: scrollTarget,
+    behavior: "smooth"
   });
+};
 
-  track.addEventListener(
-    "scroll",
-    () => {
-      const idx = Math.round(track.scrollLeft / track.clientWidth);
-      if (idx !== activeSlide) {
-        activeSlide = idx;
-        updateCarouselIndicators(activeSlide);
-        dots.querySelectorAll(".carousel-dot").forEach((dot, i) => {
-          dot.className = `carousel-dot rounded-full transition-all duration-300 ${i === activeSlide ? "w-5 h-2 bg-gray-700" : "w-2 h-2 bg-gray-300"}`;
-        });
-      }
-    },
-    { passive: true },
-  );
-}
+
 
 function initDesktopCarousel() {
   const container = document.getElementById("carousel-desktop");
@@ -78,38 +61,41 @@ function initDesktopCarousel() {
 
   const slides = 4;
 
-  ScrollTrigger.create({
-    trigger: container,
-    start: "top top",
-    end: "bottom bottom",
-    scrub: 1, // Smooth scrolling
-    snap: {
-      snapTo: 1 / 3, // Snap to index (4 slides = 3 durations)
-      duration: { min: 0.2, max: 0.5 },
-      delay: 0.1,
-      ease: "power1.inOut"
-    },
-    onUpdate: (self) => {
-      // 1. Move the strip horizontally
-      const xMove = -self.progress * 75; // moves from 0 to -75% of the 400vw width
-      gsap.to(strip, { xPercent: xMove, duration: 0.1, overwrite: "auto" });
+  let mm = gsap.matchMedia();
+  mm.add("(min-width: 1024px)", () => {
+    ScrollTrigger.create({
+      trigger: container,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1, // Smooth scrolling
+      snap: {
+        snapTo: 1 / 3, // Snap to index (4 slides = 3 durations)
+        duration: { min: 0.2, max: 0.5 },
+        delay: 0.1,
+        ease: "power1.inOut"
+      },
+      onUpdate: (self) => {
+        // 1. Move the strip horizontally
+        const xMove = -self.progress * 75; // moves from 0 to -75% of the 400vw width
+        gsap.to(strip, { xPercent: xMove, duration: 0.1, overwrite: "auto" });
 
-      // 2. Update Progress Bars continuously
-      for (let i = 0; i < slides; i++) {
-        const fillBar = document.getElementById(`prog-${i}`);
-        if (fillBar) {
-          // Calculate the exact fractional completion of this segment
-          const segmentProgress = Math.max(0, Math.min(1, (self.progress * slides) - i));
-          fillBar.style.width = `${segmentProgress * 100}%`;
+        // 2. Update Progress Bars continuously
+        for (let i = 0; i < slides; i++) {
+          const fillBar = document.getElementById(`prog-${i}`);
+          if (fillBar) {
+            // Calculate the exact fractional completion of this segment
+            const segmentProgress = Math.max(0, Math.min(1, (self.progress * slides) - i));
+            fillBar.style.width = `${segmentProgress * 100}%`;
+          }
         }
-      }
 
-      // 3. Fade the "Scroll Down" indicator out on the last slide
-      const scrollDown = document.querySelector(".scroll-down-container");
-      if (scrollDown) {
-        scrollDown.style.opacity = self.progress > 0.9 ? 0 : 1;
-      }
-    },
+        // 3. Fade the "Scroll Down" indicator out on the last slide
+        const scrollDown = document.querySelector(".scroll-down-container");
+        if (scrollDown) {
+          scrollDown.style.opacity = self.progress > 0.9 ? 0 : 1;
+        }
+      },
+    });
   });
 }
 
@@ -125,7 +111,17 @@ window.scrollToDesktopSlide = function (index) {
     behavior: "smooth"
   });
 };
-
+function offsetHero() {
+  const navbar = document.getElementById('navbar');
+  const heroContent = document.getElementById('hero-content');
+  if (navbar && heroContent) {
+    const navH = navbar.offsetHeight;
+    heroContent.style.top = navH + 'px';
+    heroContent.style.bottom = '0';
+  }
+}
+document.addEventListener('DOMContentLoaded', offsetHero);
+window.addEventListener('resize', offsetHero);
 // ── Two Agents ────────────────────────────────────────────────────────────────
 window.switchAgent = function (name) {
   document
@@ -189,18 +185,21 @@ function initDesktopTwoAgents() {
   };
 
   const cont = document.getElementById("two-agents-desktop");
-  ScrollTrigger.create({
-    trigger: cont,
-    start: "top top",
-    end: "bottom bottom",
-    onUpdate(self) {
-      gsap.set(strip, { xPercent: -self.progress * 50 });
-      const idx = Math.round(self.progress);
-      if (idx !== activeAgent) {
-        activeAgent = idx;
-        updateDesktopTabs(idx);
-      }
-    },
+  let mm = gsap.matchMedia();
+  mm.add("(min-width: 1024px)", () => {
+    ScrollTrigger.create({
+      trigger: cont,
+      start: "top top",
+      end: "bottom bottom",
+      onUpdate(self) {
+        gsap.set(strip, { xPercent: -self.progress * 50 });
+        const idx = Math.round(self.progress);
+        if (idx !== activeAgent) {
+          activeAgent = idx;
+          updateDesktopTabs(idx);
+        }
+      },
+    });
   });
 }
 
@@ -534,25 +533,114 @@ function buildRFPWorkflow() {
 function initFAQ() {
   let openIndex = null;
   const items = document.querySelectorAll(".faq-item");
+  
   items.forEach((item, idx) => {
+    item._idx = idx; 
     item.querySelector(".faq-trigger").addEventListener("click", () => {
       const isOpen = openIndex === idx;
+      
       if (openIndex !== null && openIndex !== idx) {
+        // Closing previous item
         const prev = items[openIndex];
-        prev.querySelector(".faq-answer").style.maxHeight = "0";
-        prev.querySelector(".faq-answer").style.opacity = "0";
+        const prevAns = prev.querySelector(".faq-answer");
+        const prevInner = prevAns.firstElementChild;
+        
+        const curW = prev.getBoundingClientRect().width;
+        prev.style.transition = "none";
+        prev.style.width = "fit-content";
+        const targetW = prev.getBoundingClientRect().width;
+        prev.style.width = curW + "px";
+        
+        prevAns.style.transition = "none";
+        prevAns.style.maxHeight = prevAns.scrollHeight + "px";
+        
+        // Prevent text squishing
+        if (prevInner) prevInner.style.width = curW + "px";
+        
+        prev.offsetHeight; // flush
+        
+        prev.style.transition = "width 0.4s cubic-bezier(0.04,0.62,0.23,0.98)";
+        prevAns.style.transition = "max-height 0.4s cubic-bezier(0.04,0.62,0.23,0.98), opacity 0.3s ease";
+        prev.style.width = targetW + "px";
+        prevAns.style.maxHeight = "0px";
+        prevAns.style.opacity = "0";
         prev.querySelector(".faq-icon").textContent = "+";
+        
+        setTimeout(() => {
+          if (openIndex !== prev._idx) {
+             prev.style.width = "";
+             if (prevInner) prevInner.style.width = "";
+          }
+        }, 400);
       }
+      
       openIndex = isOpen ? null : idx;
       const ans = item.querySelector(".faq-answer");
+      const inner = ans.firstElementChild;
+      
       if (!isOpen) {
-        ans.style.maxHeight = ans.scrollHeight + "px";
+        // Opening current item
+        const curW = item.getBoundingClientRect().width;
+        
+        item.style.transition = "none";
+        ans.style.transition = "none";
+        item.style.width = "100%";
+        ans.style.maxHeight = "none";
+        if (inner) inner.style.width = ""; // ensure it takes 100%
+        
+        const targetW = item.getBoundingClientRect().width;
+        const targetH = ans.scrollHeight;
+        
+        item.style.width = curW + "px";
+        ans.style.maxHeight = "0px";
+        
+        if (inner) inner.style.width = targetW + "px";
+        item.offsetHeight; // flush
+        
+        item.style.transition = "width 0.4s cubic-bezier(0.04,0.62,0.23,0.98)";
+        ans.style.transition = "max-height 0.4s cubic-bezier(0.04,0.62,0.23,0.98), opacity 0.4s ease";
+        item.style.width = targetW + "px";
+        ans.style.maxHeight = targetH + "px";
         ans.style.opacity = "1";
         item.querySelector(".faq-icon").textContent = "−";
+        
+        setTimeout(() => {
+          if (openIndex === idx) {
+            item.style.width = "100%";
+            ans.style.maxHeight = "1500px";
+            if (inner) inner.style.width = "";
+          }
+        }, 400);
+        
       } else {
-        ans.style.maxHeight = "0";
+        // Closing current item
+        const curW = item.getBoundingClientRect().width;
+        
+        item.style.transition = "none";
+        item.style.width = "fit-content";
+        const targetW = item.getBoundingClientRect().width;
+        item.style.width = curW + "px";
+        
+        ans.style.transition = "none";
+        ans.style.maxHeight = ans.scrollHeight + "px";
+        if (inner) inner.style.width = curW + "px";
+        
+        item.offsetHeight; // flush
+        
+        item.style.transition = "width 0.4s cubic-bezier(0.04,0.62,0.23,0.98)";
+        ans.style.transition = "max-height 0.4s cubic-bezier(0.04,0.62,0.23,0.98), opacity 0.3s ease";
+        
+        item.style.width = targetW + "px";
+        ans.style.maxHeight = "0px";
         ans.style.opacity = "0";
         item.querySelector(".faq-icon").textContent = "+";
+        
+        setTimeout(() => {
+          if (openIndex !== idx) {
+            item.style.width = "";
+            if (inner) inner.style.width = "";
+          }
+        }, 400);
       }
     });
   });
@@ -653,7 +741,7 @@ document.addEventListener("DOMContentLoaded", () => {
   applyAssets();
   initNavbar();
   initFlipCards();
-  initMobileCarousel();
+
   initDesktopCarousel();
   initDesktopTwoAgents();
   buildRFPWorkflow();
