@@ -304,8 +304,6 @@ function buildRFPWorkflow() {
       ng.mask.setAttribute('r', isActive ? NR+4 : NR);
       ng.ball.setAttribute('r', isActive ? NR+4 : NR);
       ng.ball.setAttribute('opacity', isActive ? '1' : '0.4');
-      if (isActive) ng.ball.setAttribute('filter','url(#rfpglow)');
-      else ng.ball.removeAttribute('filter');
       ng.tg.style.opacity = isActive ? '1' : '0.6';
     });
   }
@@ -402,7 +400,7 @@ window.closeMobileMenu = function() {
 // ── Section scroll helper ─────────────────────────────────────────────────────
 window.scrollToSection = function(id) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  if (el) el.scrollIntoView();
 };
 
 // ── Unified scroll system ─────────────────────────────────────────────────────
@@ -411,6 +409,8 @@ window.scrollToSection = function(id) {
 function initScrollSystem() {
   const THRESHOLD = 80;
   let snapping = false, acc = 0, lastWheelTime = 0;
+  let twoAgentsWasInside = false, twoAgentsEntryTime = 0;
+  const AGENTS_ENTRY_COOLDOWN = 800;
 
   function snap(top, duration) {
     snapping = true;
@@ -454,6 +454,15 @@ function initScrollSystem() {
       const top = agentsEl.offsetTop;
       const lastAgentTop = top + viewH;
       if (sy >= top && sy <= lastAgentTop) {
+        if (!twoAgentsWasInside) {
+          twoAgentsWasInside = true;
+          twoAgentsEntryTime = Date.now();
+          acc = 0;
+        }
+        if (Date.now() - twoAgentsEntryTime < AGENTS_ENTRY_COOLDOWN) {
+          e.preventDefault();
+          return;
+        }
         if (snapping) { e.preventDefault(); return; }
         const now = Date.now();
         if (now - lastWheelTime > 300) acc = 0;
@@ -473,6 +482,7 @@ function initScrollSystem() {
     }
 
     // ── Everywhere else: free scroll ───────────────────────────────────────────
+    twoAgentsWasInside = false;
     acc = 0;
   }, { passive: false });
 }
