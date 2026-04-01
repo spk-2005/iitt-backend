@@ -2722,388 +2722,148 @@
       </div>
     </div>
   </section>
-
-  <section data-section id="integration" class="scroll-mt-5">
-    <section class="py-12  overflow-hidden">
-      <div class="max-w-[1400px] mx-auto">
-
-        <!-- ═══════════════════════════════════════
-           MOBILE LAYOUT  (hidden on md+)
-           Header top-left, 3-col staggered grid below
-      ════════════════════════════════════════ -->
-        <div class="md:hidden px-4">
-
-          <!-- Header — left aligned -->
-          <p class="text-[13px] text-gray-400 mb-2">Integrations</p>
-          <h2 class="anseru-section-title mx-auto mb-2 ">
-            Connect to the Tools<br />You Already Use
-          </h2>
-
-
-          <div style="
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  aspect-ratio: 292 / 320;
-">
-
-            <!-- Subtle top white fade so cards don't hard-clip into section header -->
-            <div style="
-    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
-    height: clamp(24px, 6vw, 40px);
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.635) 100%);
-    pointer-events: none;
-  "></div>
-
-            <!-- Subtle bottom white fade -->
-            <div style="
-    position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
-    height: clamp(24px, 6vw, 40px);
-    background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-    pointer-events: none;
-  "></div>
-
-            <!-- 3-column flex, gap = dark bg showing through -->
-            <div style="
-    display: flex;
-    height: 100%;
-    gap: 4px;
-    padding:14px;
-    box-sizing: border-box;
-  ">
-
-              <!-- ── Column 1: scrolls UP ── -->
-              <div style="flex: 1; overflow: hidden;">
-                <div
-                  style="animation: mobileIntUp 14s linear infinite; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+   <section data-section id="integration" class="scroll-mt-5">
+      <section class="py-18 bg-white">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-24 items-center">
+          <div class="text-center md:text-left flex-1 order-first md:order-last">
+            <p class="anseru-section-tag">Integrations</p>
+            <h2 class="anseru-section-title">Connect to the Tools <br class="hidden md:block" />You Already Use</h2>
+          </div>
+          <div
+            class="w-full max-w-105 aspect-square bg-gray-50 rounded-3xl overflow-hidden flex items-center justify-center relative pointer-events-none order-last md:order-first"
+          >
+            <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white to-transparent z-10"></div>
+            <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent z-10"></div>
+            <div class="flex gap-3 md:gap-4 items-center h-[200%]">
+              <!-- Column 1 - scrolling up -->
+              <div class="mt-10 md:mt-20 overflow-visible">
+                <div class="integration-col-up flex flex-col gap-3 md:gap-4" style="animation: integrationUp 15s linear infinite">
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/drive icon.png" loading="lazy" alt="drive"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/drive icon.png" loading="lazy" alt="drive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <!-- duplicate for seamless loop -->
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/drive icon.png" loading="lazy" alt="drive"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/drive icon.png" loading="lazy" alt="drive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                 </div>
               </div>
-
-              <!-- ── Column 2: scrolls DOWN, pushed down ── -->
-              <div style="flex: 1; overflow: hidden;">
-                <div
-                  style="animation: mobileIntDown 18s linear infinite; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+              <div class="overflow-visible">
+                <div class="integration-col-down flex flex-col gap-3 md:gap-4" style="animation: integrationDown 18s linear infinite">
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/slack icon.png" loading="lazy" alt="slack"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/slack icon.png" loading="lazy" alt="slack" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/gong icon.png" loading="lazy" alt="gong"
-                      style="width:44%; height:44%; object-fit:contain;" />
-                  </div>
-                  <!-- duplicate -->
-                  <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/gong icon.png" loading="lazy" alt="gong" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/slack icon.png" loading="lazy" alt="slack"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/gong icon.png" loading="lazy" alt="gong"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/slack icon.png" loading="lazy" alt="slack" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
+                  </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/gong icon.png" loading="lazy" alt="gong" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                 </div>
               </div>
-
-              <!-- ── Column 3: scrolls UP, slight offset ── -->
-              <div style="flex: 1; overflow: hidden;">
-                <div
-                  style="animation: mobileIntUp 20s linear infinite; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+              <div class="mt-5 md:mt-10 overflow-visible">
+                <div class="integration-col-up flex flex-col gap-3 md:gap-4" style="animation: integrationUp 20s linear infinite">
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/notion icon.png" loading="lazy" alt="notion"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/notion icon.png" loading="lazy" alt="notion" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/teams icon.png" loading="lazy" alt="teams"
-                      style="width:44%; height:44%; object-fit:contain;" />
-                  </div>
-                  <!-- duplicate -->
-                  <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/teams icon.png" loading="lazy" alt="teams" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/notion icon.png" loading="lazy" alt="notion"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                   <div
-                    style="width:90%; aspect-ratio:1; border-radius:14px; background:#F4F4F5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <img src="./src/assets/teams icon.png" loading="lazy" alt="teams"
-                      style="width:44%; height:44%; object-fit:contain;" />
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/notion icon.png" loading="lazy" alt="notion" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
-                </div>
-              </div>
-
-            </div>
-          </div><!-- end outer container --><!-- end grid container -->
-        </div><!-- end mobile -->
-
-
-        <!-- ═══════════════════════════════════════
-           DESKTOP LAYOUT  (hidden below md)
-           Side-by-side: animated columns left, text right
-      ════════════════════════════════════════ -->
-        <div class="hidden md:flex px-6 md:px-16 flex-row justify-between items-center gap-12 md:gap-20">
-
-          <!-- Left: animated icon columns -->
-          <div
-            class="w-full md:w-1/2 flex justify-center md:justify-end items-center order-last md:order-first relative">
-            <div
-              class="w-full max-w-[434px] h-[400px] bg-white flex items-center justify-center relative pointer-events-none">
-              <!-- Vignette fades -->
-              <div
-                class="absolute top-0 inset-x-0 h-24 md:h-32 bg-gradient-to-b from-white via-white/80 to-transparent z-10">
-              </div>
-              <div
-                class="absolute bottom-0 inset-x-0 h-24 md:h-32 bg-gradient-to-t from-white via-white/80 to-transparent z-10">
-              </div>
-              <div
-                class="absolute inset-y-0 left-0 w-16 md:w-24 bg-gradient-to-r from-white via-white/80 to-transparent z-10">
-              </div>
-              <div
-                class="absolute inset-y-0 right-0 w-16 md:w-24 bg-gradient-to-l from-white via-white/80 to-transparent z-10">
-              </div>
-
-              <div class="flex gap-4 md:gap-6 items-center h-[200%]">
-                <!-- Desktop Col 1 - up -->
-                <div class="mt-8 md:mt-16 overflow-visible">
-                  <div class="integration-col-up flex flex-col gap-4 md:gap-6"
-                    style="animation: integrationUp 15s linear infinite">
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/drive icon.png" loading="lazy" alt="drive"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/seismic icon.png" loading="lazy" alt="seismic"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/drive icon.png" loading="lazy" alt="drive"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/onedrive icon.png" loading="lazy" alt="onedrive"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                  </div>
-                </div>
-                <!-- Desktop Col 2 - down -->
-                <div class="-mt-8 md:-mt-16 overflow-visible">
-                  <div class="integration-col-down flex flex-col gap-4 md:gap-6"
-                    style="animation: integrationDown 18s linear infinite">
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/slack icon.png" loading="lazy" alt="slack"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/gong icon.png" loading="lazy" alt="gong"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/highspot icon.png" loading="lazy" alt="highspot"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/slack icon.png" loading="lazy" alt="slack"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/gong icon.png" loading="lazy" alt="gong"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                  </div>
-                </div>
-                <!-- Desktop Col 3 - up -->
-                <div class="mt-12 md:mt-24 overflow-visible">
-                  <div class="integration-col-up flex flex-col gap-4 md:gap-6"
-                    style="animation: integrationUp 20s linear infinite">
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/notion icon.png" loading="lazy" alt="notion"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/teams icon.png" loading="lazy" alt="teams"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/Hubspot Icon.png" loading="lazy" alt="hubspot"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/zendesk icon.png" loading="lazy" alt="zendesk"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/notion icon.png" loading="lazy" alt="notion"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
-                    <div
-                      class="w-[85px] h-[85px] md:w-[115px] md:h-[115px] rounded-2xl md:rounded-[24px] bg-[#F7F7F7] flex items-center justify-center shrink-0">
-                      <img src="./src/assets/teams icon.png" loading="lazy" alt="teams"
-                        class="w-10 h-10 md:w-12 md:h-12 object-contain" />
-                    </div>
+                  <div
+                    class="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0"
+                  >
+                    <img src="./src/assets/teams icon.png" loading="lazy" alt="teams" class="w-8 h-8 md:w-10 md:h-10 object-contain" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Right: text -->
-          <div class="w-full md:w-[45%] text-center md:text-left order-first md:order-last md:pl-12">
-            <p class="anseru-section-tag">Integrations</p>
-            <h2 class="anseru-section-title mt-3">
-              Connect to the Tools <br class="hidden md:block" />You Already Use
-            </h2>
-          </div>
-
-        </div><!-- end desktop -->
-
-      </div>
+        </div>
+      </section>
     </section>
-    <style>
-      @keyframes mobileIntUp {
-        0% {
-          transform: translateY(0);
-        }
-
-        100% {
-          transform: translateY(-50%);
-        }
-      }
-
-      @keyframes mobileIntDown {
-        0% {
-          transform: translateY(-50%);
-        }
-
-        100% {
-          transform: translateY(0);
-        }
-      }
-    </style>
-
-  </section>
 
 
   <section data-section id="faq" class="scroll-mt-5">
