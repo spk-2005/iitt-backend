@@ -1,3 +1,4 @@
+
 import "./index.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -745,6 +746,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFlipCards();
 
   initDesktopCarousel();
+  initMobileCarousel();
   initDesktopTwoAgents();
   buildRFPWorkflow();
   initFAQ();
