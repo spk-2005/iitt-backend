@@ -244,8 +244,15 @@
       sections.forEach((section) => observer.observe(section));
     });
   </script>
+  <style>
+    @media (max-width: 450px) {
+      #home {
+        height: calc(100svh - (24px + clamp(12px, 5.97vw, 24px) * 1.3));
+      }
+    }
+  </style>
   <section data-section id="home"
-    class="overflow-hidden bg-white max-[450px]:h-[calc(100svh-55px)] max-[450px]:flex max-[450px]:flex-col">
+    class="overflow-hidden bg-white max-[450px]:flex max-[450px]:flex-col">
     <div class="relative w-full overflow-hidden shrink-0" style="height: clamp(120px,62vw, 370px);">
       <!-- Background: full image, no cutoff, scales with container -->
       <div class="absolute inset-0 w-full h-full" style="
@@ -485,7 +492,7 @@
         </div>
 
         <!-- MOBILE CAROUSEL -->
-        <div id="problem-mobile-gsap" class="md:hidden relative w-full bg-white" style="height: 150vh;">
+        <div id="problem-mobile-gsap" class="md:hidden relative w-full bg-white" style="height: 250vh;">
           <div class="sticky top-0 w-full bg-white flex flex-col" style="
             height: auto;
             overflow: hidden;
@@ -693,6 +700,7 @@
                 width: 300%;
                 transform: translateX(0);
                 will-change: transform;
+                transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
                 align-items: center;
               ">
 
@@ -822,7 +830,7 @@
                 </div>
 
             <!-- Card 3: Compliance -->
-                <div style="width: 33.333333%; display: flex; justify-content: center; flex-shrink: 0;">
+                <div style="width: 33.333333%; display: flex; justify-content: center; flex-shrink: 0; scroll-snap-align: center;">
             <div class="prob-card-wrap snap-center">
               <div class="prob-card team-card">
                 <div class="prob-card-inner team-card-inner">
@@ -917,13 +925,16 @@
               const scrolled = window.scrollY - sectionTop;
               // allow a little offset so it only starts when the header is reached
               const headerOffset = 0; 
-              const range = pSection.offsetHeight - window.innerHeight;
-              const progress = Math.min(1, Math.max(0, (scrolled - headerOffset) / range));
+              const MathMax = Math.max;
+              const MathMin = Math.min;
+              const MathRound = Math.round;
+              const range = MathMax(1, pSection.offsetHeight - window.innerHeight);
+              const progress = MathMin(1, MathMax(0, (scrolled - headerOffset) / range));
               
-              const maxTranslate = (SLIDES - 1) * (100 / SLIDES);
-              pTrack.style.transform = `translateX(-${progress * maxTranslate}%)`;
+              const activeIdx = MathMin(SLIDES - 1, MathMax(0, Math.floor(progress * SLIDES)));
+              const translatePct = activeIdx * (100 / SLIDES);
+              pTrack.style.transform = `translateX(-${translatePct}%)`;
 
-              const activeIdx = Math.round(progress * (SLIDES - 1));
               updateDots(activeIdx);
             }
 
@@ -941,6 +952,7 @@
 
             window.addEventListener('scroll', pOnScroll, { passive: true });
             window.addEventListener('resize', pOnScroll);
+            // Initial call
             pOnScroll();
           })();
         </script>
@@ -1142,623 +1154,632 @@
     </div>
   </section>
 
-  <section data-section id="how-it-works" class="scroll-mt-5">
-      <!-- MOBILE carousel -->
-      <div class="lg:hidden w-full bg-white pb-10">
-        <div class="pt-2 pb-4 px-4 text-center">
-          <p class="anseru-section-tag">How It Works</p>
-          <h2 class="anseru-section-title mt-1 mb-5 px-2">How Anseru Turns Knowledge Into Winning Deals</h2>
-          <div id="carousel-indicators-mobile" class="flex justify-center items-center gap-0 max-w-145 mx-auto px-4">
-            <div class="flex items-center">
-              <button
-                data-idx="0"
-                class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-black bg-gray-100"
-              >
-                Connect
-              </button>
-              <div class="w-5 sm:w-10 h-px bg-gray-200 -mx-1 sm:-mx-2"></div>
+    <section data-section id="how-it-works" class="scroll-mt-5">
+        <!-- MOBILE carousel -->
+     <!-- MOBILE carousel -->
+<div id="hiw-mobile-gsap" class="lg:hidden relative w-full bg-white" style="height: 350vh;">
+  <div class="sticky top-0 w-full bg-white pb-10 flex flex-col" style="height: auto; overflow: hidden;">
+  
+  <!-- Header - LEFT aligned -->
+  <div class="pt-14 pb-4 px-4">
+    <p class="text-[#6B7280] text-[13px] font-normal tracking-wide mb-1 text-left">How it Works</p>
+    <h2 class="font-normal text-[#111827] text-[clamp(22px,7vw,28px)] leading-[1.15] tracking-[-0.02em] text-left mb-5">
+      How Anseru Turns Knowledge Into Winning Deals
+    </h2>
+
+    <!-- Pill Navigation -->
+    <div class="w-full overflow-x-auto" style="scrollbar-width:none;">
+      <div id="hiw-pills-mobile" class="flex items-center gap-1 w-max">
+        <button data-idx="0" class="hiw-pill text-[13px] font-medium px-4 py-1.5 rounded-[5px]  bg-black text-white whitespace-nowrap transition-all duration-300">Connect</button>
+        <button data-idx="1" class="hiw-pill text-[13px] font-medium px-4 py-1.5 rounded-[5px]  bg-transparent text-gray-400 whitespace-nowrap transition-all duration-300">Upload</button>
+        <button data-idx="2" class="hiw-pill text-[13px] font-medium px-4 py-1.5 rounded-[5px]  bg-transparent text-gray-400 whitespace-nowrap transition-all duration-300">Respond</button>
+        <button data-idx="3" class="hiw-pill text-[13px] font-medium px-4 py-1.5 rounded-[5px]  bg-transparent text-gray-400 whitespace-nowrap transition-all duration-300">Approve</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Track wrapper -->
+  <div id="hiw-track-wrapper" style="width:100%; overflow:hidden;">
+    <div id="hiw-mobile-track" style="
+      display: flex;
+      width: 400%;
+      transform: translateX(0px);
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+      align-items: flex-start;
+    ">
+
+      <!-- Slide 0: Connect -->
+      <div class="hiw-slide" style="width:25%; flex-shrink:0; padding: 0 16px; box-sizing:border-box;">
+          <!-- Heading -->
+        <h3 class="font-normal text-[#111111] text-[14px] leading-snug mb-3">1. Connect your knowledge</h3>
+      
+        <!-- Card FIRST -->
+        <div class="h-[260px] sm:h-[300px] mb-5">
+          <div class="text-white w-full h-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a1">
+            <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
+            <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode:overlay;"></div>
+            <div class="relative z-20 p-5 space-y-1">
+              <h3 class="font-medium text-[13px] leading-snug w-[80%]">Turn complex RFPs into clear, winning responses</h3>
             </div>
-            <div class="flex items-center">
-              <button
-                data-idx="1"
-                class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-gray-400 hover:text-gray-600"
-              >
-                Upload
-              </button>
-              <div class="w-5 sm:w-10 h-px bg-gray-200 -mx-1 sm:-mx-2"></div>
-            </div>
-            <div class="flex items-center">
-              <button
-                data-idx="2"
-                class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-gray-400 hover:text-gray-600"
-              >
-                Respond
-              </button>
-              <div class="w-5 sm:w-10 h-px bg-gray-200 -mx-1 sm:-mx-2"></div>
-            </div>
-            <div class="flex items-center">
-              <button
-                data-idx="3"
-                class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-gray-400 hover:text-gray-600"
-              >
-                Approve
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          id="carousel-mobile-track"
-          class="flex overflow-x-auto snap-x snap-mandatory"
-          style="scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch"
-        >
-          <!-- Slide 0 -->
-          <div class="flex-shrink-0 snap-center snap-always px-4 sm:px-6" style="width: 100vw">
-            <div class="space-y-5">
-              <div class="space-y-3">
-                <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">1. Connect your knowledge</h2>
-                <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
-                  Your single living source of truth. Anseru connects to where your knowledge already lives. Sync Google Drive, SharePoint, Teams, Jira, Slack,
-                  and Dropbox or upload your internal documents directly. Your answer library builds itself and stays current automatically.
-                </p>
-              </div>
-              <div class="space-y-3 pt-1">
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Indexes past RFPs, security docs, and compliance content automatically</span
-                  >
-                </div>
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Integrates with your existing storage and communication systems</span
-                  >
-                </div>
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Improves continuously as your team uses and approves new answers</span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="mt-5 h-[300px] sm:h-[360px]">
-              <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a1 h-full">
-                <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
-                <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
-                <div class="relative z-20 p-6 md:p-8 space-y-2">
-                  <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
-                </div>
-                <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
-                  <img src="./src/assets/Intro-Page.webp" alt="1. Connect your knowledge" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-shrink-0 snap-center snap-always px-4 sm:px-6" style="width: 100vw">
-            <div class="space-y-5">
-              <div class="space-y-3">
-                <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">2. Upload RFPs &amp; Security Questionnaires</h2>
-                <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
-                  Drop in any document in any format. Anseru reads the full document, identifies every requirement, and maps each question to your verified
-                  knowledge base, in seconds.
-                </p>
-              </div>
-              <div class="space-y-3 pt-1">
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"/></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed">Accepts PDF, DOCX, XLSX documents.</span>
-                </div>
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Automatically identifies and classifies every question and sub-requirement</span
-                  >
-                </div>
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Maps each item to your verified answer library before you begin</span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="mt-5 h-[300px] sm:h-[360px]">
-              <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a2 h-full">
-                <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
-                <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
-                <div class="relative z-20 p-6 md:p-8 space-y-2">
-                  <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
-                </div>
-                <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
-                  <img src="./src/assets/Intro Page (3).png" alt="2. Upload RFPs" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-shrink-0 snap-center snap-always px-4 sm:px-6" style="width: 100vw">
-            <div class="space-y-5">
-              <div class="space-y-3">
-                <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">3. Generate AI Draft Responses</h2>
-                <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
-                  Anseru generates a full response draft using your verified documentation and past approved answers. Every answer is traceable to a real
-                  source, so drafts arrive ready for review, not ready to be rewritten from scratch.
-                </p>
-              </div>
-              <div class="space-y-3 pt-1">
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Drafts complete responses from your verified internal knowledge base</span
-                  >
-                </div>
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Flags low-confidence answers for SME review before submission</span
-                  >
-                </div>
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Saves hours of manual writing and cross-referencing per deal</span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="mt-5 h-[300px] sm:h-[360px]">
-              <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a3 h-full">
-                <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
-                <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
-                <div class="relative z-20 p-6 md:p-8 space-y-2">
-                  <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
-                </div>
-                <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
-                  <img src="./src/assets/Intro Page (8).png" alt="3. Generate AI Draft Responses" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-shrink-0 snap-center snap-always px-4 sm:px-6" style="width: 100vw">
-            <div class="space-y-5">
-              <div class="space-y-3">
-                <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">4. SME Review &amp; Approval</h2>
-                <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
-                  Anseru focuses your experts on what only they can answer. Standard questions arrive pre-drafted and ready to approve. Novel, flagged, and
-                  high-risk items are surfaced for review before anything leaves the building.
-                </p>
-              </div>
-              <div class="space-y-3 pt-1">
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Routes only flagged and novel questions to subject matter experts</span
-                  >
-                </div>
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Full audit trail of every review, edit, and approval decision</span
-                  >
-                </div>
-                <div class="flex gap-3 items-start">
-                  <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                      fill="#a1a1aa"
-                    /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                    >Every submission is clean, compliant, and signed off before it goes out</span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="mt-5 h-[300px] sm:h-[360px]">
-              <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a4 h-full">
-                <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
-                <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
-                <div class="relative z-20 p-6 md:p-8 space-y-2">
-                  <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
-                </div>
-                <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
-                  <img src="./src/assets/Intro Page (1).png" alt="4. SME Review & Approval" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
-                </div>
-              </div>
+            <div class="mt-auto relative z-10 flex justify-end w-full overflow-hidden">
+              <img src="./src/assets/Intro-Page.webp" alt="Connect" class="h-auto w-[92%] rounded-b-[10px] object-top" />
             </div>
           </div>
         </div>
-        <div id="carousel-dots-mobile" class="flex justify-center gap-2 mt-6">
-          <button data-dot="0" class="carousel-dot rounded-full transition-all duration-300 w-5 h-2 bg-gray-700" aria-label="Go to slide 1"></button>
-          <button data-dot="1" class="carousel-dot rounded-full transition-all duration-300 w-2 h-2 bg-gray-300" aria-label="Go to slide 2"></button>
-          <button data-dot="2" class="carousel-dot rounded-full transition-all duration-300 w-2 h-2 bg-gray-300" aria-label="Go to slide 3"></button>
-          <button data-dot="3" class="carousel-dot rounded-full transition-all duration-300 w-2 h-2 bg-gray-300" aria-label="Go to slide 4"></button>
+        <!-- Description -->
+        <p class="text-[#6B7280] text-[13px] leading-relaxed mb-4">
+          Your single living source of truth. Anseru connects to where your knowledge already lives. Sync Google Drive, SharePoint, Teams, Jira, Slack, and Dropbox or upload your internal documents directly.
+        </p>
+        <!-- Bullets -->
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Indexes past RFPs, security docs, and compliance content automatically</span>
+          </div>
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Integrates with your existing storage and communication systems</span>
+          </div>
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Improves continuously as your team uses and approves new answers</span>
+          </div>
         </div>
       </div>
 
+      <!-- Slide 1: Upload -->
+      <div class="hiw-slide" style="width:25%; flex-shrink:0; padding: 0 16px; box-sizing:border-box;">
+        <h3 class="font-normal text-[#111111] text-[14px] leading-snug mb-3">2. Upload RFPs &amp; Security Questionnaires</h3>
+        <div class="h-[260px] sm:h-[300px] mb-5">
+          <div class="text-white w-full h-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a2">
+            <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
+            <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode:overlay;"></div>
+            <div class="relative z-20 p-5 space-y-1">
+              <h3 class="font-medium text-[13px] leading-snug w-[80%]">Extract precise constraints with pinpoint accuracy</h3>
+            </div>
+            <div class="mt-auto relative z-10 flex justify-end w-full overflow-hidden">
+              <img src="./src/assets/Intro Page (3).png" alt="Upload" class="h-auto w-[92%] rounded-b-[10px] object-top" />
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-[#6B7280] text-[13px] leading-relaxed mb-4">
+          Drop in any document in any format. Anseru reads the full document, identifies every requirement, and maps each question to your verified knowledge base, in seconds.
+        </p>
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Accepts PDF, DOCX, XLSX documents</span>
+          </div>
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Automatically identifies and classifies every question and sub-requirement</span>
+          </div>
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Maps each item to your verified answer library before you begin</span>
+          </div>
+        </div>
+      </div>
 
-      <div id="carousel-desktop" class="hidden lg:block relative w-full bg-white" style="height: 400vh">
-        <div class="sticky w-full bg-white overflow-hidden" style="top: 12px; height: calc(100vh - 12px)">
-          <div class="relative z-20 pt-6 pb-2">
-            <div class="text-center">
-              <p class="anseru-section-tag">How It Works</p>
-              <h2 class="anseru-section-title mt-2 mb-4">How Anseru Turns Knowledge<br />Into Winning Deals</h2>
-              <div id="carousel-indicators-desktop" class="flex justify-center items-center gap-0 max-w-[580px] mx-auto px-4">
-                <div class="flex items-center">
-                  <button
-                    data-idx="0"
-                    class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-black bg-gray-100"
-                  >
-                    Connect
-                  </button>
-                  <div class="w-5 sm:w-10 h-px bg-gray-200 -mx-1 sm:-mx-2"></div>
-                </div>
-                <div class="flex items-center">
-                  <button
-                    data-idx="1"
-                    class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-gray-400 hover:text-gray-600"
-                  >
-                    Upload
-                  </button>
-                  <div class="w-5 sm:w-10 h-px bg-gray-200 -mx-1 sm:-mx-2"></div>
-                </div>
-                <div class="flex items-center">
-                  <button
-                    data-idx="2"
-                    class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-gray-400 hover:text-gray-600"
-                  >
-                    Respond
-                  </button>
-                  <div class="w-5 sm:w-10 h-px bg-gray-200 -mx-1 sm:-mx-2"></div>
-                </div>
-                <div class="flex items-center">
-                  <button
-                    data-idx="3"
-                    class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-gray-400 hover:text-gray-600"
-                  >
-                    Approve
-                  </button>
+      <!-- Slide 2: Respond -->
+      <div class="hiw-slide" style="width:25%; flex-shrink:0; padding: 0 16px; box-sizing:border-box;">
+                <h3 class="font-normal text-[#111111] text-[14px] leading-snug mb-3">3. Generate AI Draft Responses</h3>
+        <div class="h-[260px] sm:h-[300px] mb-5">
+          <div class="text-white w-full h-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a3">
+            <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
+            <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode:overlay;"></div>
+            <div class="relative z-20 p-5 space-y-1">
+          
+            </div>
+            <div class="mt-auto relative z-10 flex justify-end w-full overflow-hidden">
+              <img src="./src/assets/Intro Page (8).png" alt="Respond" class="h-auto w-[92%] rounded-b-[10px] object-top" />
+            </div>
+          </div>
+        </div>
+  
+        <p class="text-[#6B7280] text-[13px] leading-relaxed mb-4">
+          Anseru generates a full response draft using your verified documentation and past approved answers. Every answer is traceable to a real source, so drafts arrive ready for review.
+        </p>
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Drafts complete responses from your verified internal knowledge base</span>
+          </div>
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Flags low-confidence answers for SME review before submission</span>
+          </div>
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Saves hours of manual writing and cross-referencing per deal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: Approve -->
+      <div class="hiw-slide" style="width:25%; flex-shrink:0; padding: 0 16px; box-sizing:border-box;">
+       <h3 class="font-normal text-[#111111] text-[14px] leading-snug mb-3">4. SME Review &amp; Approval</h3>
+        <div class="h-[260px] sm:h-[300px] mb-5">
+          <div class="text-white w-full h-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a4">
+            <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
+            <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode:overlay;"></div>
+            <div class="relative z-20 p-5 space-y-1">
+         
+            </div>
+            <div class="mt-auto relative z-10 flex justify-end w-full overflow-hidden">
+              <img src="./src/assets/Intro Page (1).png" alt="Approve" class="h-auto w-[92%] rounded-b-[10px] object-top" />
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-[#6B7280] text-[13px] leading-relaxed mb-4">
+          Anseru focuses your experts on what only they can answer. Standard questions arrive pre-drafted and ready to approve. Novel, flagged, and high-risk items are surfaced for review.
+        </p>
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Routes only flagged and novel questions to subject matter experts</span>
+          </div>
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Full audit trail of every review, edit, and approval decision</span>
+          </div>
+          <div class="flex gap-2.5 items-start">
+            <svg width="14" height="14" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5"><path d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z" fill="#a1a1aa"/></svg>
+            <span class="text-[#666] text-[13px] leading-relaxed">Every submission is clean, compliant, and signed off before it goes out</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end track -->
+  </div><!-- end wrapper -->
+
+  <!-- Dots -->
+  <div class="flex justify-center gap-2 mt-6">
+    <button data-dot="0" class="hiw-dot rounded-full transition-all duration-300 w-5 h-2 bg-gray-700"></button>
+    <button data-dot="1" class="hiw-dot rounded-full transition-all duration-300 w-2 h-2 bg-gray-300"></button>
+    <button data-dot="2" class="hiw-dot rounded-full transition-all duration-300 w-2 h-2 bg-gray-300"></button>
+    <button data-dot="3" class="hiw-dot rounded-full transition-all duration-300 w-2 h-2 bg-gray-300"></button>
+  </div>
+
+  </div>
+</div><!-- end mobile section -->
+
+<script>
+(function () {
+  const wrapper = document.getElementById('hiw-track-wrapper');
+  const track = document.getElementById('hiw-mobile-track');
+  if (!track || !wrapper) return;
+
+  const pills = document.querySelectorAll('#hiw-pills-mobile .hiw-pill');
+  const dots = document.querySelectorAll('.hiw-dot');
+  const SLIDES = 4;
+  let currentIdx = 0;
+  let isAnimating = false;
+
+  function getSlideWidth() {
+    return wrapper.offsetWidth;
+  }
+
+  function goToSlide(idx) {
+    idx = Math.max(0, Math.min(SLIDES - 1, idx));
+    currentIdx = idx;
+    const slideWidth = getSlideWidth();
+    track.style.transform = `translateX(-${idx * slideWidth}px)`;
+
+    // Update pills
+    pills.forEach((pill, i) => {
+      if (i === idx) {
+        pill.classList.add('bg-black', 'text-white');
+        pill.classList.remove('bg-transparent', 'text-gray-400');
+      } else {
+        pill.classList.remove('bg-black', 'text-white');
+        pill.classList.add('bg-transparent', 'text-gray-400');
+      }
+    });
+
+    // Update dots
+    dots.forEach((dot, i) => {
+      dot.className = i === idx
+        ? 'hiw-dot rounded-full transition-all duration-300 w-5 h-2 bg-gray-700'
+        : 'hiw-dot rounded-full transition-all duration-300 w-2 h-2 bg-gray-300';
+    });
+  }
+
+  // Pill clicks
+  pills.forEach((pill, i) => {
+    pill.addEventListener('click', () => window.scrollToHiwMobileSlide(i));
+  });
+
+  // Dot clicks
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => window.scrollToHiwMobileSlide(i));
+  });
+
+  function onHiwScroll() {
+    const hSection = document.getElementById('hiw-mobile-gsap');
+    if (!hSection) return;
+    const sectionTop = hSection.getBoundingClientRect().top + window.scrollY;
+    const scrolled = window.scrollY - sectionTop;
+    const range = Math.max(1, hSection.offsetHeight - window.innerHeight);
+    const progress = Math.min(1, Math.max(0, scrolled / range));
+    const activeIdx = Math.min(SLIDES - 1, Math.max(0, Math.floor(progress * SLIDES)));
+    if (currentIdx !== activeIdx) {
+      goToSlide(activeIdx);
+    }
+  }
+
+  window.scrollToHiwMobileSlide = function (idx) {
+    const hSection = document.getElementById('hiw-mobile-gsap');
+    if (!hSection) return;
+    idx = Math.max(0, Math.min(SLIDES - 1, idx));
+    const sectionTop = hSection.getBoundingClientRect().top + window.scrollY;
+    const range = Math.max(1, hSection.offsetHeight - window.innerHeight);
+    const targetY = sectionTop + (idx / SLIDES) * range + 10;
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+  };
+
+  window.addEventListener('scroll', onHiwScroll, { passive: true });
+  window.addEventListener('resize', onHiwScroll);
+  onHiwScroll();
+})();
+</script>
+
+        <div id="carousel-desktop" class="hidden lg:block relative w-full bg-white" style="height: 400vh">
+          <div class="sticky w-full bg-white overflow-hidden" style="top: 12px; height: calc(100vh - 12px)">
+            <div class="relative z-20 pt-6 pb-2">
+              <div class="text-center">
+                <p class="anseru-section-tag">How It Works</p>
+                <h2 class="anseru-section-title mt-2 mb-4">How Anseru Turns Knowledge<br />Into Winning Deals</h2>
+                <div id="carousel-indicators-desktop" class="flex justify-center items-center gap-0 max-w-[580px] mx-auto px-4">
+                  <div class="flex items-center">
+                    <button
+                      data-idx="0"
+                      class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-black bg-gray-100"
+                    >
+                      Connect
+                    </button>
+                    <div class="w-5 sm:w-10 h-px bg-gray-200 -mx-1 sm:-mx-2"></div>
+                  </div>
+                  <div class="flex items-center">
+                    <button
+                      data-idx="1"
+                      class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-gray-400 hover:text-gray-600"
+                    >
+                      Upload
+                    </button>
+                    <div class="w-5 sm:w-10 h-px bg-gray-200 -mx-1 sm:-mx-2"></div>
+                  </div>
+                  <div class="flex items-center">
+                    <button
+                      data-idx="2"
+                      class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-gray-400 hover:text-gray-600"
+                    >
+                      Respond
+                    </button>
+                    <div class="w-5 sm:w-10 h-px bg-gray-200 -mx-1 sm:-mx-2"></div>
+                  </div>
+                  <div class="flex items-center">
+                    <button
+                      data-idx="3"
+                      class="carousel-ind-btn text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full text-gray-400 hover:text-gray-600"
+                    >
+                      Approve
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="absolute left-0 right-0 bottom-0 overflow-hidden" style="top: 180px">
-            <div id="carousel-strip" class="flex h-full" style="width: 400vw; will-change: transform">
-              <!-- Slide 0 -->
-              <div class="carousel-slide-panel flex-shrink-0 h-full" style="width: 100vw">
-                <div class="max-w-[1300px] mx-auto h-full px-8 xl:px-16">
-                  <div class="grid h-full py-5" style="grid-template-columns: 5fr 7fr; gap: 2rem">
-                    <div
-                      class="carousel-slide-text flex items-center min-h-0"
-                      data-slide="0"
-                      style="
-                        transition:
-                          opacity 0.55s,
-                          transform 0.55s;
-                        opacity: 1;
-                        transform: translateY(0px);
-                      "
-                    >
-                      <div class="w-full space-y-5">
-                        <div class="space-y-3">
-                          <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">1. Connect your knowledge</h2>
-                          <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
-                            Your single living source of truth. Anseru connects to where your knowledge already lives. Sync Google Drive, SharePoint, Teams,
-                            Jira, Slack, and Dropbox or upload your internal documents directly. Your answer library builds itself and stays current
-                            automatically.
-                          </p>
-                        </div>
-                        <div class="space-y-3 pt-1">
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                              >Indexes past RFPs, security docs, and compliance content automatically</span
-                            >
+            <div class="absolute left-0 right-0 bottom-0 overflow-hidden" style="top: 180px">
+              <div id="carousel-strip" class="flex h-full" style="width: 400vw; will-change: transform">
+                <!-- Slide 0 -->
+                <div class="carousel-slide-panel flex-shrink-0 h-full" style="width: 100vw">
+                  <div class="max-w-[1300px] mx-auto h-full px-8 xl:px-16">
+                    <div class="grid h-full py-5" style="grid-template-columns: 5fr 7fr; gap: 2rem">
+                      <div
+                        class="carousel-slide-text flex items-center min-h-0"
+                        data-slide="0"
+                        style="
+                          transition:
+                            opacity 0.55s,
+                            transform 0.55s;
+                          opacity: 1;
+                          transform: translateY(0px);
+                        "
+                      >
+                        <div class="w-full space-y-5">
+                          <div class="space-y-3">
+                            <h2 class="font-normal text-[#111111] text-[15px] md:text-[18px] leading-snug">1. Connect your knowledge</h2>
+                            <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
+                              Your single living source of truth. Anseru connects to where your knowledge already lives. Sync Google Drive, SharePoint, Teams,
+                              Jira, Slack, and Dropbox or upload your internal documents directly. Your answer library builds itself and stays current
+                              automatically.
+                            </p>
                           </div>
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                              >Integrates with your existing storage and communication systems</span
-                            >
-                          </div>
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                              >Improves continuously as your team uses and approves new answers</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="carousel-slide-card min-h-0 flex"
-                      data-slide="0"
-                      style="
-                        transition:
-                          opacity 0.55s,
-                          transform 0.55s;
-                        opacity: 1;
-                        scale: 1;
-                      "
-                    >
-                      <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a1 h-full">
-                        <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
-                        <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
-                        <div class="relative z-20 p-6 md:p-8 space-y-2">
-                          <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs <br /> into clear, winning<br /> responses</h2>
-                        </div>
-                        <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
-                          <img src="./src/assets/Intro-Page.webp" alt="1. Connect your knowledge" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top max-h-[65vh] object-bottom rounded-b-[10px]" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-slide-panel flex-shrink-0 h-full" style="width: 100vw">
-                <div class="max-w-[1300px] mx-auto h-full px-8 xl:px-16">
-                  <div class="grid h-full py-5" style="grid-template-columns: 5fr 7fr; gap: 2rem">
-                    <div
-                      class="carousel-slide-text flex items-center min-h-0"
-                      data-slide="1"
-                      style="
-                        transition:
-                          opacity 0.55s,
-                          transform 0.55s;
-                        opacity: 0.2;
-                        transform: translateY(16px);
-                      "
-                    >
-                      <div class="w-full space-y-5">
-                        <div class="space-y-3">
-                          <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">2. Upload RFPs &amp; Security Questionnaires</h2>
-                          <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
-                            Drop in any document in any format. Anseru reads the full document, identifies every requirement, and maps each question to your
-                            verified knowledge base, in seconds.
-                          </p>
-                        </div>
-                        <div class="space-y-3 pt-1">
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed">Accepts PDF, DOCX, XLSX documents.</span>
-                          </div>
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                              >Automatically identifies and classifies every question and sub-requirement</span
-                            >
-                          </div>
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                              >Maps each item to your verified answer library before you begin</span
-                            >
+                          <div class="space-y-3 pt-1">
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
+                                >Indexes past RFPs, security docs, and compliance content automatically</span
+                              >
+                            </div>
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
+                                >Integrates with your existing storage and communication systems</span
+                              >
+                            </div>
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
+                                >Improves continuously as your team uses and approves new answers</span
+                              >
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div
-                      class="carousel-slide-card min-h-0 flex"
-                      data-slide="1"
-                      style="
-                        transition:
-                          opacity 0.55s,
-                          transform 0.55s;
-                        opacity: 0.4;
-                        scale: 0.96;
-                      "
-                    >
-                      <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a2 h-full">
-                        <img src="./src/assets/Group 1437253216.png" loading="lazy" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
-                        <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
-                        <div class="relative z-20 p-6 md:p-8 space-y-2">
-                          <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
-                        </div>
-                        <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
-                          <img src="./src/assets/Intro Page (3).png" loading="lazy" alt="2. Upload RFPs" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
+                      <div
+                        class="carousel-slide-card min-h-0 flex"
+                        data-slide="0"
+                        style="
+                          transition:
+                            opacity 0.55s,
+                            transform 0.55s;
+                          opacity: 1;
+                          scale: 1;
+                        "
+                      >
+                        <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a1 h-full">
+                          <img src="./src/assets/Group 1437253216.png" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
+                          <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
+                          <div class="relative z-20 p-6 md:p-8 space-y-2">
+                            <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs <br /> into clear, winning<br /> responses</h2>
+                          </div>
+                          <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                            <img src="./src/assets/Intro-Page.webp" alt="1. Connect your knowledge" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top max-h-[65vh] object-bottom rounded-b-[10px]" />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="carousel-slide-panel flex-shrink-0 h-full" style="width: 100vw">
-                <div class="max-w-[1300px] mx-auto h-full px-8 xl:px-16">
-                  <div class="grid h-full py-5" style="grid-template-columns: 5fr 7fr; gap: 2rem">
-                    <div
-                      class="carousel-slide-text flex items-center min-h-0"
-                      data-slide="2"
-                      style="
-                        transition:
-                          opacity 0.55s,
-                          transform 0.55s;
-                        opacity: 0.2;
-                        transform: translateY(16px);
-                      "
-                    >
-                      <div class="w-full space-y-5">
-                        <div class="space-y-3">
-                          <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">3. Generate AI Draft Responses</h2>
-                          <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
-                            Anseru generates a full response draft using your verified documentation and past approved answers. Every answer is traceable to a
-                            real source, so drafts arrive ready for review, not ready to be rewritten from scratch.
-                          </p>
-                        </div>
-                        <div class="space-y-3 pt-1">
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                              >Drafts complete responses from your verified internal knowledge base</span
-                            >
+                <div class="carousel-slide-panel flex-shrink-0 h-full" style="width: 100vw">
+                  <div class="max-w-[1300px] mx-auto h-full px-8 xl:px-16">
+                    <div class="grid h-full py-5" style="grid-template-columns: 5fr 7fr; gap: 2rem">
+                      <div
+                        class="carousel-slide-text flex items-center min-h-0"
+                        data-slide="1"
+                        style="
+                          transition:
+                            opacity 0.55s,
+                            transform 0.55s;
+                          opacity: 0.2;
+                          transform: translateY(16px);
+                        "
+                      >
+                        <div class="w-full space-y-5">
+                          <div class="space-y-3">
+                            <h2 class="font-normal text-[#111111] text-[15px] md:text-[18px] leading-snug">2. Upload RFPs &amp; Security Questionnaires</h2>
+                            <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
+                              Drop in any document in any format. Anseru reads the full document, identifies every requirement, and maps each question to your
+                              verified knowledge base, in seconds.
+                            </p>
                           </div>
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"                              >Flags low-confidence answers for SME review before submission</span
-                            >
-                          </div>
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                              >Saves hours of manual writing and cross-referencing per deal</span
-                            >
+                          <div class="space-y-3 pt-1">
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed">Accepts PDF, DOCX, XLSX documents.</span>
+                            </div>
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
+                                >Automatically identifies and classifies every question and sub-requirement</span
+                              >
+                            </div>
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
+                                >Maps each item to your verified answer library before you begin</span
+                              >
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div
-                      class="carousel-slide-card min-h-0 flex"
-                      data-slide="2"
-                      style="
-                        transition:
-                          opacity 0.55s,
-                          transform 0.55s;
-                        opacity: 0.4;
-                        scale: 0.96;
-                      "
-                    >
-                      <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a3 h-full">
-                        <img src="./src/assets/Group 1437253216.png" loading="lazy" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
-                        <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
-                        <div class="relative z-20 p-6 md:p-8 space-y-2">
-                          <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
-                        </div>
-                        <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
-                          <img src="./src/assets/Intro Page (8).png" loading="lazy" alt="3. Generate AI Draft Responses" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
+                      <div
+                        class="carousel-slide-card min-h-0 flex"
+                        data-slide="1"
+                        style="
+                          transition:
+                            opacity 0.55s,
+                            transform 0.55s;
+                          opacity: 0.4;
+                          scale: 0.96;
+                        "
+                      >
+                        <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a2 h-full">
+                          <img src="./src/assets/Group 1437253216.png" loading="lazy" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
+                          <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
+                          <div class="relative z-20 p-6 md:p-8 space-y-2">
+                            <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
+                          </div>
+                          <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                            <img src="./src/assets/Intro Page (3).png" loading="lazy" alt="2. Upload RFPs" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="carousel-slide-panel flex-shrink-0 h-full" style="width: 100vw">
-                <div class="max-w-[1300px] mx-auto h-full px-8 xl:px-16">
-                  <div class="grid h-full py-5" style="grid-template-columns: 5fr 7fr; gap: 2rem">
-                    <div
-                      class="carousel-slide-text flex items-center min-h-0"
-                      data-slide="3"
-                      style="
-                        transition:
-                          opacity 0.55s,
-                          transform 0.55s;
-                        opacity: 0.2;
-                        transform: translateY(16px);
-                      "
-                    >
-                      <div class="w-full space-y-5">
-                        <div class="space-y-3">
-                          <h2 class="font-normal text-[#111111] text-[16px] md:text-[19px] leading-snug">4. SME Review &amp; Approval</h2>
-                          <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
-                            Anseru focuses your experts on what only they can answer. Standard questions arrive pre-drafted and ready to approve. Novel,
-                            flagged, and high-risk items are surfaced for review before anything leaves the building.
-                          </p>
+                <div class="carousel-slide-panel flex-shrink-0 h-full" style="width: 100vw">
+                  <div class="max-w-[1300px] mx-auto h-full px-8 xl:px-16">
+                    <div class="grid h-full py-5" style="grid-template-columns: 5fr 7fr; gap: 2rem">
+                      <div
+                        class="carousel-slide-text flex items-center min-h-0"
+                        data-slide="2"
+                        style="
+                          transition:
+                            opacity 0.55s,
+                            transform 0.55s;
+                          opacity: 0.2;
+                          transform: translateY(16px);
+                        "
+                      >
+                        <div class="w-full space-y-5">
+                          <div class="space-y-3">
+                            <h2 class="font-normal text-[#111111] text-[15px] md:text-[18px] leading-snug">3. Generate AI Draft Responses</h2>
+                            <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
+                              Anseru generates a full response draft using your verified documentation and past approved answers. Every answer is traceable to a
+                              real source, so drafts arrive ready for review, not ready to be rewritten from scratch.
+                            </p>
+                          </div>
+                          <div class="space-y-3 pt-1">
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
+                                >Drafts complete responses from your verified internal knowledge base</span
+                              >
+                            </div>
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"                              >Flags low-confidence answers for SME review before submission</span
+                              >
+                            </div>
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
+                                >Saves hours of manual writing and cross-referencing per deal</span
+                              >
+                            </div>
+                          </div>
                         </div>
-                        <div class="space-y-3 pt-1">
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                              >Routes only flagged and novel questions to subject matter experts</span
-                            >
+                      </div>
+                      <div
+                        class="carousel-slide-card min-h-0 flex"
+                        data-slide="2"
+                        style="
+                          transition:
+                            opacity 0.55s,
+                            transform 0.55s;
+                          opacity: 0.4;
+                          scale: 0.96;
+                        "
+                      >
+                        <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a3 h-full">
+                          <img src="./src/assets/Group 1437253216.png" loading="lazy" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
+                          <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
+                          <div class="relative z-20 p-6 md:p-8 space-y-2">
+                            <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
                           </div>
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                              >Full audit trail of every review, edit, and approval decision</span
-                            >
-                          </div>
-                          <div class="flex gap-3 items-start">
-                            <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
-                                fill="#a1a1aa"
-                              /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
-                              >Every submission is clean, compliant, and signed off before it goes out</span
-                            >
+                          <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                            <img src="./src/assets/Intro Page (8).png" loading="lazy" alt="3. Generate AI Draft Responses" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div
-                      class="carousel-slide-card min-h-0 flex"
-                      data-slide="3"
-                      style="
-                        transition:
-                          opacity 0.55s,
-                          transform 0.55s;
-                        opacity: 0.4;
-                        scale: 0.96;
-                      "
-                    >
-                      <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a4 h-full">
-                        <img src="./src/assets/Group 1437253216.png" loading="lazy" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
-                        <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
-                        <div class="relative z-20 p-6 md:p-8 space-y-2">
-                          <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
+                  </div>
+                </div>
+                <div class="carousel-slide-panel flex-shrink-0 h-full" style="width: 100vw">
+                  <div class="max-w-[1300px] mx-auto h-full px-8 xl:px-16">
+                    <div class="grid h-full py-5" style="grid-template-columns: 5fr 7fr; gap: 2rem">
+                      <div
+                        class="carousel-slide-text flex items-center min-h-0"
+                        data-slide="3"
+                        style="
+                          transition:
+                            opacity 0.55s,
+                            transform 0.55s;
+                          opacity: 0.2;
+                          transform: translateY(16px);
+                        "
+                      >
+                        <div class="w-full space-y-5">
+                          <div class="space-y-3">
+                            <h2 class="font-normal text-[#111111] text-[15px] md:text-[18px] leading-snug">4. SME Review &amp; Approval</h2>
+                            <p class="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
+                              Anseru focuses your experts on what only they can answer. Standard questions arrive pre-drafted and ready to approve. Novel,
+                              flagged, and high-risk items are surfaced for review before anything leaves the building.
+                            </p>
+                          </div>
+                          <div class="space-y-3 pt-1">
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
+                                >Routes only flagged and novel questions to subject matter experts</span
+                              >
+                            </div>
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
+                                >Full audit trail of every review, edit, and approval decision</span
+                              >
+                            </div>
+                            <div class="flex gap-3 items-start">
+                              <svg width="18" height="18" viewBox="0 0 28 26" fill="none" class="flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M14 0L14.1938 11.3187C14.2016 11.774 14.7911 12.0007 15.1434 11.6839L23.8995 3.80761L15.4174 11.9384C15.0762 12.2654 15.3203 12.8129 15.8106 12.8201L28 13L15.8106 13.1799C15.3203 13.1872 15.0762 13.7346 15.4174 14.0617L23.8995 22.1924L15.1434 14.3161C14.7911 13.9993 14.2016 14.226 14.1938 14.6813L14 26L13.8063 14.6813C13.7985 14.226 13.2089 13.9993 12.8567 14.3161L4.1005 22.1924L12.5827 14.0617C12.9239 13.7346 12.6797 13.1872 12.1894 13.1799L0 13L12.1894 12.8201C12.6797 12.8129 12.9239 12.2654 12.5827 11.9384L4.1005 3.80761L12.8567 11.6839C13.2089 12.0007 13.7985 11.774 13.8063 11.3187L14 0Z"
+                                  fill="#a1a1aa"
+                                /></svg><span class="text-[#666666] text-[14px] md:text-[15px] font-normal leading-relaxed"
+                                >Every submission is clean, compliant, and signed off before it goes out</span
+                              >
+                            </div>
+                          </div>
                         </div>
-                        <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
-                          <img src="./src/assets/Intro Page (1).png" loading="lazy" alt="4. SME Review & Approval" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
+                      </div>
+                      <div
+                        class="carousel-slide-card min-h-0 flex"
+                        data-slide="3"
+                        style="
+                          transition:
+                            opacity 0.55s,
+                            transform 0.55s;
+                          opacity: 0.4;
+                          scale: 0.96;
+                        "
+                      >
+                        <div class="text-white w-full flex flex-col justify-start relative overflow-hidden shadow-lg rounded-[10px] card-gradient-a4 h-full">
+                          <img src="./src/assets/Group 1437253216.png" loading="lazy" alt="" class="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10" />
+                          <div class="noise-overlay absolute inset-0 pointer-events-none" style="mix-blend-mode: overlay"></div>
+                          <div class="relative z-20 p-6 md:p-8 space-y-2">
+                            <h2 class="font-medium text-[13px] sm:text-[14px] md:text-[16px] z-20 w-[95%] leading-snug">Turn complex RFPs into clear, winning responses</h2>
+                          </div>
+                          <div class="mt-auto relative z-10 flex justify-end w-full pt-3 relative z-10 flex justify-end overflow-hidden">
+                            <img src="./src/assets/Intro Page (1).png" loading="lazy" alt="4. SME Review & Approval" class="h-auto w-[92%] sm:w-[93%] lg:w-[88%] object-top object-top rounded-b-[10px]" />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1768,345 +1789,313 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 </div>
 
-  <section data-section id="product" class="scroll-mt-4">
-    <div id="agents-mobile-carousel" class="lg:hidden relative w-full bg-white" style="height: 300vh">
-      <div class="sticky top-0 w-full bg-white" style="overflow-x:hidden;">
+<section data-section id="product" class="scroll-mt-4">
 
-        <!-- Header -->
-        <div style="padding: clamp(56px,14vw,72px) clamp(14px,4vw,20px) 0;" class="flex flex-col">
-          <p style="font-size: clamp(11px, 3.48vw, 14px); color:#6b7280; margin-bottom:4px; font-weight:400;">Proven
-            Results</p>
-          <h2
-            style="font-size: clamp(13px, 5.97vw, 36px); line-height:1.1; font-weight:400; letter-spacing:-0.02em; color:#000; margin:0 0 clamp(12px,3vw,16px);">
-            Two Super Agents
-          </h2>
+  <!-- ───────────────────────────────────────────
+       MOBILE  (< lg)  — scroll-driven carousel
+  ─────────────────────────────────────────────── -->
+  <div id="agents-mobile-carousel" class="lg:hidden relative w-full bg-white" style="height: 200vh;">
+    <div class="sticky top-0 w-full bg-white" style="overflow-x: hidden;">
+
+      <!-- Header -->
+      <div style="padding: clamp(56px,14vw,72px) clamp(14px,4vw,20px) 0;" class="flex flex-col">
+        <p style="font-size: clamp(11px,3.48vw,14px); color:#6b7280; margin-bottom:4px; font-weight:400;">Proven Results</p>
+        <h2 style="font-size: clamp(13px,5.97vw,36px); line-height:1.1; font-weight:400; letter-spacing:-0.02em; color:#000; margin:0 0 clamp(12px,3vw,16px);">
+          Two Super Agents
+        </h2>
+      </div>
+
+      <!-- Tab Pills -->
+      <div style="padding: 0 clamp(10px,4vw,20px); margin-bottom: clamp(12px,3vw,16px);">
+        <div class="inline-flex w-fit items-center gap-0.5 min-[250px]:gap-1 bg-gray-100 p-0.5 min-[250px]:p-1 rounded-xl flex-wrap">
+          <button id="mobile-tab-archer"
+            onclick="if(window.scrollToAgentMobileSlide) window.scrollToAgentMobileSlide(0)"
+            style="font-size: clamp(9px,2.74vw,14px);"
+            class="flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-black text-white whitespace-nowrap">
+            Meet Archer
+            <img src="./src/assets/Sud.png" loading="lazy" alt="archer"
+              class="brightness-0 invert w-3 min-[250px]:w-4 h-3 min-[250px]:h-4" />
+          </button>
+          <button id="mobile-tab-knox"
+            onclick="if(window.scrollToAgentMobileSlide) window.scrollToAgentMobileSlide(1)"
+            style="font-size: clamp(9px,2.74vw,14px);"
+            class="flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-transparent text-black hover:bg-gray-200 whitespace-nowrap">
+            Meet Knox
+            <img src="./src/assets/kg.png" loading="lazy" alt="knox"
+              class="w-3 min-[250px]:w-4 h-3 min-[250px]:h-4" />
+          </button>
         </div>
+      </div>
 
-        <!-- Tab Pills -->
-        <div style="padding: 0 clamp(10px,4vw,20px); margin-bottom: clamp(12px,3vw,16px);">
-          <div
-            class="inline-flex w-fit items-center gap-0.5 min-[250px]:gap-1 bg-gray-100 p-0.5 min-[250px]:p-1 rounded-xl flex-wrap">
-            <button id="mobile-tab-archer"
-              onclick="if(window.scrollToAgentMobileSlide) window.scrollToAgentMobileSlide(0)"
-              style="font-size: clamp(9px, 2.74vw, 14px);"
-              class="flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-black text-white whitespace-nowrap">
-              Meet Archer
-              <img src="./src/assets/Sud.png" loading="lazy" alt="archer"
-                class="brightness-0 invert w-3 min-[250px]:w-4 h-3 min-[250px]:h-4" />
-            </button>
-            <button id="mobile-tab-knox"
-              onclick="if(window.scrollToAgentMobileSlide) window.scrollToAgentMobileSlide(1)"
-              style="font-size: clamp(9px, 2.74vw, 14px)"
-              class="flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-transparent text-black hover:bg-gray-200 whitespace-nowrap">
-              Meet Knox
-              <img src="./src/assets/kg.png" loading="lazy" alt="knox"
-                class="w-3 min-[250px]:w-4 h-3 min-[250px]:h-4" />
-            </button>
-          </div>
-        </div>
-
-        <!-- Slide Track Wrapper — clips horizontally only -->
-        <div style="overflow-x:hidden; overflow-y:visible;">
-          <div id="agents-mobile-track" style="
-          display:flex;
-          width:200vw;
-          transform:translateX(0);
-          will-change:transform;
-          transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
-          align-items:flex-start;
+      <!-- Slide Track -->
+      <div style="overflow-x: hidden; overflow-y: visible;">
+        <div id="agents-mobile-track" style="
+          display: flex;
+          width: 200vw;
+          transform: translateX(0);
+          will-change: transform;
+          transition: transform 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+          align-items: flex-start;
         ">
 
-            <!-- Slide 0: Archer -->
-            <div
-              style="width:100vw; flex-shrink:0; padding: 0 clamp(14px,4vw,20px) clamp(24px,6vw,40px); box-sizing:border-box;">
-              <div class="border border-[#e5e7eb] rounded-xl overflow-hidden flex flex-col">
+          <!-- ── SLIDE 0 : Archer ── -->
+          <div style="width:100vw; flex-shrink:0; padding: 0 clamp(14px,4vw,20px) clamp(24px,6vw,40px); box-sizing:border-box;">
+            <div class="border border-[#e5e7eb] rounded-xl overflow-hidden flex flex-col">
 
-                <!-- Hero Card -->
-                <div class="bg-white border-b border-[#e5e7eb]">
-                  <div class="relative flex flex-col justify-between overflow-hidden" style="
-                  background: linear-gradient(180deg, #201cae 0%, #6aa4ee 100%);
-                  padding: clamp(16px, 5vw, 32px);
-                  height: clamp(200px, 60vw, 300px);
+              <!-- Hero Card -->
+              <div class="bg-white border-b border-[#e5e7eb]">
+                <div class="relative flex flex-col justify-between overflow-hidden" style="
+                  background: linear-gradient(180deg,#201cae 0%,#6aa4ee 100%);
+                  padding: clamp(16px,5vw,32px);
+                  height: clamp(200px,60vw,300px);
                   border-radius: 8px;
                 ">
-                    <div class="noise-overlay absolute inset-0 opacity-100 pointer-events-none"></div>
-                    <div class="relative">
-                      <img src="./src/assets/Frame (9).png" loading="lazy" alt=""
-                        style="width: clamp(60px, 18vw, 112px); height: auto; opacity: 0.9;" />
-                    </div>
-                    <div class="relative mt-auto">
-                      <h3
-                        style="font-size: clamp(16px, 6.7vw, 32px); font-weight:400; color:#fff; margin-bottom: clamp(8px,2.5vw,16px); line-height:1.1;">
-                        RFP Agent
-                      </h3>
-                      <div class="flex flex-wrap" style="gap: clamp(4px, 1.5vw, 8px);">
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Instant RFP
-                          breakdown</span>
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Terminology
-                          translation</span>
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Proposal-ready
-                          answers</span>
-                      </div>
-                    </div>
+                  <div class="noise-overlay absolute inset-0 opacity-100 pointer-events-none"></div>
+                  <div class="relative">
+                    <img src="./src/assets/Frame (9).png" loading="lazy" alt=""
+                      style="width: clamp(60px,18vw,112px); height:auto; opacity:0.9;" />
                   </div>
-                </div>
-
-                <!-- Feature Grid -->
-                <div class="p-2 min-[250px]:p-4 relative overflow-hidden">
-                  <div class="absolute pointer-events-none"
-                    style="background-image: linear-gradient(to right,#000 1px,transparent 1px), linear-gradient(to bottom,#000 1px,transparent 1px); background-size:150px 150px;">
-                  </div>
-                  <div
-                    class="grid grid-cols-1 min-[250px]:grid-cols-2 grid-rows-4 min-[250px]:grid-rows-2 bg-[#f4f4f5] relative z-10">
-
-                    <div class="flex flex-col justify-between border-b min-[250px]:border-r border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Instant RFP<br />intelligence
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Automatically extracts key requirements, timelines, stakeholders, and evaluation criteria.
-                      </p>
+                  <div class="relative mt-auto">
+                    <h3 style="font-size: clamp(16px,6.7vw,32px); font-weight:400; color:#fff; margin-bottom: clamp(8px,2.5vw,16px); line-height:1.1;">
+                      RFP Agent
+                    </h3>
+                    <div class="flex flex-wrap" style="gap: clamp(4px,1.5vw,8px);">
+                      <span style="font-size: clamp(9px,2.74vw,13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                        class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Instant RFP breakdown</span>
+                      <span style="font-size: clamp(9px,2.74vw,13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                        class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Terminology translation</span>
+                      <span style="font-size: clamp(9px,2.74vw,13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                        class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Proposal-ready answers</span>
                     </div>
-
-                    <div class="flex flex-col justify-between border-b border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Terminology<br />mapping
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Translates feature requirements to your internal product language.
-                      </p>
-                    </div>
-
-                    <div
-                      class="flex flex-col justify-between border-b min-[250px]:border-b-0 min-[250px]:border-r border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Bid / No-Bid<br />clarity
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Helps teams decide whether to pursue.
-                      </p>
-                    </div>
-
-                    <div class="flex flex-col justify-between border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Structured proposal<br />generation
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Generates responses across technical, product, security, and legal sections with contextual
-                        intelligence.
-                      </p>
-                    </div>
-
                   </div>
                 </div>
               </div>
+
+              <!-- Feature Grid -->
+              <div class="p-2 min-[250px]:p-4 relative overflow-hidden">
+                <div class="grid grid-cols-1 min-[250px]:grid-cols-2 grid-rows-4 min-[250px]:grid-rows-2 bg-[#f4f4f5] relative z-10">
+
+                  <div class="flex flex-col justify-between border-b min-[250px]:border-r border-[#e5e7eb]"
+                    style="padding: clamp(10px,3.5vw,24px); min-height: clamp(90px,28vw,140px);">
+                    <h4 style="font-size: clamp(11px,3.73vw,16px); font-weight:400; color:#000; line-height:1.2;">
+                      Instant RFP<br />intelligence
+                    </h4>
+                    <p style="font-size: clamp(10px,3vw,13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                      Automatically extracts key requirements, timelines, stakeholders, and evaluation criteria.
+                    </p>
+                  </div>
+
+                  <div class="flex flex-col justify-between border-b border-[#e5e7eb]"
+                    style="padding: clamp(10px,3.5vw,24px); min-height: clamp(90px,28vw,140px);">
+                    <h4 style="font-size: clamp(11px,3.73vw,16px); font-weight:400; color:#000; line-height:1.2;">
+                      Terminology<br />mapping
+                    </h4>
+                    <p style="font-size: clamp(10px,3vw,13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                      Translates feature requirements to your internal product language.
+                    </p>
+                  </div>
+
+                  <div class="flex flex-col justify-between border-b min-[250px]:border-b-0 min-[250px]:border-r border-[#e5e7eb]"
+                    style="padding: clamp(10px,3.5vw,24px); min-height: clamp(90px,28vw,140px);">
+                    <h4 style="font-size: clamp(11px,3.73vw,16px); font-weight:400; color:#000; line-height:1.2;">
+                      Bid / No-Bid<br />clarity
+                    </h4>
+                    <p style="font-size: clamp(10px,3vw,13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                      Helps teams decide whether to pursue.
+                    </p>
+                  </div>
+
+                  <div class="flex flex-col justify-between border-[#e5e7eb]"
+                    style="padding: clamp(10px,3.5vw,24px); min-height: clamp(90px,28vw,140px);">
+                    <h4 style="font-size: clamp(11px,3.73vw,16px); font-weight:400; color:#000; line-height:1.2;">
+                      Structured proposal<br />generation
+                    </h4>
+                    <p style="font-size: clamp(10px,3vw,13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                      Generates responses across technical, product, security, and legal sections with contextual intelligence.
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
+          </div><!-- end Slide 0 -->
 
-            <!-- Slide 1: Knox -->
-            <div
-              style="width:100vw; flex-shrink:0; padding: 0 clamp(14px,4vw,20px) clamp(24px,6vw,40px); box-sizing:border-box;">
-              <div class="border border-[#e5e7eb] rounded-xl overflow-hidden flex flex-col">
+          <!-- ── SLIDE 1 : Knox ── (identical structure to Archer) -->
+          <div style="width:100vw; flex-shrink:0; padding: 0 clamp(14px,4vw,20px) clamp(24px,6vw,40px); box-sizing:border-box;">
+            <div class="border border-[#e5e7eb] rounded-xl overflow-hidden flex flex-col">
 
-                <!-- Hero Card -->
-                <div class="p-3.5 bg-white border-b border-[#e5e7eb]">
-                  <div class="relative flex flex-col justify-between overflow-hidden" style="
-                  background: linear-gradient(45deg, #1d80f9 0%, #e74f62 100%);
-                  padding: clamp(16px, 5vw, 32px);
-                  height: clamp(200px, 60vw, 300px);
+              <!-- Hero Card — same wrapper as Archer, NO extra p-3.5 div -->
+              <div class="bg-white border-b border-[#e5e7eb]">
+                <div class="relative flex flex-col justify-between overflow-hidden" style="
+                  background: linear-gradient(45deg,#1d80f9 0%,#e74f62 100%);
+                  padding: clamp(16px,5vw,32px);
+                  height: clamp(200px,60vw,300px);
                   border-radius: 8px;
                 ">
-                    <div class="noise-overlay absolute inset-0 opacity-100 pointer-events-none"></div>
-                    <div class="relative">
-                      <img src="./src/assets/Frame (10).png" loading="lazy" alt=""
-                        style="width: clamp(60px, 18vw, 112px); height: auto; opacity: 0.9;" />
-                    </div>
-                    <div class="relative mt-auto">
-                      <h3
-                        style="font-size: clamp(14px, 5.97vw, 32px); font-weight:400; color:#fff; margin-bottom: clamp(8px,2.5vw,16px); line-height:1.1;">
-                        Security<br />Questionnaire Agent
-                      </h3>
-                      <div class="flex flex-wrap" style="gap: clamp(4px, 1.5vw, 8px);">
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Evidence-backed
-                          answers</span>
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">No
-                          contradictions</span>
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Compliance-ready</span>
-                      </div>
-                    </div>
+                  <div class="noise-overlay absolute inset-0 opacity-100 pointer-events-none"></div>
+                  <div class="relative">
+                    <img src="./src/assets/Frame (10).png" loading="lazy" alt=""
+                      style="width: clamp(60px,18vw,112px); height:auto; opacity:0.9;" />
                   </div>
-                </div>
-
-                <!-- Feature Grid -->
-                <div class="p-2 min-[250px]:p-4 relative overflow-hidden">
-                  <div class="absolute pointer-events-none opacity-[0.1]"
-                    style="background-image: linear-gradient(to right,#000 1px,transparent 1px), linear-gradient(to bottom,#000 1px,transparent 1px); background-size:150px 150px;">
-                  </div>
-                  <div
-                    class="grid grid-cols-1 min-[250px]:grid-cols-2 grid-rows-4 min-[250px]:grid-rows-2 bg-[#f4f4f5] relative z-10">
-
-                    <div class="flex flex-col justify-between border-b min-[250px]:border-r border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        95%+ response<br />accuracy
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Generated from verified security documentation.
-                      </p>
+                  <div class="relative mt-auto">
+                    <h3 style="font-size: clamp(16px,6.7vw,32px); font-weight:400; color:#fff; margin-bottom: clamp(8px,2.5vw,16px); line-height:1.1;">
+                      Security<br />Questionnaire Agent
+                    </h3>
+                    <div class="flex flex-wrap" style="gap: clamp(4px,1.5vw,8px);">
+                      <span style="font-size: clamp(9px,2.74vw,13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                        class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Evidence-backed answers</span>
+                      <span style="font-size: clamp(9px,2.74vw,13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                        class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">No contradictions</span>
+                      <span style="font-size: clamp(9px,2.74vw,13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
+                        class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Compliance-ready</span>
                     </div>
-
-                    <div class="flex flex-col justify-between border-b border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        70-90% faster<br />reviews
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Eliminates repetitive questionnaires saving SME time.
-                      </p>
-                    </div>
-
-                    <div
-                      class="flex flex-col justify-between border-b min-[250px]:border-b-0 min-[250px]:border-r border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Audit-ready<br />answers
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Aligned with current policies and controls.
-                      </p>
-                    </div>
-
-                    <div class="flex flex-col justify-between border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Evidence-backed<br />responses
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Every answer is grounded in policies, certifications, and security evidence.
-                      </p>
-                    </div>
-
                   </div>
                 </div>
               </div>
+
+              <!-- Feature Grid — identical structure to Archer -->
+              <div class="p-2 min-[250px]:p-4 relative overflow-hidden">
+                <div class="grid grid-cols-1 min-[250px]:grid-cols-2 grid-rows-4 min-[250px]:grid-rows-2 bg-[#f4f4f5] relative z-10">
+
+                  <div class="flex flex-col justify-between border-b min-[250px]:border-r border-[#e5e7eb]"
+                    style="padding: clamp(10px,3.5vw,24px); min-height: clamp(90px,28vw,140px);">
+                    <h4 style="font-size: clamp(11px,3.73vw,16px); font-weight:400; color:#000; line-height:1.2;">
+                      95%+ response<br />accuracy
+                    </h4>
+                    <p style="font-size: clamp(10px,3vw,13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                      Generated from verified security documentation.
+                    </p>
+                  </div>
+
+                  <div class="flex flex-col justify-between border-b border-[#e5e7eb]"
+                    style="padding: clamp(10px,3.5vw,24px); min-height: clamp(90px,28vw,140px);">
+                    <h4 style="font-size: clamp(11px,3.73vw,16px); font-weight:400; color:#000; line-height:1.2;">
+                      70-90% faster<br />reviews
+                    </h4>
+                    <p style="font-size: clamp(10px,3vw,13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                      Eliminates repetitive questionnaires saving SME time.
+                    </p>
+                  </div>
+
+                  <div class="flex flex-col justify-between border-b min-[250px]:border-b-0 min-[250px]:border-r border-[#e5e7eb]"
+                    style="padding: clamp(10px,3.5vw,24px); min-height: clamp(90px,28vw,140px);">
+                    <h4 style="font-size: clamp(11px,3.73vw,16px); font-weight:400; color:#000; line-height:1.2;">
+                      Audit-ready<br />answers
+                    </h4>
+                    <p style="font-size: clamp(10px,3vw,13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                      Aligned with current policies and controls.
+                    </p>
+                  </div>
+
+                  <div class="flex flex-col justify-between border-[#e5e7eb]"
+                    style="padding: clamp(10px,3.5vw,24px); min-height: clamp(90px,28vw,140px);">
+                    <h4 style="font-size: clamp(11px,3.73vw,16px); font-weight:400; color:#000; line-height:1.2;">
+                      Evidence-backed<br />responses
+                    </h4>
+                    <p style="font-size: clamp(10px,3vw,13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
+                      Every answer is grounded in policies, certifications, and security evidence.
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
+          </div><!-- end Slide 1 -->
 
-          </div><!-- end track -->
-        </div><!-- end track wrapper -->
+        </div><!-- end track -->
+      </div><!-- end track wrapper -->
 
-      </div><!-- end sticky -->
-    </div><!-- end outer 300vh -->
+    </div><!-- end sticky -->
+  </div><!-- end 300vh outer -->
 
-    <script>
-      (function () {
-        var aSection = document.getElementById('agents-mobile-carousel');
-        if (!aSection) return;
+  <script>
+    (function () {
+      var section = document.getElementById('agents-mobile-carousel');
+      if (!section) return;
 
-        var aTrack = document.getElementById('agents-mobile-track');
-        var aPills = [
-          document.getElementById('mobile-tab-archer'),
-          document.getElementById('mobile-tab-knox')
-        ];
-        var SLIDES = 2;
-        var targetProgress = 0;
-        var currentProgress = 0;
-        var isScrolling = false;
+      var track = document.getElementById('agents-mobile-track');
+      var pills = [
+        document.getElementById('mobile-tab-archer'),
+        document.getElementById('mobile-tab-knox')
+      ];
+      var SLIDES = 2;
 
-        function updateDOM() {
-          var diff = targetProgress - currentProgress;
-          if (Math.abs(diff) < 0.001) {
-            currentProgress = targetProgress;
-            isScrolling = false;
-          } else {
-            currentProgress += diff * 0.15;
-            requestAnimationFrame(updateDOM);
-          }
+      /* ── helpers ── */
+      function getSectionTop() { return section.getBoundingClientRect().top + window.scrollY; }
+      function getRange()      { return section.offsetHeight - window.innerHeight; }
 
-          var idx = Math.round(currentProgress * (SLIDES - 1));
-          idx = Math.max(0, Math.min(SLIDES - 1, idx));
-          
-          aPills.forEach(function (b, i) {
-            if (!b) return;
-            var isActive = i === idx;
-            b.className = isActive
-              ? 'flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-black text-white whitespace-nowrap'
-              : 'flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-transparent text-black hover:bg-gray-200 whitespace-nowrap';
-            var img = b.querySelector('img');
-            if (img) {
-              img.className = isActive
-                ? 'brightness-0 invert w-3 min-[250px]:w-4 h-3 min-[250px]:h-4'
-                : 'w-3 min-[250px]:w-4 h-3 min-[250px]:h-4';
-            }
-          });
+      /*
+        The 300vh section is split into 3 equal zones (each = 1 viewport-height of scroll):
+          Zone 0 : progress 0.00 – 0.50  → Slide 0  (Archer)
+          Zone 1 : progress 0.50 – 1.00  → Slide 1  (Knox)
 
-          aTrack.style.transition = 'none';
-          aTrack.style.transform = 'translateX(-' + (currentProgress * 100 * (SLIDES - 1)) + 'vw)';
-        }
+        Section is 200vh. Each zone = 100vh = one scroll gesture.
+        The moment Knox lands (p=1) the sticky releases and normal scroll resumes.
+      */
+      var ZONE_SIZE = 1 / SLIDES; // 0.5 — one 100vh zone per slide, no exit buffer
 
-        function aOnScroll() {
-          var sectionTop = aSection.getBoundingClientRect().top + window.scrollY;
-          var scrolled = window.scrollY - sectionTop;
-          var range = aSection.offsetHeight - window.innerHeight;
-          targetProgress = Math.min(1, Math.max(0, scrolled / (range || 1)));
-          
-          if (!isScrolling) {
-            isScrolling = true;
-            requestAnimationFrame(updateDOM);
-          }
-        }
+      var currentSlide = -1; // force first paint
 
-        window.scrollToAgentMobileSlide = function (idx) {
-          idx = Math.max(0, Math.min(SLIDES - 1, idx));
-          var sectionTop = aSection.getBoundingClientRect().top + window.scrollY;
-          var range = aSection.offsetHeight - window.innerHeight;
-          var targetY = sectionTop + (idx / Math.max(1, SLIDES - 1)) * range + 1;
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
-        };
+      function applySlide(idx) {
+        idx = Math.max(0, Math.min(SLIDES - 1, idx));
+        if (idx === currentSlide) return;
+        currentSlide = idx;
 
-        window.addEventListener('scroll', aOnScroll, { passive: true });
-        window.addEventListener('resize', aOnScroll);
-        
-        // Init state
-        aOnScroll(); 
-        if (!isScrolling) {
-          isScrolling = true;
-          requestAnimationFrame(updateDOM);
-        }
-      })();
-    </script>
+        track.style.transition = 'transform 0.55s cubic-bezier(0.25,1,0.5,1)';
+        track.style.transform  = 'translateX(-' + (idx * 100) + 'vw)';
 
-    <!-- Desktop section unchanged -->
-    <div id="two-agents-desktop" class="hidden lg:block w-full bg-white relative" style="height: 200vh">
-      <!-- ... your existing desktop code stays exactly as-is ... -->
-    </div>
-  </section>
+        pills.forEach(function (btn, i) {
+          if (!btn) return;
+          var active = i === idx;
+          btn.className = [
+            'flex items-center gap-1 min-[250px]:gap-2',
+            'px-2 min-[250px]:px-4 sm:px-5',
+            'py-1.5 min-[250px]:py-2.5',
+            'rounded-lg font-medium transition-all cursor-pointer whitespace-nowrap',
+            active ? 'bg-black text-white' : 'bg-transparent text-black hover:bg-gray-200'
+          ].join(' ');
+          var img = btn.querySelector('img');
+          if (img) img.className = (active ? 'brightness-0 invert ' : '') + 'w-3 min-[250px]:w-4 h-3 min-[250px]:h-4';
+        });
+      }
+
+      function onScroll() {
+        var scrolled = window.scrollY - getSectionTop();
+        var range    = getRange() || 1;
+        var p        = Math.min(1, Math.max(0, scrolled / range));
+
+        /* Which zone are we in? Clamp to last slide index. */
+        var zone = Math.floor(p / ZONE_SIZE);
+        var idx  = Math.min(zone, SLIDES - 1);
+        applySlide(idx);
+      }
+
+      /* Public API for pill buttons */
+      window.scrollToAgentMobileSlide = function (idx) {
+        idx = Math.max(0, Math.min(SLIDES - 1, idx));
+        var range   = getRange();
+        /* Scroll to the middle of that zone so onScroll resolves to the right slide */
+        var targetY = getSectionTop() + (idx * ZONE_SIZE + ZONE_SIZE * 0.5) * range;
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      onScroll(); /* initialise */
+    })();
+  </script>
+
+  <!-- Desktop section (unchanged) -->
+  <div id="two-agents-desktop" class="hidden lg:block w-full bg-white relative" style="height: 200vh;">
+    <!-- … your existing desktop code stays exactly as-is … -->
+  </div>
+
+</section>
 <section data-section id="workflow" class="scroll-mt-5">
   <div class="w-full md:min-h-screen" style="font-family: Inter, sans-serif">
     <div class="max-w-300 mx-auto px-6">
@@ -2146,317 +2135,7 @@
 </section>
 
 
-  <section data-section id="product" class="scroll-mt-4">
-    <div id="agents-mobile-carousel" class="lg:hidden relative w-full bg-white" style="height: 200vh">
-      <div class="sticky top-0 w-full bg-white" style="overflow-x:hidden;">
-
-        <!-- Header -->
-        <div style="padding: clamp(56px,14vw,72px) clamp(14px,4vw,20px) 0;" class="flex flex-col">
-          <p style="font-size: clamp(11px, 3.48vw, 14px); color:#6b7280; margin-bottom:4px; font-weight:400;">Proven
-            Results</p>
-          <h2
-            style="font-size: clamp(13px, 5.97vw, 36px); line-height:1.1; font-weight:400; letter-spacing:-0.02em; color:#000; margin:0 0 clamp(12px,3vw,16px);">
-            Two Super Agents
-          </h2>
-        </div>
-
-        <!-- Tab Pills -->
-        <div style="padding: 0 clamp(10px,4vw,20px); margin-bottom: clamp(12px,3vw,16px);">
-          <div
-            class="inline-flex w-fit items-center gap-0.5 min-[250px]:gap-1 bg-gray-100 p-0.5 min-[250px]:p-1 rounded-xl flex-wrap">
-            <button id="mobile-tab-archer"
-              onclick="if(window.scrollToAgentMobileSlide) window.scrollToAgentMobileSlide(0)"
-              style="font-size: clamp(9px, 2.74vw, 14px);"
-              class="flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-black text-white whitespace-nowrap">
-              Meet Archer
-              <img src="./src/assets/Sud.png" loading="lazy" alt="archer"
-                class="brightness-0 invert w-3 min-[250px]:w-4 h-3 min-[250px]:h-4" />
-            </button>
-            <button id="mobile-tab-knox"
-              onclick="if(window.scrollToAgentMobileSlide) window.scrollToAgentMobileSlide(1)"
-              style="font-size: clamp(9px, 2.74vw, 14px)"
-              class="flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-transparent text-black hover:bg-gray-200 whitespace-nowrap">
-              Meet Knox
-              <img src="./src/assets/kg.png" loading="lazy" alt="knox"
-                class="w-3 min-[250px]:w-4 h-3 min-[250px]:h-4" />
-            </button>
-          </div>
-        </div>
-
-        <!-- Slide Track Wrapper — clips horizontally only -->
-        <div style="overflow-x:hidden; overflow-y:visible;">
-          <div id="agents-mobile-track" style="
-          display:flex;
-          width:200vw;
-          transform:translateX(0);
-          will-change:transform;
-          transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
-          align-items:flex-start;
-        ">
-
-            <!-- Slide 0: Archer -->
-            <div
-              style="width:100vw; flex-shrink:0; padding: 0 clamp(14px,4vw,20px) clamp(24px,6vw,40px); box-sizing:border-box;">
-              <div class="border border-[#e5e7eb] rounded-xl overflow-hidden flex flex-col">
-
-                <!-- Hero Card -->
-                <div class="bg-white border-b border-[#e5e7eb]">
-                  <div class="relative flex flex-col justify-between overflow-hidden" style="
-                  background: linear-gradient(180deg, #201cae 0%, #6aa4ee 100%);
-                  padding: clamp(16px, 5vw, 32px);
-                  height: clamp(200px, 60vw, 300px);
-                  border-radius: 8px;
-                ">
-                    <div class="noise-overlay absolute inset-0 opacity-100 pointer-events-none"></div>
-                    <div class="relative">
-                      <img src="./src/assets/Frame (9).png" loading="lazy" alt=""
-                        style="width: clamp(60px, 18vw, 112px); height: auto; opacity: 0.9;" />
-                    </div>
-                    <div class="relative mt-auto">
-                      <h3
-                        style="font-size: clamp(16px, 6.7vw, 32px); font-weight:400; color:#fff; margin-bottom: clamp(8px,2.5vw,16px); line-height:1.1;">
-                        RFP Agent
-                      </h3>
-                      <div class="flex flex-wrap" style="gap: clamp(4px, 1.5vw, 8px);">
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Instant RFP
-                          breakdown</span>
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Terminology
-                          translation</span>
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Proposal-ready
-                          answers</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Feature Grid -->
-                <div class="p-2 min-[250px]:p-4 relative overflow-hidden">
-                  <div class="absolute pointer-events-none"
-                    style="background-image: linear-gradient(to right,#000 1px,transparent 1px), linear-gradient(to bottom,#000 1px,transparent 1px); background-size:150px 150px;">
-                  </div>
-                  <div
-                    class="grid grid-cols-1 min-[250px]:grid-cols-2 grid-rows-4 min-[250px]:grid-rows-2 bg-[#f4f4f5] relative z-10">
-
-                    <div class="flex flex-col justify-between border-b min-[250px]:border-r border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Instant RFP<br />intelligence
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Automatically extracts key requirements, timelines, stakeholders, and evaluation criteria.
-                      </p>
-                    </div>
-
-                    <div class="flex flex-col justify-between border-b border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Terminology<br />mapping
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Translates feature requirements to your internal product language.
-                      </p>
-                    </div>
-
-                    <div
-                      class="flex flex-col justify-between border-b min-[250px]:border-b-0 min-[250px]:border-r border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Bid / No-Bid<br />clarity
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Helps teams decide whether to pursue.
-                      </p>
-                    </div>
-
-                    <div class="flex flex-col justify-between border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Structured proposal<br />generation
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Generates responses across technical, product, security, and legal sections with contextual
-                        intelligence.
-                      </p>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slide 1: Knox -->
-            <div
-              style="width:100vw; flex-shrink:0; padding: 0 clamp(14px,4vw,20px) clamp(24px,6vw,40px); box-sizing:border-box;">
-              <div class="border border-[#e5e7eb] rounded-xl overflow-hidden flex flex-col">
-
-                <!-- Hero Card -->
-                <div class="p-3.5 bg-white border-b border-[#e5e7eb]">
-                  <div class="relative flex flex-col justify-between overflow-hidden" style="
-                  background: linear-gradient(45deg, #1d80f9 0%, #e74f62 100%);
-                  padding: clamp(16px, 5vw, 32px);
-                  height: clamp(200px, 60vw, 300px);
-                  border-radius: 8px;
-                ">
-                    <div class="noise-overlay absolute inset-0 opacity-100 pointer-events-none"></div>
-                    <div class="relative">
-                      <img src="./src/assets/Frame (10).png" loading="lazy" alt=""
-                        style="width: clamp(60px, 18vw, 112px); height: auto; opacity: 0.9;" />
-                    </div>
-                    <div class="relative mt-auto">
-                      <h3
-                        style="font-size: clamp(14px, 5.97vw, 32px); font-weight:400; color:#fff; margin-bottom: clamp(8px,2.5vw,16px); line-height:1.1;">
-                        Security<br />Questionnaire Agent
-                      </h3>
-                      <div class="flex flex-wrap" style="gap: clamp(4px, 1.5vw, 8px);">
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Evidence-backed
-                          answers</span>
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">No
-                          contradictions</span>
-                        <span
-                          style="font-size: clamp(9px, 2.74vw, 13px); padding: clamp(3px,1vw,4px) clamp(6px,2vw,12px);"
-                          class="text-white bg-white/20 rounded-[4px] border border-white/40 font-normal">Compliance-ready</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Feature Grid -->
-                <div class="p-2 min-[250px]:p-4 relative overflow-hidden">
-                  <div class="absolute pointer-events-none opacity-[0.1]"
-                    style="background-image: linear-gradient(to right,#000 1px,transparent 1px), linear-gradient(to bottom,#000 1px,transparent 1px); background-size:150px 150px;">
-                  </div>
-                  <div
-                    class="grid grid-cols-1 min-[250px]:grid-cols-2 grid-rows-4 min-[250px]:grid-rows-2 bg-[#f4f4f5] relative z-10">
-
-                    <div class="flex flex-col justify-between border-b min-[250px]:border-r border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        95%+ response<br />accuracy
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Generated from verified security documentation.
-                      </p>
-                    </div>
-
-                    <div class="flex flex-col justify-between border-b border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        70-90% faster<br />reviews
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Eliminates repetitive questionnaires saving SME time.
-                      </p>
-                    </div>
-
-                    <div
-                      class="flex flex-col justify-between border-b min-[250px]:border-b-0 min-[250px]:border-r border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Audit-ready<br />answers
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Aligned with current policies and controls.
-                      </p>
-                    </div>
-
-                    <div class="flex flex-col justify-between border-[#e5e7eb]"
-                      style="padding: clamp(10px, 3.5vw, 24px); min-height: clamp(90px, 28vw, 140px);">
-                      <h4 style="font-size: clamp(11px, 3.73vw, 16px); font-weight:400; color:#000; line-height:1.2;">
-                        Evidence-backed<br />responses
-                      </h4>
-                      <p
-                        style="font-size: clamp(10px, 3vw, 13px); color:#6b7280; line-height:1.4; margin-top: clamp(6px,2vw,12px);">
-                        Every answer is grounded in policies, certifications, and security evidence.
-                      </p>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div><!-- end track -->
-        </div><!-- end track wrapper -->
-
-      </div><!-- end sticky -->
-    </div><!-- end outer 200vh -->
-
-    <script>
-      (function () {
-        var aSection = document.getElementById('agents-mobile-carousel');
-        if (!aSection) return;
-
-        var aTrack = document.getElementById('agents-mobile-track');
-        var aPills = [
-          document.getElementById('mobile-tab-archer'),
-          document.getElementById('mobile-tab-knox')
-        ];
-        var SLIDES = 2;
-
-        function aSetActive(idx) {
-          idx = Math.max(0, Math.min(SLIDES - 1, idx));
-          aPills.forEach(function (b, i) {
-            if (!b) return;
-            var isActive = i === idx;
-            b.className = isActive
-              ? 'flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-black text-white whitespace-nowrap'
-              : 'flex items-center gap-1 min-[250px]:gap-2 px-2 min-[250px]:px-4 sm:px-5 py-1.5 min-[250px]:py-2.5 rounded-lg font-medium transition-all cursor-pointer bg-transparent text-black hover:bg-gray-200 whitespace-nowrap';
-            var img = b.querySelector('img');
-            if (img) {
-              img.className = isActive
-                ? 'brightness-0 invert w-3 min-[250px]:w-4 h-3 min-[250px]:h-4'
-                : 'w-3 min-[250px]:w-4 h-3 min-[250px]:h-4';
-            }
-          });
-          aTrack.style.transition = 'transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94)';
-          aTrack.style.transform = 'translateX(-' + (idx * 100) + 'vw)';
-        }
-
-        function aOnScroll() {
-          var sectionTop = aSection.getBoundingClientRect().top + window.scrollY;
-          var scrolled = window.scrollY - sectionTop;
-          var range = aSection.offsetHeight - window.innerHeight;
-          var progress = Math.min(1, Math.max(0, scrolled / range));
-          var idx = Math.min(SLIDES - 1, Math.floor(progress * SLIDES));
-          aSetActive(idx);
-        }
-
-        window.scrollToAgentMobileSlide = function (idx) {
-          idx = Math.max(0, Math.min(SLIDES - 1, idx));
-          var sectionTop = aSection.getBoundingClientRect().top + window.scrollY;
-          var range = aSection.offsetHeight - window.innerHeight;
-          var targetY = sectionTop + (idx / SLIDES) * range + 1;
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
-        };
-
-        window.addEventListener('scroll', aOnScroll, { passive: true });
-        window.addEventListener('resize', aOnScroll);
-        aSetActive(0);
-      })();
-    </script>
-
-    <!-- Desktop section unchanged -->
-    <div id="two-agents-desktop" class="hidden lg:block w-full bg-white relative" style="height: 200vh">
-      <!-- ... your existing desktop code stays exactly as-is ... -->
-    </div>
-  </section>
+  
 
 
   <section data-section id="features" class="scroll-mt-12 mt-[1120px] md:mt-[200px] lg:mt-[280px]">
@@ -3111,7 +2790,7 @@
 
 
   <section data-section id="faq" class="scroll-mt-5">
-    <section class="w-full pt-16 md:py-24 bg-[#f3f4f6]">
+    <section class="w-full  bg-[#f3f4f6]">
       <div class="max-w-[1400px] mx-auto px-4 min-[250px]:px-6 md:px-12">
 
         <!-- Header -->

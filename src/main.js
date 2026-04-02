@@ -683,7 +683,21 @@ function initProblemCarousel() {
     }
   });
 }
+function getSlideWidth() {
+  const wrapper = document.getElementById('prob-track-wrapper');
+  return wrapper ? wrapper.offsetWidth : window.innerWidth;
+}
 
+function goToSlide(idx) {
+  idx = Math.max(0, Math.min(SLIDES - 1, idx));
+  currentIdx = idx;
+  const slideWidth = getSlideWidth();
+  pTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+  pTrack.style.transform = `translateX(-${idx * slideWidth}px)`;
+  updateDots(idx);
+}
+
+window.addEventListener('resize', () => goToSlide(currentIdx));
 
 // ── 3D flip cards ────────────────────────────────────────────────────────────
 function initFlipCards() {
