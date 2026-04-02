@@ -279,10 +279,6 @@ function buildSVG() {
   const isSM = containerW < 600;
   const isMD = containerW < 900;
 
-  const R  = isXS ? 175 : isSM ? 215 : isMD ? 270 : 320;
-  const NR = isXS ? 13  : isSM ? 16  : isMD ? 20  : 25;
-  const NUM_TICKS = 400;
-
   const titleFontSize = isXS ? 18 : isSM ? 21 : isMD ? 24 : 29;
   const lineHeight    = titleFontSize * 1.28;
   const CHAR_LIMIT    = 16;
@@ -295,11 +291,12 @@ function buildSVG() {
   // Instead of always using 1100-wide viewBox (which makes the circle tiny),
   // we tighten the viewBox around CX=550, CY=530 based on R
   // Find this block inside buildSVG() and update pad values:
+    
 const pad = isXS ? 280 : isSM ? 300 : 300;
-  const vbX1 = CX - R - pad;
-  const vbY1 = CY - R - pad;
-  const vbW  = (R + pad) * 2;
-  const vbH  = (R + pad) * 2;
+const vbX1 = CX - R - pad;
+const vbY1 = CY - R - pad;
+const vbW  = (R + pad) * 2;
+const vbH  = (R + pad) * 2;
 
   const svg = document.createElementNS(ns, 'svg');
   svg.setAttribute('viewBox', `${vbX1} ${vbY1} ${vbW} ${vbH}`);
