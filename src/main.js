@@ -241,15 +241,15 @@ function initDesktopTwoAgents() {
 
 // ── RFP Workflow SVG ─────────────────────────────────────────────────────────
 const rfpNodes = [
-  { title: 'Proposal Architecture',    desc: '...', angle: 0,   tx: -100, ty: -90,  g1: '#6DA8EF', g2: '#F3E21F' },
-  { title: 'First Winnable Draft',     desc: '...', angle: 40,  tx: 35,   ty: -70,  g1: '#320a6a', g2: '#5713d0' },
-  { title: 'SME Collaboration',        desc: '...', angle: 80,  tx: 43,   ty: -25,  g1: '#201CAE', g2: '#6AA4EE' },
-  { title: 'Final Proposal',           desc: '...', angle: 120, tx: 45,   ty: -10,  g1: '#fe3f49', g2: '#49abf5' },
-  { title: 'Win–Loss Capture',         desc: '...', angle: 160, tx: 40,   ty: 22,   g1: '#6DA8EF', g2: '#F3E21F' },
-  { title: 'Smarter Next Deal',        desc: '...', angle: 200, tx: -95,  ty: 50,   g1: '#fe3f49', g2: '#49abf5' },
-  { title: 'RFP Decomposition',        desc: '...', angle: 240, tx: -270, ty: -5,   g1: '#367AE6', g2: '#CE5575' },
-  { title: 'Deal Qualification',       desc: '...', angle: 280, tx: -240, ty: -30,  g1: '#201CAE', g2: '#6AA4EE' },
-  { title: 'Requirement Intelligence', desc: '...', angle: 320, tx: -220, ty: -75,  g1: '#367AE6', g2: '#CE5575' },
+  { title: 'Proposal Architecture',    angle: 0,   tx: -115, ty: -115, g1: '#6DA8EF', g2: '#F3E21F' },
+  { title: 'First Winnable Draft',     angle: 40,  tx: 50,   ty: -90,  g1: '#320a6a', g2: '#5713d0' },
+  { title: 'SME Collaboration',        angle: 80,  tx: 58,   ty: -30,  g1: '#201CAE', g2: '#6AA4EE' },
+  { title: 'Final Proposal',           angle: 120, tx: 58,   ty: -10,  g1: '#fe3f49', g2: '#49abf5' },
+  { title: 'Win–Loss Capture',         angle: 160, tx: 50,   ty: 32,   g1: '#6DA8EF', g2: '#F3E21F' },
+  { title: 'Smarter Next Deal',        angle: 200, tx: -115, ty: 68,   g1: '#fe3f49', g2: '#49abf5' },
+  { title: 'RFP Decomposition',        angle: 240, tx: -310, ty: -5,   g1: '#367AE6', g2: '#CE5575' },
+  { title: 'Deal Qualification',       angle: 280, tx: -275, ty: -38,  g1: '#201CAE', g2: '#6AA4EE' },
+  { title: 'Requirement Intelligence', angle: 320, tx: -255, ty: -92,  g1: '#367AE6', g2: '#CE5575' },
 ];
 const CX = 550, CY = 530, R = 280, NR = 22, NUM_TICKS = 400;
 
@@ -263,299 +263,316 @@ function buildRFPWorkflow() {
   if (!container) return;
 
   const ns = 'http://www.w3.org/2000/svg';
+  const CX = 550, CY = 530;
 
-  function buildSVG() {
-    container.innerHTML = '';
+  function polar(cx, cy, r, deg) {
+    const rad = (deg - 90) * Math.PI / 180;
+    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  }
 
-    const containerW = container.offsetWidth || 800;
-    const isMobile   = containerW < 600;
-    const isTablet   = containerW < 900;
+function buildSVG() {
+  container.innerHTML = '';
 
-    const CX = 550, CY = 530;
-    const R  = isMobile ? 200 : isTablet ? 240 : 280;
-    const NR = isMobile ? 14  : isTablet ? 18  : 22;
-    const NUM_TICKS = 400;
+  const containerW = container.offsetWidth || window.innerWidth;
 
-    const titleFontSize = isMobile ? 20 : isTablet ? 24 : 28;
-    const lineHeight    = titleFontSize * 1.3;
-    const CHAR_LIMIT    = 16;
-    const rScale        = R / 280;
+  const isXS = containerW < 400;
+  const isSM = containerW < 600;
+  const isMD = containerW < 900;
 
-    function polar(cx, cy, r, deg) {
-      const rad = (deg - 90) * Math.PI / 180;
-      return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
-    }
+  const R  = isXS ? 175 : isSM ? 215 : isMD ? 270 : 320;
+  const NR = isXS ? 13  : isSM ? 16  : isMD ? 20  : 25;
+  const NUM_TICKS = 400;
 
-    const svg = document.createElementNS(ns, 'svg');
-    svg.setAttribute('viewBox', '0 150 1100 800');
-    svg.setAttribute('width', '100%');
-    svg.style.cssText = 'display:block;width:100%;background:white;';
+  const titleFontSize = isXS ? 18 : isSM ? 21 : isMD ? 24 : 29;
+  const lineHeight    = titleFontSize * 1.28;
+  const CHAR_LIMIT    = 16;
+  const rScale        = R / 280;
 
-    // ── defs ──────────────────────────────────────────────────────────────
-    const defs = document.createElementNS(ns, 'defs');
+  const centerFontSize1 = isXS ? 30 : isSM ? 36 : isMD ? 42 : 48;
+  const centerFontSize2 = isXS ? 34 : isSM ? 42 : isMD ? 48 : 56;
 
-    rfpNodes.forEach((n, i) => {
-      const lg = document.createElementNS(ns, 'linearGradient');
-      lg.setAttribute('id', `rfpg${i}`);
-      lg.setAttribute('x1', '0%'); lg.setAttribute('y1', '0%');
-      lg.setAttribute('x2', '0%'); lg.setAttribute('y2', '100%');
-      ['0%', '100%'].forEach((offset, si) => {
-        const s = document.createElementNS(ns, 'stop');
-        s.setAttribute('offset', offset);
-        s.setAttribute('stop-color', si === 0 ? n.g1 : n.g2);
-        lg.appendChild(s);
-      });
-      defs.appendChild(lg);
-    });
+  // ── KEY FIX: narrow viewBox on mobile so diagram fills width ──
+  // Instead of always using 1100-wide viewBox (which makes the circle tiny),
+  // we tighten the viewBox around CX=550, CY=530 based on R
+  // Find this block inside buildSVG() and update pad values:
+const pad = isXS ? 280 : isSM ? 300 : 300;
+  const vbX1 = CX - R - pad;
+  const vbY1 = CY - R - pad;
+  const vbW  = (R + pad) * 2;
+  const vbH  = (R + pad) * 2;
 
-    // Center text gradient
-    const textGrad = document.createElementNS(ns, 'linearGradient');
-    textGrad.setAttribute('id', 'centerTextGrad');
-    textGrad.setAttribute('x1', '0%'); textGrad.setAttribute('y1', '0%');
-    textGrad.setAttribute('x2', '100%'); textGrad.setAttribute('y2', '0%');
-    [['0%', '#1C32E6'], ['50%', '#4A6CF7'], ['100%', '#1C32E6']].forEach(([offset, color]) => {
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', `${vbX1} ${vbY1} ${vbW} ${vbH}`);
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+  svg.style.cssText = 'display:block;width:100%;background:white;';
+
+  // ── defs ──
+  const defs = document.createElementNS(ns, 'defs');
+
+  rfpNodes.forEach((n, i) => {
+    const lg = document.createElementNS(ns, 'linearGradient');
+    lg.setAttribute('id', `rfpg${i}`);
+    lg.setAttribute('x1', '0%'); lg.setAttribute('y1', '0%');
+    lg.setAttribute('x2', '0%'); lg.setAttribute('y2', '100%');
+    ['0%', '100%'].forEach((offset, si) => {
       const s = document.createElementNS(ns, 'stop');
       s.setAttribute('offset', offset);
-      s.setAttribute('stop-color', color);
-      textGrad.appendChild(s);
+      s.setAttribute('stop-color', si === 0 ? n.g1 : n.g2);
+      lg.appendChild(s);
     });
-    defs.appendChild(textGrad);
+    defs.appendChild(lg);
+  });
 
-    // Clip circle
-    const clipCircle = document.createElementNS(ns, 'clipPath');
-    clipCircle.setAttribute('id', 'centerClip');
-    const clipC = document.createElementNS(ns, 'circle');
-    clipC.setAttribute('cx', CX); clipC.setAttribute('cy', CY);
-    clipC.setAttribute('r', String(R - 8));
-    clipCircle.appendChild(clipC);
-    defs.appendChild(clipCircle);
+  const textGrad = document.createElementNS(ns, 'linearGradient');
+  textGrad.setAttribute('id', 'centerTextGrad');
+  textGrad.setAttribute('x1', '0%'); textGrad.setAttribute('y1', '0%');
+  textGrad.setAttribute('x2', '100%'); textGrad.setAttribute('y2', '0%');
+  [['0%', '#1C32E6'], ['50%', '#4A6CF7'], ['100%', '#1C32E6']].forEach(([offset, color]) => {
+    const s = document.createElementNS(ns, 'stop');
+    s.setAttribute('offset', offset);
+    s.setAttribute('stop-color', color);
+    textGrad.appendChild(s);
+  });
+  defs.appendChild(textGrad);
 
-    // Icon glow radial gradient
-    const iconGlowGrad = document.createElementNS(ns, 'radialGradient');
-    iconGlowGrad.setAttribute('id', 'iconGlowGrad');
-    iconGlowGrad.setAttribute('cx', '50%'); iconGlowGrad.setAttribute('cy', '50%');
-    iconGlowGrad.setAttribute('r', '50%');
-    [['0%', '#2C48DB', '0.22'], ['45%', '#1C32E6', '0.10'], ['100%', '#1C32E6', '0.0']].forEach(([o, c, op]) => {
-      const s = document.createElementNS(ns, 'stop');
-      s.setAttribute('offset', o); s.setAttribute('stop-color', c); s.setAttribute('stop-opacity', op);
-      iconGlowGrad.appendChild(s);
-    });
-    defs.appendChild(iconGlowGrad);
+  const clipCircle = document.createElementNS(ns, 'clipPath');
+  clipCircle.setAttribute('id', 'centerClip');
+  const clipC = document.createElementNS(ns, 'circle');
+  clipC.setAttribute('cx', CX); clipC.setAttribute('cy', CY);
+  clipC.setAttribute('r', String(R - 8));
+  clipCircle.appendChild(clipC);
+  defs.appendChild(clipCircle);
 
-    // Arrow markers
-    ['arrow-outer', 'arrow-inner'].forEach((id, i) => {
-      const m = document.createElementNS(ns, 'marker');
-      m.setAttribute('id', id);
-      m.setAttribute('viewBox', '0 0 10 10');
-      m.setAttribute('refX', '8'); m.setAttribute('refY', '5');
-      m.setAttribute('markerWidth', '6'); m.setAttribute('markerHeight', '6');
-      m.setAttribute('orient', 'auto-start-reverse');
-      const p = document.createElementNS(ns, 'path');
-      p.setAttribute('d', 'M 0 1 L 10 5 L 0 9 z');
-      p.setAttribute('fill', i === 0 ? '#4f46e5' : '#8b5cf6');
-      m.appendChild(p);
-      defs.appendChild(m);
-    });
+  const iconGlowGrad = document.createElementNS(ns, 'radialGradient');
+  iconGlowGrad.setAttribute('id', 'iconGlowGrad');
+  iconGlowGrad.setAttribute('cx', '50%'); iconGlowGrad.setAttribute('cy', '50%');
+  iconGlowGrad.setAttribute('r', '50%');
+  [['0%','#2C48DB','0.22'],['45%','#1C32E6','0.10'],['100%','#1C32E6','0.0']].forEach(([o,c,op]) => {
+    const s = document.createElementNS(ns, 'stop');
+    s.setAttribute('offset', o); s.setAttribute('stop-color', c); s.setAttribute('stop-opacity', op);
+    iconGlowGrad.appendChild(s);
+  });
+  defs.appendChild(iconGlowGrad);
 
-    svg.appendChild(defs);
+  ['arrow-outer', 'arrow-inner'].forEach((id, i) => {
+    const m = document.createElementNS(ns, 'marker');
+    m.setAttribute('id', id);
+    m.setAttribute('viewBox', '0 0 10 10');
+    m.setAttribute('refX', '8'); m.setAttribute('refY', '5');
+    m.setAttribute('markerWidth', '6'); m.setAttribute('markerHeight', '6');
+    m.setAttribute('orient', 'auto-start-reverse');
+    const p = document.createElementNS(ns, 'path');
+    p.setAttribute('d', 'M 0 1 L 10 5 L 0 9 z');
+    p.setAttribute('fill', i === 0 ? '#4f46e5' : '#8b5cf6');
+    m.appendChild(p);
+    defs.appendChild(m);
+  });
 
-    // ── Tick ring ──────────────────────────────────────────────────────────
-    const tickG = document.createElementNS(ns, 'g');
-    tickG.setAttribute('opacity', '0.8');
-    for (let i = 0; i < NUM_TICKS; i++) {
-      const a = (i * 360) / NUM_TICKS;
-      const s = polar(CX, CY, R - 2, a), e = polar(CX, CY, R + 2, a);
-      const line = document.createElementNS(ns, 'line');
-      line.setAttribute('x1', s.x); line.setAttribute('y1', s.y);
-      line.setAttribute('x2', e.x); line.setAttribute('y2', e.y);
-      line.setAttribute('stroke', '#6b7280');
-      line.setAttribute('stroke-width', '1');
-      line.setAttribute('stroke-linecap', 'round');
-      tickG.appendChild(line);
-    }
-    svg.appendChild(tickG);
+  svg.appendChild(defs);
 
-    // ── Arc feedback arrows ────────────────────────────────────────────────
-    const outerS = polar(CX, CY, R + 30, 206), outerE = polar(CX, CY, R + 30, 234);
-    const innerS = polar(CX, CY, R - 30, 234), innerE = polar(CX, CY, R - 30, 206);
-
-    const pa1 = document.createElementNS(ns, 'path');
-    pa1.setAttribute('d', `M ${outerS.x} ${outerS.y} A ${R+30} ${R+30} 0 0 1 ${outerE.x} ${outerE.y}`);
-    pa1.setAttribute('fill', 'none'); pa1.setAttribute('stroke', '#4f46e5');
-    pa1.setAttribute('stroke-width', '1'); pa1.setAttribute('stroke-dasharray', '4 4');
-    pa1.setAttribute('marker-end', 'url(#arrow-outer)');
-    svg.appendChild(pa1);
-
-    const pa2 = document.createElementNS(ns, 'path');
-    pa2.setAttribute('d', `M ${innerS.x} ${innerS.y} A ${R-30} ${R-30} 0 0 0 ${innerE.x} ${innerE.y}`);
-    pa2.setAttribute('fill', 'none'); pa2.setAttribute('stroke', '#8b5cf6');
-    pa2.setAttribute('stroke-width', '1'); pa2.setAttribute('stroke-dasharray', '4 4');
-    pa2.setAttribute('marker-end', 'url(#arrow-inner)');
-    svg.appendChild(pa2);
-
-    // ── CENTER: glow disc ──────────────────────────────────────────────────
-    const glowDisc = document.createElementNS(ns, 'circle');
-    glowDisc.setAttribute('cx', CX); glowDisc.setAttribute('cy', CY);
-    glowDisc.setAttribute('r', String(R - 8));
-    glowDisc.setAttribute('fill', 'url(#iconGlowGrad)');
-    svg.appendChild(glowDisc);
-
-    // ── CENTER: static icon watermark ─────────────────────────────────────
-    const iconSize = (R - 8) * 1.85;
-    const iconImg = document.createElementNS(ns, 'image');
-    iconImg.setAttribute('href', anseruIconSrc);
-    iconImg.setAttribute('x', String(CX - iconSize / 2));
-    iconImg.setAttribute('y', String(CY - iconSize / 2));
-    iconImg.setAttribute('width', String(iconSize));
-    iconImg.setAttribute('height', String(iconSize));
-    iconImg.setAttribute('opacity', '0.12');
-    iconImg.setAttribute('clip-path', 'url(#centerClip)');
-    iconImg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-    svg.appendChild(iconImg);
-
-    // ── CENTER TEXT ────────────────────────────────────────────────────────
-    const centerFontSize1 = isMobile ? 38 : isTablet ? 38 : 46;
-    const centerFontSize2 = isMobile ? 42 : isTablet ? 44 : 54;
-    const centerGroup = document.createElementNS(ns, 'g');
-
-    const line1 = document.createElementNS(ns, 'text');
-    line1.setAttribute('x', String(CX));
-    line1.setAttribute('y', String(CY - (isMobile ? 22 : 32)));
-    line1.setAttribute('text-anchor', 'middle');
-    line1.setAttribute('dominant-baseline', 'central');
-    line1.setAttribute('font-family', '"DM Sans", sans-serif');
-    line1.setAttribute('font-size', String(centerFontSize1));
-    line1.setAttribute('font-weight', '400');
-    line1.setAttribute('letter-spacing', '-1.5');
-    line1.setAttribute('fill', '#111827');
-    line1.textContent = 'End-to-End';
-
-    const line2 = document.createElementNS(ns, 'text');
-    line2.setAttribute('x', String(CX));
-    line2.setAttribute('y', String(CY + (isMobile ? 24 : 34)));
-    line2.setAttribute('text-anchor', 'middle');
-    line2.setAttribute('dominant-baseline', 'central');
-    line2.setAttribute('font-family', '"DM Sans", sans-serif');
-    line2.setAttribute('font-size', String(centerFontSize2));
-    line2.setAttribute('font-weight', '500');
-    line2.setAttribute('letter-spacing', '-2');
-    line2.setAttribute('fill', 'url(#centerTextGrad)');
-    line2.textContent = 'Deal Intelligence';
-
-    centerGroup.appendChild(line1);
-    centerGroup.appendChild(line2);
-    svg.appendChild(centerGroup);
-
-    // ── NODES ──────────────────────────────────────────────────────────────
-    const nodeGroups = rfpNodes.map((node, i) => {
-      const p = polar(CX, CY, R, node.angle);
-      const g = document.createElementNS(ns, 'g');
-
-      const glow = document.createElementNS(ns, 'circle');
-      glow.setAttribute('cx', p.x); glow.setAttribute('cy', p.y);
-      glow.setAttribute('r', String(NR + 10));
-      glow.setAttribute('fill', 'none');
-      glow.setAttribute('stroke', node.g1);
-      glow.setAttribute('stroke-width', '3');
-      glow.setAttribute('opacity', '0');
-      glow.style.transition = 'all 0.6s ease-in-out';
-
-      const mask = document.createElementNS(ns, 'circle');
-      mask.setAttribute('cx', p.x); mask.setAttribute('cy', p.y);
-      mask.setAttribute('r', String(NR));
-      mask.setAttribute('fill', '#f8f9fa');
-      mask.style.transition = 'all 0.6s ease-in-out';
-
-      const ball = document.createElementNS(ns, 'circle');
-      ball.setAttribute('cx', p.x); ball.setAttribute('cy', p.y);
-      ball.setAttribute('r', String(NR));
-      ball.setAttribute('fill', `url(#rfpg${i})`);
-      ball.setAttribute('opacity', '0.4');
-      ball.style.transition = 'all 0.6s ease-in-out';
-
-      const scaledTx = node.tx * rScale;
-      const scaledTy = node.ty * rScale;
-
-      const tg = document.createElementNS(ns, 'g');
-      tg.setAttribute('transform', `translate(${p.x + scaledTx}, ${p.y + scaledTy})`);
-      tg.style.transition = 'opacity 0.6s ease-in-out';
-      tg.style.opacity = '0.6';
-
-      // Title with 2-line wrap
-      const titleT = document.createElementNS(ns, 'text');
-      titleT.setAttribute('font-size', String(titleFontSize));
-      titleT.setAttribute('fill', '#111827');
-      titleT.setAttribute('font-weight', '600');
-      titleT.setAttribute('font-family', '"DM Sans", sans-serif');
-
-      const titleWords = node.title.split(' ');
-
-      if (node.title.length <= CHAR_LIMIT) {
-        titleT.setAttribute('x', '0');
-        titleT.setAttribute('y', '0');
-        const span = document.createElementNS(ns, 'tspan');
-        span.setAttribute('x', '0'); span.setAttribute('dy', '0');
-        span.textContent = node.title;
-        titleT.appendChild(span);
-      } else {
-        let splitIdx = 1, bestDiff = Infinity;
-        for (let w = 1; w < titleWords.length; w++) {
-          const diff = Math.abs(
-            titleWords.slice(0, w).join(' ').length -
-            titleWords.slice(w).join(' ').length
-          );
-          if (diff < bestDiff) { bestDiff = diff; splitIdx = w; }
-        }
-        const l1 = titleWords.slice(0, splitIdx).join(' ');
-        const l2 = titleWords.slice(splitIdx).join(' ');
-
-        titleT.setAttribute('x', '0');
-        titleT.setAttribute('y', String(-lineHeight / 2));
-
-        const span1 = document.createElementNS(ns, 'tspan');
-        span1.setAttribute('x', '0'); span1.setAttribute('dy', '0');
-        span1.textContent = l1;
-
-        const span2 = document.createElementNS(ns, 'tspan');
-        span2.setAttribute('x', '0'); span2.setAttribute('dy', String(lineHeight));
-        span2.textContent = l2;
-
-        titleT.appendChild(span1);
-        titleT.appendChild(span2);
-      }
-
-      tg.appendChild(titleT);
-      g.appendChild(glow); g.appendChild(mask); g.appendChild(ball); g.appendChild(tg);
-      svg.appendChild(g);
-
-      return { glow, mask, ball, tg };
-    });
-
-    container.appendChild(svg);
-
-    // ── Active node cycling ────────────────────────────────────────────────
-    let activeNode = 1; // Start at "First Winnable Draft"
-
-    function updateNodes(idx) {
-      nodeGroups.forEach((ng, i) => {
-        const isActive = i === idx;
-        ng.glow.setAttribute('r',       isActive ? String(NR + 14) : String(NR + 10));
-        ng.glow.setAttribute('opacity', isActive ? '0.65' : '0');
-        ng.mask.setAttribute('r',       isActive ? String(NR + 4)  : String(NR));
-        ng.ball.setAttribute('r',       isActive ? String(NR + 4)  : String(NR));
-        ng.ball.setAttribute('opacity', isActive ? '1' : '0.4');
-        ng.tg.style.opacity = isActive ? '1' : '0.6';
-      });
-    }
-
-    updateNodes(1);
-
-    if (window._rfpInterval) clearInterval(window._rfpInterval);
-    window._rfpInterval = setInterval(() => {
-      activeNode = (activeNode + 1) % rfpNodes.length;
-      updateNodes(activeNode);
-    }, 2000);
+  // ── Tick ring ──
+  const tickG = document.createElementNS(ns, 'g');
+  tickG.setAttribute('opacity', '0.8');
+  for (let i = 0; i < NUM_TICKS; i++) {
+    const a = (i * 360) / NUM_TICKS;
+    const s = polar(CX, CY, R - 2, a), e = polar(CX, CY, R + 2, a);
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', s.x); line.setAttribute('y1', s.y);
+    line.setAttribute('x2', e.x); line.setAttribute('y2', e.y);
+    line.setAttribute('stroke', '#6b7280');
+    line.setAttribute('stroke-width', '1');
+    line.setAttribute('stroke-linecap', 'round');
+    tickG.appendChild(line);
   }
+  svg.appendChild(tickG);
+
+  // ── Arc feedback arrows ──
+  const outerS = polar(CX, CY, R + 30, 206), outerE = polar(CX, CY, R + 30, 234);
+  const innerS = polar(CX, CY, R - 30, 234), innerE = polar(CX, CY, R - 30, 206);
+
+  const pa1 = document.createElementNS(ns, 'path');
+  pa1.setAttribute('d', `M ${outerS.x} ${outerS.y} A ${R+30} ${R+30} 0 0 1 ${outerE.x} ${outerE.y}`);
+  pa1.setAttribute('fill', 'none'); pa1.setAttribute('stroke', '#4f46e5');
+  pa1.setAttribute('stroke-width', '1.5'); pa1.setAttribute('stroke-dasharray', '4 4');
+  pa1.setAttribute('marker-end', 'url(#arrow-outer)');
+  svg.appendChild(pa1);
+
+  const pa2 = document.createElementNS(ns, 'path');
+  pa2.setAttribute('d', `M ${innerS.x} ${innerS.y} A ${R-30} ${R-30} 0 0 0 ${innerE.x} ${innerE.y}`);
+  pa2.setAttribute('fill', 'none'); pa2.setAttribute('stroke', '#8b5cf6');
+  pa2.setAttribute('stroke-width', '1.5'); pa2.setAttribute('stroke-dasharray', '4 4');
+  pa2.setAttribute('marker-end', 'url(#arrow-inner)');
+  svg.appendChild(pa2);
+
+  // ── Center glow disc ──
+  const glowDisc = document.createElementNS(ns, 'circle');
+  glowDisc.setAttribute('cx', CX); glowDisc.setAttribute('cy', CY);
+  glowDisc.setAttribute('r', String(R - 8));
+  glowDisc.setAttribute('fill', 'url(#iconGlowGrad)');
+  svg.appendChild(glowDisc);
+
+  // ── Center watermark icon ──
+  const iconSize = (R - 8) * 1.85;
+  const iconImg = document.createElementNS(ns, 'image');
+  iconImg.setAttribute('href', anseruIconSrc);
+  iconImg.setAttribute('x', String(CX - iconSize / 2));
+  iconImg.setAttribute('y', String(CY - iconSize / 2));
+  iconImg.setAttribute('width', String(iconSize));
+  iconImg.setAttribute('height', String(iconSize));
+  iconImg.setAttribute('opacity', '0.12');
+  iconImg.setAttribute('clip-path', 'url(#centerClip)');
+  iconImg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+  svg.appendChild(iconImg);
+
+  // ── Center text ──
+  const centerGroup = document.createElementNS(ns, 'g');
+
+  const line1 = document.createElementNS(ns, 'text');
+  line1.setAttribute('x', String(CX));
+  line1.setAttribute('y', String(CY - (isXS ? 22 : isSM ? 28 : 36)));
+  line1.setAttribute('text-anchor', 'middle');
+  line1.setAttribute('dominant-baseline', 'central');
+  line1.setAttribute('font-family', '"DM Sans", sans-serif');
+  line1.setAttribute('font-size', String(centerFontSize1));
+  line1.setAttribute('font-weight', '400');
+  line1.setAttribute('letter-spacing', '-1.5');
+  line1.setAttribute('fill', '#111827');
+  line1.textContent = 'End-to-End';
+
+  const line2 = document.createElementNS(ns, 'text');
+  line2.setAttribute('x', String(CX));
+  line2.setAttribute('y', String(CY + (isXS ? 24 : isSM ? 30 : 40)));
+  line2.setAttribute('text-anchor', 'middle');
+  line2.setAttribute('dominant-baseline', 'central');
+  line2.setAttribute('font-family', '"DM Sans", sans-serif');
+  line2.setAttribute('font-size', String(centerFontSize2));
+  line2.setAttribute('font-weight', '500');
+  line2.setAttribute('letter-spacing', '-2');
+  line2.setAttribute('fill', 'url(#centerTextGrad)');
+  line2.textContent = 'Deal Intelligence';
+
+  centerGroup.appendChild(line1);
+  centerGroup.appendChild(line2);
+  svg.appendChild(centerGroup);
+
+ // ── Nodes ──
+const labelDist = isXS ? R + 55 : isSM ? R + 65 : isMD ? R + 70 : R + 80;
+
+const nodeGroups = rfpNodes.map((node, i) => {
+  const p = polar(CX, CY, R, node.angle);
+  // Label position: pushed radially outward from center
+  const lp = polar(CX, CY, labelDist, node.angle);
+  const g = document.createElementNS(ns, 'g');
+
+  const glow = document.createElementNS(ns, 'circle');
+  glow.setAttribute('cx', p.x); glow.setAttribute('cy', p.y);
+  glow.setAttribute('r', String(NR + 10));
+  glow.setAttribute('fill', 'none');
+  glow.setAttribute('stroke', node.g1);
+  glow.setAttribute('stroke-width', '3');
+  glow.setAttribute('opacity', '0');
+  glow.style.transition = 'all 0.6s ease-in-out';
+
+  const mask = document.createElementNS(ns, 'circle');
+  mask.setAttribute('cx', p.x); mask.setAttribute('cy', p.y);
+  mask.setAttribute('r', String(NR));
+  mask.setAttribute('fill', '#f8f9fa');
+  mask.style.transition = 'all 0.6s ease-in-out';
+
+  const ball = document.createElementNS(ns, 'circle');
+  ball.setAttribute('cx', p.x); ball.setAttribute('cy', p.y);
+  ball.setAttribute('r', String(NR));
+  ball.setAttribute('fill', `url(#rfpg${i})`);
+  ball.setAttribute('opacity', '0.4');
+  ball.style.transition = 'all 0.6s ease-in-out';
+
+  // Text anchor: left side of circle = end, right side = start, top/bottom = middle
+  const angleMod = ((node.angle % 360) + 360) % 360;
+  let anchor = 'middle';
+  if (angleMod > 20 && angleMod < 160)       anchor = 'start';
+  else if (angleMod > 200 && angleMod < 340) anchor = 'end';
+
+  const tg = document.createElementNS(ns, 'g');
+  tg.setAttribute('transform', `translate(${lp.x}, ${lp.y})`);
+  tg.style.transition = 'opacity 0.6s ease-in-out';
+  tg.style.opacity = '0.6';
+
+  const titleT = document.createElementNS(ns, 'text');
+  titleT.setAttribute('font-size', String(titleFontSize));
+  titleT.setAttribute('fill', '#111827');
+  titleT.setAttribute('font-weight', '600');
+  titleT.setAttribute('font-family', '"DM Sans", sans-serif');
+  titleT.setAttribute('text-anchor', anchor);
+
+  const titleWords = node.title.split(' ');
+
+  if (node.title.length <= CHAR_LIMIT) {
+    titleT.setAttribute('x', '0');
+    titleT.setAttribute('y', '0');
+    const span = document.createElementNS(ns, 'tspan');
+    span.setAttribute('x', '0'); span.setAttribute('dy', '0');
+    span.textContent = node.title;
+    titleT.appendChild(span);
+  } else {
+    let splitIdx = 1, bestDiff = Infinity;
+    for (let w = 1; w < titleWords.length; w++) {
+      const diff = Math.abs(
+        titleWords.slice(0, w).join(' ').length -
+        titleWords.slice(w).join(' ').length
+      );
+      if (diff < bestDiff) { bestDiff = diff; splitIdx = w; }
+    }
+    const l1 = titleWords.slice(0, splitIdx).join(' ');
+    const l2 = titleWords.slice(splitIdx).join(' ');
+
+    titleT.setAttribute('x', '0');
+    titleT.setAttribute('y', String(-lineHeight / 2));
+
+    const span1 = document.createElementNS(ns, 'tspan');
+    span1.setAttribute('x', '0'); span1.setAttribute('dy', '0');
+    span1.textContent = l1;
+
+    const span2 = document.createElementNS(ns, 'tspan');
+    span2.setAttribute('x', '0'); span2.setAttribute('dy', String(lineHeight));
+    span2.textContent = l2;
+
+    titleT.appendChild(span1);
+    titleT.appendChild(span2);
+  }
+
+  tg.appendChild(titleT);
+  g.appendChild(glow); g.appendChild(mask); g.appendChild(ball); g.appendChild(tg);
+  svg.appendChild(g);
+
+  return { glow, mask, ball, tg };
+});
+
+  container.appendChild(svg);
+
+  // ── Active node cycling ──
+  let activeNode = 1;
+
+  function updateNodes(idx) {
+    nodeGroups.forEach((ng, i) => {
+      const isActive = i === idx;
+      ng.glow.setAttribute('r',       isActive ? String(NR + 16) : String(NR + 10));
+      ng.glow.setAttribute('opacity', isActive ? '0.65' : '0');
+      ng.mask.setAttribute('r',       isActive ? String(NR + 5)  : String(NR));
+      ng.ball.setAttribute('r',       isActive ? String(NR + 5)  : String(NR));
+      ng.ball.setAttribute('opacity', isActive ? '1' : '0.4');
+      ng.tg.style.opacity = isActive ? '1' : '0.6';
+    });
+  }
+
+  updateNodes(1);
+
+  if (window._rfpInterval) clearInterval(window._rfpInterval);
+  window._rfpInterval = setInterval(() => {
+    activeNode = (activeNode + 1) % rfpNodes.length;
+    updateNodes(activeNode);
+  }, 2000);
+}
 
   buildSVG();
 
@@ -565,7 +582,6 @@ function buildRFPWorkflow() {
     resizeTimer = setTimeout(buildSVG, 150);
   });
 }
-
 // ── FAQ ───────────────────────────────────────────────────────────────────────
 function initFAQ() {
   let openIndex = null;
