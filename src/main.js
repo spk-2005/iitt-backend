@@ -250,7 +250,7 @@ const rfpNodes = [
   { title: 'SME Collaboration', desc: 'Route complex responses to subject matter experts for review.', angle: 80, tx: 43, ty: -25, g1: '#201CAE', g2: '#6AA4EE' },
   { title: 'Final Proposal', desc: 'Deliver a polished proposal ready for submission.', angle: 120, tx: 45, ty: -10, g1: '#fe3f49', g2: '#49abf5' },
   { title: 'Win–Loss Capture', desc: 'Capture deal outcomes and key insights automatically.', angle: 160, tx: 40, ty: 20, g1: '#6DA8EF', g2: '#F3E21F' },
-  { title: 'Smarter Next Deal', desc: 'Feed insights back to improve future responses iteratively.', angle: 200, tx: -95, ty: 60, g1: '#fe3f49', g2: '#49abf5' },
+  { title: 'Smarter Next Deal', desc: 'Feed insights back to improve future responses iteratively.', angle: 200, tx: -95, ty: 38, g1: '#fe3f49', g2: '#49abf5' },
   { title: 'RFP Decomposition', desc: 'Break complex RFPs and extract key requirements into structured sections.', angle: 240, tx: -270, ty: -5, g1: '#367AE6', g2: '#CE5575' },
   { title: 'Deal Qualification', desc: 'Evaluate fit, assess win probability, and decide whether to pursue.', angle: 280, tx: -240, ty: -30, g1: '#201CAE', g2: '#6AA4EE' },
   { title: 'Requirement Intelligence', desc: 'Categorize questions, tag by topic, and route to the right teams.', angle: 320, tx: -220, ty: -70, g1: '#367AE6', g2: '#CE5575' },
