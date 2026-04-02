@@ -243,14 +243,14 @@ section[data-section] {
 .anseru-h4 {
   @apply text-[20px] font-normal whitespace-pre-line leading-[1.4] tracking-[-0.02em];
 }
-
 .prob-card {
   position: relative;
   width: 100%;
-  height: clamp(260px, 90vw, 340px);
+  max-width: 340px;
+  height: clamp(420px, 140vw, 500px);
+  margin: 0 auto;
   perspective: 1000px;
 }
-
 .prob-card-inner {
   position: relative;
   width: 100%;
@@ -295,7 +295,8 @@ section[data-section] {
   justify-content: center;
   align-items: center;
   padding-top: clamp(8px, 3vw, 16px);
-  min-height: 0;
+  padding-bottom: clamp(20px, 6vw, 32px);
+  min-height: 80px;
 }
 
 .prob-svg-inner {
