@@ -219,8 +219,8 @@ html {
 }
 /* Consistent section spacing */
 section[data-section] {
-  padding-top: clamp(28px, 5vw, 40px);
-  padding-bottom: clamp(28px, 5vw, 40px);
+  padding-top: clamp(8px, 1vw, 60px);
+  padding-bottom: clamp(8px, 1vw, 60px);
 }
 .anseru-section-tag {
   font-size: clamp(12px, 3.48vw, 16px);
