@@ -501,11 +501,17 @@
           ">
             
             <!-- Mobile Header -->
-           <div class="px-2 min-[250px]:px-6 shrink-0 mb-1">
+           <div class="px-2 min-[250px]: shrink-0 mb-1">
   <p class="text-[#6B7280] text-[15px] leading-[1.5] max-w-[320px] pr-2">Customer Problem</p>
-  <div class="flex flex-col gap-[8px] text-left">
-<h2 class="anseru-section-title ml-0  text-[#111827] text-[clamp(20px,5.5vw,28px)] leading-[1.15] font-normal tracking-[-0.02em]">
-  Built for Teams Navigating<br />
+  <div class="flex flex-col gap-[2px] text-left">
+<h2 class="anseru-section-title ml-0 text-[#111827] 
+text-[clamp(14px,6vw,28px)] 
+leading-[1.2] 
+font-normal 
+tracking-[-0.02em] 
+break-words 
+max-w-full">
+  Built for Teams Navigating<br class="hidden sm:block" />
   Complex Deals
 </h2>
                 <p class="text-[#6B7280] text-[15px] leading-[1.5] max-w-[320px] pr-2">
@@ -2430,235 +2436,67 @@ window.scrollTo({ top: targetY, behavior: 'smooth' });
             </h2>
           </div>
         </div>
-        <div class="relative w-full flex flex-col items-center pb-16">
-          <div class="hidden md:flex justify-center w-full pt-10 pb-5">
-            <div class="relative" style="width: 910px; height: 560px">
-              <div class="absolute" style="
-                    top: 80px;
-                    left: 180px;
-                    width: 340px;
-                    height: 340px;
-                    background: #eef2ff;
-                    border-radius: 50%;
-                    filter: blur(70px);
-                    opacity: 0.8;
-                    z-index: 0;
-                  "></div>
-              <div class="absolute" style="
-                    top: 80px;
-                    left: 390px;
-                    width: 340px;
-                    height: 340px;
-                    background: #fff1f2;
-                    border-radius: 50%;
-                    filter: blur(70px);
-                    opacity: 0.8;
-                    z-index: 0;
-                  "></div>
-              <div class="absolute" style="left: 205px; top: 30px; width: 500px; height: 500px">
-                <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 500 500">
-                  <circle cx="250" cy="250" r="215" fill="none" stroke="#e5e7eb" stroke-width="2.5"
-                    stroke-dasharray="6 6" />
-                </svg>
-                <div
-                  class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-45 h-50 z-10 flex items-center justify-center">
-                  <img src="./src/assets/shield.png" loading="lazy" alt=""
-                    class="absolute inset-0 w-full h-full object-contain" />
-                  <div class="absolute inset-0 w-full h-full flex items-center justify-center z-0">
-                    <svg viewBox="0 0 100 110" class="w-35 h-40 text-[#eee5e7]">
-                      <path d="M50 0 L100 20 L100 60 C100 85 50 110 50 110 C50 110 0 85 0 60 L0 20 Z"
-                        fill="currentColor" />
-                    </svg>
-                  </div>
-                  <div
-                    class="relative z-20 w-[60px] h-[60px] rounded-full shadow-lg flex items-center justify-center overflow-hidden bg-black">
-                    <img src="./src/assets/Anseru_3 2.png" loading="lazy" alt="Anseru Logo"
-                      class="w-full h-full object-cover scale-60" />
-                  </div>
-                </div>
-                <!-- Node 1 – Top Right -->
-                <div class="absolute z-20" style="top: 20%; left: 81%; transform: translate(-50%, -50%);">
-                  <div
-                    class="relative w-[86px] h-[86px] rounded-full overflow-hidden flex items-center justify-center p-5"
-                    style="
-                        background: linear-gradient(
-                          135deg,
-                          #2837a2 0%,
-                          #5b82e2 100%
-                        );
-                      ">
-                    <img src="./src/assets/ri_ai.png" loading="lazy" alt="" />
-                  </div>
-                  <div class="absolute left-[calc(100%+24px)] top-1/2 -translate-y-1/2 w-[280px] text-left">
-                    <h4 class="font-medium text-[#111827] mb-1.5 leading-tight">
-                      Responsible AI &amp; Model Usage
-                    </h4>
-                    <p class="text-[14px] text-[#6b7280] leading-relaxed">
-                      Customer data is never used to train shared or public AI
-                      models.
-                    </p>
-                  </div>
-                </div>
-                <!-- Node 2 - Bottom Right -->
-                <div class="absolute z-20" style="top: 70%; left: 88%; transform: translate(-50%, -50%);">
-                  <div
-                    class="relative w-[86px] h-[86px] rounded-full overflow-hidden flex items-center justify-center p-5"
-                    style="
-                        background: linear-gradient(
-                          180deg,
-                          #fe404b 0%,
-                          #61b6ef 100%
-                        );
-                      ">
-                    <img src="./src/assets/material-symbols-light_verified-outline.png" loading="lazy" alt="" />
-                  </div>
-                  <div class="absolute left-[calc(100%+24px)] top-1/2 -translate-y-1/2 w-[280px] text-left">
-                    <h4 class="font-medium text-[#111827] mb-1.5 leading-tight">
-                      Verifiable &amp; Trusted Answers
-                    </h4>
-                    <p class="text-[14px] text-[#6b7280] leading-relaxed">
-                      Every response is grounded in your company knowledge
-                      with traceable sources and review workflows.
-                    </p>
-                  </div>
-                </div>
-                <!-- Node 3 - Bottom Left -->
-                <div class="absolute z-20" style="top: 88%; left: 28%; transform: translate(-50%, -50%);">
-                  <div
-                    class="relative w-[86px] h-[86px] rounded-full overflow-hidden flex items-center justify-center p-5"
-                    style="
-                        background: linear-gradient(
-                          180deg,
-                          #2b2b2b 0%,
-                          #5b21b6 100%
-                        );
-                      ">
-                    <img src="./src/assets/material-symbols_switch-access-outline.png" loading="lazy" alt="" />
-                  </div>
-                  <div class="absolute right-[calc(100%+24px)] top-1/2 -translate-y-1/2 w-[280px] text-right">
-                    <h4 class="font-medium text-[#111827] mb-1.5 leading-tight">
-                      Access Control &amp; Governance
-                    </h4>
-                    <p class="text-[14px] text-[#6b7280] leading-relaxed">
-                      Granular permissions and audit logs ensure only
-                      authorized users can access sensitive information.
-                    </p>
-                  </div>
-                </div>
-                <!-- Node 4 - Top Left -->
-                <div class="absolute z-20" style="top: 37%; left: 9%; transform: translate(-50%, -50%);">
-                  <div
-                    class="relative w-[86px] h-[86px] rounded-full overflow-hidden flex items-center justify-center p-5"
-                    style="
-                        background: linear-gradient(
-                          180deg,
-                          #71b2cc 0%,
-                          #d4d145 100%
-                        );
-                      ">
-                    <img src="./src/assets/arcticons_secure-tan.png" loading="lazy" alt="" />
-                  </div>
-                  <div class="absolute right-[calc(100%+24px)] top-1/2 -translate-y-1/2 w-[280px] text-right">
-                    <h4 class="font-medium text-[#111827] mb-1.5 leading-tight">
-                      Secure Infrastructure
-                    </h4>
-                    <p class="text-[14px] text-[#6b7280] leading-relaxed">
-                      Your data is protected with encryption, secure storage,
-                      and isolated customer environments.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex md:hidden flex-col items-center gap-10 w-full">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-              <div class="flex items-start gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50">
-                <div class="w-[52px] h-[52px] rounded-full shrink-0 flex items-center justify-center p-3" style="
-                      background: linear-gradient(
-                        135deg,
-                        #2837a2 0%,
-                        #5b82e2 100%
-                      );
-                    ">
-                  <img src="./src/assets/ri_ai.png" loading="lazy" alt="" class="w-full h-full object-contain" />
-                </div>
-                <div>
-                  <h4 class="font-medium text-[#111827] mb-1 text-[15px] leading-tight">
-                    Responsible AI &amp; Model Usage
-                  </h4>
-                  <p class="text-[13px] text-[#6b7280] leading-relaxed">
-                    Customer data is never used to train shared or public AI
-                    models.
-                  </p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50">
-                <div class="w-[52px] h-[52px] rounded-full shrink-0 flex items-center justify-center p-3" style="
-                      background: linear-gradient(
-                        180deg,
-                        #fe404b 0%,
-                        #61b6ef 100%
-                      );
-                    ">
-                  <img src="./src/assets/material-symbols-light_verified-outline.png" loading="lazy" alt=""
-                    class="w-full h-full object-contain" />
-                </div>
-                <div>
-                  <h4 class="font-medium text-[#111827] mb-1 text-[15px] leading-tight">
-                    Verifiable &amp; Trusted Answers
-                  </h4>
-                  <p class="text-[13px] text-[#6b7280] leading-relaxed">
-                    Every response is grounded in your company knowledge with
-                    traceable sources.
-                  </p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50">
-                <div class="w-[52px] h-[52px] rounded-full shrink-0 flex items-center justify-center p-3" style="
-                      background: linear-gradient(
-                        180deg,
-                        #2b2b2b 0%,
-                        #5b21b6 100%
-                      );
-                    ">
-                  <img src="./src/assets/material-symbols_switch-access-outline.png" loading="lazy" alt=""
-                    class="w-full h-full object-contain" />
-                </div>
-                <div>
-                  <h4 class="font-medium text-[#111827] mb-1 text-[15px] leading-tight">
-                    Access Control &amp; Governance
-                  </h4>
-                  <p class="text-[13px] text-[#6b7280] leading-relaxed">
-                    Granular permissions and audit logs ensure only authorized
-                    users access sensitive information.
-                  </p>
-                </div>
-              </div>
-              <div class="flex items-start gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50">
-                <div class="w-[52px] h-[52px] rounded-full shrink-0 flex items-center justify-center p-3" style="
-                      background: linear-gradient(
-                        180deg,
-                        #71b2cc 0%,
-                        #d4d145 100%
-                      );
-                    ">
-                  <img src="./src/assets/arcticons_secure-tan.png" loading="lazy" alt=""
-                    class="w-full h-full object-contain" />
-                </div>
-                <div>
-                  <h4 class="font-medium text-[#111827] mb-1 text-[15px] leading-tight">
-                    Secure Infrastructure
-                  </h4>
-                  <p class="text-[13px] text-[#6b7280] leading-relaxed">
-                    Your data is protected with encryption, secure storage,
-                    and isolated customer environments.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+     <div style="padding: 16px 0; display: flex; flex-direction: column; gap: 20px;">
+
+  <!-- Row 1: Secure Infrastructure -->
+  <div style="display: flex; align-items: flex-start; gap: 16px;">
+    <div style="width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #71b2cc 0%, #d4d145 100%);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z" stroke="white" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
+        <rect x="9" y="10" width="6" height="5" rx="1" stroke="white" stroke-width="1.6" fill="none"/>
+        <path d="M12 7.5a2 2 0 0 1 2 2V10H10v-.5a2 2 0 0 1 2-2z" stroke="white" stroke-width="1.4" fill="none"/>
+      </svg>
+    </div>
+    <div>
+      <p style="font-size: 15px; font-weight: 500; color: #111827; margin: 0 0 4px;">Secure Infrastructure</p>
+      <p style="font-size: 13px; color: #6b7280; margin: 0; line-height: 1.5;">Your data is protected with encryption, secure storage, and isolated customer environments.</p>
+    </div>
+  </div>
+
+  <!-- Row 2: Responsible AI -->
+  <div style="display: flex; align-items: flex-start; gap: 16px;">
+    <div style="width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #2837a2 0%, #5b82e2 100%);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="12" y="17" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="sans-serif">Ai</text>
+      </svg>
+    </div>
+    <div>
+      <p style="font-size: 15px; font-weight: 500; color: #111827; margin: 0 0 4px;">Responsible AI &amp; Model Usages</p>
+      <p style="font-size: 13px; color: #6b7280; margin: 0; line-height: 1.5;">Customer data is never used to train shared or public AI models.</p>
+    </div>
+  </div>
+
+  <!-- Row 3: Access Control -->
+  <div style="display: flex; align-items: flex-start; gap: 16px;">
+    <div style="width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #2b2b2b 0%, #5b21b6 100%);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="8" height="8" rx="1.5" stroke="white" stroke-width="1.7" fill="none"/>
+        <rect x="13" y="3" width="8" height="8" rx="1.5" stroke="white" stroke-width="1.7" fill="none"/>
+        <rect x="3" y="13" width="8" height="8" rx="1.5" stroke="white" stroke-width="1.7" fill="none"/>
+        <rect x="13" y="13" width="8" height="8" rx="1.5" stroke="white" stroke-width="1.7" fill="none"/>
+      </svg>
+    </div>
+    <div>
+      <p style="font-size: 15px; font-weight: 500; color: #111827; margin: 0 0 4px;">Access Control &amp; Governance</p>
+      <p style="font-size: 13px; color: #6b7280; margin: 0; line-height: 1.5;">Granular permissions and audit logs ensure only authorized users can access sensitive information.</p>
+    </div>
+  </div>
+
+  <!-- Row 4: Verifiable Answers -->
+  <div style="display: flex; align-items: flex-start; gap: 16px;">
+    <div style="width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, #fe404b 0%, #61b6ef 100%);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z" stroke="white" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
+        <path d="M8.5 12l2.5 2.5 4.5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div>
+      <p style="font-size: 15px; font-weight: 500; color: #111827; margin: 0 0 4px;">Verifiable &amp; Trusted Answers</p>
+      <p style="font-size: 13px; color: #6b7280; margin: 0; line-height: 1.5;">Every response is grounded in your company knowledge with traceable sources and review workflows.</p>
+    </div>
+  </div>
+
+</div>
       </div>
     </div>
   </section>
