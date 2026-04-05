@@ -1,0 +1,82 @@
+# Anseru
+
+> Anseru is an AI-native B2B SaaS platform that helps enterprise sales teams win complex deals faster by automating RFP and security questionnaire responses using AI agents grounded in the company's own knowledge base.
+
+- Website: https://anseru.ai/
+- Book a demo: https://calendly.com/kg-goutham-anseru
+
+---
+
+## What Anseru Does
+
+Anseru deploys two specialized AI agents that handle the full lifecycle of enterprise deal responses:
+
+1. **Archer** — RFP Agent that processes incoming RFPs, extracts requirements, and generates structured, proposal-ready responses.
+2. **Knox** — Security Questionnaire Agent that answers security and compliance questionnaires with evidence-backed, audit-ready responses.
+
+Together, these agents reduce the time enterprise sales, solutions engineering, and security teams spend on repetitive procurement and due diligence work by 70–90%.
+
+---
+
+## Key Products and Agents
+
+### Archer — RFP Agent
+- Automatically extracts key requirements, timelines, stakeholders, and evaluation criteria from RFPs
+- Translates feature requirements to internal product terminology
+- Provides bid/no-bid clarity to help teams decide which deals to pursue
+- Generates structured proposal responses across technical, product, security, and legal sections
+
+### Knox — Security Questionnaire Agent
+- Achieves 95%+ response accuracy from verified security documentation
+- Reduces security questionnaire review time by 70–90%
+- Produces audit-ready answers aligned with current policies and controls
+- Every answer is grounded in policies, certifications, and security evidence
+
+---
+
+## Platform Capabilities
+
+- **Living Knowledge Engine**: Continuously learns from every RFP, proposal, edit, and approval. Past deal knowledge becomes structured, reusable intelligence.
+- **Multi-Agent Orchestration**: Archer and Knox operate in concert to cover the full RFP and security questionnaire response lifecycle.
+- **Deep Enterprise Integrations**: Connects to CRM platforms, Google Drive, OneDrive, Slack, Jira, Notion, Seismic, Highspot, Gong, HubSpot, Zendesk, and other enterprise tools.
+- **Enterprise-Grade Security**: Strict data isolation, role-based access controls, and full auditability. Customer data is never used to train shared or public AI models.
+- **Human-in-the-Loop**: Keeps humans in control with review workflows, source references, and approval gates.
+
+---
+
+## Who Uses Anseru
+
+Anseru is built for enterprise teams involved in complex procurement and due diligence responses:
+
+- **Solutions Engineering** — responding to technical sections of RFPs
+- **Security and Compliance** — answering security questionnaires and DDQs
+- **Revenue Operations** — coordinating cross-functional RFP responses
+- **Sales** — accelerating deal cycles and improving win rates
+
+---
+
+## Frequently Asked Questions
+
+**What is Anseru?**
+Anseru is a deal intelligence platform designed for enterprise sales teams. It helps companies respond to RFPs, security questionnaires, and compliance requests by turning past deal knowledge into structured, reusable intelligence using AI agents.
+
+**How is Anseru different from traditional RFP tools?**
+Most RFP tools focus on storing answers or generating responses. Anseru focuses on understanding the deal context — including industry, compliance requirements, and prior responses — so teams don't have to start from scratch each time.
+
+**Do you use customer data to train shared AI models?**
+No. Customer data is not used to train shared or public models. Each organization's data remains isolated and is used only to improve its own responses and intelligence within the platform.
+
+**How accurate are responses?**
+Knox, the Security Questionnaire Agent, achieves 95%+ response accuracy from verified security documentation. All responses include source references and go through configurable review workflows.
+
+**How quickly can teams see value?**
+Teams typically see value within their first few deals. As more RFPs and questionnaires are processed, the system reuses existing knowledge and reduces manual effort over time.
+
+---
+
+## Company
+
+- **Company name**: Anseru Inc.
+- **Founded**: 2024
+- **Category**: Vertical AI, B2B SaaS, Enterprise Sales Intelligence
+- **Primary use cases**: RFP automation, security questionnaire automation, proposal generation, deal intelligence
