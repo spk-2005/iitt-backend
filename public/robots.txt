@@ -1,0 +1,51 @@
+# robots.txt — https://anseru.ai/
+# Generated: 2026-04-05
+
+# ── Standard search engine crawlers ────────────────────────────────
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# ── LLM / AI crawlers (GEO — Generative Engine Optimization) ───────
+# Allow all LLM crawlers to read the site so Anseru can be cited
+# accurately in AI-generated responses.
+
+# OpenAI (ChatGPT)
+User-agent: GPTBot
+Allow: /
+
+# OpenAI SearchGPT / web browsing
+User-agent: OAI-SearchBot
+Allow: /
+
+# Google Gemini / AI Overview
+User-agent: Google-Extended
+Allow: /
+
+# Anthropic (Claude)
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+# Common Crawl (used by many LLM training pipelines)
+User-agent: CCBot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# ── Sitemap ─────────────────────────────────────────────────────────
+Sitemap: https://anseru.ai/sitemap.xml
