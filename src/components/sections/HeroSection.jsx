@@ -45,7 +45,7 @@ export function HeroSection() {
         {/* pt-16 clears the fixed navbar (~64px); px/pb give breathing room matching the screenshot */}
         <div className="px-5 pt-20.5 pb-10">
           <h1
-            className="text-white font-normal leading-tight tracking-tight mb-5"
+            className="text-white font-normal !leading-[.9] tracking-tight mb-5"
             style={{ fontSize: 'clamp(22px, 6.5vw, 30px)', letterSpacing: '-0.02em' }}
           >
             AI Agents for RFPs and <br/>Security Questionnaires <br/>Deal Intelligence Platform
@@ -82,6 +82,12 @@ export function HeroSection() {
                 <br />
                 Platform
               </h1>
+               <a
+            href="https://calendly.com/kg-goutham-anseru"
+            className="inline-block bg-white text-black text-sm font-medium px-5 py-2.5 rounded-[5px] hover:bg-gray-100 transition"
+          >
+            Request Demo
+          </a>
             </div>
             <div className="flex h-full md:border-l border-white/20 items-end pb-10 md:px-10 md:pl-16 lg:pl-24">
               <p className="text-white mx-auto whitespace-pre-line max-w-104">
