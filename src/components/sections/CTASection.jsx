@@ -5,27 +5,27 @@ export function CTASection() {
   return (
     <div data-section className="w-full flex flex-col">
       <div className="w-full grid grid-cols-1 md:grid-cols-2">
-        {/* Left: visual panel */}
-        <div className="relative flex items-center justify-center min-h-65 md:min-h-130 overflow-hidden">
-          <img
-            src={ctaBgSrc}
-            loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover"
-            alt=""
-          />
-          <div className="relative z-10 bg-white/10 border border-white/20 rounded-xl p-6 md:p-10 space-y-3 md:space-y-5 w-full max-w-120 shadow-2xl md:translate-x-30">
-            {['Autonomous Deal Agents', 'Living Knowledge Engine', 'Deep Enterprise Integrations', 'Multi-Agent Orchestration'].map(
-              (label) => (
-                <div
-                  key={label}
-                  className="border border-white/40 bg-white/10 text-white px-4 md:px-6 py-2 rounded-md text-sm md:text-xl tracking-wide"
-                >
-                  {label}
-                </div>
-              )
-            )}
-          </div>
+  {/* Left: visual panel */}
+<div className="relative flex items-center justify-end md:justify-center min-h-65 md:min-h-130 overflow-hidden">
+  <img
+    src={ctaBgSrc}
+    loading="lazy"
+    className="absolute inset-0 w-full h-full object-cover"
+    alt=""
+  />
+  <div className="relative z-10 bg-white/5 border border-white/20 rounded-xl pt-6 pb-6 pl-3.5 px-10 md:p-10 space-y-3 md:space-y-5 w-full max-w-80 md:max-w-120 -mr-4 md:mr-0 md:translate-x-30">
+    {['Autonomous Deal Agents', 'Living Knowledge Engine', 'Deep Enterprise Integrations', 'Multi-Agent Orchestration'].map(
+      (label) => (
+        <div
+          key={label}
+          className="border border-white/40 bg-white/10 text-white px-4 md:px-6 py-2 rounded-md text-sm md:text-xl tracking-wide text-center md:text-left"
+        >
+          {label}
         </div>
+      )
+    )}
+  </div>
+</div>
 
         {/* Right: text panel */}
         <div className="bg-white md:bg-[#f4f4f4] flex items-center">
@@ -33,18 +33,19 @@ export function CTASection() {
             <h2 className="anseru-section-title md:pb-13 text-left">
               <span className="text-gray-700 text-2xl md:text-6xl">The New Layer for</span>
               <br />
-              <span className="text-blue-600 text-3xl md:text-6xl font-medium">Enterprise Deals</span>
+              <span style={{color:"#1C32E6"}}className=" text-3xl md:text-6xl font-medium">Enterprise Deals</span>
             </h2>
+
             <div className="border-l-[2px] border-gray-300 pl-4 max-w-[450px] md:ml-28">
               <p className="text-gray-600 leading-[1.7]" style={{ fontSize: 'clamp(13px,3.5vw,16px)' }}>
                 We&apos;re building a world where AI agents orchestrate complex deal workflows, transforming
                 enterprise knowledge into deal-ready intelligence so teams can focus on winning.
               </p>
             </div>
-            {/* Request Demo button — mobile only */}
-            <div className="md:hidden">
-              <a
-                href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
+
+            {/* Button */}
+            <div className="md:ml-29">
+              <a href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -57,13 +58,12 @@ export function CTASection() {
                   fontWeight: 500,
                   textDecoration: 'none',
                   whiteSpace: 'nowrap',
-                }}
-              >
+                }}>
                 Request Demo
               </a>
             </div>
           </div>
-        </div>
+        </div> {/* ✅ Fixed: closing div is now inside the grid */}
       </div>
 
       {/* Bottom CTA bar */}
@@ -74,9 +74,9 @@ export function CTASection() {
         >
           Deal Intelligent Infrastructure for Modern Sales teams
         </h2>
-        <a
-          href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
-          className="bg-black text-white px-8 py-2.5 md:px-10 md:py-3 rounded-md text-sm md:text-xl hover:bg-gray-800 transition shadow-sm shrink-0"
+        
+          <a href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
+          className="bg-black text-white px-8 py-3.5 md:px-10 md:py-3 rounded-md text-sm md:text-xl hover:bg-gray-800 transition shadow-sm shrink-0"
         >
           Talk to Founders
         </a>

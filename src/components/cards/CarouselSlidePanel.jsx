@@ -11,29 +11,33 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
       <div className="carousel-slide-panel flex-shrink-0 h-full" style={{ width: '100vw' }}>
         <div className="max-w-[1300px] mx-auto h-full px-8 xl:px-16">
           <div className="grid h-full py-5" style={{ gridTemplateColumns: '5fr 7fr', gap: '2rem' }}>
-            {/* Text column */}
-            <div
-              className="carousel-slide-text flex items-center min-h-0"
-              style={{
-                transition: 'opacity 0.55s, transform 0.55s',
-                opacity: isActive ? 1 : 0.2,
-                transform: isActive ? 'translateY(0px)' : 'translateY(16px)',
-              }}
-            >
-              <div className="w-full space-y-5">
-                <div className="space-y-3">
-                  <h2 className="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug">{step}</h2>
-                  <p className="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
-                    {description}
-                  </p>
-                </div>
-                <div className="space-y-3 pt-1">
-                  {bullets.map((bullet, i) => (
-                    <SectionBulletItem key={i}>{bullet}</SectionBulletItem>
-                  ))}
-                </div>
-              </div>
-            </div>
+         {/* Text column */}
+<div
+  className="carousel-slide-text flex flex-col items-start min-h-0 pt-0"
+  style={{
+    transition: 'opacity 0.55s, transform 0.55s',
+    opacity: isActive ? 1 : 0.2,
+    transform: isActive ? 'translateY(0px)' : 'translateY(16px)',
+  }}
+>
+
+  <h2 className="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug mb-4">
+    {step}
+  </h2>
+
+  <div className="w-full space-y-5">
+    <div className="space-y-3">
+      <p className="anseru-section-description text-[14px] md:text-[15px] leading-relaxed max-w-[95%]">
+        {description}
+      </p>
+    </div>
+    <div className="space-y-3 pt-1">
+      {bullets.map((bullet, i) => (
+        <SectionBulletItem key={i}>{bullet}</SectionBulletItem>
+      ))}
+    </div>
+  </div>
+</div>
 
             {/* Card column */}
             <div
@@ -78,7 +82,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
 
   // Mobile slide — scrolls vertically so full content is always reachable
   return (
-    <div className="shrink-0 h-full overflow-y-auto px-5 pb-5" style={{ width: '100vw' }}>
+  <div className="shrink-0 h-full overflow-hidden px-5 pb-5" style={{ width: '100vw' }}>
       {/* Step title */}
       <h2 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h2>
 

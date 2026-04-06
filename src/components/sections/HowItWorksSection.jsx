@@ -147,17 +147,38 @@ export function HowItWorksSection({ carouselRef }) {
             className="sticky w-full bg-white overflow-hidden"
             style={{ top: '12px', height: 'calc(100vh - 12px)' }}
           >
-            <div className="relative z-20 pt-6 pb-2">
-              <div className="text-center">
-                <p className="anseru-section-tag">How It Works</p>
-                <h2 className="anseru-section-title mt-2 mb-4">
-                  How Anseru Turns Knowledge
-                  <br />
-                  Into Winning Deals
-                </h2>
-                <DesktopIndicators activeSlide={activeSlide} containerRef={effectiveRef} />
-              </div>
-            </div>
+          {/* Desktop sticky header */}
+<div className="relative z-20 pt-6 pb-2">
+  <div className="text-center">
+    <p className="anseru-section-tag">How It Works</p>
+    <h2 className="anseru-section-title mt-2 mb-4">
+      How Anseru Turns Knowledge
+      <br />
+      Into Winning Deals
+    </h2>
+
+    {/* 👇 Replace DesktopIndicators with MobileIndicators styled pill */}
+<div className="max-w-145 mx-auto px-4">
+  <div className="bg-gray-50 flex justify-between items-center w-full p-1.5 rounded-xl border border-gray-100">
+    {CAROUSEL_SLIDES.map((slide, i) => (
+      <button
+        key={slide.index}
+        onClick={() => {
+          const container = effectiveRef.current;
+          if (!container) return;
+          window.scrollTo({ top: container.offsetTop + i * window.innerHeight, behavior: 'smooth' });
+        }}
+        className={`text-[13px] font-medium transition-all cursor-pointer px-5 py-2.5 rounded-[8px] flex-1 text-center ${
+          activeSlide === i ? 'bg-black text-white shadow-sm' : 'text-gray-900 hover:bg-gray-200'
+        }`}
+      >
+        {slide.tabLabel}
+      </button>
+    ))}
+  </div>
+</div>
+  </div>
+</div>
 
             <div className="absolute left-0 right-0 bottom-0 overflow-hidden" style={{ top: '200px' }}>
               <div
@@ -210,9 +231,9 @@ export function HowItWorksSection({ carouselRef }) {
                   willChange: 'transform',
                 }}
               >
-                {CAROUSEL_SLIDES.map((slide) => (
+               ` {CAROUSEL_SLIDES.map((slide) => (
                   <CarouselSlidePanel key={slide.index} slide={slide} isDesktop={false} />
-                ))}
+                ))}`
               </div>
             </div>
 

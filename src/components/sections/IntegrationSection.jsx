@@ -29,37 +29,39 @@ function IntegrationColumn({ column }) {
 export function IntegrationSection() {
   return (
     <section data-section id="integration" className="scroll-mt-5">
-      <section className=" pb-12 md:py-18 bg-white">
+      <section className="pb-12 md:py-18 bg-white">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-24 items-center">
+
           {/* Text */}
-          <div className="text-left flex-1 order-first md:order-last">
-            <p className="anseru-section-tag">Integrations</p>
-            <h2 className="anseru-section-title">
-              Connect to the Tools
-              <br className="hidden md:block" />
-              You Already Use
-            </h2>
-            <div className="md:hidden mt-6">
-              <a
-                href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: '#000',
-                  color: '#fff',
-                  padding: `clamp(8px,1.5vw,12px) clamp(20px,4vw,32px)`,
-                  borderRadius: '4px',
-                  fontSize: 'clamp(13px,3.5vw,15px)',
-                  fontWeight: 400,
-                  textDecoration: 'none',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                Request Demo
-              </a>
-            </div>
-          </div>
+{/* Text */}
+<div className="text-center md:text-left flex-1 order-first md:order-last flex flex-col justify-center items-center md:items-start">
+  <p className="anseru-section-tag">Integrations</p>
+  <h2 className="anseru-section-title mb-2 md:mb-6">
+    Connect to the Tools
+    <br className="hidden md:block" />
+    You Already Use
+  </h2>
+  <div>
+    
+     <a href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#000',
+        color: '#fff',
+        padding: '10px 28px',
+        borderRadius: '6px',
+        fontSize: '14px',
+        fontWeight: 400,
+        textDecoration: 'none',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      Request Demo
+    </a>
+  </div>
+</div>
 
           {/* Animated columns */}
           <div className="w-full max-w-105 aspect-square bg-gray-50 rounded-3xl overflow-hidden flex items-center justify-center relative pointer-events-none order-last md:order-first">
@@ -71,6 +73,7 @@ export function IntegrationSection() {
               ))}
             </div>
           </div>
+
         </div>
       </section>
     </section>

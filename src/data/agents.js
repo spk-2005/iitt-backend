@@ -37,7 +37,7 @@ export const AGENTS = [
     tabIcon: knoxTabIcon,
     gradient: 'linear-gradient(45deg, #1d80f9 0%, #e74f62 100%)',
     agentIcon: knoxAgentIcon,
-    title: 'Security\nQuestionnaire Agent - Knox',
+    title: 'Security Questionnaire \n Agent - Knox',
     tags: ['Evidence-backed answers', 'No contradictions', 'Compliance-ready'],
     features: [
       {
