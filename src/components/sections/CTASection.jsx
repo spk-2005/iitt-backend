@@ -44,7 +44,7 @@ export function CTASection() {
             {/* Request Demo button — mobile only */}
             <div className="md:hidden">
               <a
-                href="https://calendly.com/kg-goutham-anseru"
+                href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -75,7 +75,7 @@ export function CTASection() {
           Deal Intelligent Infrastructure for Modern Sales teams
         </h2>
         <a
-          href="https://calendly.com/kg-goutham-anseru"
+          href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
           className="bg-black text-white px-8 py-2.5 md:px-10 md:py-3 rounded-md text-sm md:text-xl hover:bg-gray-800 transition shadow-sm shrink-0"
         >
           Talk to Founders

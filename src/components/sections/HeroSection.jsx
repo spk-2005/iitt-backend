@@ -35,7 +35,7 @@ export function HeroSection() {
     <section data-section id="home" className="scroll-mt-12">
       {/* ── Mobile hero ─────────────────────────────────────────────── */}
       <div
-        className="md:hidden w-full"
+        className="md:hidden w-full flex flex-col justify-center md:hidden"
         style={{
           backgroundImage: `url(${heroBgSrc})`,
           backgroundSize: '100% 100%',
@@ -43,12 +43,12 @@ export function HeroSection() {
         }}
       >
         {/* pt-16 clears the fixed navbar (~64px); px/pb give breathing room matching the screenshot */}
-        <div className="px-5 pt-16 pb-10">
+        <div className="px-5 pt-20.5 pb-10">
           <h1
             className="text-white font-normal leading-tight tracking-tight mb-5"
             style={{ fontSize: 'clamp(22px, 6.5vw, 30px)', letterSpacing: '-0.02em' }}
           >
-            AI Agents for RFPs and Security Questionnaires Deal Intelligence Platform
+            AI Agents for RFPs and <br/>Security Questionnaires <br/>Deal Intelligence Platform
           </h1>
           <a
             href="https://calendly.com/kg-goutham-anseru"

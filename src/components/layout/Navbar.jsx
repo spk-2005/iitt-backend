@@ -50,7 +50,7 @@ export function Navbar() {
         {/* Right: CTA + mobile menu toggle */}
         <div className="flex items-center gap-4">
           <a
-            href="https://calendly.com/kg-goutham-anseru"
+            href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
             className="bg-black text-white px-3 py-1.5 sm:px-5 sm:py-2 rounded-[5px] text-xs sm:text-sm font-medium hover:bg-gray-800 transition whitespace-nowrap"
           >
             Talk to Founders

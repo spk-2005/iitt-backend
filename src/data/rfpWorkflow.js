@@ -1,4 +1,35 @@
 export const RFP_NODES = [
+   {
+    title: 'RFP Decomposition',
+    desc: 'Break complex RFPs and extract key requirements into structured sections.',
+    angle: 240,
+    icon:'decomposition',
+    tx: -270,
+    ty: -5,
+    g1: '#367AE6',
+    g2: '#CE5575',
+  },
+   
+  {
+    title: 'Deal Qualification',
+    desc: 'Evaluate fit, assess win probability, and decide whether to pursue.',
+    angle: 280,
+    tx: -240,
+    icon:'qualification',
+    ty: -30,
+    g1: '#201CAE',
+    g2: '#6AA4EE',
+  },
+   {
+    title: 'Requirement Intelligence',
+    desc: 'Categorize questions, tag by topic, and route to the right teams.',
+    angle: 320,
+    tx: -220,
+    ty: -70,
+    icon:'rquirement',
+    g1: '#367AE6',
+    g2: '#CE5575',
+  },
   {
     title: 'Proposal Architecture',
     desc: 'Generate a structured proposal outline and response flow.',
@@ -6,10 +37,12 @@ export const RFP_NODES = [
     tx: -100,
     ty: -85,
     g1: '#6DA8EF',
+    icon:'proposal',
     g2: '#F3E21F',
   },
   {
     title: 'First Winnable Draft',
+    icon:'draft',
     desc: 'Generate contextual first drafts using enterprise knowledge.',
     angle: 40,
     tx: 35,
@@ -21,6 +54,7 @@ export const RFP_NODES = [
     title: 'SME Collaboration',
     desc: 'Route complex responses to subject matter experts for review.',
     angle: 80,
+    icon:'collaboration',
     tx: 43,
     ty: -25,
     g1: '#201CAE',
@@ -30,6 +64,7 @@ export const RFP_NODES = [
     title: 'Final Proposal',
     desc: 'Deliver a polished proposal ready for submission.',
     angle: 120,
+    icon:'final',
     tx: 45,
     ty: -10,
     g1: '#fe3f49',
@@ -40,46 +75,24 @@ export const RFP_NODES = [
     desc: 'Capture deal outcomes and key insights automatically.',
     angle: 160,
     tx: 40,
+    icon:'winLoss',
     ty: 20,
     g1: '#6DA8EF',
     g2: '#F3E21F',
   },
-  {
+ 
+
+   {
     title: 'Smarter Next Deal',
     desc: 'Feed insights back to improve future responses iteratively.',
     angle: 200,
     tx: -95,
+    icon:'smarterDeal',
     ty: 60,
     g1: '#fe3f49',
     g2: '#49abf5',
   },
-  {
-    title: 'RFP Decomposition',
-    desc: 'Break complex RFPs and extract key requirements into structured sections.',
-    angle: 240,
-    tx: -270,
-    ty: -5,
-    g1: '#367AE6',
-    g2: '#CE5575',
-  },
-  {
-    title: 'Deal Qualification',
-    desc: 'Evaluate fit, assess win probability, and decide whether to pursue.',
-    angle: 280,
-    tx: -240,
-    ty: -30,
-    g1: '#201CAE',
-    g2: '#6AA4EE',
-  },
-  {
-    title: 'Requirement Intelligence',
-    desc: 'Categorize questions, tag by topic, and route to the right teams.',
-    angle: 320,
-    tx: -220,
-    ty: -70,
-    g1: '#367AE6',
-    g2: '#CE5575',
-  },
+ 
 ];
 
 export const SVG_CONSTANTS = {

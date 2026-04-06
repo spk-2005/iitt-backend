@@ -41,7 +41,7 @@ export function IntegrationSection() {
             </h2>
             <div className="md:hidden mt-6">
               <a
-                href="https://calendly.com/kg-goutham-anseru"
+                href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
