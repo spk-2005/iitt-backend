@@ -11,24 +11,40 @@ function DesktopFeatureCell({ feature, borderClasses }) {
   );
 }
 
-function MobileFeatureCell({ feature, borderClasses }) {
+function MobileFeatureCell({ feature }) {
   return (
-    <div
-      className={`flex flex-col justify-between border-[#e5e7eb] ${borderClasses}`}
-      style={{ padding: 'clamp(10px,3.5vw,24px)', minHeight: 'clamp(90px,28vw,140px)' }}
-    >
+    <div className="flex flex-col h-full" style={{ padding: 'clamp(10px,3.5vw,24px)' }}>
       <h4
         className="font-normal text-black leading-[1.2]"
-        style={{ fontSize: 'clamp(11px,3.73vw,16px)', whiteSpace: 'pre-line' }}
+        style={{
+          fontSize: 'clamp(11px,3.73vw,16px)',
+          whiteSpace: 'pre-line',
+          minHeight: '2.5em'
+        }}
       >
         {feature.title}
       </h4>
       <p
         className="text-[#6b7280] leading-[1.4]"
-        style={{ fontSize: 'clamp(10px,3vw,13px)', marginTop: 'clamp(6px,2vw,12px)' }}
+        style={{ fontSize: 'clamp(10px,3vw,13px)', paddingTop: 'clamp(6px,2vw,12px)' }}
       >
         {feature.description}
       </p>
+    </div>
+  );
+}
+
+function MobileFeatureRow({ left, right, isLast }) {
+  return (
+    <div
+      className={`flex flex-row flex-1${isLast ? '' : ' border-b border-[#e5e7eb]'}`}
+    >
+      <div className="flex-1 border-r border-[#e5e7eb] flex flex-col">
+        <MobileFeatureCell feature={left} />
+      </div>
+      <div className="flex-1 flex flex-col">
+        <MobileFeatureCell feature={right} />
+      </div>
     </div>
   );
 }
@@ -93,8 +109,8 @@ export function AgentPanel({ agent, isDesktop = false }) {
 
   // Mobile layout — hero on top, feature grid below
   return (
-    <div className="border border-[#e5e7eb] rounded-xl overflow-hidden flex flex-col">
-      <div className="bg-white border-b border-[#e5e7eb]">
+    <div className="border border-[#e5e7eb] rounded-xl overflow-hidden flex flex-col h-full">
+      <div className="bg-white border-b border-[#e5e7eb] shrink-0">
         <div
           className="relative flex flex-col justify-between overflow-hidden"
           style={{
@@ -142,12 +158,11 @@ export function AgentPanel({ agent, isDesktop = false }) {
         </div>
       </div>
 
-      <div className="p-4 relative overflow-hidden">
-        <div className="grid grid-cols-2 bg-[#f4f4f5]">
-          <MobileFeatureCell feature={features[0]} borderClasses="border-b border-r" />
-          <MobileFeatureCell feature={features[1]} borderClasses="border-b" />
-          <MobileFeatureCell feature={features[2]} borderClasses="border-r" />
-          <MobileFeatureCell feature={features[3]} borderClasses="" />
+      {/* Feature grid — two explicit rows so left/right cells share equal height per row */}
+      <div className="p-4 relative overflow-hidden flex-1">
+        <div className="bg-[#f4f4f5] h-full flex flex-col">
+          <MobileFeatureRow left={features[0]} right={features[1]} isLast={false} />
+          <MobileFeatureRow left={features[2]} right={features[3]} isLast={true} />
         </div>
       </div>
     </div>

@@ -43,7 +43,7 @@ export function HeroSection() {
         }}
       >
         {/* pt-16 clears the fixed navbar (~64px); px/pb give breathing room matching the screenshot */}
-        <div className="px-5 pt-20.5 pb-10">
+        <div className="px-5 pt-25.5 pb-15">
           <h1
             className="text-white font-normal !leading-[.9] tracking-tight mb-5"
             style={{ fontSize: 'clamp(22px, 6.5vw, 30px)', letterSpacing: '-0.02em' }}
@@ -60,7 +60,7 @@ export function HeroSection() {
       </div>
 
       {/* ── Desktop hero ─────────────────────────────────────────────── */}
-      <div className="hidden md:block relative w-full">
+      <div className="hidden md:block relative w-full pt-3 pb-3">
         <div className="absolute inset-0 h-full w-full overflow-hidden">
           <img
             src={heroBgSrc}
