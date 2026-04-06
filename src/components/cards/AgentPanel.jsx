@@ -15,7 +15,7 @@ function MobileFeatureCell({ feature, borderClasses }) {
   return (
     <div
       className={`flex flex-col justify-between border-[#e5e7eb] ${borderClasses}`}
-      style={{ padding: 'clamp(10px,3.5vw,24px)', minHeight: 'clamp(90px,28vw,140px)' }}
+      style={{ padding: 'clamp(8px,3vw,16px)', minHeight: 'clamp(70px,22vw,100px)' }}
     >
       <h4
         className="font-normal text-black leading-[1.2]"
@@ -99,8 +99,8 @@ export function AgentPanel({ agent, isDesktop = false }) {
           className="relative flex flex-col justify-between overflow-hidden"
           style={{
             background: gradient,
-            padding: 'clamp(16px,5vw,32px)',
-            height: 'clamp(200px,60vw,300px)',
+            padding: 'clamp(12px,4vw,24px)',
+            height: 'clamp(160px,48vw,210px)',
             borderRadius: '8px',
           }}
         >

@@ -181,7 +181,7 @@ export function HowItWorksSection({ carouselRef }) {
         /* ── Mobile: scroll-driven sticky carousel ────────────────────── */
         <div
           ref={mobileContainerRef}
-          className="relative w-full bg-white"
+          className="relative w-full bg-white pt-10" 
           style={{ height: `${SLIDE_COUNT * 100}vh` }}
         >
           {/* Sticky panel sits below the fixed navbar (53px) and fills the remaining viewport */}

@@ -70,12 +70,18 @@ export function TeamFlipCard({ card }) {
         style={{
           transformStyle: 'preserve-3d',
           transition: 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)',
+          willChange: 'transform',
         }}
       >
         {/* Front */}
         <div
           className="team-card-face team-card-front absolute inset-0 bg-[#F8F9FB] overflow-hidden"
-          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+          style={{ 
+            backfaceVisibility: 'hidden', 
+            WebkitBackfaceVisibility: 'hidden',
+            transform: 'translateZ(1px)',
+            WebkitTransform: 'translateZ(1px)',
+          }}
         >
           <div className="absolute inset-x-0 top-0 h-[45%] pointer-events-none opacity-50" style={GRID_PATTERN} />
           <div className="absolute inset-x-0 bottom-0 h-[25%] pointer-events-none opacity-30" style={GRID_PATTERN_BOTTOM} />
@@ -97,7 +103,12 @@ export function TeamFlipCard({ card }) {
         {/* Back */}
         <div
           className="team-card-face team-card-back absolute inset-0 bg-[#F8F9FB] overflow-hidden"
-          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+          style={{ 
+            backfaceVisibility: 'hidden', 
+            WebkitBackfaceVisibility: 'hidden', 
+            transform: 'rotateY(180deg) translateZ(1px)',
+            WebkitTransform: 'rotateY(180deg) translateZ(1px)',
+          }}
         >
           <div
             className="absolute inset-x-0 top-0 h-[45%] pointer-events-none opacity-100"

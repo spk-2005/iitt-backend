@@ -1,5 +1,8 @@
+import { useRef } from 'react';
 import { RFPWorkflowDiagram } from '../workflow/RFPWorkflowDiagram.jsx';
 import { RFP_NODES } from '../../data/rfpWorkflow.js';
+import { useGsapContext } from '../../hooks/useGsapContext.js';
+import { gsap } from 'gsap';
 
 // Matches original: step-row height = 82px, node-wrapper = 40px, node-circle = 30px
 const ROW_H = 82;
@@ -120,232 +123,289 @@ function NodeIcon({ type }) {
 }
 // ── Mobile vertical timeline — matches original .wf-wrap / .steps-list ───────
 function MobileWorkflowList() {
+  const containerRef = useRef(null);
+  const triggerRef = useRef(null);
+  const rowsRef = useRef([]);
+  const linesRef = useRef([]);
+
+  useGsapContext(triggerRef, () => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: triggerRef.current,
+        start: "top 85%", // Reveal when section enters view
+        once: true,
+      }
+    });
+
+    // Animate each row and its connector line with a staggered effect
+    RFP_NODES.forEach((_, i) => {
+      const row = rowsRef.current[i];
+      const line = linesRef.current[i];
+
+      // Reveal the row
+      tl.to(row, {
+        opacity: 1,
+        duration: 0.4,
+      }, i === 0 ? 0 : ">-0.25");
+
+      // Reveal the connector line following this node (if it exists)
+      if (line) {
+        tl.to(line, {
+          opacity: 1,
+          duration: 0.2,
+        }, ">-0.1");
+      }
+    });
+  });
+
   return (
-    // .wf-wrap
-    <div style={{
-      boxSizing: 'border-box',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      maxWidth: 600,
-      margin: '0 auto',
-      fontFamily: 'DM Sans, sans-serif',
-      overflow: 'hidden',
-      padding: '40px 20px 0',
-    }}>
-
-      {/* wf-header */}
-      <div style={{ width: '100%' }}>
-        <p style={{ fontSize: 'clamp(14px,3vw,15px)', color: '#6B7280', marginBottom: 3 }}>
-          The Future of RFP Responses
-        </p>
-        <h2 style={{
-          fontSize: 'clamp(16px,5.5vw,26px)',
-          fontWeight: 400,
-          color: '#111827',
-          lineHeight: 1.15,
-          letterSpacing: '-0.02em',
-          marginBottom: 'clamp(8px,2.5vw,14px)',
-        }}>
-          From RFP to Winning Proposal
-        </h2>
-      </div>
-
-      {/* wf-title / End-to-End heading */}
-      <h4 style={{
-        fontFamily: 'DM Sans, sans-serif',
-        fontSize: 'clamp(24px,6vw,36px)',
-        fontWeight: 400,
-        lineHeight: 1.2,
-        textAlign: 'center',
+    // .wf-wrap - This is the wrapper that ScrollTrigger will pin
+    <div 
+      ref={triggerRef}
+      style={{
+        boxSizing: 'border-box',
         width: '100%',
-        margin: '20px 0 clamp(16px,4vw,24px)',
-        letterSpacing: '-0.02em',
-        color: '#000',
-      }}>
-        End-to-End<br />
-        <span style={{ color: '#2C48DB' }}>Deal Intelligence</span>
-      </h4>
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#fff',
+        padding: '20px 0',
+      }}
+    >
+      <div 
+        ref={containerRef}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          maxWidth: 600,
+          margin: '0 auto',
+          fontFamily: 'DM Sans, sans-serif',
+          overflow: 'hidden',
+          padding: '20px 20px 0',
+          width: '100%',
+        }}
+      >
 
-      {/* tl-outer */}
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', marginTop: 6, position: 'relative', width: '100%' }}>
+        {/* wf-header */}
+        <div style={{ width: '100%' }}>
+          <p style={{ fontSize: 'clamp(14px,3vw,15px)', color: '#6B7280', marginBottom: 3 }}>
+            The Future of RFP Responses
+          </p>
+          <h2 style={{
+            fontSize: 'clamp(16px,5.5vw,26px)',
+            fontWeight: 400,
+            color: '#111827',
+            lineHeight: 1.15,
+            letterSpacing: '-0.02em',
+            marginBottom: 'clamp(8px,2.5vw,14px)',
+          }}>
+            From RFP to Winning Proposal
+          </h2>
+        </div>
 
-        {/* steps-list */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0, position: 'relative' }}>
+        {/* wf-title / End-to-End heading */}
+        <h4 style={{
+          fontFamily: 'DM Sans, sans-serif',
+          fontSize: 'clamp(24px,6vw,36px)',
+          fontWeight: 400,
+          lineHeight: 1.2,
+          textAlign: 'center',
+          width: '100%',
+          margin: '20px 0 clamp(16px,4vw,24px)',
+          letterSpacing: '-0.02em',
+          color: '#000',
+        }}>
+          End-to-End<br />
+          <span style={{ color: '#2C48DB' }}>Deal Intelligence</span>
+        </h4>
 
-          {/* Absolute vertical segment lines — one between each pair of nodes */}
-          {RFP_NODES.slice(0, -1).map((_, i) => (
-            <div
-              key={`seg-${i}`}
-              style={{
-                position: 'absolute',
-                left: SEG_LEFT,
-                transform: 'translateX(-50%)',
-                top: ROW_H * i + 37,
-                width: 1.5,
-                height: 48,
-                background: '#d9d9d9',
-                zIndex: 0,
-                pointerEvents: 'none',
-              }}
-            />
-          ))}
+        {/* tl-outer */}
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', marginTop: 6, position: 'relative', width: '100%' }}>
 
-          {RFP_NODES.map((node, i) => {
-            const isLast = i === RFP_NODES.length - 1;
-            return (
-              // .step-row
-              <div key={node.title} style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: 12,
-                height: ROW_H,
-                minHeight: ROW_H,
-                position: 'relative',
-                zIndex: 2,
-              }}>
+          {/* steps-list */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, position: 'relative' }}>
 
-                {/* .step-node-col */}
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flexShrink: 0,
-                  alignSelf: 'stretch',
-                  alignItems: 'center',
-                  width: COL_W,
-                  minHeight: ROW_H,
-                  position: 'relative',
-                }}>
-                  {/* .node-wrapper */}
-                  <div style={{
-                    position: 'relative',
-                    width: 40,
-                    height: 40,
-                    borderRadius: '50%',
-                    background: '#fff',
-                    zIndex: 5,
+            {/* Absolute vertical segment lines */}
+            {RFP_NODES.slice(0, -1).map((_, i) => (
+              <div
+                key={`seg-${i}`}
+                ref={el => linesRef.current[i] = el}
+                style={{
+                  position: 'absolute',
+                  left: SEG_LEFT,
+                  transform: 'translateX(-50%)',
+                  top: ROW_H * i + 37,
+                  width: 1.5,
+                  height: 48,
+                  background: '#d9d9d9',
+                  zIndex: 0,
+                  pointerEvents: 'none',
+                  opacity: 0.1, // Initial state
+                }}
+              />
+            ))}
+
+            {RFP_NODES.map((node, i) => {
+              const isLast = i === RFP_NODES.length - 1;
+              return (
+                // .step-row
+                <div 
+                  key={node.title} 
+                  ref={el => rowsRef.current[i] = el}
+                  style={{
                     display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    alignItems: 'flex-start',
+                    gap: 12,
+                    height: ROW_H,
+                    minHeight: ROW_H,
+                    position: 'relative',
+                    zIndex: 2,
+                    opacity: 0.1, // Initial state
+                  }}
+                >
+
+                  {/* .step-node-col */}
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
                     flexShrink: 0,
+                    alignSelf: 'stretch',
+                    alignItems: 'center',
+                    width: COL_W,
+                    minHeight: ROW_H,
+                    position: 'relative',
                   }}>
-                    {/* .half-ring — left half arc */}
+                    {/* .node-wrapper */}
                     <div style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
+                      position: 'relative',
+                      width: 40,
+                      height: 40,
                       borderRadius: '50%',
-                      border: '2px solid #d9d9d9',
-                      clipPath: 'inset(0 48% 0 0)',
-                      zIndex: 1,
-                      pointerEvents: 'none',
-                    }} />
-                    {/* .node-circle — gradient bg + white icon */}
-                    <div style={{
-                      width: 30,
-                      padding:4,
-                      height: 30,
-                      borderRadius: '50%',
-                      background: `linear-gradient(90deg, #1d80f9, #e74f62)`,
+                      background: '#fff',
+                      zIndex: 5,
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      zIndex: 2,
-                      overflow: 'hidden',
-                      
-                      color: 'white',
+                      flexShrink: 0,
                     }}>
-                      <NodeIcon type={node.icon}/>
+                      {/* .half-ring — left half arc */}
+                      <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: '50%',
+                        border: '2px solid #d9d9d9',
+                        clipPath: 'inset(0 48% 0 0)',
+                        zIndex: 1,
+                        pointerEvents: 'none',
+                      }} />
+                      {/* .node-circle — gradient bg + white icon */}
+                      <div style={{
+                        width: 30,
+                        padding:4,
+                        height: 30,
+                        borderRadius: '50%',
+                        background: `linear-gradient(90deg, #1d80f9, #e74f62)`,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        zIndex: 2,
+                        overflow: 'hidden',
+                        
+                        color: 'white',
+                      }}>
+                        <NodeIcon type={node.icon}/>
+                      </div>
                     </div>
+
+                    {/* .connector-symbols — between this node and next */}
+                    {!isLast && (
+                      <div style={{
+                        position: 'absolute',
+                        top: 61,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 10,
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: 3,
+                        width: 40,
+                        color: '#d9d9d9',
+                        opacity: 0.6,
+                      }}>
+                        {/* up double chevron */}
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="7 11 12 6 17 11" />
+                          <polyline points="7 18 12 13 17 18" />
+                        </svg>
+                        {/* down double chevron */}
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="7 13 12 18 17 13" />
+                          <polyline points="7 6 12 11 17 6" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
 
-                  {/* .connector-symbols — between this node and next */}
-                  {!isLast && (
-                    <div style={{
-                      position: 'absolute',
-                      top: 61,
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      zIndex: 10,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      gap: 3,
-                      width: 40,
-                      color: '#d9d9d9',
-                      opacity: 0.6,
+                  {/* .step-body */}
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flex: 1,
+                    justifyContent: 'flex-start',
+                    height: ROW_H,
+                    minHeight: ROW_H,
+                    padding: '2px 4px 0 0',
+                  }}>
+                    {/* .step-title */}
+                    <p style={{
+                      margin: 0,
+                      fontSize: 'clamp(13px,3.8vw,15px)',
+                      fontWeight: 500,
+                      color: '#111',
+                      lineHeight: 1.3,
+                      overflow: 'hidden',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
                     }}>
-                      {/* up double chevron */}
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="7 11 12 6 17 11" />
-                        <polyline points="7 18 12 13 17 18" />
-                      </svg>
-                      {/* down double chevron */}
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="7 13 12 18 17 13" />
-                        <polyline points="7 6 12 11 17 6" />
-                      </svg>
-                    </div>
-                  )}
+                      {node.title}
+                    </p>
+                    {/* .step-desc */}
+                    <p style={{
+                      margin: 0,
+                      fontSize: 'clamp(11px,3.2vw,13px)',
+                      color: '#666',
+                      lineHeight: 1.35,
+                      minHeight: '2.7em',
+                      overflow: 'hidden',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                    }}>
+                      {node.desc}
+                    </p>
+                  </div>
                 </div>
-
-                {/* .step-body */}
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flex: 1,
-                  justifyContent: 'flex-start',
-                  height: ROW_H,
-                  minHeight: ROW_H,
-                  padding: '2px 4px 0 0',
-                }}>
-                  {/* .step-title */}
-                  <p style={{
-                    margin: 0,
-                    fontSize: 'clamp(13px,3.8vw,15px)',
-                    fontWeight: 500,
-                    color: '#111',
-                    lineHeight: 1.3,
-                    overflow: 'hidden',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                  }}>
-                    {node.title}
-                  </p>
-                  {/* .step-desc */}
-                  <p style={{
-                    margin: 0,
-                    fontSize: 'clamp(11px,3.2vw,13px)',
-                    color: '#666',
-                    lineHeight: 1.35,
-                    minHeight: '2.7em',
-                    overflow: 'hidden',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                  }}>
-                    {node.desc}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
+        {/* bottom padding */}
+        <div style={{ height: 40 }} />
       </div>
-      {/* bottom padding */}
-      <div style={{ height: 40 }} />
     </div>
   );
 }
 
 export function WorkflowSection() {
   return (
-    <section data-section id="workflow" className="scroll-mt-5">
+    <section data-section id="workflow" className="scroll-mt-5 ">
       <div className="w-full md:min-h-screen" style={{ fontFamily: 'Inter, sans-serif' }}>
 
         {/* ── Desktop header ── */}

@@ -63,8 +63,9 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                     src={cardImage}
                     loading={slide.index === 0 ? 'eager' : 'lazy'}
                     alt={cardImageAlt}
-                    className={`${cardImageClass} max-h-[${height}]`}
-                    style={{ width: cardImageWidth }}
+                    className={`${cardImageClass} `}
+                      style={{ width: cardImageWidth, maxHeight: height }}
+
                   />
                 </div>
               </div>
@@ -75,16 +76,16 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
     );
   }
 
-  // Mobile slide — scrolls vertically so full content is always reachable
+  // Mobile slide — tightened to fit within sticky viewport without inner scrolling
   return (
-    <div className="shrink-0 h-full overflow-y-auto px-5 pb-5" style={{ width: '100vw' }}>
+    <div className="shrink-0 h-full overflow-hidden px-5 pb-2" style={{ width: '100vw' }}>
       {/* Step title */}
-      <h2 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h2>
+      <h2 className="font-normal text-[#111111] text-[13px] sm:text-[15px] leading-snug mb-2">{step}</h2>
 
-      {/* Gradient card — natural height, no clipping */}
+      {/* Gradient card — tightened height to fit mobile screen without clipping text below */}
       <div
         className={`text-white relative overflow-hidden shadow-lg rounded-[10px] ${cardGradientClass}`}
-        style={{ height: '38vh' }}
+        style={{ height: '22vh', minHeight: '150px' }}
       >
         <img
           src={groupImgSrc}
@@ -92,8 +93,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
           className="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10"
         />
         <NoiseOverlay />
-        <div className="absolute top-0 left-0 z-20 p-5">
-          <h2 className="font-medium text-[16px] leading-snug max-w-55">
+        <div className="absolute top-0 left-0 z-20 p-4">
+          <h2 className="font-medium text-[14px] sm:text-[16px] leading-snug max-w-50">
             Turn complex RFPs into clear, winning responses
           </h2>
         </div>
@@ -108,10 +109,10 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
         </div>
       </div>
 
-      {/* Full description — flows naturally, no clipping */}
-      <div className="pt-4 space-y-3">
-        <p className="text-[#6b7280] text-[13px] leading-relaxed">{description}</p>
-        <div className="space-y-2 pt-1">
+      {/* Full description — tightened for mobile viewports */}
+      <div className="pt-3 space-y-2">
+        <p className="text-[#6b7280] text-[12px] leading-relaxed">{description}</p>
+        <div className="space-y-1.5 pt-0.5">
           {bullets.map((bullet, i) => (
             <SectionBulletItem key={i}>{bullet}</SectionBulletItem>
           ))}
