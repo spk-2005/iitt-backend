@@ -2,8 +2,10 @@ import { NoiseOverlay } from '../primitives/NoiseOverlay.jsx';
 
 function DesktopFeatureCell({ feature, borderClasses }) {
   return (
-    <div className={`p-8 md:p-5 flex flex-col justify-between border-[#e5e7eb] ${borderClasses}`}>
-      <h4 className="anseru-card-title" style={{ whiteSpace: 'pre-line' }}>{feature.title}</h4>
+    <div className={`p-8 md:p-5 flex flex-col border-[#e5e7eb] ${borderClasses}`}>
+      <h4 className="anseru-card-title mb-3" style={{ whiteSpace: 'pre-line', minHeight: '2.2em' }}>
+        {feature.title}
+      </h4>
       <p className="anseru-section-tag">{feature.description}</p>
     </div>
   );
@@ -79,7 +81,7 @@ export function AgentPanel({ agent, isDesktop = false }) {
             }}
           />
           <div className="h-full grid grid-cols-2 grid-rows-2 bg-[#f4f4f5] relative z-10">
-            <DesktopFeatureCell feature={features[0]} borderClasses="border-b border-r" />
+            <DesktopFeatureCell feature={features[0]}borderClasses="border-b border-r" />
             <DesktopFeatureCell feature={features[1]} borderClasses="border-b" />
             <DesktopFeatureCell feature={features[2]} borderClasses="border-r" />
             <DesktopFeatureCell feature={features[3]} borderClasses="" />

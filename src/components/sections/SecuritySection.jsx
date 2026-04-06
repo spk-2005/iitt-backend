@@ -74,10 +74,10 @@ export function SecuritySection() {
             {/* ── Mobile: vertical list (below md) ─────────────────────── */}
             <div className="flex md:hidden flex-col gap-6 w-full">
               {SECURITY_NODES.map((node) => (
-                <div key={node.id} className="flex items-start gap-4">
+                <div key={node.id} className="flex gap-4 jusify-center align-items-center py-4">
                   {/* Large gradient circle matching screenshot */}
                   <div
-                    className="shrink-0 w-16 h-16 rounded-full flex items-center justify-center p-4"
+                    className="shrink-0 w-14.5 h-14.5 rounded-full flex items-center justify-center p-4 m-2"
                     style={{ background: node.gradient }}
                   >
                     <img src={node.icon} loading="lazy" alt="" className="w-full h-full object-contain" />
