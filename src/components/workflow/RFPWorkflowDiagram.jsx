@@ -209,7 +209,7 @@ export function RFPWorkflowDiagram() {
   return (
     <div
       ref={containerRef}
-      className="pt-20 bg-white mx-auto block w-full max-w-275"
+      className=" bg-white mx-auto block w-full max-w-275"
     />
   );
 }

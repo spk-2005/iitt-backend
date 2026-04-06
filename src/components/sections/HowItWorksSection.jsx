@@ -24,9 +24,8 @@ function DesktopIndicators({ activeSlide, containerRef }) {
         <div key={slide.index} className="flex items-center">
           <button
             onClick={() => goTo(i)}
-            className={`text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full ${
-              activeSlide === i ? 'text-black bg-gray-100' : 'text-gray-400 hover:text-gray-600'
-            }`}
+            className={`text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full ${activeSlide === i ? 'text-black bg-gray-100' : 'text-gray-400 hover:text-gray-600'
+              }`}
           >
             {slide.tabLabel}
           </button>
@@ -45,9 +44,8 @@ function MobileIndicators({ activeSlide, onGoTo }) {
         <button
           key={slide.index}
           onClick={() => onGoTo(i)}
-          className={`text-[11px] font-medium transition-all cursor-pointer px-2 py-1.5 rounded-[8px] flex-1 text-center ${
-            activeSlide === i ? 'bg-black text-white' : 'text-gray-900 hover:bg-gray-200'
-          }`}
+          className={`text-[11px] font-medium transition-all cursor-pointer px-2 py-1.5 rounded-[8px] flex-1 text-center ${activeSlide === i ? 'bg-black text-white' : 'text-gray-900 hover:bg-gray-200'
+            }`}
         >
           {slide.tabLabel}
         </button>
@@ -80,6 +78,12 @@ export function HowItWorksSection({ carouselRef }) {
       trigger: container,
       start: 'top top',
       end: 'bottom bottom',
+      snap: {
+        snapTo: 1 / (SLIDE_COUNT - 1),
+        duration: { min: 0.2, max: 0.5 },
+        delay: 0,
+        ease: 'power1.inOut',
+      },
       onUpdate(self) {
         const xPct = -self.progress * ((SLIDE_COUNT - 1) / SLIDE_COUNT) * 100;
         gsap.set(strip, { xPercent: xPct });
@@ -219,9 +223,8 @@ export function HowItWorksSection({ carouselRef }) {
                   key={i}
                   onClick={() => goToSlide(i)}
                   aria-label={`Go to slide ${i + 1}`}
-                  className={`rounded-full transition-all duration-300 ${
-                    i === activeSlide ? 'w-5 h-2 bg-gray-700' : 'w-2 h-2 bg-gray-300'
-                  }`}
+                  className={`rounded-full transition-all duration-300 ${i === activeSlide ? 'w-5 h-2 bg-gray-700' : 'w-2 h-2 bg-gray-300'
+                    }`}
                 />
               ))}
             </div>

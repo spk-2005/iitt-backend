@@ -73,7 +73,8 @@ export function HeroSection() {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center h-full">
-            <div className="space-y-6 pt-28 pb-32 text-left md:-ml-8 lg:-ml-12">
+           <div className="space-y-6 pt-28 pb-32 text-left overflow-visible">
+
               <h1 className="anseru-section-title text-white">
                 AI Agents for RFPs and Security
                 <br />

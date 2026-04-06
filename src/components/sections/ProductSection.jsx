@@ -65,23 +65,31 @@ export function ProductSection({ agentsRef }) {
   // Mobile refs
   const mobileContainerRef = useRef(null);
   const mobileTrackRef = useRef(null);
+// ── Desktop: IntersectionObserver (plain useEffect, no GSAP) ────────────
+const sentinelRefs = useRef([]);
 
-  // ── Desktop: GSAP ScrollTrigger ─────────────────────────────────────────
-  useGsapContext(effectiveRef, () => {
-    const container = effectiveRef.current;
-    const strip = stripRef.current;
-    if (!container || !strip) return;
+useEffect(() => {
+  if (!isDesktop) return;
 
-    ScrollTrigger.create({
-      trigger: container,
-      start: 'top top',
-      end: 'bottom bottom',
-      onUpdate(self) {
-        gsap.set(strip, { xPercent: -self.progress * (100 / AGENT_COUNT) * (AGENT_COUNT - 1) });
-        setActiveAgent(Math.round(self.progress * (AGENT_COUNT - 1)));
+  const observers = [];
+
+  sentinelRefs.current.forEach((el, i) => {
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setActiveAgent(i);
       },
-    });
-  }, [isDesktop]);
+      {
+        root: null,        // viewport
+        threshold: 0.5,
+      }
+    );
+    obs.observe(el);
+    observers.push(obs);
+  });
+
+  return () => observers.forEach((o) => o.disconnect());
+}, [isDesktop]);
 
   // ── Mobile: scroll-driven sticky ────────────────────────────────────────
   useEffect(() => {
@@ -127,46 +135,68 @@ export function ProductSection({ agentsRef }) {
     <section data-section id="product" className="scroll-mt-4">
       {isDesktop ? (
         /* ── Desktop: 200vh GSAP horizontal strip ─────────────────────── */
-        <div
-          ref={effectiveRef}
-          id="two-agents-desktop"
-          className="relative w-full bg-white"
-          style={{ height: '200vh' }}
-        >
-          <div className="sticky top-0 h-screen flex flex-col pt-16 pb-7 overflow-hidden">
-            {/* Header */}
-            <div className="max-w-300 mx-auto px-6 w-full mb-5">
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-2">
-                <div className="space-y-1">
-                  <p className="anseru-section-tag">Proven Results</p>
-                  <h2 className="anseru-section-title">Two Super Agents</h2>
-                </div>
-                <AgentTabs
-                  activeAgent={activeAgent}
-                  onAgentChange={setActiveAgent}
-                  variant="desktop"
-                />
-              </div>
-            </div>
+    <div
+    ref={effectiveRef}
+    id="two-agents-desktop"
+    className="relative w-full bg-white"
+    style={{ height: `${AGENT_COUNT * 100}vh` }}
+  >
+    {/* Sentinels — 100vh each, stacked */}
+    {AGENTS.map((_, i) => (
+      <div
+        key={i}
+        ref={(el) => (sentinelRefs.current[i] = el)}
+        style={{
+          position: 'absolute',
+          top: `${i * 100}vh`,
+          height: '100vh',
+          width: '1px',
+          pointerEvents: 'none',
+        }}
+      />
+    ))}
 
-            {/* Sliding strip */}
-            <div className="flex-1 w-full overflow-hidden">
-              <div className="max-w-300 mx-auto px-6 w-full h-full">
-                <div className="border border-black/30 rounded-xl overflow-hidden h-full">
-                  <div
-                    ref={stripRef}
-                    className="flex h-full"
-                    style={{ width: `${AGENT_COUNT * 100}%`, willChange: 'transform' }}
-                  >
-                    {AGENTS.map((agent) => (
-                      <AgentPanel key={agent.id} agent={agent} isDesktop />
-                    ))}
-                  </div>
-                </div>
-              </div>
+    {/* Sticky panel */}
+    <div className="sticky top-0 h-screen flex flex-col pt-16 pb-7 overflow-hidden">
+      {/* Header */}
+      <div className="max-w-300 mx-auto px-6 w-full mb-5">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-2">
+          <div className="space-y-1">
+            <p className="anseru-section-tag">Proven Results</p>
+            <h2 className="anseru-section-title">Two Super Agents</h2>
+          </div>
+          <AgentTabs
+            activeAgent={activeAgent}
+            onAgentChange={(i) => {
+              sentinelRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }}
+            variant="desktop"
+          />
+        </div>
+      </div>
+
+      {/* Sliding strip */}
+      <div className="flex-1 w-full overflow-hidden">
+        <div className="max-w-300 mx-auto px-6 w-full h-full">
+          <div className="border border-black/30 rounded-xl overflow-hidden h-full">
+            <div
+              className="flex h-full"
+              style={{
+                width: `${AGENT_COUNT * 100}%`,
+                transform: `translateX(-${(activeAgent * 100) / AGENT_COUNT}%)`,
+                transition: 'transform 0.55s cubic-bezier(0.25, 1, 0.5, 1)',
+                willChange: 'transform',
+              }}
+            >
+              {AGENTS.map((agent) => (
+                <AgentPanel key={agent.id} agent={agent} isDesktop />
+              ))}
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
       ) : (
         /* ── Mobile: scroll-driven sticky carousel ────────────────────── */
         <div

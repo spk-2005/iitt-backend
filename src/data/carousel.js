@@ -9,6 +9,7 @@ export const CAROUSEL_SLIDES = [
     step: '1. Connect your knowledge',
     tabLabel: 'Connect',
     cardGradientClass: 'card-gradient-a1',
+    height:'65vh',
     cardImage: slide1Img,
     cardImageAlt: '1. Connect your knowledge',
     cardImageWidth: '75%',
@@ -27,6 +28,7 @@ export const CAROUSEL_SLIDES = [
     tabLabel: 'Upload',
     cardGradientClass: 'card-gradient-a2',
     cardImage: slide2Img,
+    height:'65vh',
     cardImageAlt: '2. Upload RFPs',
     cardImageWidth: '75%',
     cardImageClass: 'h-auto object-top rounded-b-[10px]',
@@ -46,6 +48,7 @@ export const CAROUSEL_SLIDES = [
     cardImage: slide3Img,
     cardImageAlt: '3. Generate AI Draft Responses',
     cardImageWidth: '85%',
+    height:'55vh',
     cardImageClass: 'h-auto object-top rounded-b-[10px]',
     description:
       'Anseru generates a full response draft using your verified documentation and past approved answers. Every answer is traceable to a real source, so drafts arrive ready for review, not ready to be rewritten from scratch.',
@@ -64,6 +67,7 @@ export const CAROUSEL_SLIDES = [
     cardImageAlt: '4. SME Review & Approval',
     cardImageWidth: '85%',
     cardImageClass: 'h-auto object-top rounded-b-[10px]',
+    height:'55vh',
     description:
       'Anseru focuses your experts on what only they can answer. Standard questions arrive pre-drafted and ready to approve. Novel, flagged, and high-risk items are surfaced for review before anything leaves the building.',
     bullets: [
