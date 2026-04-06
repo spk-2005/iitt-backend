@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { RFPWorkflowDiagram } from '../workflow/RFPWorkflowDiagram.jsx';
 import { RFP_NODES } from '../../data/rfpWorkflow.js';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
@@ -123,21 +123,31 @@ function NodeIcon({ type }) {
 }
 // ── Mobile vertical timeline — matches original .wf-wrap / .steps-list ───────
 function MobileWorkflowList() {
-  const containerRef = useRef(null);
+  const wrapperRef = useRef(null);
   const triggerRef = useRef(null);
   const rowsRef = useRef([]);
   const linesRef = useRef([]);
+  const [isRevealed, setIsRevealed] = useState(false);
 
-  useGsapContext(triggerRef, () => {
+  useGsapContext(wrapperRef, () => {
+    // If it's already revealed (e.g. from a state update), we don't need a new scrolltrigger
+    if (isRevealed) return;
+
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: triggerRef.current,
-        start: "top 85%", // Reveal when section enters view
-        once: true,
+        trigger: wrapperRef.current,
+        start: "top top", 
+        end: "bottom bottom", 
+        scrub: 0.5,
+        once: true,        
+        invalidateOnRefresh: true,
+        onLeave: () => {
+          setIsRevealed(true);
+        }
       }
     });
 
-    // Animate each row and its connector line with a staggered effect
+    // Animate each row and its connector line progressively based on scroll progress
     RFP_NODES.forEach((_, i) => {
       const row = rowsRef.current[i];
       const line = linesRef.current[i];
@@ -145,47 +155,62 @@ function MobileWorkflowList() {
       // Reveal the row
       tl.to(row, {
         opacity: 1,
-        duration: 0.4,
-      }, i === 0 ? 0 : ">-0.25");
+        duration: 0.5,
+      }, i * 0.5); // Fixed spacing in timeline for better scrubbing
 
       // Reveal the connector line following this node (if it exists)
       if (line) {
         tl.to(line, {
           opacity: 1,
-          duration: 0.2,
+          duration: 0.3,
         }, ">-0.1");
       }
     });
   });
 
   return (
-    // .wf-wrap - This is the wrapper that ScrollTrigger will pin
+    // wrapperRef determines the total scroll distance for the sticky reveal
     <div 
-      ref={triggerRef}
+      ref={wrapperRef}
       style={{
-        boxSizing: 'border-box',
+        position: 'relative',
         width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
+        height: isRevealed ? 'auto' : '180vh', 
         backgroundColor: '#fff',
-        padding: '20px 0',
+        zIndex: 5,
       }}
     >
+      {/* triggerRef stays sticky until fully revealed, then joins the normal flow */}
       <div 
-        ref={containerRef}
+        ref={triggerRef}
         style={{
+          position: isRevealed ? 'relative' : 'sticky',
+          top: isRevealed ? '0' : '53px', 
+          left: 0,
+          width: '100%',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'flex-start',
-          alignItems: 'flex-start',
-          maxWidth: 600,
-          margin: '0 auto',
-          fontFamily: 'DM Sans, sans-serif',
-          overflow: 'hidden',
-          padding: '20px 20px 0',
-          width: '100%',
+          backgroundColor: '#fff',
+          zIndex: 10,
+          padding: '0px 0',
+          // Force opacity 1 if revealed to skip animation artifacts
+          opacity: 1,
         }}
       >
+        <div 
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+            maxWidth: 600,
+            margin: '0 auto',
+            fontFamily: 'DM Sans, sans-serif',
+            overflow: 'hidden',
+            padding: '20px 20px 0',
+            width: '100%',
+          }}
+        >
 
         {/* wf-header */}
         <div style={{ width: '100%' }}>
@@ -241,7 +266,7 @@ function MobileWorkflowList() {
                   background: '#d9d9d9',
                   zIndex: 0,
                   pointerEvents: 'none',
-                  opacity: 0.1, // Initial state
+                  opacity: isRevealed ? 1 : 0.4, // Initial state
                 }}
               />
             ))}
@@ -261,7 +286,7 @@ function MobileWorkflowList() {
                     minHeight: ROW_H,
                     position: 'relative',
                     zIndex: 2,
-                    opacity: 0.1, // Initial state
+                    opacity: isRevealed ? 1 : 0.4, // Initial state
                   }}
                 >
 
@@ -400,6 +425,7 @@ function MobileWorkflowList() {
         <div style={{ height: 40 }} />
       </div>
     </div>
+  </div>
   );
 }
 
