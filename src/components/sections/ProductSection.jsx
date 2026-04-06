@@ -201,17 +201,21 @@ useEffect(() => {
         /* ── Mobile: scroll-driven sticky carousel ────────────────────── */
         <div
           ref={mobileContainerRef}
-          className="relative w-full bg-white pt-10"
+          className="relative w-full bg-white pt-6"
           style={{ height: `${AGENT_COUNT * 100}vh` }}
         >
+          {/* Section tag — scrolls away */}
+          <div className="px-5 mb-1">
+            <p className="anseru-section-tag">Proven Results</p>
+          </div>
+
           <div
             className="sticky w-full bg-white flex flex-col"
             style={{ top: '53px', height: 'calc(100vh - 53px)', overflow: 'hidden' }}
           >
-            {/* Header — fixed height */}
-            <div className="shrink-0 pt-5 pb-3 px-5">
-              <p className="anseru-section-tag">Proven Results</p>
-              <h2 className="anseru-section-title mt-1 mb-3">Two Super Agents</h2>
+            {/* Header — remains sticky */}
+            <div className="shrink-0 pt-2 pb-3 px-5">
+              <h2 className="anseru-section-title mt-0 mb-3">Two Super Agents</h2>
               <AgentTabs activeAgent={activeAgent} onAgentChange={goToAgent} variant="mobile" />
             </div>
 
