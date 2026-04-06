@@ -230,7 +230,7 @@ useEffect(() => {
                 {AGENTS.map((agent) => (
                   <div
                     key={agent.id}
-                    className="shrink-0 h-full overflow-hidden px-4 sm:px-6 pb-4"
+                    className="shrink-0 h-full overflow-y-auto px-4 sm:px-6 pb-4"
                     style={{ width: '100vw' }}
                   >
                     <AgentPanel agent={agent} isDesktop={false} />

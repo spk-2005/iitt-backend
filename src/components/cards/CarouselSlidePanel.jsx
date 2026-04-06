@@ -4,7 +4,7 @@ import { SectionBulletItem } from '../primitives/SectionBulletItem.jsx';
 import groupImgSrc from '../../assets/Group 1437253216.png';
 
 export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false }) {
-  const { step, cardGradientClass,cardImage, cardImageAlt, cardImageWidth, cardImageClass, description, bullets,height } = slide;
+  const { step, cardGradientClass, cardImage, cardImageAlt, cardImageWidth, cardImageClass, description, bullets, height } = slide;
 
   if (isDesktop) {
     return (
@@ -64,7 +64,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                     loading={slide.index === 0 ? 'eager' : 'lazy'}
                     alt={cardImageAlt}
                     className={`${cardImageClass} `}
-                      style={{ width: cardImageWidth, maxHeight: height }}
+                    style={{ width: cardImageWidth, maxHeight: height }}
 
                   />
                 </div>
@@ -76,16 +76,16 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
     );
   }
 
-  // Mobile slide — tightened to fit within sticky viewport without inner scrolling
+  // Mobile slide — scrolls vertically so full content is always reachable
   return (
-    <div className="shrink-0 h-full overflow-hidden px-5 pb-2" style={{ width: '100vw' }}>
+    <div className="shrink-0 h-full overflow-y-auto px-5 pb-5" style={{ width: '100vw' }}>
       {/* Step title */}
-      <h2 className="font-normal text-[#111111] text-[13px] sm:text-[15px] leading-snug mb-2">{step}</h2>
+      <h2 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h2>
 
-      {/* Gradient card — tightened height to fit mobile screen without clipping text below */}
+      {/* Gradient card — natural height, no clipping */}
       <div
         className={`text-white relative overflow-hidden shadow-lg rounded-[10px] ${cardGradientClass}`}
-        style={{ height: '22vh', minHeight: '150px' }}
+        style={{ height: '38vh' }}
       >
         <img
           src={groupImgSrc}
@@ -93,8 +93,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
           className="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10"
         />
         <NoiseOverlay />
-        <div className="absolute top-0 left-0 z-20 p-4">
-          <h2 className="font-medium text-[14px] sm:text-[16px] leading-snug max-w-50">
+        <div className="absolute top-0 left-0 z-20 p-5">
+          <h2 className="font-medium text-[16px] leading-snug max-w-55">
             Turn complex RFPs into clear, winning responses
           </h2>
         </div>
@@ -109,10 +109,10 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
         </div>
       </div>
 
-      {/* Full description — tightened for mobile viewports */}
-      <div className="pt-3 space-y-2">
-        <p className="text-[#6b7280] text-[12px] leading-relaxed">{description}</p>
-        <div className="space-y-1.5 pt-0.5">
+      {/* Full description — flows naturally, no clipping */}
+      <div className="pt-4 space-y-3">
+        <p className="text-[#6b7280] text-[13px] leading-relaxed">{description}</p>
+        <div className="space-y-2 pt-1">
           {bullets.map((bullet, i) => (
             <SectionBulletItem key={i}>{bullet}</SectionBulletItem>
           ))}

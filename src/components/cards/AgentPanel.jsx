@@ -15,7 +15,7 @@ function MobileFeatureCell({ feature, borderClasses }) {
   return (
     <div
       className={`flex flex-col justify-between border-[#e5e7eb] ${borderClasses}`}
-      style={{ padding: 'clamp(8px,3vw,16px)', minHeight: 'clamp(70px,22vw,100px)' }}
+      style={{ padding: 'clamp(10px,3.5vw,24px)', minHeight: 'clamp(90px,28vw,140px)' }}
     >
       <h4
         className="font-normal text-black leading-[1.2]"
@@ -81,7 +81,7 @@ export function AgentPanel({ agent, isDesktop = false }) {
             }}
           />
           <div className="h-full grid grid-cols-2 grid-rows-2 bg-[#f4f4f5] relative z-10">
-            <DesktopFeatureCell feature={features[0]}borderClasses="border-b border-r" />
+            <DesktopFeatureCell feature={features[0]} borderClasses="border-b border-r" />
             <DesktopFeatureCell feature={features[1]} borderClasses="border-b" />
             <DesktopFeatureCell feature={features[2]} borderClasses="border-r" />
             <DesktopFeatureCell feature={features[3]} borderClasses="" />
@@ -99,8 +99,8 @@ export function AgentPanel({ agent, isDesktop = false }) {
           className="relative flex flex-col justify-between overflow-hidden"
           style={{
             background: gradient,
-            padding: 'clamp(12px,4vw,24px)',
-            height: 'clamp(160px,48vw,210px)',
+            padding: 'clamp(16px,5vw,32px)',
+            height: 'clamp(200px,60vw,300px)',
             borderRadius: '8px',
           }}
         >
