@@ -43,7 +43,7 @@ export function HeroSection() {
         }}
       >
         {/* pt-16 clears the fixed navbar (~64px); px/pb give breathing room matching the screenshot */}
-        <div className="px-5 pt-21 pb-11">
+        <div className="px-5 pt-18 pb-7">
           <h1
             className="text-white font-normal !leading-[.9] tracking-tight mb-5"
             style={{ fontSize: 'clamp(22px, 6.5vw, 30px)', letterSpacing: '-0.02em' }}
