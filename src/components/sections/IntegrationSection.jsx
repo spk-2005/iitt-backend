@@ -29,7 +29,7 @@ function IntegrationColumn({ column }) {
 export function IntegrationSection() {
   return (
     <section data-section id="integration" className="scroll-mt-5">
-      <section className="pt-10 pb-8 md:py-18 bg-white">
+      <section className=" pb-12 md:py-18 bg-white">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-24 items-center">
           {/* Text */}
           <div className="text-left flex-1 order-first md:order-last">
