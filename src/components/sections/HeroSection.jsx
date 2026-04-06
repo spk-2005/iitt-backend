@@ -48,7 +48,7 @@ export function HeroSection() {
             className="text-white font-normal !leading-[.9] tracking-tight mb-5"
             style={{ fontSize: 'clamp(22px, 6.5vw, 30px)', letterSpacing: '-0.02em' }}
           >
-            AI Agents for RFPs and <br/>Security Questionnaires <br/>Deal Intelligence Platform
+            AI Agents for RFPs and <br />Security Questionnaires <br />Deal Intelligence Platform
           </h1>
           <a
             href="https://calendly.com/kg-goutham-anseru"
@@ -73,7 +73,7 @@ export function HeroSection() {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center h-full">
-           <div className="space-y-6 pt-28 pb-32 text-left overflow-visible">
+            <div className="space-y-6 pt-24 pb-10 text-left overflow-visible">
 
               <h1 className="anseru-section-title text-white">
                 AI Agents for RFPs and Security
@@ -82,12 +82,12 @@ export function HeroSection() {
                 <br />
                 Platform
               </h1>
-               <a
-            href="https://calendly.com/kg-goutham-anseru"
-            className="inline-block bg-white text-black text-sm font-medium px-5 py-2.5 rounded-[5px] hover:bg-gray-100 transition"
-          >
-            Request Demo
-          </a>
+              <a
+                href="https://calendly.com/kg-goutham-anseru"
+                className="inline-block bg-white text-black text-sm font-medium px-5 py-2.5 rounded-[5px] hover:bg-gray-100 transition"
+              >
+                Request Demo
+              </a>
             </div>
             <div className="flex h-full md:border-l border-white/20 items-end pb-10 md:px-10 md:pl-16 lg:pl-24">
               <p className="text-white mx-auto whitespace-pre-line max-w-104">

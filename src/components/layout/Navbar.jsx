@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import anseruLogo from '../../assets/Vector.png';
 
 const NAV_LINKS = [
@@ -15,6 +15,33 @@ function scrollToSection(id) {
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    const sectionIds = NAV_LINKS.map((link) => link.sectionId);
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0,
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   function handleNavClick(sectionId) {
     scrollToSection(sectionId);
@@ -36,15 +63,22 @@ export function Navbar() {
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map(({ label, sectionId }) => (
-            <button
-              key={sectionId}
-              onClick={() => scrollToSection(sectionId)}
-              className="text-sm font-medium px-4 py-2 rounded-[5px] transition text-gray-600 hover:text-black hover:bg-gray-100"
-            >
-              {label}
-            </button>
-          ))}
+          {NAV_LINKS.map(({ label, sectionId }) => {
+            const isActive = activeSection === sectionId;
+            return (
+              <button
+                key={sectionId}
+                onClick={() => scrollToSection(sectionId)}
+                className={`text-sm font-medium px-6 py-2 rounded-[5px] transition ${
+                  isActive
+                    ? 'bg-black text-white'
+                    : 'text-gray-600 hover:text-black hover:bg-gray-100'
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Right: CTA + mobile menu toggle */}
