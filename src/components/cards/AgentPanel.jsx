@@ -19,14 +19,14 @@ function MobileFeatureCell({ feature }) {
         style={{
           fontSize: 'clamp(11px,3.73vw,16px)',
           whiteSpace: 'pre-line',
-          minHeight: '2.5em'
+          minHeight: '3em'
         }}
       >
         {feature.title}
       </h4>
       <p
         className="text-[#6b7280] leading-[1.4]"
-        style={{ fontSize: 'clamp(10px,3vw,13px)', paddingTop: 'clamp(6px,2vw,12px)' }}
+        style={{ fontSize: 'clamp(10px,3vw,13px)', paddingTop: 'clamp(8px,7vw,10px)' }}
       >
         {feature.description}
       </p>
@@ -115,8 +115,8 @@ export function AgentPanel({ agent, isDesktop = false }) {
           className="relative flex flex-col justify-between overflow-hidden"
           style={{
             background: gradient,
-            padding: 'clamp(16px,5vw,32px)',
-            height: 'clamp(200px,60vw,300px)',
+            padding: 'clamp(26px,7vw,42px)',
+            height: 'clamp(340px,65vw,400px)',
             borderRadius: '8px',
           }}
         >
@@ -126,7 +126,7 @@ export function AgentPanel({ agent, isDesktop = false }) {
               src={agentIcon}
               loading="lazy"
               alt=""
-              style={{ width: 'clamp(60px,18vw,112px)', height: 'auto', opacity: 0.9 }}
+              style={{ width: 'clamp(40px,15vw,92px)', height: 'auto', opacity: 0.9 }}
             />
           </div>
           <div className="relative mt-auto">

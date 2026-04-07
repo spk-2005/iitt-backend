@@ -2,14 +2,13 @@ import { useState } from 'react';
 
 import faqIconSrc from '../../assets/Frame (11).png';
 
-export function FAQItem({ question, answer }) {
-  const [isOpen, setIsOpen] = useState(false);
+export function FAQItem({ question, answer, isOpen, onToggle }) {
 
   return (
     <div className="faq-item flex flex-col border border-gray-100 bg-white rounded-sm overflow-hidden">
       <button
         className="flex items-center justify-between py-3 md:py-4 px-4 cursor-pointer hover:bg-gray-100 transition-all select-none text-left w-full"
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={onToggle}
         aria-expanded={isOpen}
       >
         <div className="flex items-center gap-3">

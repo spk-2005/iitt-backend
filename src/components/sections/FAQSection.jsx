@@ -1,9 +1,16 @@
+import { useState } from 'react';
 import { FAQ_ITEMS } from '../../data/faq.js';
 import { FAQItem } from '../cards/FAQItem.jsx';
 
 export function FAQSection() {
+  const [openId, setOpenId] = useState(null);
+
   const leftItems = FAQ_ITEMS.filter((item) => item.column === 'left');
   const rightItems = FAQ_ITEMS.filter((item) => item.column === 'right');
+
+  const toggleItem = (id) => {
+    setOpenId((prev) => (prev === id ? null : id));
+  };
 
   return (
     <section data-section id="faq" className="scroll-mt-5">
@@ -15,14 +22,26 @@ export function FAQSection() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
             <div className="flex flex-col gap-2 md:gap-3">
-              {leftItems.map((item) => (
-                <FAQItem key={item.id} question={item.question} answer={item.answer} />
-              ))}
+                {leftItems.map((item) => (
+                  <FAQItem
+                    key={item.id}
+                    question={item.question}
+                    answer={item.answer}
+                    isOpen={openId === item.id}
+                    onToggle={() => toggleItem(item.id)}
+                  />
+                ))}
             </div>
             <div className="flex flex-col gap-2 md:gap-3">
-              {rightItems.map((item) => (
-                <FAQItem key={item.id} question={item.question} answer={item.answer} />
-              ))}
+                {rightItems.map((item) => (
+                  <FAQItem
+                    key={item.id}
+                    question={item.question}
+                    answer={item.answer}
+                    isOpen={openId === item.id}
+                    onToggle={() => toggleItem(item.id)}
+                  />
+                ))}
             </div>
           </div>
         </div>
