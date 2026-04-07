@@ -116,7 +116,7 @@ export function AgentPanel({ agent, isDesktop = false }) {
           style={{
             background: gradient,
             padding: 'clamp(26px,7vw,42px)',
-            height: 'clamp(340px,65vw,400px)',
+            minHeight: '320px',
             borderRadius: '8px',
           }}
         >
