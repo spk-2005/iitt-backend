@@ -323,38 +323,10 @@ function MobileWorkflowList() {
   );
 }
 export function WorkflowSection() {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    // Only run on mobile
-    const isMobile = () => window.innerWidth < 768;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && isMobile()) {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        });
-      },
-      {
-        threshold: 0.15, // fires when 15% of the section is visible
-        rootMargin: '0px',
-      }
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section data-section id="workflow" className="scroll-mt-5" ref={sectionRef}>
-      <div className="w-full md:min-h-screen" style={{ fontFamily: 'Inter, sans-serif', overscrollBehavior: 'none' }}>
-
-        {/* Desktop header */}
+    <section data-section id="workflow" className="scroll-mt-5">
+  <div className="w-full md:min-h-screen" style={{ fontFamily: 'Inter, sans-serif', overscrollBehavior: 'none' }}>  
+        {/* ── Desktop header ── */}
         <div className="hidden md:block max-w-300 mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between md:items-end pt-16 gap-6">
             <div>
