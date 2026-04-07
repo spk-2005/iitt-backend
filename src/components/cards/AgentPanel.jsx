@@ -159,7 +159,7 @@ export function AgentPanel({ agent, isDesktop = false }) {
       </div>
 
   {/* Feature grid — equal-height rows with borders on mobile */}
-      <div className="p-4 relative overflow-hidden flex-1">
+      <div className="p-2 relative overflow-hidden flex-1">
         <div className="bg-[#f4f4f5] h-full flex flex-col">
           <MobileFeatureRow left={features[0]} right={features[1]} isLast={false} />
           <MobileFeatureRow left={features[2]} right={features[3]} isLast={true} />
