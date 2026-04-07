@@ -26,7 +26,7 @@ function MobileFeatureCell({ feature }) {
       </h4>
       <p
         className="text-[#6b7280] leading-[1.4]"
-        style={{ fontSize: 'clamp(10px,3vw,13px)', paddingTop: 'clamp(8px,7vw,0px)' }}
+        style={{ fontSize: 'clamp(10px,3vw,13px)', paddingTop: 'clamp(8px,7vw,10px)' }}
       >
         {feature.description}
       </p>
@@ -115,8 +115,8 @@ export function AgentPanel({ agent, isDesktop = false }) {
           className="relative flex flex-col justify-between overflow-hidden"
           style={{
             background: gradient,
-            padding: 'clamp(26px,7vw,42px)',
-            minHeight: '320px',
+            padding: 'clamp(16px,5vw,32px)',
+            minHeight: '290px',
             borderRadius: '8px',
           }}
         >

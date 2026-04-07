@@ -201,23 +201,22 @@ export function HowItWorksSection({ carouselRef }) {
       ) : (
         /* ── Mobile: scroll-driven sticky carousel ────────────────────── */
         <div
-          ref={mobileContainerRef}
-          className="relative w-full bg-white pt-20"
-          style={{ height: `${SLIDE_COUNT * 100}vh` }}
-        >
+  ref={mobileContainerRef}
+  className="relative w-full bg-white"          // ← remove pt-20
+  style={{ height: `${SLIDE_COUNT * 100}vh` }}
+>
           {/* Sticky panel sits below the fixed navbar (53px) and fills the remaining viewport */}
-          <div
-            className="sticky w-full bg-white flex flex-col"
-            style={{ top: '53px', height: 'calc(100vh - 53px)', overflow: 'hidden' }}
-          >
-            {/* Header — fixed height */}
-            <div className="shrink-0 pt-5 pb-3 px-5">
-              <p className="anseru-section-tag">How It Works</p>
-              <h2 className="anseru-section-title mt-1 mb-3">
-                How Anseru Turns Knowledge Into Winning Deals
-              </h2>
-              <MobileIndicators activeSlide={activeSlide} onGoTo={goToSlide} />
-            </div>
+      <div
+    className="sticky w-full bg-white flex flex-col"
+    style={{ top: '33px', height: 'calc(100vh - 33px)', overflow: 'hidden' }}
+  >      {/* Header — fixed height */}
+       <div className="shrink-0 pb-3 px-5">
+      <p className="anseru-section-tag">How It Works</p>
+      <h2 className="anseru-section-title mt-1 mb-3">
+        How Anseru Turns Knowledge Into Winning Deals
+      </h2>
+      <MobileIndicators activeSlide={activeSlide} onGoTo={goToSlide} />
+    </div>
 
             {/* Sliding track — grows to fill remaining space */}
             <div className="flex-1 min-h-0 overflow-hidden">
