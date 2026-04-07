@@ -64,6 +64,27 @@ export function ProductSection({ agentsRef }) {
   // Mobile refs
   const mobileContainerRef = useRef(null);
   const mobileTrackRef = useRef(null);
+
+  // ── Desktop: GSAP ScrollTrigger horizontal strip animation ─────────────
+  useGsapContext(effectiveRef, () => {
+    if (!isDesktop) return;
+    const container = effectiveRef.current;
+    const strip = stripRef.current;
+    if (!container || !strip) return;
+
+    ScrollTrigger.create({
+      trigger: container,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true,
+      onUpdate(self) {
+        const xPct = -self.progress * ((AGENT_COUNT - 1) / AGENT_COUNT) * 100;
+        gsap.set(strip, { xPercent: xPct });
+        setActiveAgent(Math.round(self.progress * (AGENT_COUNT - 1)));
+      },
+    });
+  }, [isDesktop]);
+
   // ── Desktop: IntersectionObserver (plain useEffect, no GSAP) ────────────
   const sentinelRefs = useRef([]);
 
@@ -137,7 +158,7 @@ export function ProductSection({ agentsRef }) {
         <div
           ref={effectiveRef}
           id="two-agents-desktop"
-          classNaAme="relative w-full bg-white"
+          className="relative w-full bg-white"
           style={{ height: `${AGENT_COUNT * 100}vh` }}
         >
           {/* Sentinels — 100vh each, stacked */}
