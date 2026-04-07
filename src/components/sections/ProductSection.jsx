@@ -137,7 +137,7 @@ export function ProductSection({ agentsRef }) {
         <div
           ref={effectiveRef}
           id="two-agents-desktop"
-          className="relative w-full bg-white"
+          classNaAme="relative w-full bg-white"
           style={{ height: `${AGENT_COUNT * 100}vh` }}
         >
           {/* Sentinels — 100vh each, stacked */}

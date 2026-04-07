@@ -82,14 +82,14 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
 
   // Mobile slide — scrolls vertically so full content is always reachable
   return (
-  <div className="shrink-0 h-full overflow-hidden px-5 pb-5" style={{ width: '100vw' }}>
+    <div className="shrink-0 min-h-full h-full flex flex-col overflow-hidden px-5 pb-5 box-border" style={{ width: '100vw' }}>
       {/* Step title */}
       <h2 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h2>
 
       {/* Gradient card — natural height, no clipping */}
       <div
         className={`text-white relative overflow-hidden shadow-lg rounded-[10px] ${cardGradientClass}`}
-        style={{ height: '38vh' }}
+        style={{ minHeight: '30vh', maxHeight: '320px', height: '34vh' }}
       >
         <img
           src={groupImgSrc}
@@ -114,7 +114,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
       </div>
 
       {/* Full description — flows naturally, no clipping */}
-      <div className="pt-4 space-y-3">
+      <div className="pt-4 space-y-3 flex-1 overflow-hidden">
         <p className="text-[#6b7280] text-[13px] leading-relaxed">{description}</p>
         <div className="space-y-2 pt-1">
           {bullets.map((bullet, i) => (

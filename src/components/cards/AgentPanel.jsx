@@ -26,7 +26,7 @@ function MobileFeatureCell({ feature }) {
       </h4>
       <p
         className="text-[#6b7280] leading-[1.4]"
-        style={{ fontSize: 'clamp(10px,3vw,13px)', paddingTop: 'clamp(8px,7vw,10px)' }}
+        style={{ fontSize: 'clamp(10px,3vw,13px)', paddingTop: 'clamp(8px,7vw,0px)' }}
       >
         {feature.description}
       </p>
@@ -158,11 +158,21 @@ export function AgentPanel({ agent, isDesktop = false }) {
         </div>
       </div>
 
-      {/* Feature grid — two explicit rows so left/right cells share equal height per row */}
+      {/* Feature grid — equal-height cards on mobile */}
       <div className="p-4 relative overflow-hidden flex-1">
-        <div className="bg-[#f4f4f5] h-full flex flex-col">
-          <MobileFeatureRow left={features[0]} right={features[1]} isLast={false} />
-          <MobileFeatureRow left={features[2]} right={features[3]} isLast={true} />
+        <div className="bg-[#f4f4f5] grid grid-cols-2 grid-rows-2 gap-px h-full">
+          <div className="bg-[#f4f4f5] flex">
+            <MobileFeatureCell feature={features[0]} />
+          </div>
+          <div className="bg-[#f4f4f5] flex">
+            <MobileFeatureCell feature={features[1]} />
+          </div>
+          <div className="bg-[#f4f4f5] flex">
+            <MobileFeatureCell feature={features[2]} />
+          </div>
+          <div className="bg-[#f4f4f5] flex">
+            <MobileFeatureCell feature={features[3]} />
+          </div>
         </div>
       </div>
     </div>

@@ -231,9 +231,9 @@ export function HowItWorksSection({ carouselRef }) {
                   willChange: 'transform',
                 }}
               >
-               ` {CAROUSEL_SLIDES.map((slide) => (
+                {CAROUSEL_SLIDES.map((slide) => (
                   <CarouselSlidePanel key={slide.index} slide={slide} isDesktop={false} />
-                ))}`
+                ))}
               </div>
             </div>
 
