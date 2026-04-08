@@ -175,7 +175,7 @@ function NodeIcon({ type }) {
       <div
         style={{
           position: 'sticky',
-          top: 0,
+          top: -40,
           width: '100%',
           backgroundColor: '#fff',
           height: `${listHeight}px`,
