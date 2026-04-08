@@ -115,7 +115,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
 
       {/* Full description — flows naturally, no clipping */}
       <div className="pt-4 space-y-3 flex-1 overflow-y-auto">
-        <p className="text-[#6b7280] text-[13px] leading-relaxed">{description}</p>
+        <p className="text-[#6b7280] text-[15px] leading-relaxed">{description}</p>
         <div className="space-y-2 pt-1">
           {bullets.map((bullet, i) => (
             <SectionBulletItem key={i}>{bullet}</SectionBulletItem>
