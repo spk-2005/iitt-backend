@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { RFPWorkflowDiagram } from '../workflow/RFPWorkflowDiagram.jsx';
 import { RFP_NODES } from '../../data/rfpWorkflow.js';
 
@@ -7,7 +7,6 @@ import { RFP_NODES } from '../../data/rfpWorkflow.js';
 const ROW_H = 82;
 const COL_W = 49.5;   // step-node-col width
 const SEG_LEFT = 24.75; // center of col = left for the segment line
-const STEP = 200; // scroll distance per reveal step (px)
 
 // Placeholder icon — brightness(0) invert(1) makes it white on gradient bg
 const NODE_ICONS = {
@@ -115,79 +114,72 @@ const NODE_ICONS = {
   ),
 };
 
-
+// Fallback icon (requirement SVG) if node.icon key is missing
 const FALLBACK_ICON = NODE_ICONS.requirement;
+
 function NodeIcon({ type }) {
   return NODE_ICONS[type] ?? FALLBACK_ICON;
 }
-
-
-  function MobileWorkflowList() {
-  const runwayRef = useRef(null);  // ← this was missing
-  const hasCompletedRef = useRef(false);
-  const [revealedCount, setRevealedCount] = useState(0);
-  const totalNodes = RFP_NODES.length;
-  const STEP = 150;
-  const listHeight = totalNodes * ROW_H + 200;
-  const extraScrollSpace = STEP * totalNodes;
+// ── Mobile vertical timeline — matches original .wf-wrap / .steps-list ───────
+function MobileWorkflowList() {
+  const rowsRef = useRef([]);
+  const linesRef = useRef([]);
 
   useEffect(() => {
-    const runway = runwayRef.current;
-    if (!runway) return;
+    const rows = rowsRef.current.filter(Boolean);
+    const lines = linesRef.current.filter(Boolean);
 
-    const handleScroll = () => {
-      const rect = runway.getBoundingClientRect();
-      const scrolledIn = -rect.top;
+    // All elements start at low opacity — already visible but dimmed
+    // NO translateY — they don't move, just fade up to full opacity
+    [...rows, ...lines].forEach(el => {
+      el.style.transition = 'none';
+      // opacity set via data-revealed attribute in the observer
+    });
 
-      if (scrolledIn <= 0) {
-        if (!hasCompletedRef.current) setRevealedCount(0);
-        return;
-      }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const delay = el.dataset.delay || '0';
+            void el.offsetHeight;
+            el.style.transition = `opacity 0.5s ease ${delay}s`;
+            el.style.opacity = '1';
+            // Also reveal the icon gradient for row elements
+            const icon = el.querySelector('[data-icon]');
+            if (icon) {
+              icon.style.transition = `opacity 0.5s ease ${delay}s`;
+              icon.style.opacity = '1';
+            }
+            observer.unobserve(el); // never animate again
+          }
+        });
+      },
+      { threshold: 0, rootMargin: '0px 0px -50px 0px' }
+    );
 
-      if (scrolledIn >= extraScrollSpace) {
-        if (!hasCompletedRef.current) {
-          hasCompletedRef.current = true;
-          setRevealedCount(totalNodes);
-        }
-        return;
-      }
+    rows.forEach((el, i) => {
+      el.dataset.delay = (i * 0.1).toFixed(2);
+      observer.observe(el);
+    });
+    lines.forEach((el, i) => {
+      el.dataset.delay = (i * 0.1 + 0.05).toFixed(2);
+      observer.observe(el);
+    });
 
-      if (!hasCompletedRef.current) {
-        setRevealedCount(Math.floor(scrolledIn / STEP) + 1);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [totalNodes, extraScrollSpace]);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div
-      ref={runwayRef}
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: `${listHeight + extraScrollSpace}px`,
-        // Never mutate this height after mount
-      }}
-    >
-      <div
-        style={{
-          position: 'sticky',
-          top: -40,
-          width: '100%',
-          backgroundColor: '#fff',
-          height: `${listHeight}px`,
-          overflow: 'hidden',
-        }}
-      >
+    <div style={{ position: 'relative', width: '100%', backgroundColor: '#fff', overflowY: 'visible', overscrollBehavior: 'none' }}>
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#fff', padding: '0px 0' }}>
         <div style={{
           display: 'flex', flexDirection: 'column', justifyContent: 'flex-start',
           alignItems: 'flex-start', maxWidth: 600, margin: '0 auto',
-          fontFamily: 'DM Sans, sans-serif',
+          fontFamily: 'DM Sans, sans-serif', overflow: 'visible',
           padding: '20px 20px 0', width: '100%',
         }}>
+
           {/* wf-header */}
           <div style={{ width: '100%' }}>
             <p style={{ fontSize: 'clamp(14px,3vw,15px)', color: '#6B7280', marginBottom: 3 }}>
@@ -211,123 +203,130 @@ function NodeIcon({ type }) {
             <span style={{ color: '#2C48DB' }}>Deal Intelligence</span>
           </h4>
 
-          {/* steps list — completely unchanged */}
+          {/* steps list */}
           <div style={{ display: 'flex', flexDirection: 'column', marginTop: 6, position: 'relative', width: '100%' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 0, position: 'relative' }}>
+
+              {/* Segment lines — low opacity initially */}
               {RFP_NODES.slice(0, -1).map((_, i) => (
                 <div
                   key={`seg-${i}`}
+                  ref={el => linesRef.current[i] = el}
                   style={{
-                    position: 'absolute', left: SEG_LEFT,
-                    transform: 'translateX(-50%)', top: ROW_H * i + 37,
-                    width: 1.5, height: 48, background: '#d9d9d9',
-                    zIndex: 0, pointerEvents: 'none',
-                    opacity: revealedCount > i + 1 ? 1 : 0.2,
-                    transition: 'opacity 0.4s ease',
+                    position: 'absolute',
+                    left: SEG_LEFT,
+                    transform: 'translateX(-50%)',
+                    top: ROW_H * i + 37,
+                    width: 1.5,
+                    height: 48,
+                    background: '#d9d9d9',
+                    zIndex: 0,
+                    pointerEvents: 'none',
+                    opacity: 0.25,          // ← dimmed but visible from the start
                   }}
                 />
               ))}
 
-              {RFP_NODES.map((node, i) => {
-                const revealed = i < revealedCount;
-                return (
-                  <div
-                    key={node.title}
-                    style={{
-                      display: 'flex', alignItems: 'flex-start', gap: 12,
-                      height: ROW_H, minHeight: ROW_H,
-                      position: 'relative', zIndex: 2,
-                      opacity: revealed ? 1 : 0.15,
-                      transform: revealed ? 'translateY(0)' : 'translateY(10px)',
-                      transition: 'opacity 0.45s ease, transform 0.45s ease',
-                    }}
-                  >
+              {RFP_NODES.map((node, i) => (
+                <div
+                  key={node.title}
+                  ref={el => rowsRef.current[i] = el}
+                  style={{
+                    display: 'flex', alignItems: 'flex-start', gap: 12,
+                    height: ROW_H, minHeight: ROW_H,
+                    position: 'relative', zIndex: 2,
+                    opacity: 0.25,          // ← dimmed but visible from the start
+                  }}
+                >
+                  {/* step-node-col */}
+                  <div style={{
+                    display: 'flex', flexDirection: 'column', flexShrink: 0,
+                    alignSelf: 'stretch', alignItems: 'center',
+                    width: COL_W, minHeight: ROW_H, position: 'relative',
+                  }}>
                     <div style={{
-                      display: 'flex', flexDirection: 'column', flexShrink: 0,
-                      alignSelf: 'stretch', alignItems: 'center',
-                      width: COL_W, minHeight: ROW_H, position: 'relative',
+                      position: 'relative', width: 40, height: 40,
+                      borderRadius: '50%', background: '#fff', zIndex: 5,
+                      display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0,
                     }}>
                       <div style={{
-                        position: 'relative', width: 40, height: 40,
-                        borderRadius: '50%', background: '#fff', zIndex: 5,
-                        display: 'flex', justifyContent: 'center', alignItems: 'center', flexShrink: 0,
-                      }}>
-                        <div style={{
-                          position: 'absolute', top: 0, left: 0,
-                          width: '100%', height: '100%', borderRadius: '50%',
-                          border: '2px solid #d9d9d9', clipPath: 'inset(0 48% 0 0)',
-                          zIndex: 1, pointerEvents: 'none',
-                        }} />
-                        <div style={{
+                        position: 'absolute', top: 0, left: 0,
+                        width: '100%', height: '100%', borderRadius: '50%',
+                        border: '2px solid #d9d9d9', clipPath: 'inset(0 48% 0 0)',
+                        zIndex: 1, pointerEvents: 'none',
+                      }} />
+                      {/* Icon circle — also dimmed, revealed by observer via data-icon */}
+                      <div
+                        data-icon
+                        style={{
                           width: 30, padding: 4, height: 30, borderRadius: '50%',
-                          background: revealed
-                            ? 'linear-gradient(90deg, #1d80f9, #e74f62)'
-                            : '#e5e7eb',
+                          background: 'linear-gradient(90deg, #1d80f9, #e74f62)',
                           display: 'flex', justifyContent: 'center', alignItems: 'center',
                           zIndex: 2, overflow: 'hidden', color: 'white',
-                          transition: 'background 0.4s ease',
-                        }}>
-                          <NodeIcon type={node.icon} />
-                        </div>
+                          opacity: 0.3,      // ← icon starts nearly grey
+                        }}
+                      >
+                        <NodeIcon type={node.icon} />
                       </div>
-
-                      {i !== RFP_NODES.length - 1 && (
-                        <div style={{
-                          position: 'absolute', top: 61, left: '50%',
-                          transform: 'translateX(-50%)', zIndex: 10,
-                          display: 'flex', flexDirection: 'row',
-                          justifyContent: 'center', alignItems: 'center',
-                          gap: 3, width: 40, color: '#d9d9d9', opacity: 0.6,
-                        }}>
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="7 11 12 6 17 11" /><polyline points="7 18 12 13 17 18" />
-                          </svg>
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="7 13 12 18 17 13" /><polyline points="7 6 12 11 17 6" />
-                          </svg>
-                        </div>
-                      )}
                     </div>
 
-                    <div style={{
-                      display: 'flex', flexDirection: 'column', flex: 1,
-                      justifyContent: 'flex-start', height: ROW_H, minHeight: ROW_H,
-                      padding: '2px 4px 0 0',
-                    }}>
-                      <p style={{
-                        margin: 0, fontSize: 'clamp(13px,3.8vw,15px)',
-                        fontWeight: 500, color: '#111', lineHeight: 1.3,
-                        overflow: 'hidden', display: '-webkit-box',
-                        WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
+                    {i !== RFP_NODES.length - 1 && (
+                      <div style={{
+                        position: 'absolute', top: 61, left: '50%',
+                        transform: 'translateX(-50%)', zIndex: 10,
+                        display: 'flex', flexDirection: 'row',
+                        justifyContent: 'center', alignItems: 'center',
+                        gap: 3, width: 40, color: '#d9d9d9', opacity: 0.6,
                       }}>
-                        {node.title}
-                      </p>
-                      <p style={{
-                        margin: 0, fontSize: 'clamp(11px,3.2vw,13px)',
-                        color: '#666', lineHeight: 1.35, minHeight: '2.7em',
-                        overflow: 'hidden', display: '-webkit-box',
-                        WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-                      }}>
-                        {node.desc}
-                      </p>
-                    </div>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="7 11 12 6 17 11" /><polyline points="7 18 12 13 17 18" />
+                        </svg>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="7 13 12 18 17 13" /><polyline points="7 6 12 11 17 6" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
-                );
-              })}
+
+                  {/* step-body */}
+                  <div style={{
+                    display: 'flex', flexDirection: 'column', flex: 1,
+                    justifyContent: 'flex-start', height: ROW_H, minHeight: ROW_H,
+                    padding: '2px 4px 0 0',
+                  }}>
+                    <p style={{
+                      margin: 0, fontSize: 'clamp(13px,3.8vw,15px)',
+                      fontWeight: 500, color: '#111', lineHeight: 1.3,
+                      overflow: 'hidden', display: '-webkit-box',
+                      WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
+                    }}>
+                      {node.title}
+                    </p>
+                    <p style={{
+                      margin: 0, fontSize: 'clamp(11px,3.2vw,13px)',
+                      color: '#666', lineHeight: 1.35, minHeight: '2.7em',
+                      overflow: 'hidden', display: '-webkit-box',
+                      WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
+                    }}>
+                      {node.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+
           <div style={{ height: 40 }} />
         </div>
       </div>
     </div>
   );
-}  
+}
 export function WorkflowSection() {
   return (
     <section data-section id="workflow" className="scroll-mt-5">
-      <div className="w-full md:min-h-screen" style={{ fontFamily: 'Inter, sans-serif', overscrollBehavior: 'none' }}>
-
-        {/* Desktop header */}
+  <div className="w-full md:min-h-screen" style={{ fontFamily: 'Inter, sans-serif', overscrollBehavior: 'none' }}>  
+        {/* ── Desktop header ── */}
         <div className="hidden md:block max-w-300 mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between md:items-end pt-16 gap-6">
             <div>
@@ -351,7 +350,7 @@ export function WorkflowSection() {
           <RFPWorkflowDiagram />
         </div>
 
-        {/* Mobile: vertical timeline with sticky scroll reveal */}
+        {/* Mobile: vertical timeline */}
         <div className="md:hidden">
           <MobileWorkflowList />
         </div>
