@@ -89,7 +89,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
       {/* Gradient card — natural height, no clipping */}
       <div
         className={`text-white relative overflow-hidden shadow-lg rounded-[10px] ${cardGradientClass}`}
-        style={{ minHeight: '30vh', maxHeight: '320px', height: '34vh' }}
+        style={{ height: 'clamp(200px, 30vh, 320px)' }}
       >
         <img
           src={groupImgSrc}
@@ -108,13 +108,13 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
             loading={slide?.index === 0 ? 'eager' : 'lazy'}
             alt={cardImageAlt}
             className={cardImageClass}
-            style={{ width: cardImageWidth }}
+            style={{ width: cardImageWidth, maxHeight: 'clamp(160px, 25vh, 230px)' }}
           />
         </div>
       </div>
 
       {/* Full description — flows naturally, no clipping */}
-      <div className="pt-4 space-y-3 flex-1 overflow-hidden">
+      <div className="pt-4 space-y-3 flex-1 overflow-y-auto">
         <p className="text-[#6b7280] text-[13px] leading-relaxed">{description}</p>
         <div className="space-y-2 pt-1">
           {bullets.map((bullet, i) => (

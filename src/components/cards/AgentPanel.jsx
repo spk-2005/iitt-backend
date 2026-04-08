@@ -115,8 +115,8 @@ export function AgentPanel({ agent, isDesktop = false }) {
           className="relative flex flex-col justify-between overflow-hidden"
           style={{
             background: gradient,
-            padding: 'clamp(16px,5vw,32px)',
-            minHeight: '290px',
+            padding: 'clamp(26px,6vw,42px)',
+            minHeight: 'clamp(180px, 33vh, 260px)',
             borderRadius: '8px',
           }}
         >

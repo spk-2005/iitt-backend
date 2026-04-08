@@ -10,42 +10,16 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SLIDE_COUNT = CAROUSEL_SLIDES.length;
 
-// ── Desktop tab indicators ───────────────────────────────────────────────────
-function DesktopIndicators({ activeSlide, containerRef }) {
-  function goTo(i) {
-    const container = containerRef.current;
-    if (!container) return;
-    window.scrollTo({ top: container.offsetTop + i * window.innerHeight, behavior: 'smooth' });
-  }
-
-  return (
-    <div className="flex justify-center items-center gap-0 max-w-145 mx-auto px-4">
-      {CAROUSEL_SLIDES.map((slide, i) => (
-        <div key={slide.index} className="flex items-center">
-          <button
-            onClick={() => goTo(i)}
-            className={`text-[13px] sm:text-[15px] font-medium transition-colors cursor-pointer px-3 sm:px-4 py-2 rounded-full ${activeSlide === i ? 'text-black bg-gray-100' : 'text-gray-400 hover:text-gray-600'
-              }`}
-          >
-            {slide.tabLabel}
-          </button>
-          {i < SLIDE_COUNT - 1 && <div className="w-5 sm:w-10 h-px bg-gray-200 -mx-1 sm:-mx-2" />}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-// ── Mobile pill indicators ───────────────────────────────────────────────────
 function MobileIndicators({ activeSlide, onGoTo }) {
   return (
-    <div className="bg-gray-50 flex justify-between items-center w-full p-1 rounded-xl">
+    <div className="bg-gray-50 flex justify-between items-center w-full p-1 rounded-xl border border-gray-100">
       {CAROUSEL_SLIDES.map((slide, i) => (
         <button
           key={slide.index}
           onClick={() => onGoTo(i)}
-          className={`text-[11px] font-medium transition-all cursor-pointer px-2 py-1.5 rounded-[8px] flex-1 text-center ${activeSlide === i ? 'bg-black text-white' : 'text-gray-900 hover:bg-gray-200'
-            }`}
+          className={`text-[10px] sm:text-[11px] font-medium transition-all cursor-pointer px-1.5 py-1.5 rounded-[8px] flex-1 text-center leading-tight ${
+            activeSlide === i ? 'bg-black text-white' : 'text-gray-900 hover:bg-gray-200'
+          }`}
         >
           {slide.tabLabel}
         </button>
@@ -54,19 +28,22 @@ function MobileIndicators({ activeSlide, onGoTo }) {
   );
 }
 
-// ── Section ──────────────────────────────────────────────────────────────────
 export function HowItWorksSection({ carouselRef }) {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [navbarHeight, setNavbarHeight] = useState(53);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
-  // Desktop refs
   const internalRef = useRef(null);
   const effectiveRef = carouselRef || internalRef;
   const stripRef = useRef(null);
-
-  // Mobile refs
   const mobileContainerRef = useRef(null);
   const mobileTrackRef = useRef(null);
+
+  // Dynamically measure the actual navbar height
+  useEffect(() => {
+    const navbar = document.querySelector('nav, header, [data-navbar]');
+    if (navbar) setNavbarHeight(navbar.offsetHeight);
+  }, []);
 
   // ── Desktop: GSAP ScrollTrigger ─────────────────────────────────────────
   useGsapContext(effectiveRef, () => {
@@ -103,40 +80,36 @@ export function HowItWorksSection({ carouselRef }) {
       const range = container.offsetHeight - window.innerHeight;
       if (range <= 0) return;
       const progress = Math.max(0, Math.min(1, (window.scrollY - sectionTop) / range));
-      const zoneSize = 1 / SLIDE_COUNT;
-      const idx = Math.min(Math.floor(progress / zoneSize), SLIDE_COUNT - 1);
+      const idx = Math.min(Math.floor(progress * SLIDE_COUNT), SLIDE_COUNT - 1);
       setActiveSlide(idx);
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isDesktop]);
 
-  // Update mobile track transform whenever activeSlide changes
   useEffect(() => {
     const track = mobileTrackRef.current;
-    if (track) {
-      track.style.transform = `translateX(-${activeSlide * 100}vw)`;
-    }
+    if (track) track.style.transform = `translateX(-${activeSlide * 100}vw)`;
   }, [activeSlide]);
 
-  // Scroll to appropriate vertical position for a given slide (mobile)
   function goToSlide(i) {
     if (isDesktop) return;
     const container = mobileContainerRef.current;
     if (!container) return;
     const sectionTop = container.offsetTop;
     const range = container.offsetHeight - window.innerHeight;
-    const zoneSize = 1 / SLIDE_COUNT;
-    // Scroll to the midpoint of that zone so the scroll handler resolves correctly
-    const targetY = sectionTop + (i * zoneSize + zoneSize * 0.5) * range;
+    const targetY = sectionTop + (i / SLIDE_COUNT) * range + 4;
     window.scrollTo({ top: targetY, behavior: 'smooth' });
   }
+
+  const stickyTop = navbarHeight;
+  const stickyHeight = `calc(100dvh - ${stickyTop}px)`;
 
   return (
     <section data-section id="how-it-works" className="scroll-mt-5">
       {isDesktop ? (
-        /* ── Desktop: 400vh GSAP horizontal carousel ─────────────────── */
         <div
           ref={effectiveRef}
           id="carousel-desktop"
@@ -147,38 +120,40 @@ export function HowItWorksSection({ carouselRef }) {
             className="sticky w-full bg-white overflow-hidden"
             style={{ top: '12px', height: 'calc(100vh - 12px)' }}
           >
-          {/* Desktop sticky header */}
-<div className="relative z-20 pt-6 pb-2">
-  <div className="text-center">
-    <p className="anseru-section-tag">How It Works</p>
-    <h2 className="anseru-section-title mt-2 mb-4">
-      How Anseru Turns Knowledge
-      <br />
-      Into Winning Deals
-    </h2>
-
-    {/* 👇 Replace DesktopIndicators with MobileIndicators styled pill */}
-<div className="max-w-145 mx-auto px-4">
-  <div className="bg-gray-50 flex justify-between items-center w-full p-1.5 rounded-xl border border-gray-100">
-    {CAROUSEL_SLIDES.map((slide, i) => (
-      <button
-        key={slide.index}
-        onClick={() => {
-          const container = effectiveRef.current;
-          if (!container) return;
-          window.scrollTo({ top: container.offsetTop + i * window.innerHeight, behavior: 'smooth' });
-        }}
-        className={`text-[13px] font-medium transition-all cursor-pointer px-5 py-2.5 rounded-[8px] flex-1 text-center ${
-          activeSlide === i ? 'bg-black text-white shadow-sm' : 'text-gray-900 hover:bg-gray-200'
-        }`}
-      >
-        {slide.tabLabel}
-      </button>
-    ))}
-  </div>
-</div>
-  </div>
-</div>
+            <div className="relative z-20 pt-6 pb-2">
+              <div className="text-center">
+                <p className="anseru-section-tag">How It Works</p>
+                <h2 className="anseru-section-title mt-2 mb-4">
+                  How Anseru Turns Knowledge
+                  <br />
+                  Into Winning Deals
+                </h2>
+                <div className="max-w-2xl mx-auto px-4">
+                  <div className="bg-gray-50 flex justify-between items-center w-full p-1.5 rounded-xl border border-gray-100">
+                    {CAROUSEL_SLIDES.map((slide, i) => (
+                      <button
+                        key={slide.index}
+                        onClick={() => {
+                          const container = effectiveRef.current;
+                          if (!container) return;
+                          window.scrollTo({
+                            top: container.offsetTop + i * window.innerHeight,
+                            behavior: 'smooth',
+                          });
+                        }}
+                        className={`text-[13px] font-medium transition-all cursor-pointer px-5 py-2.5 rounded-[8px] flex-1 text-center ${
+                          activeSlide === i
+                            ? 'bg-black text-white shadow-sm'
+                            : 'text-gray-900 hover:bg-gray-200'
+                        }`}
+                      >
+                        {slide.tabLabel}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div className="absolute left-0 right-0 bottom-0 overflow-hidden" style={{ top: '200px' }}>
               <div
@@ -199,27 +174,41 @@ export function HowItWorksSection({ carouselRef }) {
           </div>
         </div>
       ) : (
-        /* ── Mobile: scroll-driven sticky carousel ────────────────────── */
+        /* ── Mobile ── */
         <div
           ref={mobileContainerRef}
-          className="relative w-full bg-white pt-20"
+          className="relative w-full bg-white"
           style={{ height: `${SLIDE_COUNT * 100}vh` }}
         >
-          {/* Sticky panel sits below the fixed navbar (53px) and fills the remaining viewport */}
           <div
             className="sticky w-full bg-white flex flex-col"
-            style={{ top: '53px', height: 'calc(100vh - 53px)', overflow: 'hidden' }}
+            style={{ top: `${stickyTop - 26}px`, height: stickyHeight }}
           >
-            {/* Header — fixed height */}
-            <div className="shrink-0 pt-5 pb-3 px-5">
-              <p className="anseru-section-tag">How It Works</p>
-              <h2 className="anseru-section-title mt-1 mb-3">
+            {/* ── Header: uses clamp so it compresses on short screens ── */}
+            <div
+              className="shrink-0 px-4"
+              style={{ paddingTop: 'clamp(6px, 1.5dvh, 16px)', paddingBottom: 'clamp(4px, 1dvh, 10px)' }}
+            >
+              <p
+                className="anseru-section-tag"
+                
+              >
+                How It Works
+              </p>
+              <h2
+                className="anseru-section-title font-semibold leading-tight"
+                style={{
+                  fontSize: 'clamp(15px, 4.5vw, 22px)',
+                  marginTop: 'clamp(2px, 0.5dvh, 6px)',
+                  marginBottom: 'clamp(4px, 1dvh, 10px)',
+                }}
+              >
                 How Anseru Turns Knowledge Into Winning Deals
               </h2>
               <MobileIndicators activeSlide={activeSlide} onGoTo={goToSlide} />
             </div>
 
-            {/* Sliding track — grows to fill remaining space */}
+            {/* ── Sliding track ── */}
             <div className="flex-1 min-h-0 overflow-hidden">
               <div
                 ref={mobileTrackRef}
@@ -232,20 +221,34 @@ export function HowItWorksSection({ carouselRef }) {
                 }}
               >
                 {CAROUSEL_SLIDES.map((slide) => (
-                  <CarouselSlidePanel key={slide.index} slide={slide} isDesktop={false} />
+                  <CarouselSlidePanel
+                    key={slide.index}
+                    slide={slide}
+                    isDesktop={false}
+                    className="h-full shrink-0 overflow-hidden"
+                    style={{ width: '100vw' }}
+                  />
                 ))}
               </div>
             </div>
 
-            {/* Dot indicators — fixed height */}
-            <div className="shrink-0 flex justify-center gap-2 py-3">
+            {/* ── Dots ── */}
+            <div
+              className="shrink-0 flex justify-center gap-2"
+              style={{ paddingTop: 'clamp(4px, 0.8dvh, 10px)', paddingBottom: 'clamp(4px, 0.8dvh, 10px)' }}
+            >
               {CAROUSEL_SLIDES.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => goToSlide(i)}
                   aria-label={`Go to slide ${i + 1}`}
-                  className={`rounded-full transition-all duration-300 ${i === activeSlide ? 'w-5 h-2 bg-gray-700' : 'w-2 h-2 bg-gray-300'
-                    }`}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === activeSlide ? 'bg-gray-700' : 'bg-gray-300'
+                  }`}
+                  style={{
+                    width: i === activeSlide ? '20px' : '6px',
+                    height: '6px',
+                  }}
                 />
               ))}
             </div>
