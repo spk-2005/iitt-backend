@@ -10,7 +10,7 @@ function SalesSvg() {
       <path d="M81 152H139" stroke="black" strokeWidth="2" />
       <path d="M110 227.4C119.609 227.4 127.4 219.609 127.4 210C127.4 200.39 119.609 192.6 110 192.6C100.39 192.6 92.5996 200.39 92.5996 210C92.5996 219.609 100.39 227.4 110 227.4Z" stroke="black" strokeWidth="2" />
       <path d="M110 36V192.6" stroke="#888888" strokeDasharray="4 4" />
-    </svg>
+    </svg>  
   );
 }
 
@@ -40,7 +40,7 @@ function ComplianceSvg() {
 }
 
 const FRONT_SVGS = { sales: SalesSvg, security: SecuritySvg, compliance: ComplianceSvg };
-const ICON_WIDTHS = { sales: 'w-[75%]', security: 'w-[60%] md:w-[75%]', compliance: 'w-[60%] md:w-[75%]' };
+const ICON_WIDTHS = { sales: 'w-[75%] md:w-[85%]', security: 'w-[65%] md:w-[85%]', compliance: 'w-[65%] md:w-[85%]' };
 
 const GRID_PATTERN = {
   backgroundImage: 'repeating-linear-gradient(to right, #e5e7eb 0, #e5e7eb 1px, transparent 1px, transparent 20px)',
@@ -61,7 +61,7 @@ export function TeamFlipCard({ card }) {
 
   return (
     <div
-      className="team-card relative h-120 md:h-135 w-full cursor-default"
+      className="team-card relative h-[450px] md:h-135 max-w-[340px] md:max-w-none mx-auto w-full cursor-default"
       style={{ perspective: '1000px' }}
       onClick={() => !isPointer && setFlipped((f) => !f)}
     >
@@ -86,12 +86,12 @@ export function TeamFlipCard({ card }) {
           <div className="absolute inset-x-0 top-0 h-[45%] pointer-events-none opacity-50" style={GRID_PATTERN} />
           <div className="absolute inset-x-0 bottom-0 h-[25%] pointer-events-none opacity-30" style={GRID_PATTERN_BOTTOM} />
           <div className={`absolute bottom-0 right-0 w-6 h-[55%] bg-gradient-to-b ${card.accentGradient}`} />
-          <div className="relative p-6 md:p-10 h-full w-full flex flex-col z-10">
-            <h3 className="font-normal text-[#111827] mb-3 text-[20px] md:text-[24px] leading-tight whitespace-pre-line">
+          <div className="relative p-5 md:p-10 h-full w-full flex flex-col z-10">
+            <h3 className="font-normal text-[#111827] mb-2 md:mb-3 text-[18px] md:text-[24px] leading-tight whitespace-pre-line">
               {card.title}
             </h3>
-            <p className="text-[#6b7280] text-[14px] leading-relaxed pr-4">{card.description}</p>
-            <div className="flex flex-col md:flex-row justify-center items-center mt-auto mb-6 pt-6">
+            <p className="text-[#6b7280] text-[13px] md:text-[14px] leading-relaxed pr-4">{card.description}</p>
+            <div className="flex flex-col md:flex-row justify-center items-center mt-auto mb-4 md:mb-6 pt-4 md:pt-6">
               <div className={`${ICON_WIDTHS[card.frontSvg]} md:h-50 opacity-90 flex items-center justify-center`}>
                 <FrontSvg />
               </div>
@@ -115,11 +115,11 @@ export function TeamFlipCard({ card }) {
             style={GRID_PATTERN}
           />
           <div className={`absolute bottom-0 right-0 w-6 h-[55%] bg-gradient-to-b ${card.accentGradient}`} />
-          <div className="relative p-8 md:p-10 h-full w-full flex flex-col z-10 md:mt-10">
-            <h3 className="font-normal text-[#111827] mb-6 md:mb-10 text-[20px] md:text-[24px] leading-tight whitespace-pre-line">
+          <div className="relative p-6 md:p-10 h-full w-full flex flex-col z-10 md:mt-10">
+            <h3 className="font-normal text-[#111827] mb-4 md:mb-10 text-[18px] md:text-[24px] leading-tight whitespace-pre-line">
               {card.title}
             </h3>
-            <div className="flex flex-col gap-6 pr-4">
+            <div className="flex flex-col gap-4 md:gap-6 pr-4">
               {card.benefits.map((benefit, i) => {
                 const isHighlight = card.benefitHighlight && card.benefitHighlight.index === i;
                 const text = benefit;
@@ -128,7 +128,7 @@ export function TeamFlipCard({ card }) {
                   return (
                     <div key={i} className="flex items-start gap-4">
                       <img src={card.checkIcon} loading="lazy" alt="" className="w-6 h-6 object-contain mt-0.5 shrink-0" />
-                      <p className="text-[#6b7280] text-[14px] leading-relaxed">
+                      <p className="text-[#6b7280] text-[13px] md:text-[14px] leading-relaxed">
                         {parts[0]}
                         <span className="text-[#2C48DB] font-semibold">{card.benefitHighlight.text}</span>
                         {parts[1]}
@@ -139,7 +139,7 @@ export function TeamFlipCard({ card }) {
                 return (
                   <div key={i} className="flex items-start gap-4">
                     <img src={card.checkIcon} loading="lazy" alt="" className="w-6 h-6 object-contain mt-0.5 shrink-0" />
-                    <p className="anseru-section-description leading-normal">{benefit}</p>
+                    <p className="anseru-section-description text-[13px] md:text-[15px] leading-normal">{benefit}</p>
                   </div>
                 );
               })}

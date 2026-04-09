@@ -88,7 +88,7 @@ function onDragEnd(e) {
 
           {/* ── Mobile: auto-carousel ───────────────────────────────────── */}
           <div
-            className="md:hidden overflow-hidden"
+            className="md:hidden overflow-hidden -mx-6"
             onMouseDown={onDragStart}
             onMouseUp={onDragEnd}
             onMouseLeave={onDragEnd}
@@ -106,7 +106,7 @@ function onDragEnd(e) {
               }}
             >
               {TEAM_CARDS.map((card) => (
-                <div key={card.id} className="shrink-0" style={{ width: '100vw', paddingRight: '24px' }}>
+              <div key={card.id} className="shrink-0 px-6 flex justify-center" style={{ width: '100vw' }}>
                   <TeamFlipCard card={card} />
                 </div>
               ))}
