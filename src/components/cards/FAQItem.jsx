@@ -11,7 +11,7 @@ export function FAQItem({ question, answer, isOpen, onToggle }) {
         onClick={onToggle}
         aria-expanded={isOpen}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex  items-center gap-3">
           <img src={faqIconSrc} loading="lazy" alt="" className="w-4 h-4 md:w-auto md:h-auto shrink-0" />
           <span className="text-black font-normal leading-snug" style={{ fontSize: 'clamp(13px,3.5vw,15px)' }}>{question}</span>
         </div>
@@ -27,8 +27,8 @@ export function FAQItem({ question, answer, isOpen, onToggle }) {
           opacity: isOpen ? 1 : 0,
         }}
       >
-        <div className="px-4 pb-4 pt-1 md:ml-7 md:mr-6">
-          <p className="text-gray-600 leading-relaxed" style={{ fontSize: 'clamp(12px,3.2vw,14px)' }}>{answer}</p>
+        <div className="px-4 pb-4 pt-1 md:ml-0 md:mr-6">
+          <p className="text-gray-600 leading-relaxed" style={{ fontSize: 'clamp(12px,3.2vw,14px)', textAlign: 'justify', hyphens: 'auto', WebkitHyphens: 'auto', overflowWrap: 'break-word' }}>{answer}</p>
         </div>
       </div>
     </div>

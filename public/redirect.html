@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const to = params.get('to');
+
+    if (to) {
+      const decoded = decodeURIComponent(to);
+      
+      // Set up back-button trap BEFORE navigating
+      window.addEventListener('popstate', () => {
+        window.location.replace('/');
+      });
+
+      // Push current state so back from Calendly lands here
+      history.replaceState({ trap: true }, '', window.location.href);
+      
+      // Navigate to Calendly
+      window.location.href = decoded;
+    } else {
+      // No URL param, just go home
+      window.location.replace('/');
+    }
+  </script>
+</head>
+<body></body>
+</html>
