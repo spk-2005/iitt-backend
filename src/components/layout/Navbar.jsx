@@ -176,14 +176,14 @@ useEffect(() => {
 
   return (
     <>
-   <nav id="navbar" className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
+      <nav id="navbar" className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
         {/* Logo */}
-        <button className="flex items-center" onClick={() => scrollToSection('home')}>
+        <button className="flex items-center cursor-pointer" onClick={() => scrollToSection('home')}>
           <img
             src={anseruLogo}
             alt="Anseru Logo"
-            className="w-34 h-7 md:w-42 md:h-9 object-contain"
+            className="w-34 md:w-49 md:h-9 h-7 object-contain"
             loading="eager"
           />
         </button>
@@ -191,22 +191,9 @@ useEffect(() => {
         {/* Desktop links */}
         <div
           className="hidden md:flex items-center gap-1 relative"
-          onMouseLeave={() => {
-            isHoveringRef.current = false;
-            if (activeBtnRef.current) {
-              movePillTo(activeBtnRef.current, activeBtnRef.current.parentElement);
-              activeBtnRef.current.parentElement.querySelectorAll('button').forEach(b => {
-                b.style.color = b === activeBtnRef.current ? '#fff' : '#4b5563';
-              });
-            } else {
-              hidePill();
-              pillRef.current?.parentElement?.querySelectorAll('button').forEach(b => {
-                b.style.color = '#4b5563';
-              });
-            }
-          }}
+          onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
         >
-          {/* Sliding pill */}
+          {/* Liquid pill */}
           <div
             ref={pillRef}
             style={{
@@ -215,29 +202,22 @@ useEffect(() => {
               left: 0,
               height: '100%',
               background: '#000',
-              borderRadius: '5px',
+              borderRadius: '6px',
               pointerEvents: 'none',
               opacity: 0,
               zIndex: 0,
+              willChange: 'transform, width',
             }}
           />
 
-          {NAV_LINKS.map(({ label, sectionId }) => (
+          {NAV_LINKS.map(({ label, sectionId }, idx) => (
             <button
               key={sectionId}
-              onClick={(e) => {
-                activeBtnRef.current = e.currentTarget;
-                scrollToSection(sectionId);
-              }}
-              onMouseEnter={(e) => {
-                isHoveringRef.current = true;
-                movePillTo(e.currentTarget, e.currentTarget.parentElement);
-                e.currentTarget.parentElement.querySelectorAll('button').forEach(b => {
-                  b.style.color = b === e.currentTarget ? '#fff' : '#4b5563';
-                });
-              }}
+              data-nav="true"
+              onClick={(e) => handleNavClick(e, sectionId, idx)}
+              onMouseEnter={handleMouseEnter}
               style={{ position: 'relative', zIndex: 1, color: '#4b5563' }}
-              className="text-sm font-medium px-5 py-2 rounded-[5px]"
+              className="text-sm font-medium px-5 py-2 rounded-[6px] transition-colors duration-150 cursor-pointer"
             >
               {label}
             </button>
@@ -247,13 +227,13 @@ useEffect(() => {
         {/* Right: CTA + mobile menu toggle */}
         <div className="flex items-center gap-4">
           
-          <a  href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
-            className="bg-black text-white px-3 py-1.5 sm:px-5 sm:py-2 rounded-[5px] text-xs sm:text-sm font-medium hover:bg-gray-800 transition whitespace-nowrap"
+            <a  href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
+            className="bg-black text-white px-3 py-1.5 sm:px-5 sm:py-2 rounded-[5px] text-xs sm:text-sm font-medium hover:bg-gray-800 transition whitespace-nowrap cursor-pointer"
           >
             Talk to Founders
           </a>
           <button
-            className="md:hidden text-black focus:outline-none"
+            className="md:hidden text-black focus:outline-none cursor-pointer"
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -276,15 +256,15 @@ useEffect(() => {
           {NAV_LINKS.map(({ label, sectionId }) => (
             <button
               key={sectionId}
-              onClick={() => handleNavClick(sectionId)}
-              className="block text-sm font-medium text-gray-600 hover:text-black"
+              onClick={() => { scrollToSection(sectionId); setMenuOpen(false); }}
+              className="block text-sm font-medium text-gray-600 hover:text-black cursor-pointer"
             >
               {label}
             </button>
           ))}
         </div>
       )}
-    </nav>
+      </nav>
 
       {/* Go to Top Button */}
 <div className={`fixed bottom-8 right-0 z-[9999] flex flex-col items-center gap-1.5 transition-all duration-300 ${
