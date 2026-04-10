@@ -37,7 +37,7 @@ export function CTASection() {
             </h2>
 
             <div className="border-l-[2px] border-gray-300 pl-4 max-w-[450px] md:ml-28">
-              <p className="text-gray-600 leading-[1.7]" style={{ fontSize: 'clamp(13px,3.5vw,16px)', textAlign: 'justify', hyphens: 'auto', WebkitHyphens: 'auto', overflowWrap: 'break-word' }}>
+              <p className="text-gray-600 leading-[1.7]" style={{ fontSize: 'clamp(13px,3.5vw,16px)' }}>
                 We&apos;re building a world where AI agents orchestrate complex deal workflows, transforming
                 enterprise knowledge into deal-ready intelligence so teams can focus on winning.
               </p>

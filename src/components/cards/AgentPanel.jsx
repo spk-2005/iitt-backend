@@ -20,16 +20,11 @@ function DesktopFeatureCell({ feature, borderClasses }) {
         {feature.title}
       </h4>
       <p
-        className="anseru-section-tag text-justify hyphens-auto"
+        className="anseru-section-tag"
         style={{
           fontSize: 'clamp(15px, 1.1vw, 19px)',
           lineHeight: '1.5',
           paddingTop: 'clamp(22px, 1.5vw, 18px)',
-          WebkitHyphens: 'auto',
-          textAlign:'justify',
-          hyphens: 'auto',
-          wordSpacing: '-0.05em',
-          textJustify: 'inter-character',
         }}
       >
         {feature.description}

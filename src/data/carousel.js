@@ -12,7 +12,7 @@ export const CAROUSEL_SLIDES = [
     height:'65vh',
     cardImage: slide1Img,
     cardImageAlt: '1. Connect your knowledge',
-    cardImageWidth: '75%',
+    cardImageWidth: '85%',
     cardImageClass: 'h-auto object-bottom rounded-b-[10px]',
     description:
       'Your single living source of truth. Anseru connects to where your knowledge already lives. Sync Google Drive, SharePoint, Teams, Jira, Slack, and Dropbox or upload your internal documents directly. Your answer library builds itself and stays current automatically.',

@@ -332,9 +332,6 @@ const reset = () => {
                           fontWeight: 500, color: '#111', lineHeight: 1.3,
                           overflow: 'hidden', display: '-webkit-box',
                           WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-                      textAlign: 'justify',
-                          hyphens: 'auto',
-                          WebkitHyphens: 'auto',
                         }}>
                           {node.title}
                         </p>
@@ -343,9 +340,6 @@ const reset = () => {
                           color: '#666', lineHeight: 1.35, minHeight: '2.7em',
                           overflow: 'hidden', display: '-webkit-box',
                           WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-                      textAlign: 'justify',
-                          hyphens: 'auto',
-                          WebkitHyphens: 'auto',
                         }}>
                           {node.desc}
                         </p>
@@ -383,7 +377,7 @@ const reset = () => {
                   <span className="text-gradient-brand">Winning Proposal</span>
                 </h2>
               </div>
-              <p className="max-w-110 text-[15px] text-gray-500 leading-[1.65] pt-2 text-justify hyphens-auto" style={{ WebkitHyphens: 'auto' }}>
+              <p className="max-w-110 text-[15px] text-gray-500 leading-[1.65] pt-2">
                 Anseru orchestrates the entire response lifecycle with AI agents analyzing requirements,
                 generating drafts, and enabling teams to refine and deliver high-quality proposals with speed
                 and precision.

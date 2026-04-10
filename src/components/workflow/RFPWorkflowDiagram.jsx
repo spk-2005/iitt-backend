@@ -11,16 +11,9 @@ function polar(cx, cy, r, deg) {
 function buildSVG(container) {
   const ns = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(ns, 'svg');
-svg.setAttribute('viewBox', '-80 130 1240 820');
- svg.style.cssText = [
-   'display:block',
-   'width:100%',
-   'height:auto',
-   'min-height:0',
-   'margin:0 auto',
-   'background:white',
-   'overflow:visible',
- ].join(';');
+  svg.setAttribute('viewBox', '0 150 1100 800');
+  svg.style.cssText = 'display:block;width:100%;max-width:1100px;margin:0 auto;padding-top:80px;background:white';
+
   // defs: gradients + glow filter + arrowhead markers
   const defs = document.createElementNS(ns, 'defs');
   RFP_NODES.forEach((n, i) => {
@@ -153,19 +146,19 @@ svg.setAttribute('viewBox', '-80 130 1240 820');
 
     const titleT = document.createElementNS(ns, 'text');
     titleT.setAttribute('x', '0'); titleT.setAttribute('y', '0');
-    titleT.setAttribute('font-size', '16'); titleT.setAttribute('fill', '#111827');
+    titleT.setAttribute('font-size', '14'); titleT.setAttribute('fill', '#111827');
     titleT.setAttribute('font-weight', '400');
     titleT.textContent = node.title;
 
     const d1 = document.createElementNS(ns, 'text');
     d1.setAttribute('x', '0'); d1.setAttribute('y', '22');
-    d1.setAttribute('font-size', '15'); d1.setAttribute('fill', '#6b7280');
+    d1.setAttribute('font-size', '13'); d1.setAttribute('fill', '#6b7280');
     d1.setAttribute('dominant-baseline', 'middle');
     d1.textContent = words.slice(0, mid).join(' ');
 
     const d2 = document.createElementNS(ns, 'text');
     d2.setAttribute('x', '0'); d2.setAttribute('y', '40');
-    d2.setAttribute('font-size', '15'); d2.setAttribute('fill', '#6b7280');
+    d2.setAttribute('font-size', '13'); d2.setAttribute('fill', '#6b7280');
     d2.setAttribute('dominant-baseline', 'middle');
     d2.textContent = words.slice(mid).join(' ');
 
@@ -212,12 +205,11 @@ export function RFPWorkflowDiagram() {
       container.innerHTML = '';
     };
   }, []);
-  
-  
+
   return (
-  <div
-    ref={containerRef}
-    style={{ width: '100%' }}
-  />
-);
+    <div
+      ref={containerRef}
+      className=" bg-white mx-auto block w-full max-w-275"
+    />
+  );
 }

@@ -27,14 +27,14 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
 
   <div className="w-full space-y-5">
     <div className="space-y-3">
-      <p className="anseru-section-description text-[15px] md:text-[15px] leading-relaxed max-w-[100%] text-justify">
+      <p className="anseru-section-description text-[15px] md:text-[15px] leading-relaxed max-w-[100%]">
         {description}
       </p>
     </div>
     <div className="space-y-3 pt-1">
       {bullets.map((bullet, i) => (
         <SectionBulletItem key={i}>
-          <div className="text-justify">{bullet}</div>
+          <div>{bullet}</div>
         </SectionBulletItem>
       ))}
     </div>
@@ -117,11 +117,11 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
 
       {/* Full description — flows naturally, no clipping */}
       <div className="pt-4 space-y-3 flex-1 overflow-y-auto">
-        <p className="text-[#6b7280] text-[15px] leading-relaxed text-justify">{description}</p>
+        <p className="text-[#6b7280] text-[15px] leading-relaxed">{description}</p>
         <div className="space-y-2 pt-1">
           {bullets.map((bullet, i) => (
             <SectionBulletItem key={i}>
-              <div className="text-justify">{bullet}</div>
+              <div>{bullet}</div>
             </SectionBulletItem>
           ))}
         </div>

@@ -28,7 +28,7 @@ export function FAQItem({ question, answer, isOpen, onToggle }) {
         }}
       >
         <div className="px-4 pb-4 pt-1 md:ml-0 md:mr-6">
-          <p className="text-gray-600 leading-relaxed" style={{ fontSize: 'clamp(12px,3.2vw,14px)', textAlign: 'justify', hyphens: 'auto', WebkitHyphens: 'auto', overflowWrap: 'break-word' }}>{answer}</p>
+          <p className="text-gray-600 leading-relaxed" style={{ fontSize: 'clamp(12px,3.2vw,14px)' }}>{answer}</p>
         </div>
       </div>
     </div>
