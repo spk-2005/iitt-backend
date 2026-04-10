@@ -8,7 +8,6 @@ function DesktopFeatureCell({ feature, borderClasses }) {
       <h4
         className="anseru-card-title"
         style={{
-          paddingTop:'13px',
           whiteSpace: 'pre-line',
           fontSize: 'clamp(22px, 1.5vw, 18px)',
           lineHeight: '1.3',
@@ -43,28 +42,29 @@ function MobileFeatureCell({ feature }) {
   return (
     <div className="flex flex-col h-full" style={{ padding: 'clamp(10px, 3.5vw, 20px)' }}>
       <h4
-        className="font-normal text-black leading-[1.25]"
-        style={{
-          fontSize: 'clamp(11px, 3.5vw, 15px)',
-          whiteSpace: 'pre-line',
-          minHeight: '3em',
-          display: 'flex',
-          alignItems: 'flex-start',
-        }}
-      >
+  className="font-normal text-black leading-[1.25]"
+  style={{
+    fontSize: 'clamp(11px, 3.5vw, 15px)',
+    whiteSpace: 'pre-line',
+    minHeight: '2.6em',
+    display: 'flex',
+    alignItems: 'flex-start',
+    wordBreak: 'break-word',
+  }}
+>
         {feature.title}
       </h4>
       <p
-        className="text-[#6b7280] leading-[1.4] text-justify hyphens-auto"
-        style={{
-          fontSize: 'clamp(10px, 2.8vw, 12px)',
-          paddingTop: 'clamp(4px, 1.5vw, 8px)',
-          WebkitHyphens: 'auto',
-          hyphens: 'auto',
-          textJustify: 'inter-character',
-        }}
-      >
-        {feature.description}
+  className="text-[#6b7280] leading-[1.4] md:p-[clamp(5px,1.5vw,10px)]"
+  style={{
+    fontSize: 'clamp(10px, 2.8vw, 13px)',
+    paddingTop: 'clamp(10px, 3.5vw, 20px)',
+    wordSpacing: 'normal',
+    wordBreak: 'break-word',
+    overflowWrap: 'break-word',
+  }}
+>
+  {feature.description}
       </p>
     </div>
   );

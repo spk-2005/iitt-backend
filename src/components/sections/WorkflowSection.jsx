@@ -393,7 +393,7 @@ const reset = () => {
 
           {/* CHANGE 2: constrain diagram width so aspect ratio keeps height in check */}
           <div className="hidden md:block" style={{ maxWidth: 'min(1070px, 92vw)', margin: '0 auto', width: '100%' }}>
-    <div style={{ position: 'relative', width: '100%', aspectRatio: '1240 / 1080', overflow: 'visible' }}>
+    <div style={{ position: 'relative', width: '100%', aspectRatio: '1240 / 820', overflow: 'visible' }}>
       <RFPWorkflowDiagram />
     </div>
   </div>

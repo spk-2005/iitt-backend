@@ -11,7 +11,7 @@ function polar(cx, cy, r, deg) {
 function buildSVG(container) {
   const ns = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(ns, 'svg');
-svg.setAttribute('viewBox', '-80 90 1240 1080');
+svg.setAttribute('viewBox', '-80 130 1240 820');
  svg.style.cssText = [
    'display:block',
    'width:100%',
