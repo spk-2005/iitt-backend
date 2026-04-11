@@ -39,12 +39,12 @@ const featureCellStyles = `
   }
 
   @media (min-width: 1200px) and (max-height: 750px) {
-    .feature-cell-title { font-size: 16px; padding-top: 24px; }
-    .feature-cell-desc  { font-size: 13px; padding-bottom: 20x; }
+    .feature-cell-title { font-size: 20px; padding-top: 18px; }
+    .feature-cell-desc  { font-size: 13px; padding-bottom: 10x; }
   }
 
   @media (min-width: 1200px) and (min-height: 750px) {
-    .feature-cell-title { font-size: 20px; padding-top: 24px; }
+    .feature-cell-title { font-size: 20px; padding-top: 39px; }
     .feature-cell-desc  { font-size: 17px; padding-bottom: 20px; }
   }
 
@@ -136,8 +136,8 @@ const mobileFeatureCellStyles = `
   /* iPhone Pro Max / large phones (430px+) */
   @media (min-width: 390px) {
     .mobile-feature-cell  { padding: 12px; }
-    .mobile-feature-title { font-size: 20px; min-height: 2.6em;padding-top:25px; }
-    .mobile-feature-desc  { font-size: 13px; padding-top: 8px; }
+    .mobile-feature-title { font-size: 20px; min-height: 2.6em;padding-top:20px; }
+    .mobile-feature-desc  { font-size: 14px; padding-top: 16px; }
   }
 
   /* Small tablets (600px+) */
@@ -252,12 +252,14 @@ export function AgentPanel({ agent, isDesktop = false }) {
   }}
 >
     {/* Top titles — same row so same height */}
-    <div className="feature-cell  border-r border-[#e5e7eb]" style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
-      <h4 className="feature-cell-title anseru-card-title">{features[0].title}</h4>
-    </div>
-    <div className="feature-cell " style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
-      <h4 className="feature-cell-title anseru-card-title">{features[1].title}</h4>
-    </div>
+   <div className="feature-cell border-r border-[#e5e7eb]" 
+  style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
+  <h4 className="feature-cell-title anseru-card-title">{features[0].title}</h4>
+</div>
+<div className="feature-cell" 
+  style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
+  <h4 className="feature-cell-title anseru-card-title">{features[1].title}</h4>
+</div>
 {/* Top descs */}
 <div className="feature-cell border-b border-r border-[#e5e7eb]" style={{ padding: '8px clamp(10px, 1.5cqw, 22px) 0 clamp(10px, 1.5cqw, 22px)' }}>
   <p className="feature-cell-desc anseru-section-tag">{features[0].description}</p>
@@ -266,13 +268,15 @@ export function AgentPanel({ agent, isDesktop = false }) {
   <p className="feature-cell-desc anseru-section-tag">{features[1].description}</p>
 </div>
 
-    {/* Bottom titles — same row */}
-    <div className="feature-cell border-r border-[#e5e7eb]" style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
-      <h4 className="feature-cell-title anseru-card-title">{features[2].title}</h4>
-    </div>
-    <div className="feature-cell" style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
-      <h4 className="feature-cell-title anseru-card-title">{features[3].title}</h4>
-    </div>
+{/* Bottom titles */}
+<div className="feature-cell border-r border-[#e5e7eb]" 
+  style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
+  <h4 className="feature-cell-title anseru-card-title">{features[2].title}</h4>
+</div>
+<div className="feature-cell" 
+  style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
+  <h4 className="feature-cell-title anseru-card-title">{features[3].title}</h4>
+</div>
 {/* Bottom descs */}
 <div className="feature-cell border-r border-[#e5e7eb]" style={{ padding: '8px clamp(10px, 1.5cqw, 22px) 0 clamp(10px, 1.5cqw, 22px)' }}>
   <p className="feature-cell-desc anseru-section-tag">{features[2].description}</p>
