@@ -121,7 +121,7 @@ const mobileFeatureGridStyles = `
   }
 
   @media (min-width: 290px) {
-    .cell-title { font-size: 17px; padding-top: 1px; }
+    .cell-title { font-size: 17px; padding-top: 10px; }
     .cell-desc  { font-size: 12.5px; padding-top:0}
   }
   @media (min-width: 390px) {
