@@ -1,7 +1,7 @@
 import slide1Img from '../assets/Intro-Page.webp';
-import slide2Img from '../assets/Intro Page (3).png';
-import slide3Img from '../assets/Intro Page (8).png';
-import slide4Img from '../assets/Intro Page (1).png';
+import slide2Img from '../assets/Intro Page (1).png';
+import slide3Img from '../assets/Intro Page (3).png';
+import slide4Img from '../assets/Intro Page (4).png';
 
 export const CAROUSEL_SLIDES = [
   {
