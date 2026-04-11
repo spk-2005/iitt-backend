@@ -9,11 +9,11 @@ export const CAROUSEL_SLIDES = [
     step: '1. Connect your knowledge',
     tabLabel: 'Connect',
     cardGradientClass: 'card-gradient-a1',
-    height:'65vh',
     cardImage: slide1Img,
     cardImageAlt: '1. Connect your knowledge',
-    cardImageWidth: '85%',
-    cardImageClass: 'h-auto object-bottom rounded-b-[10px]',
+    cardImageClass: 'rounded-b-[10px]',
+    mobileWidth: '100%',
+    mobileHeight: 'clamp(130px, 20vh, 190px)',
     description:
       'Your single living source of truth. Anseru connects to where your knowledge already lives. Sync Google Drive, SharePoint, Teams, Jira, Slack, and Dropbox or upload your internal documents directly. Your answer library builds itself and stays current automatically.',
     bullets: [
@@ -28,10 +28,10 @@ export const CAROUSEL_SLIDES = [
     tabLabel: 'Upload',
     cardGradientClass: 'card-gradient-a2',
     cardImage: slide2Img,
-    height:'65vh',
     cardImageAlt: '2. Upload RFPs',
-    cardImageWidth: '75%',
-    cardImageClass: 'h-auto object-top rounded-b-[10px]',
+    cardImageClass: 'rounded-b-[10px]',
+    mobileWidth: '80%',
+    mobileHeight: 'clamp(130px, 20vh, 190px)',
     description:
       'Drop in any document in any format. Anseru reads the full document, identifies every requirement, and maps each question to your verified knowledge base, in seconds.',
     bullets: [
@@ -47,9 +47,9 @@ export const CAROUSEL_SLIDES = [
     cardGradientClass: 'card-gradient-a3',
     cardImage: slide3Img,
     cardImageAlt: '3. Generate AI Draft Responses',
-    cardImageWidth: '85%',
-    height:'55vh',
-    cardImageClass: 'h-auto object-top rounded-b-[10px]',
+    cardImageClass: 'rounded-b-[10px]',
+    mobileWidth: '80%',
+    mobileHeight: 'clamp(130px, 20vh, 190px)',
     description:
       'Anseru generates a full response draft using your verified documentation and past approved answers. Every answer is traceable to a real source, so drafts arrive ready for review, not ready to be rewritten from scratch.',
     bullets: [
@@ -65,9 +65,9 @@ export const CAROUSEL_SLIDES = [
     cardGradientClass: 'card-gradient-a4',
     cardImage: slide4Img,
     cardImageAlt: '4. SME Review & Approval',
-    cardImageWidth: '85%',
-    cardImageClass: 'h-auto object-top rounded-b-[10px]',
-    height:'55vh',
+    cardImageClass: 'rounded-b-[10px]',
+    mobileWidth: '80%',
+    mobileHeight: 'clamp(130px, 20vh, 190px)',
     description:
       'Anseru focuses your experts on what only they can answer. Standard questions arrive pre-drafted and ready to approve. Novel, flagged, and high-risk items are surfaced for review before anything leaves the building.',
     bullets: [
