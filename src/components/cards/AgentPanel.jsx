@@ -65,7 +65,7 @@ function DesktopFeatureCell({ feature, borderClasses }) {
     <>
       <style>{featureCellStyles}</style>
       <div
-        className={`feature-cell border-[#e5e7eb] ${borderClasses}`}
+        className={`feature-cell border-[#00000020] ${borderClasses}`}
         style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}
       >
         <h4 className="feature-cell-title anseru-card-title">{feature.title}</h4>
@@ -77,8 +77,8 @@ function DesktopFeatureCell({ feature, borderClasses }) {
 const mobileFeatureGridStyles = `
   .mobile-feature-grid {
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
     border: 1px solid #00000020;
     border-radius: 4px;
     overflow: hidden;
@@ -87,16 +87,15 @@ const mobileFeatureGridStyles = `
   .mobile-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto 1fr;
     align-content: start;
-    flex: 1;
     position: relative;
+    overflow: hidden;
   }
   .mobile-row:first-child {
     border-bottom: 1px solid #00000020;
   }
 
-  /* Single continuous vertical line spanning full row height */
   .mobile-row::after {
     content: '';
     position: absolute;
@@ -118,6 +117,7 @@ const mobileFeatureGridStyles = `
     -webkit-hyphens: none;
     grid-row: 1;
     padding: 10px 10px 0 10px;
+    align-self: start;
   }
   .cell-desc {
     font-size: 10px;
@@ -132,7 +132,7 @@ const mobileFeatureGridStyles = `
 
   @media (min-width: 290px) {
     .cell-title { font-size: 17px; padding: 15px 10px 0 10px; }
-    .cell-desc  { font-size: 12.5px; padding: 14px 10px 10px 10px; }
+    .cell-desc  { font-size: 12.5px; padding: 6px 10px 10px 10px; }
   }
   @media (min-width: 390px) {
     .cell-title { font-size: 19px; padding: 12px 12px 0 12px; }
@@ -215,7 +215,7 @@ export function AgentPanel({ agent, isDesktop = false }) {
         </div>
 
         {/* Feature grid */}
-        <div className="p-3 relative overflow-hidden border border-l-black/60" style={{ flex: 1 }}>
+        <div className="p-3 relative overflow-hidden" style={{ flex: 1 }}>
           <div
             className="absolute inset-0 pointer-events-none opacity-[0.1]"
             style={{
@@ -233,15 +233,15 @@ export function AgentPanel({ agent, isDesktop = false }) {
               gridTemplateRows: '1fr 1fr',
             }}
           >
-            <div className="feature-cell border-r border-b border-[#e5e7eb]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
+            <div className="feature-cell border-r border-b border-[#00000020]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
               <h4 className="feature-cell-title anseru-card-title">{features[0].title}</h4>
               <p className="feature-cell-desc anseru-section-tag">{features[0].description}</p>
             </div>
-            <div className="feature-cell border-b border-[#e5e7eb]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
+            <div className="feature-cell border-b border-[#00000020]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
               <h4 className="feature-cell-title anseru-card-title">{features[1].title}</h4>
               <p className="feature-cell-desc anseru-section-tag">{features[1].description}</p>
             </div>
-            <div className="feature-cell border-r border-[#e5e7eb]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
+            <div className="feature-cell border-r border-[#00000020]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
               <h4 className="feature-cell-title anseru-card-title">{features[2].title}</h4>
               <p className="feature-cell-desc anseru-section-tag">{features[2].description}</p>
             </div>
