@@ -38,7 +38,7 @@ export function IntegrationSection() {
   <p className="anseru-section-tag">Integrations</p>
   <h2 className="anseru-section-title mb-2 md:mb-6">
     Connect to the Tools
-    <br className="hidden md:block" />
+    <br />
     You Already Use
   </h2>
   <div>

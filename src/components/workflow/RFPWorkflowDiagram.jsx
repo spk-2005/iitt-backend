@@ -104,12 +104,12 @@ function buildSVG(container) {
   const pa1 = document.createElementNS(ns, 'path');
   pa1.setAttribute('d', `M ${outerS.x} ${outerS.y} A 310 310 0 0 1 ${outerE.x} ${outerE.y}`);
   pa1.setAttribute('fill', 'none'); pa1.setAttribute('stroke', '#4f46e5');
-  pa1.setAttribute('stroke-width', '1'); pa1.setAttribute('stroke-dasharray', '4 4');
+  pa1.setAttribute('stroke-width', '2.5'); pa1.setAttribute('stroke-dasharray', '4 4');
   pa1.setAttribute('marker-end', 'url(#arrow-outer)');
   const pa2 = document.createElementNS(ns, 'path');
   pa2.setAttribute('d', `M ${innerS.x} ${innerS.y} A 250 250 0 0 0 ${innerE.x} ${innerE.y}`);
   pa2.setAttribute('fill', 'none'); pa2.setAttribute('stroke', '#8b5cf6');
-  pa2.setAttribute('stroke-width', '1'); pa2.setAttribute('stroke-dasharray', '4 4');
+  pa2.setAttribute('stroke-width', '2.5'); pa2.setAttribute('stroke-dasharray', '4 4');
   pa2.setAttribute('marker-end', 'url(#arrow-inner)');
   svg.appendChild(pa1);
   svg.appendChild(pa2);

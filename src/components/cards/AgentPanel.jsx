@@ -40,8 +40,8 @@ const featureCellStyles = `
   .feature-cell-desc  { font-size: 11px; }
 }
 @media (min-width: 1200px) and (max-height: 750px) {
-  .feature-cell-title { font-size: 20px; padding-top: 18px; }
-  .feature-cell-desc  { font-size: 13px; }
+  .feature-cell-title { font-size: 20px; padding-top: 5px; }
+  .feature-cell-desc  { font-size: 13px;padding-bottom: 0px; }
 }
 @media (min-width: 1200px) and (min-height: 750px) {
   .feature-cell-title { font-size: 24px; padding-top: 39px; }

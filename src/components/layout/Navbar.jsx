@@ -150,24 +150,21 @@ export function Navbar() {
     }, 2500);
   }
   
-
-  // Add this state at the top of your component (alongside showTopBtn)
 const [showLabel, setShowLabel] = useState(false);
-
-// Add this effect after your scroll effect
+const isFirstShowRef = useRef(true);
 useEffect(() => {
   if (!showTopBtn) return;
-
-  // Show label immediately when button appears
+  isFirstShowRef.current = true;
   setShowLabel(true);
-  const hideTimer = setTimeout(() => setShowLabel(false), 3000);
-
-  // Then repeat every 1 minute
+  const hideTimer = setTimeout(() => {
+    setShowLabel(false);
+    isFirstShowRef.current = false;
+  }, 3000);
+  // Start interval only after first label hides
   const interval = setInterval(() => {
     setShowLabel(true);
     setTimeout(() => setShowLabel(false), 3000);
-  }, 60000);
-
+  }, 5000); // 5s idle + 3s visible = 8s cycle
   return () => {
     clearTimeout(hideTimer);
     clearInterval(interval);
@@ -269,22 +266,30 @@ useEffect(() => {
       {/* Go to Top Button */}
 <div className={`fixed bottom-8 right-0 z-[9999] flex flex-col items-center gap-1.5 transition-all duration-300 ${
   showTopBtn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
-}`}>
+  }`}>
+    <style>{`
+  @keyframes blink-fade {
+    0%   { opacity: 0.25; }
+    50%  { opacity: 1; }
+    100% { opacity: 0.25; }
+  }
+`}</style>
 
-{/* Go to Top Button */}
 <button
   onClick={handleGoToTop}
+  onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+  onMouseLeave={e => e.currentTarget.style.opacity = showLabel ? '1' : '0.25'}
   aria-label="Go to top"
-  className={`fixed bottom-0 right-4 z-[9999] group flex items-center gap-0
-    overflow-hidden
-    bg-black/40 hover:bg-black text-white
-    rounded-full shadow-sm border border-white/10
-    transition-all duration-500 ease-out backdrop-blur-sm cursor-pointer
-    ${showTopBtn ? 'opacity-40 hover:opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}
-  `}
-  style={{ padding: '6px 10px' }}
+  className="fixed bottom-6 right-4 z-[9999] group flex items-center gap-1.5 bg-black text-white rounded-full shadow-sm cursor-pointer"
+  style={{
+    padding: '6px 12px',
+    opacity: showTopBtn ? (showLabel ? 1 : 0.25) : 0,
+    pointerEvents: showTopBtn ? 'auto' : 'none',
+    transform: showTopBtn ? 'translateY(0)' : 'translateY(16px)',
+    animation: showTopBtn && showLabel ? 'blink-fade 3s ease-in-out' : 'none',
+    transition: 'opacity 0.6s ease, transform 0.5s ease',
+  }}
 >
-  {/* Arrow icon — always visible */}
   <svg
     className="w-3 h-3 flex-shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5"
     fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -292,12 +297,14 @@ useEffect(() => {
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" />
   </svg>
 
-  {/* "Top" label — slides in on hover */}
   <span
-    className="text-[11px] font-medium max-w-0 group-hover:max-w-[2rem] overflow-hidden whitespace-nowrap transition-all duration-300 ease-out"
-    style={{ marginLeft: 0 }}
+    className="text-[11px] font-medium whitespace-nowrap overflow-hidden transition-all duration-500 ease-out"
+    style={{
+      maxWidth: showLabel && isFirstShowRef.current ? '8rem' : '0',
+      opacity: showLabel && isFirstShowRef.current ? 1 : 0,
+    }}
   >
-    &nbsp;Top
+    Click to go to top
   </span>
 </button>
 </div>
