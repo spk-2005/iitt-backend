@@ -101,8 +101,9 @@ const mobileFeatureGridStyles = `
     overflow-wrap: break-word;
     hyphens: none;
     -webkit-hyphens: none;
-    padding: 15px 10px 0;
+    
     grid-row: 1;
+    padding:10px;
   }
   .cell-desc {
     font-size: 10px;
@@ -110,7 +111,7 @@ const mobileFeatureGridStyles = `
     color: #6b7280;
     overflow-wrap: break-word;
     overflow: hidden;
-    padding: 6px 10px 15px;
+    padding:10px;
     grid-row: 2;
     align-self: start;
   }
@@ -124,8 +125,8 @@ const mobileFeatureGridStyles = `
     .cell-desc  { font-size: 10px; }
   }
   @media (min-width: 390px) {
-    .cell-title { font-size: 20px; padding: 15px 12px 0; }
-    .cell-desc  { font-size: 15px; padding: 10px 12px 15px; }
+    .cell-title { font-size: 19px; padding-top: 15px; }
+    .cell-desc  { font-size: 15px; padding-top: 10px; }
   }
   @media (min-width: 600px) {
     .cell-title { font-size: 20px; padding: 20px 12px 0; }
