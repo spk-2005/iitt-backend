@@ -78,7 +78,7 @@
 
 @media (min-width: 1024px) and (min-height: 900px) {
   :root {
-    --card-img-width: 92%;
-    --card-img-height: 59vh;
+    --card-img-width: 90%;
+    --card-img-height:50vh;
   }
 }

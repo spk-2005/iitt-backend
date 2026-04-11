@@ -30,11 +30,11 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
               <div className="w-full space-y-5">
                 <div className="space-y-3">
                   <p
-                    className="anseru-section-description text-[15px] leading-relaxed max-w-[100%]"
-                    style={{ textAlign: 'justify', wordBreak: 'break-word', wordSpacing: '-1.5px' }}
-                  >
-                    {description}
-                  </p>
+  className="anseru-section-description text-[15px] leading-relaxed max-w-[100%]"
+  style={{ textAlign: 'left ', wordBreak: 'normal', overflowWrap: 'normal', hyphens: 'none', WebkitHyphens: 'none' }}
+>
+  {description}
+</p>
                 </div>
                 <div className="space-y-3 pt-1">
                   {bullets.map((bullet, i) => (
@@ -113,7 +113,7 @@ return (
           className="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10"
         />
         <NoiseOverlay />
-        <div className="absolute top-0 left-0 z-20 p-5">
+        <div className="absolute top-0 left-0 z-20 p-4">
           <h2 className="font-medium text-[16px] leading-snug max-w-55">
             Turn complex RFPs into clear, winning responses
           </h2>
@@ -144,13 +144,12 @@ return (
     <p
   className="text-[#6b7280] text-[15px] leading-relaxed"
   style={{
-    textAlign: 'justify',
-    textAlignLast: 'left',
+    textAlign: 'left',
     hyphens: 'none',
     WebkitHyphens: 'none',
-    wordBreak: 'break-word',
-    overflowWrap: 'break-word',
-    wordSpacing: '-0.5px',
+    wordBreak: 'normal',
+    overflowWrap: 'normal',
+    wordSpacing: 'normal',
     letterSpacing: 'normal',
   }}
 >
@@ -164,14 +163,14 @@ return (
     textAlign: 'left',
     hyphens: 'none',
     WebkitHyphens: 'none',
-    wordBreak: 'break-word',
-    overflowWrap: 'break-word',
+    wordBreak: 'normal',
+    overflowWrap: 'normal',
     wordSpacing: 'normal',
     letterSpacing: 'normal',
   }}
 >
   {bullet}
-</div>        </SectionBulletItem>
+</div> </SectionBulletItem>
           ))}
         </div>
       </div>

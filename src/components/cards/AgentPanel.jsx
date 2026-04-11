@@ -2,62 +2,67 @@ import { NoiseOverlay } from '../primitives/NoiseOverlay.jsx';
 
 const featureCellStyles = `
   .feature-cell {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .feature-cell-title {
-    font-size: 14px;
-    line-height: 1.3;
-    padding-top: 12px;
-    hyphens: none;
-    -webkit-hyphens: none;
-    overflow-wrap: break-word;
-    flex: 0 0 auto;
-    min-height: min(3.9em, 8cqh);
-  }
-  .feature-cell-desc {
-    font-size: 11px;
-    line-height: 1.55;
-    hyphens: none;
-    -webkit-hyphens: none;
-    overflow-wrap: break-word;
-    flex: 0 0 auto;
-    overflow: hidden;
-  }
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  height: 100%;
+}
 
-  @media (min-width: 1024px) and (max-height: 700px) {
-    .feature-cell-title { font-size: 13px; padding-top: 22px; }
-    .feature-cell-desc  { font-size: 10px; padding-bottom: 15px; }
-  }
-  @media (min-width: 1024px) and (min-height: 700px) {
-    .feature-cell-title { font-size: 16px; padding-top: 24px; }
-    .feature-cell-desc  { font-size: 11px; padding-bottom: 15px; }
-  }
-  @media (min-width: 1200px) and (max-height: 750px) {
-    .feature-cell-title { font-size: 20px; padding-top: 18px; }
-    .feature-cell-desc  { font-size: 13px; padding-bottom: 10px; }
-  }
-  @media (min-width: 1200px) and (min-height: 750px) {
-    .feature-cell-title { font-size: 20px; padding-top: 39px; }
-    .feature-cell-desc  { font-size: 17px; padding-bottom: 20px; }
-  }
-  @media (min-width: 1440px) and (max-height: 850px) {
-    .feature-cell-title { font-size: 22px; padding-top: 28px; }
-    .feature-cell-desc  { font-size: 16px; padding-bottom: 20px; }
-  }
-  @media (min-width: 1440px) and (min-height: 850px) {
-    .feature-cell-title { font-size: 25px; padding-top: 28px; }
-    .feature-cell-desc  { font-size: 22px; padding-bottom: 20px; }
-  }
-  @media (min-width: 1920px) and (max-height: 1000px) {
-    .feature-cell-title { font-size: 20px; padding-top: 30px; }
-    .feature-cell-desc  { font-size: 15px; padding-bottom: 20px; }
-  }
-  @media (min-width: 1920px) and (min-height: 1000px) {
-    .feature-cell-title { font-size: 26px; padding-top: 30px; }
-    .feature-cell-desc  { font-size: 18px; padding-bottom: 25px; }
-  }
+.feature-cell-title {
+  line-height: 1.3;
+  padding-top: 12px;
+  hyphens: none;
+  -webkit-hyphens: none;
+  overflow-wrap: break-word;
+  align-self: start;
+}
+
+.feature-cell-desc {
+  text-align: left;
+  line-height: 1.55;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  word-break: normal;
+  overflow-wrap: normal;
+  word-spacing: normal;
+  letter-spacing: normal;
+  overflow: hidden;
+  align-self: end;
+}
+
+@media (min-width: 1024px) and (max-height: 700px) {
+  .feature-cell-title { font-size: 13px; padding-top: 22px; }
+  .feature-cell-desc  { font-size: 10px; }
+}
+@media (min-width: 1024px) and (min-height: 700px) {
+  .feature-cell-title { font-size: 16px; padding-top: 24px; }
+  .feature-cell-desc  { font-size: 11px; }
+}
+@media (min-width: 1200px) and (max-height: 750px) {
+  .feature-cell-title { font-size: 20px; padding-top: 18px; }
+  .feature-cell-desc  { font-size: 13px; }
+}
+@media (min-width: 1200px) and (min-height: 750px) {
+  .feature-cell-title { font-size: 24px; padding-top: 39px; }
+  .feature-cell-desc  { font-size: 18.5px; }
+}
+@media (min-width: 1440px) and (max-height: 850px) {
+  .feature-cell-title { font-size: 22px; padding-top: 28px; }
+  .feature-cell-desc  { font-size: 16px; }
+}
+@media (min-width: 1440px) and (min-height: 850px) {
+  .feature-cell-title { font-size: 25px; padding-top: 28px; }
+  .feature-cell-desc  { font-size: 22px; }
+}
+@media (min-width: 1920px) and (max-height: 1000px) {
+  .feature-cell-title { font-size: 20px; padding-top: 30px; }
+  .feature-cell-desc  { font-size: 15px; }
+}
+@media (min-width: 1920px) and (min-height: 1000px) {
+  .feature-cell-title { font-size: 26px; padding-top: 30px; }
+  .feature-cell-desc  { font-size: 18px; }
+}
 `;
 
 function DesktopFeatureCell({ feature, borderClasses }) {
@@ -120,24 +125,39 @@ const mobileFeatureGridStyles = `
     align-self: start;
   }
   .cell-desc {
-    font-size: 10px;
-    line-height: 1.4;
-    color: #6b7280;
-    overflow-wrap: break-word;
-    overflow: hidden;
-    padding: 5px 10px 10px 10px;
-    grid-row: 2;
-    align-self: start;
-  }
+  font-size: 10px;
+  line-height: 1.4;
+  color: #6b7280;
+  text-align: left;          /* ensure no justify here either */
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  word-spacing: normal;
+  letter-spacing: normal;
+  overflow: hidden;
+  padding: 5px 10px 10px 10px;
+  grid-row: 2;
+  align-self: start;
+}
 
   @media (min-width: 290px) {
-    .cell-title { font-size: 17px; padding: 15px 10px 0 10px; }
-    .cell-desc  { font-size: 12.5px; padding: 6px 10px 10px 10px; }
+    .cell-title { font-size: 15px; padding-top:5px; }
+    .cell-desc  { font-size: 12px; padding-top: 6px; }
   }
   @media (min-width: 390px) {
-    .cell-title { font-size: 19px; padding: 12px 12px 0 12px; }
-    .cell-desc  { font-size: 16px; padding: 6px 12px 12px 12px; }
+  
+    .cell-title { font-size: 15px; padding-top: 10px; }
+    .cell-desc  { font-size: 12px; padding-top: 4px; }
   }
+@media (min-width: 420px) {
+  
+    .cell-title { font-size: 18px; padding-top: 4px; }
+    .cell-desc  { font-size: 13px; padding-top: 10px; }
+  }
+
+
   @media (min-width: 600px) {
     .cell-title { font-size: 20px; padding: 20px 14px 0 14px; }
     .cell-desc  { font-size: 18px; padding: 10px 14px 20px 14px; }
@@ -215,7 +235,7 @@ export function AgentPanel({ agent, isDesktop = false }) {
         </div>
 
         {/* Feature grid */}
-        <div className="p-3 relative overflow-hidden" style={{ flex: 1 }}>
+<div className="p-3 relative border-t border-b border-r border-[#e5e7eb]" style={{ flex: 1 }}>
           <div
             className="absolute inset-0 pointer-events-none opacity-[0.1]"
             style={{
@@ -225,14 +245,15 @@ export function AgentPanel({ agent, isDesktop = false }) {
             }}
           />
           <style>{featureCellStyles}</style>
-          <div
-            className="h-full relative z-10 bg-[#f4f4f5]"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gridTemplateRows: '1fr 1fr',
-            }}
-          >
+ <div
+  className="h-full relative z-10 bg-[#f4f4f5]"
+  style={{
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gridTemplateRows: '1fr 1fr',
+    outline: '1px solid rgba(0,0,0,0.125)',
+  }}
+>
             <div className="feature-cell border-r border-b border-[#00000020]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
               <h4 className="feature-cell-title anseru-card-title">{features[0].title}</h4>
               <p className="feature-cell-desc anseru-section-tag">{features[0].description}</p>
@@ -245,7 +266,7 @@ export function AgentPanel({ agent, isDesktop = false }) {
               <h4 className="feature-cell-title anseru-card-title">{features[2].title}</h4>
               <p className="feature-cell-desc anseru-section-tag">{features[2].description}</p>
             </div>
-            <div className="feature-cell" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
+            <div className="feature-cell " style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
               <h4 className="feature-cell-title anseru-card-title">{features[3].title}</h4>
               <p className="feature-cell-desc anseru-section-tag">{features[3].description}</p>
             </div>

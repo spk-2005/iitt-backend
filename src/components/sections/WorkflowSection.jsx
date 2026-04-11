@@ -109,89 +109,111 @@
     const rowRefs = useRef([]);
     const segRefs = useRef([]);
     const revealedRef = useRef(0);
-    const hasLeftRef = useRef(false);
-    const wasBelowRef = useRef(false);
 
-    
-const stickyVhRef = useRef(100);
-    useEffect(() => {
-      rowRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; } });
-      segRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; } });
+useEffect(() => {
+  rowRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; } });
+  segRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; } });
 
-      const totalNodes = RFP_NODES.length;
-      const SCROLL_PER_NODE = 60;
-      const totalScrollBudget = totalNodes * SCROLL_PER_NODE;
+  const totalNodes = RFP_NODES.length;
+  const SCROLL_PER_NODE = 60;
+  const totalScrollBudget = totalNodes * SCROLL_PER_NODE;
 
-      // Tall enough outer to give sticky something to scroll against
-      if (outerRef.current) {
-        outerRef.current.style.height = `calc(100vh + ${totalScrollBudget}px)`;
+  const setOuterHeight = () => {
+    if (!outerRef.current) return;
+    const stickyEl = outerRef.current.querySelector('[data-sticky]');
+    const stickyH = stickyEl ? stickyEl.offsetHeight : 0;
+    outerRef.current.style.height = `${stickyH + totalScrollBudget}px`;
+  };
+
+  // Defer so DOM is painted and offsetHeight is accurate
+  const rafId = requestAnimationFrame(() => {
+    setOuterHeight();
+  });
+
+  const revealUpTo = (count, animate) => {
+    rowRefs.current.forEach((el, i) => {
+      if (!el) return;
+      el.style.transition = animate ? 'opacity 0.4s ease' : 'none';
+      el.style.opacity = i < count ? '1' : '0.25';
+    });
+    segRefs.current.forEach((el, i) => {
+      if (!el) return;
+      el.style.transition = animate ? 'opacity 0.3s ease' : 'none';
+      el.style.opacity = i < count - 1 ? '0.5' : '0.25';
+    });
+  };
+
+  const onScroll = () => {
+    const outer = outerRef.current;
+    const sticky = outer?.querySelector('[data-sticky]');
+    if (!outer || !sticky) return;
+
+    const rect = outer.getBoundingClientRect();
+
+    // Section fully above viewport — reset silently
+    if (rect.bottom <= 0) {
+      sticky.style.pointerEvents = 'none';
+      if (revealedRef.current !== 0) {
+        revealedRef.current = 0;
+        rowRefs.current.forEach(el => {
+          if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
+        });
+        segRefs.current.forEach(el => {
+          if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
+        });
       }
-
-      const revealUpTo = (count, animate) => {
-        rowRefs.current.forEach((el, i) => {
-          if (!el) return;
-          el.style.transition = animate ? 'opacity 0.4s ease' : 'none';
-          el.style.opacity = i < count ? '1' : '0.25';
-        });
-        segRefs.current.forEach((el, i) => {
-          if (!el) return;
-          el.style.transition = animate ? 'opacity 0.3s ease' : 'none';
-          el.style.opacity = i < count - 1 ? '0.5' : '0.25';
-        });
-      };
-const reset = () => {
-  revealedRef.current = 0;
-  rowRefs.current.forEach(el => {
-    if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
-  });
-  segRefs.current.forEach(el => {
-    if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
-  });
-};
-
-
-   const onScroll = () => {
-  const outer = outerRef.current;
-  const sticky = outer?.querySelector('[data-sticky]');
-  if (!outer || !sticky) return;
-
-  const rect = outer.getBoundingClientRect();
-
-  if (rect.top >= window.innerHeight) {
-    sticky.style.pointerEvents = 'none';
-    if (hasLeftRef.current) {
-      reset();
-      hasLeftRef.current = false;
+      return;
     }
-    wasBelowRef.current = false;
-    return;
-  }
 
-  sticky.style.pointerEvents = 'auto';
+    // Section not yet in view — reset silently
+    if (rect.top >= window.innerHeight) {
+      sticky.style.pointerEvents = 'none';
+      if (revealedRef.current !== 0) {
+        revealedRef.current = 0;
+        rowRefs.current.forEach(el => {
+          if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
+        });
+        segRefs.current.forEach(el => {
+          if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
+        });
+      }
+      return;
+    }
 
-  const belowSection = rect.bottom < window.innerHeight;
-  if (belowSection && !wasBelowRef.current) {
-    wasBelowRef.current = true;
-    hasLeftRef.current = true;
-  }
-  if (!belowSection && wasBelowRef.current) {
-    wasBelowRef.current = false;
-  }
+    sticky.style.pointerEvents = 'auto';
 
-  const scrolled = -rect.top;
-  const progress = Math.max(0, Math.min(1, scrolled / totalScrollBudget));
-  const target = Math.min(totalNodes, Math.ceil(progress * totalNodes));
+    // Once fully revealed, lock forever — never unreveal on scroll up
+    if (revealedRef.current >= totalNodes) return;
 
-  if (target > revealedRef.current) {
-    revealedRef.current = target;
-    revealUpTo(revealedRef.current, true);
-  }
-};
+    const scrolled = -rect.top;
+    const progress = Math.max(0, Math.min(1, scrolled / totalScrollBudget));
+    const target = Math.min(totalNodes, Math.ceil(progress * totalNodes));
 
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-      return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+    // Only move forward
+    if (target > revealedRef.current) {
+      revealedRef.current = target;
+      revealUpTo(revealedRef.current, true);
+    }
+  };
+
+  // Recalc outer height on resize/viewport change (iOS address bar)
+  const onResize = () => {
+    setOuterHeight();
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.visualViewport?.addEventListener('resize', onResize);
+  window.addEventListener('resize', onResize);
+
+  onScroll();
+
+  return () => {
+    cancelAnimationFrame(rafId);
+    window.removeEventListener('scroll', onScroll);
+    window.visualViewport?.removeEventListener('resize', onResize);
+    window.removeEventListener('resize', onResize);
+  };
+}, []);
 
     return (
       <div style={{ position: 'relative', width: '100%', backgroundColor: '#fff' }}>
