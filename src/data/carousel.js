@@ -12,7 +12,14 @@ style.textContent = `
       width: 100%;
       height: auto;
       aspect-ratio: 16 / 9;
-      
+      object-fit: contain;
+    }
+
+    .carousel-card-img-slide3 {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
     }
   }
 
@@ -21,11 +28,17 @@ style.textContent = `
     .carousel-card-img {
       width: 80%;
       height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+    }
+
+    .carousel-card-img-slide3 {
+      width: 80%;
+      height: auto;
       aspect-ratio: 4 / 3;
-      
+      object-fit: contain;
     }
   }
-
 `;
 if (!document.head.querySelector('[data-carousel-img-style]')) {
   style.setAttribute('data-carousel-img-style', 'true');
@@ -81,7 +94,7 @@ export const CAROUSEL_SLIDES = [
     cardImageWidth: '84%',
     height: '55vh',
     cardImageClass:
-      'carousel-card-img object-top rounded-b-[10px] max-w-full',
+      'carousel-card-img-slide3 object-top rounded-b-[10px] max-w-full',
     description:
       'Anseru generates a full response draft using your verified documentation and past approved answers. Every answer is traceable to a real source, so drafts arrive ready for review, not ready to be rewritten from scratch.',
     bullets: [
