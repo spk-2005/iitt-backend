@@ -74,23 +74,38 @@ function DesktopFeatureCell({ feature, borderClasses }) {
     </>
   );
 }
-
 const mobileFeatureGridStyles = `
   .mobile-feature-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     height: 100%;
-    grid-template-rows: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #00000020;
+    border-radius: 4px;
+    overflow: hidden;
   }
 
   .mobile-row {
     display: grid;
-    grid-column: 1 / -1;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
+    align-content: start;
+    flex: 1;
+    position: relative;
   }
   .mobile-row:first-child {
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #00000020;
+  }
+
+  /* Single continuous vertical line spanning full row height */
+  .mobile-row::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: #00000020;
+    pointer-events: none;
   }
 
   .cell-title {
@@ -101,9 +116,8 @@ const mobileFeatureGridStyles = `
     overflow-wrap: break-word;
     hyphens: none;
     -webkit-hyphens: none;
-    
     grid-row: 1;
-    padding:10px;
+    padding: 10px 10px 0 10px;
   }
   .cell-desc {
     font-size: 10px;
@@ -111,33 +125,28 @@ const mobileFeatureGridStyles = `
     color: #6b7280;
     overflow-wrap: break-word;
     overflow: hidden;
-    padding:10px;
+    padding: 5px 10px 10px 10px;
     grid-row: 2;
     align-self: start;
   }
-  .cell-title.right,
-  .cell-desc.right {
-    border-left: 1px solid #e5e7eb;
-  }
 
   @media (min-width: 290px) {
-    .cell-title { font-size: 17px; padding-top: 10px; }
-    .cell-desc  { font-size: 12.5px; padding-top:0}
+    .cell-title { font-size: 17px; padding: 15px 10px 0 10px; }
+    .cell-desc  { font-size: 12.5px; padding: 14px 10px 10px 10px; }
   }
   @media (min-width: 390px) {
-    .cell-title { font-size: 19px; padding-top: 5px; }
-    .cell-desc  { font-size: 16px; padding-top: 6px; }
+    .cell-title { font-size: 19px; padding: 12px 12px 0 12px; }
+    .cell-desc  { font-size: 16px; padding: 6px 12px 12px 12px; }
   }
   @media (min-width: 600px) {
-    .cell-title { font-size: 20px; padding-top: 30px; }
-    .cell-desc  { font-size: 18px; padding-top: 18px; }
+    .cell-title { font-size: 20px; padding: 20px 14px 0 14px; }
+    .cell-desc  { font-size: 18px; padding: 10px 14px 20px 14px; }
   }
   @media (min-width: 768px) {
-    .cell-title { font-size: 16px; padding-top: 36px; }
-    .cell-desc  { font-size: 18px; padding-top: 18px ; }
+    .cell-title { font-size: 16px; padding: 18px 14px 0 14px; }
+    .cell-desc  { font-size: 18px; padding: 10px 14px 18px 14px; }
   }
 `;
-
 function MobileFeatureGrid({ features }) {
   return (
     <>
