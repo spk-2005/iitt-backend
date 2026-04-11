@@ -125,7 +125,7 @@ const mobileFeatureGridStyles = `
     .cell-desc  { font-size: 10px; }
   }
   @media (min-width: 390px) {
-    .cell-title { font-size: 19px; padding-top: 15px; }
+    .cell-title { font-size: 19px; padding-top: 5px; }
     .cell-desc  { font-size: 16px; padding-top: 6px; }
   }
   @media (min-width: 600px) {
@@ -259,7 +259,7 @@ export function AgentPanel({ agent, isDesktop = false }) {
           }}
         >
           <NoiseOverlay />
-          <div className="relative flex justify-center w-full">
+          <div className="relative flex justify-start w-full">
             <img
               src={agentIcon}
               loading="lazy"
