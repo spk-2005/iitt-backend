@@ -150,7 +150,7 @@ return (
     wordBreak: 'normal',
     overflowWrap: 'normal',
     wordSpacing: 'normal',
-    letterSpacing: 'normal',
+    letterSpacing: 'normal',  
   }}
 >
   {description}

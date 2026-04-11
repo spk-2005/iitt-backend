@@ -177,7 +177,7 @@ export function HowItWorksSection({ carouselRef }) {
         /* ── Mobile ── */
         <div
           ref={mobileContainerRef}
-          className="relative w-full bg-white"
+          className="relative w-full bg-white pt-10"
           style={{ height: `${SLIDE_COUNT * 100}vh` }}
         >
           <div

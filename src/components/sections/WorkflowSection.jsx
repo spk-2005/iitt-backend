@@ -415,7 +415,7 @@ useEffect(() => {
   </div>
 
           {/* Mobile — unchanged */}
-          <div className="md:hidden">
+          <div className="md:hidden pt-10 pb-10">
             <MobileWorkflowList />
           </div>
 

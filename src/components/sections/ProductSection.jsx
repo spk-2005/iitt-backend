@@ -177,7 +177,7 @@ export function ProductSection({ agentsRef }) {
           ))}
 
           {/* Sticky panel */}
-          <div className="sticky top-0 h-screen flex flex-col pt-16 pb-7 overflow-hidden">
+          <div className="sticky top-0 h-screen flex flex-col md:pt-26   pb-7 overflow-hidden">
             {/* Header */}
             <div className="max-w-300 mx-auto px-6 w-full mb-5">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-2">
@@ -225,7 +225,7 @@ export function ProductSection({ agentsRef }) {
           style={{ height: `${AGENT_COUNT * 100}vh` }}
         >
           {/* Section tag — scrolls away */}
-          <div className="px-5 mb-1">
+          <div className="px-5 mb-1 pt-10">
             <p className="anseru-section-tag">Proven Results</p>
           </div>
 
