@@ -121,20 +121,20 @@ const mobileFeatureGridStyles = `
   }
 
   @media (min-width: 290px) {
-    .cell-title { font-size: 17px; padding-top: 15px; }
-    .cell-desc  { font-size: 10px; }
+    .cell-title { font-size: 17px; padding-top: 1px; }
+    .cell-desc  { font-size: 12.5px; padding-top:0}
   }
   @media (min-width: 390px) {
     .cell-title { font-size: 19px; padding-top: 5px; }
     .cell-desc  { font-size: 16px; padding-top: 6px; }
   }
   @media (min-width: 600px) {
-    .cell-title { font-size: 20px; padding: 20px 12px 0; }
-    .cell-desc  { font-size: 13px; padding: 8px 12px 20px; }
+    .cell-title { font-size: 20px; padding-top: 30px; }
+    .cell-desc  { font-size: 18px; padding-top: 18px; }
   }
   @media (min-width: 768px) {
-    .cell-title { font-size: 16px; padding: 16px 16px 0; }
-    .cell-desc  { font-size: 13px; padding: 8px 16px 16px; }
+    .cell-title { font-size: 16px; padding-top: 36px; }
+    .cell-desc  { font-size: 18px; padding-top: 18px ; }
   }
 `;
 
