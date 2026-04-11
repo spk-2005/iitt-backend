@@ -1,9 +1,9 @@
 import { NoiseOverlay } from '../primitives/NoiseOverlay.jsx';
+
 const featureCellStyles = `
   .feature-cell {
     display: flex;
     flex-direction: column;
-    
     overflow: hidden;
   }
   .feature-cell-title {
@@ -19,11 +19,9 @@ const featureCellStyles = `
   .feature-cell-desc {
     font-size: 11px;
     line-height: 1.55;
-    
-    
     hyphens: none;
     -webkit-hyphens: none;
-    overflow-wrap: break-word;  
+    overflow-wrap: break-word;
     flex: 0 0 auto;
     overflow: hidden;
   }
@@ -32,44 +30,35 @@ const featureCellStyles = `
     .feature-cell-title { font-size: 13px; padding-top: 22px; }
     .feature-cell-desc  { font-size: 10px; padding-bottom: 15px; }
   }
-
   @media (min-width: 1024px) and (min-height: 700px) {
     .feature-cell-title { font-size: 16px; padding-top: 24px; }
     .feature-cell-desc  { font-size: 11px; padding-bottom: 15px; }
   }
-
   @media (min-width: 1200px) and (max-height: 750px) {
     .feature-cell-title { font-size: 20px; padding-top: 18px; }
-    .feature-cell-desc  { font-size: 13px; padding-bottom: 10x; }
+    .feature-cell-desc  { font-size: 13px; padding-bottom: 10px; }
   }
-
   @media (min-width: 1200px) and (min-height: 750px) {
     .feature-cell-title { font-size: 20px; padding-top: 39px; }
     .feature-cell-desc  { font-size: 17px; padding-bottom: 20px; }
   }
-
   @media (min-width: 1440px) and (max-height: 850px) {
     .feature-cell-title { font-size: 22px; padding-top: 28px; }
     .feature-cell-desc  { font-size: 16px; padding-bottom: 20px; }
   }
-
   @media (min-width: 1440px) and (min-height: 850px) {
     .feature-cell-title { font-size: 25px; padding-top: 28px; }
     .feature-cell-desc  { font-size: 22px; padding-bottom: 20px; }
   }
-
   @media (min-width: 1920px) and (max-height: 1000px) {
     .feature-cell-title { font-size: 20px; padding-top: 30px; }
     .feature-cell-desc  { font-size: 15px; padding-bottom: 20px; }
   }
-
   @media (min-width: 1920px) and (min-height: 1000px) {
     .feature-cell-title { font-size: 26px; padding-top: 30px; }
     .feature-cell-desc  { font-size: 18px; padding-bottom: 25px; }
   }
 `;
-
-
 
 function DesktopFeatureCell({ feature, borderClasses }) {
   return (
@@ -79,112 +68,98 @@ function DesktopFeatureCell({ feature, borderClasses }) {
         className={`feature-cell border-[#e5e7eb] ${borderClasses}`}
         style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}
       >
-        <h4 className="feature-cell-title anseru-card-title">
-          {feature.title}
-        </h4>
-        <p className="feature-cell-desc anseru-section-tag">
-          {feature.description}
-        </p>
+        <h4 className="feature-cell-title anseru-card-title">{feature.title}</h4>
+        <p className="feature-cell-desc anseru-section-tag">{feature.description}</p>
       </div>
     </>
   );
-
 }
 
-
-
-
-const mobileFeatureCellStyles = `
-  .mobile-feature-cell {
-    display: flex;
-    flex-direction: column;
+const mobileFeatureGridStyles = `
+  .mobile-feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     height: 100%;
-    padding: 10px;
+    grid-template-rows: 1fr 1fr;
   }
-  .mobile-feature-title {
+
+  .mobile-row {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  .mobile-row:first-child {
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .cell-title {
     font-size: 13px;
     line-height: 1.25;
     font-weight: 400;
     color: #111;
-    min-height: 2.6em;
-    display: flex;
-    align-items: flex-start;
     overflow-wrap: break-word;
-    word-break: break-word;
     hyphens: none;
     -webkit-hyphens: none;
-    flex: 0 0 auto;
+    padding: 15px 10px 0;
+    grid-row: 1;
   }
-  .mobile-feature-desc {
+  .cell-desc {
     font-size: 10px;
     line-height: 1.4;
     color: #6b7280;
-    padding-top: 6px;
     overflow-wrap: break-word;
-    word-break: break-word;
-    flex: 1 1 auto;
     overflow: hidden;
+    padding: 6px 10px 15px;
+    grid-row: 2;
+    align-self: start;
+  }
+  .cell-title.right,
+  .cell-desc.right {
+    border-left: 1px solid #e5e7eb;
   }
 
-  
   @media (min-width: 290px) {
-    .mobile-feature-cell  { padding: 8px; }
-    .mobile-feature-title { font-size: 17px; min-height: 2.6em;padding-top:15px; }
-    .mobile-feature-desc  { font-size: 10px; padding-top: 10px; }
+    .cell-title { font-size: 17px; padding-top: 15px; }
+    .cell-desc  { font-size: 10px; }
   }
-
-  /* iPhone Pro Max / large phones (430px+) */
   @media (min-width: 390px) {
-    .mobile-feature-cell  { padding: 12px; }
-    .mobile-feature-title { font-size: 20px; min-height: 2.6em;padding-top:20px; }
-    .mobile-feature-desc  { font-size: 14px; padding-top: 16px; }
+    .cell-title { font-size: 20px; padding: 15px 12px 0; }
+    .cell-desc  { font-size: 15px; padding: 10px 12px 15px; }
   }
-
-  /* Small tablets (600px+) */
   @media (min-width: 600px) {
-    .mobile-feature-cell  { padding: 12px; }
-    .mobile-feature-title { font-size: 20px; min-height: 2.6em;padding-top:25px; }
-    .mobile-feature-desc  { font-size: 13px; padding-top: 8px; }
+    .cell-title { font-size: 20px; padding: 20px 12px 0; }
+    .cell-desc  { font-size: 13px; padding: 8px 12px 20px; }
   }
-
-  /* Large tablets (768px+) */
   @media (min-width: 768px) {
-    .mobile-feature-cell  { padding: 16px; }
-    .mobile-feature-title { font-size: 16px; }
-    .mobile-feature-desc  { font-size: 13px; padding-top: 12px; }
+    .cell-title { font-size: 16px; padding: 16px 16px 0; }
+    .cell-desc  { font-size: 13px; padding: 8px 16px 16px; }
   }
 `;
 
-
-
-function MobileFeatureCell({ feature }) {
+function MobileFeatureGrid({ features }) {
   return (
     <>
-      <style>{mobileFeatureCellStyles}</style>
-      <div className="mobile-feature-cell">
-        <h4 className="mobile-feature-title">
-          {feature.title}
-        </h4>
-        <p className="mobile-feature-desc">
-          {feature.description}
-        </p>
+      <style>{mobileFeatureGridStyles}</style>
+      <div className="mobile-feature-grid">
+        {/* Row 1 */}
+        <div className="mobile-row">
+          <h4 className="cell-title left">{features[0].title}</h4>
+          <h4 className="cell-title right">{features[1].title}</h4>
+          <p className="cell-desc left">{features[0].description}</p>
+          <p className="cell-desc right">{features[1].description}</p>
+        </div>
+        {/* Row 2 */}
+        <div className="mobile-row">
+          <h4 className="cell-title left">{features[2].title}</h4>
+          <h4 className="cell-title right">{features[3].title}</h4>
+          <p className="cell-desc left">{features[2].description}</p>
+          <p className="cell-desc right">{features[3].description}</p>
+        </div>
       </div>
     </>
   );
-}
-
-function MobileFeatureRow({ left, right, isLast }) {
-  return (
-    <div className={`flex flex-row flex-1${isLast ? '' : ' border-b border-[#e5e7eb]'}`}>
-      <div className="flex-1 border-r border-[#e5e7eb] flex flex-col">
-        <MobileFeatureCell feature={left} />
-      </div>
-      <div className="flex-1 flex flex-col">
-        <MobileFeatureCell feature={right} />
-      </div>
-    </div>
-  );
-}
+} 
 
 export function AgentPanel({ agent, isDesktop = false }) {
   const { gradient, agentIcon, title, tags, features } = agent;
@@ -210,10 +185,7 @@ export function AgentPanel({ agent, isDesktop = false }) {
             <div className="relative mt-auto">
               <h3
                 className="anseru-card-title text-white mb-4 leading-[1.3]"
-                style={{
-                  whiteSpace: 'pre-line',
-                  fontSize: 'clamp(20px, 2vw, 28px)',
-                }}
+                style={{ whiteSpace: 'pre-line', fontSize: 'clamp(20px, 2vw, 28px)' }}
               >
                 {title}
               </h3>
@@ -232,60 +204,43 @@ export function AgentPanel({ agent, isDesktop = false }) {
           </div>
         </div>
 
-     {/* Feature grid */}
-<div className="p-3 relative overflow-hidden border border-l-black/60" style={{ flex: 1 }}>
-  <div
-    className="absolute inset-0 pointer-events-none opacity-[0.1]"
-    style={{
-      backgroundImage:
-        'linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)',
-      backgroundSize: '150px 150px',
-    }}
-  />
-  <style>{featureCellStyles}</style>
-  <div
-  className="h-full relative z-10 bg-[#f4f4f5]"
-  style={{
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gridTemplateRows: '1fr auto 1fr auto',
-  }}
->
-    {/* Top titles — same row so same height */}
-   <div className="feature-cell border-r border-[#e5e7eb]" 
-  style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
-  <h4 className="feature-cell-title anseru-card-title">{features[0].title}</h4>
-</div>
-<div className="feature-cell" 
-  style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
-  <h4 className="feature-cell-title anseru-card-title">{features[1].title}</h4>
-</div>
-{/* Top descs */}
-<div className="feature-cell border-b border-r border-[#e5e7eb]" style={{ padding: '8px clamp(10px, 1.5cqw, 22px) 0 clamp(10px, 1.5cqw, 22px)' }}>
-  <p className="feature-cell-desc anseru-section-tag">{features[0].description}</p>
-</div>
-<div className="feature-cell border-b border-[#e5e7eb]" style={{ padding: '8px clamp(10px, 1.5cqw, 22px) 0 clamp(10px, 1.5cqw, 22px)' }}>
-  <p className="feature-cell-desc anseru-section-tag">{features[1].description}</p>
-</div>
-
-{/* Bottom titles */}
-<div className="feature-cell border-r border-[#e5e7eb]" 
-  style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
-  <h4 className="feature-cell-title anseru-card-title">{features[2].title}</h4>
-</div>
-<div className="feature-cell" 
-  style={{ padding: 'clamp(10px, 1.5cqw, 22px) clamp(10px, 1.5cqw, 22px) 0' }}>
-  <h4 className="feature-cell-title anseru-card-title">{features[3].title}</h4>
-</div>
-{/* Bottom descs */}
-<div className="feature-cell border-r border-[#e5e7eb]" style={{ padding: '8px clamp(10px, 1.5cqw, 22px) 0 clamp(10px, 1.5cqw, 22px)' }}>
-  <p className="feature-cell-desc anseru-section-tag">{features[2].description}</p>
-</div>
-<div className="feature-cell" style={{ padding: '8px clamp(10px, 1.5cqw, 22px) 0 clamp(10px, 1.5cqw, 22px)' }}>
-  <p className="feature-cell-desc anseru-section-tag">{features[3].description}</p>
-</div>
-  </div>
-</div>
+        {/* Feature grid */}
+        <div className="p-3 relative overflow-hidden border border-l-black/60" style={{ flex: 1 }}>
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.1]"
+            style={{
+              backgroundImage:
+                'linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)',
+              backgroundSize: '150px 150px',
+            }}
+          />
+          <style>{featureCellStyles}</style>
+          <div
+            className="h-full relative z-10 bg-[#f4f4f5]"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gridTemplateRows: '1fr 1fr',
+            }}
+          >
+            <div className="feature-cell border-r border-b border-[#e5e7eb]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
+              <h4 className="feature-cell-title anseru-card-title">{features[0].title}</h4>
+              <p className="feature-cell-desc anseru-section-tag">{features[0].description}</p>
+            </div>
+            <div className="feature-cell border-b border-[#e5e7eb]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
+              <h4 className="feature-cell-title anseru-card-title">{features[1].title}</h4>
+              <p className="feature-cell-desc anseru-section-tag">{features[1].description}</p>
+            </div>
+            <div className="feature-cell border-r border-[#e5e7eb]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
+              <h4 className="feature-cell-title anseru-card-title">{features[2].title}</h4>
+              <p className="feature-cell-desc anseru-section-tag">{features[2].description}</p>
+            </div>
+            <div className="feature-cell" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
+              <h4 className="feature-cell-title anseru-card-title">{features[3].title}</h4>
+              <p className="feature-cell-desc anseru-section-tag">{features[3].description}</p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -341,9 +296,8 @@ export function AgentPanel({ agent, isDesktop = false }) {
       </div>
 
       <div className="p-2 relative overflow-hidden flex-1">
-        <div className="bg-[#f4f4f5] h-full flex flex-col">
-          <MobileFeatureRow left={features[0]} right={features[1]} isLast={false} />
-          <MobileFeatureRow left={features[2]} right={features[3]} isLast={true} />
+        <div className="bg-[#f4f4f5] h-full">
+          <MobileFeatureGrid features={features} />
         </div>
       </div>
     </div>
