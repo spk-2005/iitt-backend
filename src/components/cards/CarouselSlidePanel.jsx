@@ -98,9 +98,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
       </div>
     );
   }
-
-  // ── Mobile ──
-  return (
+// ── Mobile ──
+return (
     <div className="shrink-0 min-h-full h-full flex flex-col overflow-hidden px-5 pb-5 box-border" style={{ width: '100vw' }}>
       <h2 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h2>
 
@@ -120,7 +119,6 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
           </h2>
         </div>
 
-        {/* Mobile image — CSS variables resolve to mobile values below lg */}
         <div
           className="absolute z-10 bottom-0 right-0"
           style={{
@@ -143,12 +141,37 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
       </div>
 
       <div className="pt-4 space-y-3 flex-1 overflow-y-auto">
-        <p className="text-[#6b7280] text-[15px] leading-relaxed">{description}</p>
-        <div className="space-y-2 pt-1">
+    <p
+  className="text-[#6b7280] text-[15px] leading-relaxed"
+  style={{
+    textAlign: 'justify',
+    textAlignLast: 'left',
+    hyphens: 'none',
+    WebkitHyphens: 'none',
+    wordBreak: 'break-word',
+    overflowWrap: 'break-word',
+    wordSpacing: '-0.5px',
+    letterSpacing: 'normal',
+  }}
+>
+  {description}
+</p>
+   <div className="space-y-2 pt-1">
           {bullets.map((bullet, i) => (
             <SectionBulletItem key={i}>
-              <div>{bullet}</div>
-            </SectionBulletItem>
+<div
+  style={{
+    textAlign: 'left',
+    hyphens: 'none',
+    WebkitHyphens: 'none',
+    wordBreak: 'break-word',
+    overflowWrap: 'break-word',
+    wordSpacing: 'normal',
+    letterSpacing: 'normal',
+  }}
+>
+  {bullet}
+</div>        </SectionBulletItem>
           ))}
         </div>
       </div>
