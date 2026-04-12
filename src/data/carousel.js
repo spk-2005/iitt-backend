@@ -31,11 +31,18 @@ style.textContent = `
     .carousel-card-img-slide3 { width: 92% !important; max-height: clamp(190px, 42vh, 270px) !important; }
     .carousel-card-img-slide4 { width: 90% !important; max-height: clamp(140px, 30vh, 190px) !important; }
   }
-  @media (min-width: 390px) and (max-width: 639px) {
+  @media (min-width: 390px) and (max-width: 399px) {
     .carousel-card-img-slide1 { width: 90% !important; max-height: clamp(100px, 32vh, 160px) !important; }
     .carousel-card-img-slide2 { width: 85% !important; max-height: clamp(90px,  32vh, 170px) !important; }
     .carousel-card-img-slide3 { width: 85% !important; max-height: clamp(120px, 50vh, 300px) !important; }
     .carousel-card-img-slide4 { width: 95% !important; max-height: clamp(120px, 34vh, 160px) !important; }
+  }
+    
+  @media (min-width: 400px) and (max-width: 529px) {
+    .carousel-card-img-slide1 { width: 100% !important; max-height: clamp(200px, 32vh, 210px) !important; }
+    .carousel-card-img-slide2 { width: 85% !important; max-height: clamp(210px,  32vh, 240px) !important; }
+    .carousel-card-img-slide3 { width: 95% !important; max-height: clamp(210px, 50vh, 220px) !important; }
+    .carousel-card-img-slide4 { width: 95% !important; max-height: clamp(20px, 34vh, 220px) !important; }
   }
   @media (min-width: 640px) and (max-width: 1023px) {
     .carousel-card-img-slide1 { width: 80% !important; max-height: clamp(180px, 34vh, 260px) !important; }
