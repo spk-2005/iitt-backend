@@ -33,10 +33,10 @@ style.textContent = `
   }
 
   @media (min-width: 361px) and (max-width: 388px){
-    .carousel-card-img-slide1 { width: 95% !important; max-height: 155px !important; }
-    .carousel-card-img-slide2 { width: 95% !important; max-height: 155px !important; }
-    .carousel-card-img-slide3 { width: 95% !important; max-height: 155px !important; }
-    .carousel-card-img-slide4 { width: 95% !important; max-height: 155px !important; }
+    .carousel-card-img-slide1 { width: 95% !important; max-height: 150px !important; }
+    .carousel-card-img-slide2 { width: 95% !important; max-height: 150px !important; }
+    .carousel-card-img-slide3 { width: 95% !important; max-height: 150px !important; }
+    .carousel-card-img-slide4 { width: 95% !important; max-height: 150px !important; }
   }
 @media (min-width: 389px) and (max-width: 389px) {
   .carousel-card-img-slide1 { width: 88% !important;  max-height: clamp(130px, 28vh, 180px) !important; }
@@ -120,6 +120,41 @@ style.textContent = `
     .carousel-card-img-slide3 { width: 92% !important; max-height: clamp(520px, calc(100vh - 190px), 920px) !important; }
     .carousel-card-img-slide4 { width: 92% !important; max-height: clamp(490px, calc(100vh - 205px), 900px) !important; }
   }
+
+
+  /* ── iPad mini / Air portrait (768–819px) ── */
+  @media (min-width: 768px) and (max-width: 819px) {
+    .carousel-card-img-slide1 { width: 78% !important; max-height: clamp(200px, 36vh, 280px) !important; }
+    .carousel-card-img-slide2 { width: 78% !important; max-height: clamp(200px, 36vh, 280px) !important; }
+    .carousel-card-img-slide3 { width: 88% !important; max-height: clamp(260px, 46vh, 360px) !important; }
+    .carousel-card-img-slide4 { width: 82% !important; max-height: clamp(210px, 38vh, 290px) !important; }
+  }
+
+  /* ── iPad Air / Pro portrait (820–1023px) ── */
+  @media (min-width: 820px) and (max-width: 1023px) {
+    .carousel-card-img-slide1 { width: 76% !important; max-height: clamp(220px, 38vh, 320px) !important; }
+    .carousel-card-img-slide2 { width: 76% !important; max-height: clamp(220px, 38vh, 320px) !important; }
+    .carousel-card-img-slide3 { width: 86% !important; max-height: clamp(280px, 48vh, 380px) !important; }
+    .carousel-card-img-slide4 { width: 80% !important; max-height: clamp(230px, 40vh, 330px) !important; }
+  }
+/* ── iPad Pro landscape + small laptop short screen ── */
+  @media (min-width: 1024px) and (max-width: 1199px) and (max-height: 700px) {
+    .carousel-card-img-slide1 { width: 90% !important; max-height: clamp(200px, calc(100vh - 300px), 380px) !important; }
+    .carousel-card-img-slide2 { width: 90% !important; max-height: clamp(180px, calc(100vh - 310px), 360px) !important; }
+    .carousel-card-img-slide3 { width: 92% !important; max-height: clamp(220px, calc(100vh - 290px), 400px) !important; }
+    .carousel-card-img-slide4 { width: 92% !important; max-height: clamp(190px, calc(100vh - 305px), 380px) !important; }
+  }
+
+  /* ── MacBook 13/14 short viewport ── */
+  @media (min-width: 1200px) and (max-width: 1439px) and (max-height: 750px) {
+    .carousel-card-img-slide1 { width: 90% !important; max-height: clamp(240px, calc(100vh - 280px), 460px) !important; }
+    .carousel-card-img-slide2 { width: 80% !important; max-height: clamp(220px, calc(100vh - 290px), 440px) !important; }
+    .carousel-card-img-slide3 { width: 80% !important; max-height: clamp(260px, calc(100vh - 270px), 480px) !important; }
+    .carousel-card-img-slide4 { width: 80% !important; max-height: clamp(230px, calc(100vh - 285px), 460px) !important; }
+  }
+
+
+
 
 `;
 
