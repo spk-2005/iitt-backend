@@ -36,10 +36,10 @@ style.textContent = `
   .carousel-card-img-slide4 { width: 95% !important;  max-height: clamp(120px, 34vh, 160px) !important; }
 }
 @media (min-width: 400px) and (max-width: 529px) {
-  .carousel-card-img-slide1 { width: 100% !important; max-height: clamp(200px, 32vh, 210px) !important; }
-  .carousel-card-img-slide2 { width: 85% !important;  max-height: clamp(210px, 32vh, 240px) !important; }
-  .carousel-card-img-slide3 { width: 95% !important;  max-height: clamp(210px, 50vh, 220px) !important; }
-  .carousel-card-img-slide4 { width: 95% !important;  max-height: clamp(20px,  34vh, 220px) !important; }
+  .carousel-card-img-slide1 { width: 85% !important; max-height: clamp(200px, 32vh, 210px) !important; }
+  .carousel-card-img-slide2 { width: 75% !important;  max-height: clamp(210px, 32vh, 240px) !important; }
+  .carousel-card-img-slide3 { width: 90% !important;  max-height: clamp(210px, 50vh, 220px) !important; }
+  .carousel-card-img-slide4 { width: 80% !important;  max-height: clamp(20px,  34vh, 220px) !important; }
 }
 @media (min-width: 530px) and (max-width: 639px) {
   .carousel-card-img-slide1 { width: 85% !important;  max-height: clamp(160px, 30vh, 220px) !important; }
