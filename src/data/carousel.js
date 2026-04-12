@@ -17,11 +17,26 @@ style.textContent = `
   }
 
   /* ══ MOBILE ══ */
-  @media (min-width: 330px) and (max-width: 388px) {
+    @media (min-width: 280px) and (max-width: 329px) {
     .carousel-card-img-slide1 { width: 95% !important; max-height: 145px !important; }
     .carousel-card-img-slide2 { width: 95% !important; max-height: 145px !important; }
     .carousel-card-img-slide3 { width: 95% !important; max-height: 145px !important; }
     .carousel-card-img-slide4 { width: 95% !important; max-height: 145px !important; }
+  }
+
+
+    @media (min-width: 330px) and (max-width: 360px) {
+    .carousel-card-img-slide1 { width: 95% !important; max-height: 145px !important; }
+    .carousel-card-img-slide2 { width: 95% !important; max-height: 145px !important; }
+    .carousel-card-img-slide3 { width: 95% !important; max-height: 145px !important; }
+    .carousel-card-img-slide4 { width: 95% !important; max-height: 145px !important; }
+  }
+
+  @media (min-width: 361px) and (max-width: 388px){
+    .carousel-card-img-slide1 { width: 95% !important; max-height: 155px !important; }
+    .carousel-card-img-slide2 { width: 95% !important; max-height: 155px !important; }
+    .carousel-card-img-slide3 { width: 95% !important; max-height: 155px !important; }
+    .carousel-card-img-slide4 { width: 95% !important; max-height: 155px !important; }
   }
 @media (min-width: 389px) and (max-width: 389px) {
   .carousel-card-img-slide1 { width: 88% !important;  max-height: clamp(130px, 28vh, 180px) !important; }
