@@ -1,6 +1,6 @@
 import { SECURITY_NODES } from '../../data/security.js';
-import shieldImg from '../../assets/shield.png';
-import anseruLogo from '../../assets/Anseru_3 2.png';
+import shieldImg from '../../assets/shield.png?format=webp&quality=80';
+import anseruLogo from '../../assets/Anseru_3 2.png?format=webp&quality=80';
 
 export function SecuritySection() {
   return (
@@ -83,12 +83,12 @@ export function SecuritySection() {
                     <img src={node.icon} loading="lazy" alt="" className="w-full h-full object-contain" />
                   </div>
                   <div className="pt-1">
-                    <h4
+                    <h3
                       className="font-medium text-[#111827] leading-snug mb-1"
                       style={{ fontSize: 'clamp(15px, 4vw, 17px)' }}
                     >
                       {node.title}
-                    </h4>
+                    </h3>
                     <p
                       className="text-[#6b7280] leading-relaxed"
                       style={{ fontSize: 'clamp(13px, 3.5vw, 14px)' }}

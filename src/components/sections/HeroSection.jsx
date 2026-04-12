@@ -1,13 +1,11 @@
 import { useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
+import heroMobileSrc from '../../assets/hero-mob.png?format=webp&quality=80';
+import heroDesktopSrc from '../../assets/hero-3-2048.webp';
 
-import heroBgSrc from '../../assets/15.png';
-import heroMobileSrc from '../../assets/hero-mob.png';
-import heroDesktopSrc from '../../assets/hero (3).png';
-
-gsap.registerPlugin(ScrollTrigger);
+// Served from /public/images for <link rel="preload"> in index.html to work
+const heroBgSrc = '/images/hero-bg.webp';
 
 const REVEAL_TEXT =
   "We are a vertical AI-Native B2B SaaS Platform that helps Modern Sales Teams win deals faster using AI Agents to draft context-aware responses to RFP's & Security Questionnaire grounded in your knowledge base keeping humans-in-loop";
@@ -65,6 +63,8 @@ export function HeroSection() {
           <img
             src={heroBgSrc}
             alt="Hero"
+            width={1440}
+            height={900}
             className="w-full h-full object-cover"
             loading="eager"
             fetchPriority="high"
@@ -101,8 +101,8 @@ export function HeroSection() {
       </div>
 
       {/* Below-fold workflow image */}
-      <img src={heroMobileSrc} alt="hero" className="block md:hidden w-full" loading="eager" />
-      <img src={heroDesktopSrc} alt="hero" className="hidden md:block w-full" loading="eager" />
+      <img src={heroMobileSrc} alt="" width={1596} height={1884} className="block md:hidden w-full" loading="lazy" />
+      <img src={heroDesktopSrc} alt="" width={5120} height={1884} className="hidden md:block w-full" loading="lazy" />
 
       {/* Reveal text (mobile only) */}
       <div className="md:hidden w-full px-5 pt-6 pb-10">

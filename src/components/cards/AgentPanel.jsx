@@ -163,7 +163,7 @@ const featureCellStyles = `
   .agent-hero-icon         { width: 100px !important; }
 }
 @media (min-width: 1440px) and (max-width: 1919px) and (min-height: 800px) {
-  .feature-cell            { padding: 30px 16px 14px 14px; gap: 12px; }
+  .feature-cell            { padding: 40px 16px 14px 14px; gap: 12px; }
   .feature-cell-badge      { width: 26px; height: 26px; font-size: 13px; border-radius: 6px; }
   .feature-cell-title-text { font-size: 22px; }
   .feature-cell-desc       { font-size: 17px; }

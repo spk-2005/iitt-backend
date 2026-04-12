@@ -1,7 +1,7 @@
-import riAiIcon from '../assets/ri_ai.png';
-import verifiedIcon from '../assets/material-symbols-light_verified-outline.png';
-import accessControlIcon from '../assets/material-symbols_switch-access-outline.png';
-import secureInfraIcon from '../assets/arcticons_secure-tan.png';
+import riAiIcon from '../assets/ri_ai.png?format=webp&quality=80';
+import verifiedIcon from '../assets/material-symbols-light_verified-outline.png?format=webp&quality=80';
+import accessControlIcon from '../assets/material-symbols_switch-access-outline.png?format=webp&quality=80';
+import secureInfraIcon from '../assets/arcticons_secure-tan.png?format=webp&quality=80';
 
 export const SECURITY_NODES = [
   {

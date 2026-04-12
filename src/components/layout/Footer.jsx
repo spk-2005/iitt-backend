@@ -1,4 +1,4 @@
-import logoSrc from '../../assets/Vector.png';
+import logoSrc from '../../assets/logo-400.webp';
 
 export function Footer() {
   return (

@@ -1,12 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMediaQuery } from '../../hooks/useMediaQuery.js';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
 import { AGENTS } from '../../data/agents.js';
 import { AgentPanel } from '../cards/AgentPanel.jsx';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const AGENT_COUNT = AGENTS.length;
 
