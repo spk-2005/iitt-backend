@@ -99,7 +99,7 @@ style.textContent = `
 
   /* 1440 – 1919 px  (covers MacBook Air/Pro @1x and @2x) */
   @media (min-width: 1440px) and (max-width: 1919px) {
-    .carousel-card-img-slide1 { width: 92% !important; max-height: clamp(340px, calc(100vh - 240px), 640px) !important; }
+    .carousel-card-img-slide1 { width: 80% !important; max-height: clamp(340px, calc(100vh - 240px), 640px) !important; }
     .carousel-card-img-slide2 { width: 92% !important; max-height: clamp(320px, calc(100vh - 250px), 620px) !important; }
     .carousel-card-img-slide3 { width: 94% !important; max-height: clamp(460px, calc(100vh - 130px), 660px) !important; }
     .carousel-card-img-slide4 { width: 94% !important; max-height: clamp(330px, calc(100vh - 245px), 640px) !important; }

@@ -74,14 +74,13 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                 {/* Card title — fixed height anchor so image starts below it */}
                 <div
                   className="relative z-20 space-y-2 carousel-card-title-block"
-                  style={{ padding: 'clamp(16px, 2.5vw, 36px)' }}
+                  style={{ padding: 'clamp(16px, 2.5vw, 36px)'}}
                 >
                   <h2
                     className="font-medium max-w-[360px] leading-snug"
                     style={{ fontSize: 'clamp(13px, 1.3vw, 22px)' }}
                   >
-                    Turn complex RFPs <br /> into clear, winning
-                    <br /> responses
+                    Turn complex RFPs  into <br />clear, winning responses
                   </h2>
                 </div>
 

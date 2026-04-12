@@ -63,7 +63,7 @@ export function SecuritySection() {
                       </div>
                       <div className={node.labelClass}>
                         <h4 className="font-medium text-[#111827] mb-1.5 leading-tight">{node.title}</h4>
-                        <p className="text-[14px] text-[#6b7280] leading-relaxed">{node.description}</p>
+                        <p className="text-[14px] text-[#6b7280] leading-relaxed m-1">{node.description}</p>
                       </div>
                     </div>
                   ))}

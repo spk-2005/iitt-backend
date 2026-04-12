@@ -11,8 +11,8 @@ function polar(cx, cy, r, deg) {
 function buildSVG(container) {
   const ns = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(ns, 'svg');
-  svg.setAttribute('viewBox', '0 150 1100 800');
-  svg.style.cssText = 'display:block;width:100%;max-width:1100px;margin:0 auto;padding-top:80px;background:white';
+  svg.setAttribute('viewBox', '0 100 1100 850');
+svg.style.cssText = 'display:block;width:100%;max-width:1100px;margin:0 auto;background:white';
 
   // defs: gradients + glow filter + arrowhead markers
   const defs = document.createElementNS(ns, 'defs');

@@ -2,156 +2,201 @@
 
 const featureCellStyles = `
 .feature-cell {
+  flex: 1;
+  border-radius: 8px;
+  background: #fafafa;
+  position: relative;
+  overflow: visible;
+  border: 1px solid rgba(255,255,255,0.9);
+  outline: 1px solid rgba(0,0,0,0.07);
+  display: flex;
+  align-items: flex-start;   /* ← back to flex-start */
+  padding: 10px 12px 10px 10px;   /* ← uniform padding on cell itself */
+  gap: 10px;
+
+  box-shadow:
+    0 1px 0px rgba(255,255,255,0.95) inset,
+    0 -1px 0px rgba(0,0,0,0.04) inset,
+    0 2px 4px rgba(0,0,0,0.04),
+    0 4px 12px rgba(0,0,0,0.05);
+
+  transform: translateY(0px) scale(1);
+  transition:
+    box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    transform  0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.2s ease;
+
+  will-change: transform, box-shadow;
+}
+.feature-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 60%);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.feature-cell:hover {
+  background: #ffffff;
+  transform: translateY(-3px) scale(1.012);
+  box-shadow:
+    0 1px 0px rgba(255,255,255,1) inset,
+    0 4px 8px rgba(0,0,0,0.06),
+    0 8px 24px rgba(0,0,0,0.09),
+    0 16px 40px rgba(0,0,0,0.05);
+}
+
+.feature-cell:active {
+  transform: translateY(-1px) scale(1.005);
+  transition-duration: 0.1s;
+}
+
+.feature-cell-badge {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background: rgba(0,0,0,0.055);
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.7) inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  color: #444 !important;
+  position: relative;
+  z-index: 2;
+  /* aligns badge center to title's first-line cap height */
+  margin-top: 0.1em;
+  align-self: flex-start;
+}.feature-cell-badge-inner {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background: rgba(0,0,0,0.055);
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.7) inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  color: #444 !important;
+}
+
+.feature-cell-body {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  --cell-left: 10px;
-  --num-width: 28px;
+  gap: 3px;
 }
-
-.feature-cell-title-row {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding-right: 10px;
-}
-
-.feature-cell-number {
-  line-height: 1.35;
-  white-space: nowrap;
-  flex-shrink: 0;
-  box-sizing: content-box;
-  color: #111 !important;
-  width: var(--num-width);
-  padding-left: var(--cell-left);
-}
-
 .feature-cell-title-text {
+  display: block;
   line-height: 1.35;
-  white-space: normal;
+  color: #111 !important;
   overflow-wrap: break-word;
   word-break: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  height: calc(1.35em * 2);
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  box-sizing: content-box;
-  flex: 1;
-  color: #111 !important;
 }
 
 .feature-cell-desc {
-  text-align: left;
+  display: block;
   line-height: 1.55;
+  color: #6b7280 !important;
   hyphens: none;
   -webkit-hyphens: none;
-  -ms-hyphens: none;
   word-break: normal;
   overflow-wrap: normal;
-  word-spacing: normal;
-  letter-spacing: normal;
-  overflow: hidden;
-  align-self: start;
-  color: #6b7280 !important;
-  /* always starts exactly under the title text, not the number */
-  padding-left: calc(var(--cell-left) + var(--num-width));
-  padding-right: 10px;
+  margin: 0;
 }
 
 /* ── 1024–1199px, short ── */
 @media (min-width: 1024px) and (max-width: 1199px) and (max-height: 700px) {
-  .feature-cell          { --cell-left: 8px; --num-width: 22px; }
-  .feature-cell-number   { font-size: 12px; padding-top: 10px; }
-  .feature-cell-title-text { font-size: 12px; height: calc(1.35em * 2); padding-top: 10px; }
-  .feature-cell-desc     { font-size: 10px; padding-top: 10px; padding-right: 8px; }
-  .agent-hero-title      { font-size: 16px !important; }
-  .agent-hero-tag        { font-size: 10px !important; padding: 3px 7px !important; }
-  .agent-hero-icon       { width: 52px !important; }
+  .feature-cell            { padding: 8px 10px 8px 8px; gap: 8px; }
+  .feature-cell-badge      { width: 16px; height: 16px; font-size: 9px; border-radius: 4px; }
+  .feature-cell-title-text { font-size: 12px; }
+  .feature-cell-desc       { font-size: 10px; }
+  .agent-hero-title        { font-size: 16px !important; }
+  .agent-hero-tag          { font-size: 10px !important; padding: 3px 7px !important; }
+  .agent-hero-icon         { width: 52px !important; }
 }
-/* ── 1024–1199px, tall ── */
 @media (min-width: 1024px) and (max-width: 1199px) and (min-height: 700px) {
-  .feature-cell          { --cell-left: 10px; --num-width: 24px; }
-  .feature-cell-number   { font-size: 14px; padding-top: 12px; }
-  .feature-cell-title-text { font-size: 14px; height: calc(1.35em * 2); padding-top: 12px; }
-  .feature-cell-desc     { font-size: 11px; padding-top: 10px; padding-right: 10px; }
-  .agent-hero-title      { font-size: 18px !important; }
-  .agent-hero-tag        { font-size: 11px !important; padding: 4px 9px !important; }
-  .agent-hero-icon       { width: 60px !important; }
+  .feature-cell            { padding: 39px 10px 9px 10px; gap: 9px; }
+  .feature-cell-badge      { width: 18px; height: 18px; font-size: 10px; border-radius: 4px; }
+  .feature-cell-title-text { font-size: 20px; }
+  .feature-cell-desc       { font-size: 16px; }
+  .agent-hero-title        { font-size: 18px !important; }
+  .agent-hero-tag          { font-size: 11px !important; padding: 4px 9px !important; }
+  .agent-hero-icon         { width: 60px !important; }
 }
-
-/* ── 1200–1439px, short ── */
 @media (min-width: 1200px) and (max-width: 1439px) and (max-height: 750px) {
-  .feature-cell          { --cell-left: 10px; --num-width: 26px; }
-  .feature-cell-number   { font-size: 15px; padding-top: 12px; }
-  .feature-cell-title-text { font-size: 15px; height: calc(1.35em); padding-top: 12px; }
-  .feature-cell-desc     { font-size: 12px; padding-top: 10px; padding-right: 10px; }
-  .agent-hero-title      { font-size: 19px !important; }
-  .agent-hero-tag        { font-size: 11px !important; padding: 4px 10px !important; }
-  .agent-hero-icon       { width: 70px !important; }
+  .feature-cell            { padding: 9px 12px 9px 10px; gap: 9px; }
+  .feature-cell-badge      { width: 18px; height: 18px; font-size: 10px; border-radius: 4px; }
+  .feature-cell-title-text { font-size: 15px; }
+  .feature-cell-desc       { font-size: 12px; }
+  .agent-hero-title        { font-size: 19px !important; }
+  .agent-hero-tag          { font-size: 11px !important; padding: 4px 10px !important; }
+  .agent-hero-icon         { width: 70px !important; }
 }
-/* ── 1200–1439px, tall ── */
 @media (min-width: 1200px) and (max-width: 1439px) and (min-height: 750px) {
-  .feature-cell          { --cell-left: 10px; --num-width: 38px; }
-  .feature-cell-number   { font-size: 24px; padding-top: 16px; }
-  .feature-cell-title-text { font-size: 24px; height: calc(1.35em); padding-top: 16px; }
-  .feature-cell-desc     { font-size: 19px; padding-top: 10px; padding-right: 10px; }
-  .agent-hero-title      { font-size: 26px !important; }
-  .agent-hero-tag        { font-size: 13px !important; padding: 6px 14px !important; }
-  .agent-hero-icon       { width: 100px !important; }
+  .feature-cell            { padding: 32px 14px 12px 12px; gap: 10px; }
+  .feature-cell-badge      { width: 24px; height: 24px; font-size: 12px; border-radius: 5px; }
+  .feature-cell-title-text { font-size: 20px; }
+  .feature-cell-desc       { font-size: 16px; }
+  .agent-hero-title        { font-size: 26px !important; }
+  .agent-hero-tag          { font-size: 13px !important; padding: 6px 14px !important; }
+  .agent-hero-icon         { width: 100px !important; }
 }
-
-/* ── 1440–1919px, short ── */
-@media (min-width: 1440px) and (max-width: 1919px) and (max-height: 850px) {
-  .feature-cell          { --cell-left: 10px; --num-width: 38px; }
-  .feature-cell-number   { font-size: 24px; padding-top: 16px; }
-  .feature-cell-title-text { font-size: 24px; height: calc(1.35em); padding-top: 16px; }
-  .feature-cell-desc     { font-size: 20px; padding-top: 10px; padding-right: 10px; }
-  .agent-hero-title      { font-size: 26px !important; }
-  .agent-hero-tag        { font-size: 13px !important; padding: 6px 14px !important; }
-  .agent-hero-icon       { width: 100px !important; }
+@media (min-width: 1440px) and (max-width: 1919px) and (max-height: 800px) {
+  .feature-cell            { padding: 32px 14px 12px 12px; gap: 10px; }
+  .feature-cell-badge      { width: 24px; height: 24px; font-size: 12px; border-radius: 5px; }
+  .feature-cell-title-text { font-size: 20px; }
+  .feature-cell-desc       { font-size: 16px; }
+  .agent-hero-title        { font-size: 26px !important; }
+  .agent-hero-tag          { font-size: 13px !important; padding: 6px 14px !important; }
+  .agent-hero-icon         { width: 100px !important; }
 }
-/* ── 1440–1919px, tall ── */
-@media (min-width: 1440px) and (max-width: 1919px) and (min-height: 850px) {
-  .feature-cell          { --cell-left: 10px; --num-width: 38px; }
-  .feature-cell-number   { font-size: 24px; padding-top: 20px; }
-  .feature-cell-title-text { font-size: 24px; height: calc(1.35em); padding-top: 20px; }
-  .feature-cell-desc     { font-size: 20px; padding-top: 10px; padding-right: 10px; }
-  .agent-hero-title      { font-size: 26px !important; }
-  .agent-hero-tag        { font-size: 13px !important; padding: 6px 14px !important; }
-  .agent-hero-icon       { width: 100px !important; }
+@media (min-width: 1440px) and (max-width: 1919px) and (min-height: 800px) {
+  .feature-cell            { padding: 30px 16px 14px 14px; gap: 12px; }
+  .feature-cell-badge      { width: 26px; height: 26px; font-size: 13px; border-radius: 6px; }
+  .feature-cell-title-text { font-size: 22px; }
+  .feature-cell-desc       { font-size: 17px; }
+  .agent-hero-title        { font-size: 26px !important; }
+  .agent-hero-tag          { font-size: 13px !important; padding: 6px 14px !important; }
+  .agent-hero-icon         { width: 100px !important; }
 }
-
-/* ── 1920–2559px, short ── */
 @media (min-width: 1920px) and (max-width: 2559px) and (max-height: 1000px) {
-  .feature-cell          { --cell-left: 14px; --num-width: 34px; }
-  .feature-cell-number   { font-size: 20px; padding-top: 16px; }
-  .feature-cell-title-text { font-size: 20px; height: calc(1.35em); padding-top: 16px; }
-  .feature-cell-desc     { font-size: 15px; padding-top: 10px; padding-right: 14px; }
-  .agent-hero-title      { font-size: 28px !important; }
-  .agent-hero-tag        { font-size: 13px !important; padding: 6px 14px !important; }
-  .agent-hero-icon       { width: 110px !important; }
+  .feature-cell            { padding: 14px 18px 14px 14px; gap: 12px; }
+  .feature-cell-badge      { width: 26px; height: 26px; font-size: 13px; border-radius: 6px; }
+  .feature-cell-title-text { font-size: 20px; }
+  .feature-cell-desc       { font-size: 15px; }
+  .agent-hero-title        { font-size: 28px !important; }
+  .agent-hero-tag          { font-size: 13px !important; padding: 6px 14px !important; }
+  .agent-hero-icon         { width: 110px !important; }
 }
-/* ── 1920–2559px, tall ── */
 @media (min-width: 1920px) and (max-width: 2559px) and (min-height: 1000px) {
-  .feature-cell          { --cell-left: 16px; --num-width: 40px; }
-  .feature-cell-number   { font-size: 24px; padding-top: 22px; }
-  .feature-cell-title-text { font-size: 24px; height: calc(1.35em); padding-top: 22px; }
-  .feature-cell-desc     { font-size: 22px; padding-top: 10px; padding-right: 16px; }
-  .agent-hero-title      { font-size: 32px !important; }
-  .agent-hero-tag        { font-size: 14px !important; padding: 7px 16px !important; }
-  .agent-hero-icon       { width: 124px !important; }
+  .feature-cell            { padding: 16px 20px 16px 16px; gap: 14px; }
+  .feature-cell-badge      { width: 30px; height: 30px; font-size: 14px; border-radius: 6px; }
+  .feature-cell-title-text { font-size: 24px; }
+  .feature-cell-desc       { font-size: 18px; }
+  .agent-hero-title        { font-size: 32px !important; }
+  .agent-hero-tag          { font-size: 14px !important; padding: 7px 16px !important; }
+  .agent-hero-icon         { width: 124px !important; }
 }
-
-/* ── 2560px+ ── */
 @media (min-width: 2560px) {
-  .feature-cell          { --cell-left: 20px; --num-width: 48px; }
-  .feature-cell-number   { font-size: 28px; padding-top: 28px; }
-  .feature-cell-title-text { font-size: 28px; height: calc(1.35em); padding-top: 28px; }
-  .feature-cell-desc     { font-size: 25px; padding-top: 10px; padding-right: 20px; }
-  .agent-hero-title      { font-size: 38px !important; }
-  .agent-hero-tag        { font-size: 16px !important; padding: 8px 18px !important; }
-  .agent-hero-icon       { width: 150px !important; }
+  .feature-cell            { padding: 20px 24px 20px 20px; gap: 16px; }
+  .feature-cell-badge      { width: 36px; height: 36px; font-size: 16px; border-radius: 7px; }
+  .feature-cell-title-text { font-size: 28px; }
+  .feature-cell-desc       { font-size: 22px; }
+  .agent-hero-title        { font-size: 38px !important; }
+  .agent-hero-tag          { font-size: 16px !important; padding: 8px 18px !important; }
+  .agent-hero-icon         { width: 150px !important; }
 }
 `;
     const mobileFeatureGridStyles = `
@@ -325,9 +370,9 @@ const featureCellStyles = `
             </div>
 
     {/* ── Feature grid ── */}
-  <div className="p-2 relative border-t border-b border-r border-[#e5e7eb]" style={{ flex: 1, overflow: 'hidden' }}>
+  <div className="p-2 relative border-t border-b border-r border-[#e5e7eb] " style={{ flex: 1, overflow: 'hidden'}}>
     <div
-      className="absolute inset-0 pointer-events-none opacity-[0.1]"
+      className="absolute inset-0 pointer-events-none opacity-[0]"
       style={{
         backgroundImage:
           'linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)',
@@ -335,20 +380,25 @@ const featureCellStyles = `
       }}
     />
     <div
-      className="h-full relative z-10 bg-[#f4f4f5] flex flex-col"
-      style={{ outline: '1px solid rgba(0,0,0,0.125)', justifyContent: 'space-evenly' }}
-    >
-      {features.map((feature, i) => (
-        <div key={i} className="feature-cell" style={{ flex: '0 0 auto' }}>
-          <div className="feature-cell-title-row">
-            <span className="feature-cell-number">{i + 1}.</span>
-            <span className="feature-cell-title-text anseru-card-title">
-              {feature.title.replace(/\n/g, ' ')}
-            </span>
-          </div>
-          <p className="feature-cell-desc">{feature.description}</p>
-        </div>
-      ))}
+  className="h-full relative z-10 bg-[#f4f4f5] flex flex-col"
+  style={{
+    outline: '1px solid rgba(0,0,0,0.125)',
+    gap: '4px',              /* ← replaces space-evenly */
+    padding: '4px',          /* ← outer breathing room */
+    borderRadius:'6px' ,
+  }}
+>
+ {features.map((feature, i) => (
+  <div key={i} className="feature-cell">
+    <span className="feature-cell-badge">{i + 1}</span>
+    <div className="feature-cell-body">
+      <span className="feature-cell-title-text anseru-card-title">
+        {feature.title.replace(/\n/g, ' ')}
+      </span>
+      <p className="feature-cell-desc">{feature.description}</p>
+    </div>
+  </div>
+))}
     </div>
   </div>
           </div>
