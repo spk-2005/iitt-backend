@@ -10,9 +10,8 @@ const featureCellStyles = `
   border: 1px solid rgba(255,255,255,0.9);
   outline: 1px solid rgba(0,0,0,0.07);
   display: flex;
-  align-items: flex-start;   /* ← back to flex-start */
-  padding: 10px 12px 10px 10px;   /* ← uniform padding on cell itself */
-  gap: 10px;
+  align-items: stretch;       /* ← body fills full height */
+  padding: 10px 12px;
 
   box-shadow:
     0 1px 0px rgba(255,255,255,0.95) inset,
@@ -28,6 +27,7 @@ const featureCellStyles = `
 
   will-change: transform, box-shadow;
 }
+
 .feature-cell::before {
   content: '';
   position: absolute;
@@ -62,18 +62,18 @@ const featureCellStyles = `
   background: rgba(0,0,0,0.055);
   border: 1px solid rgba(0,0,0,0.07);
   box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.7) inset;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 11px;
   font-weight: 500;
   color: #444 !important;
   position: relative;
   z-index: 2;
-  /* aligns badge center to title's first-line cap height */
-  margin-top: 0.1em;
-  align-self: flex-start;
-}.feature-cell-badge-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;           /* ← remove the old bottom margin */
+}
+
+.feature-cell-badge-inner {
   width: 20px;
   height: 20px;
   border-radius: 5px;
@@ -88,6 +88,7 @@ const featureCellStyles = `
   color: #444 !important;
 }
 
+
 .feature-cell-body {
   flex: 1;
   min-width: 0;
@@ -95,14 +96,26 @@ const featureCellStyles = `
   z-index: 2;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 3px;
+} 
+
+
+.feature-cell-title-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 }
+
 .feature-cell-title-text {
   display: block;
   line-height: 1.35;
   color: #111 !important;
   overflow-wrap: break-word;
   word-break: break-word;
+  flex: 1;
+  min-width: 0;
 }
 
 .feature-cell-desc {
@@ -114,86 +127,93 @@ const featureCellStyles = `
   word-break: normal;
   overflow-wrap: normal;
   margin: 0;
-}
-
-/* ── 1024–1199px, short ── */
-@media (min-width: 1024px) and (max-width: 1199px) and (max-height: 700px) {
-  .feature-cell            { padding: 8px 10px 8px 8px; gap: 8px; }
+  padding-left: 28px;         /* ← aligns desc under title, not badge */
+}@media (min-width: 1024px) and (max-width: 1199px) and (max-height: 700px) {
+  .feature-cell            { padding: 8px 10px; }
   .feature-cell-badge      { width: 16px; height: 16px; font-size: 9px; border-radius: 4px; }
+  .feature-cell-title-row  { gap: 6px; }
   .feature-cell-title-text { font-size: 12px; }
-  .feature-cell-desc       { font-size: 10px; }
+  .feature-cell-desc       { font-size: 10px; padding-left: 22px; }
   .agent-hero-title        { font-size: 16px !important; }
   .agent-hero-tag          { font-size: 10px !important; padding: 3px 7px !important; }
   .agent-hero-icon         { width: 52px !important; }
 }
 @media (min-width: 1024px) and (max-width: 1199px) and (min-height: 700px) {
-  .feature-cell            { padding: 39px 10px 9px 10px; gap: 9px; }
+  .feature-cell            { padding: 10px; }
   .feature-cell-badge      { width: 18px; height: 18px; font-size: 10px; border-radius: 4px; }
+  .feature-cell-title-row  { gap: 7px; }
   .feature-cell-title-text { font-size: 20px; }
-  .feature-cell-desc       { font-size: 16px; }
+  .feature-cell-desc       { font-size: 16px; padding-left: 25px; }
   .agent-hero-title        { font-size: 18px !important; }
   .agent-hero-tag          { font-size: 11px !important; padding: 4px 9px !important; }
   .agent-hero-icon         { width: 60px !important; }
 }
 @media (min-width: 1200px) and (max-width: 1439px) and (max-height: 750px) {
-  .feature-cell            { padding: 9px 12px 9px 10px; gap: 9px; }
+  .feature-cell            { padding: 10px 12px; }
   .feature-cell-badge      { width: 18px; height: 18px; font-size: 10px; border-radius: 4px; }
+  .feature-cell-title-row  { gap: 7px; }
   .feature-cell-title-text { font-size: 15px; }
-  .feature-cell-desc       { font-size: 12px; }
+  .feature-cell-desc       { font-size: 12px; padding-left: 25px; }
   .agent-hero-title        { font-size: 19px !important; }
   .agent-hero-tag          { font-size: 11px !important; padding: 4px 10px !important; }
   .agent-hero-icon         { width: 70px !important; }
 }
 @media (min-width: 1200px) and (max-width: 1439px) and (min-height: 750px) {
-  .feature-cell            { padding: 32px 14px 12px 12px; gap: 10px; }
+  .feature-cell            { padding: 12px 14px; }
   .feature-cell-badge      { width: 24px; height: 24px; font-size: 12px; border-radius: 5px; }
+  .feature-cell-title-row  { gap: 8px; }
   .feature-cell-title-text { font-size: 20px; }
-  .feature-cell-desc       { font-size: 16px; }
+  .feature-cell-desc       { font-size: 16px; padding-left: 32px; }
   .agent-hero-title        { font-size: 26px !important; }
   .agent-hero-tag          { font-size: 13px !important; padding: 6px 14px !important; }
   .agent-hero-icon         { width: 100px !important; }
 }
 @media (min-width: 1440px) and (max-width: 1919px) and (max-height: 800px) {
-  .feature-cell            { padding: 32px 14px 12px 12px; gap: 10px; }
+  .feature-cell            { padding: 12px 14px; }
   .feature-cell-badge      { width: 24px; height: 24px; font-size: 12px; border-radius: 5px; }
+  .feature-cell-title-row  { gap: 8px; }
   .feature-cell-title-text { font-size: 20px; }
-  .feature-cell-desc       { font-size: 16px; }
+  .feature-cell-desc       { font-size: 16px; padding-left: 32px; }
   .agent-hero-title        { font-size: 26px !important; }
   .agent-hero-tag          { font-size: 13px !important; padding: 6px 14px !important; }
   .agent-hero-icon         { width: 100px !important; }
 }
 @media (min-width: 1440px) and (max-width: 1919px) and (min-height: 800px) {
-  .feature-cell            { padding: 40px 16px 14px 14px; gap: 12px; }
+  .feature-cell            { padding: 14px 16px; }
   .feature-cell-badge      { width: 26px; height: 26px; font-size: 13px; border-radius: 6px; }
+  .feature-cell-title-row  { gap: 9px; }
   .feature-cell-title-text { font-size: 22px; }
-  .feature-cell-desc       { font-size: 17px; }
+  .feature-cell-desc       { font-size: 17px; padding-left: 35px; }
   .agent-hero-title        { font-size: 26px !important; }
   .agent-hero-tag          { font-size: 13px !important; padding: 6px 14px !important; }
   .agent-hero-icon         { width: 100px !important; }
 }
 @media (min-width: 1920px) and (max-width: 2559px) and (max-height: 1000px) {
-  .feature-cell            { padding: 14px 18px 14px 14px; gap: 12px; }
+  .feature-cell            { padding: 14px 18px; }
   .feature-cell-badge      { width: 26px; height: 26px; font-size: 13px; border-radius: 6px; }
+  .feature-cell-title-row  { gap: 9px; }
   .feature-cell-title-text { font-size: 20px; }
-  .feature-cell-desc       { font-size: 15px; }
+  .feature-cell-desc       { font-size: 15px; padding-left: 35px; }
   .agent-hero-title        { font-size: 28px !important; }
   .agent-hero-tag          { font-size: 13px !important; padding: 6px 14px !important; }
   .agent-hero-icon         { width: 110px !important; }
 }
 @media (min-width: 1920px) and (max-width: 2559px) and (min-height: 1000px) {
-  .feature-cell            { padding: 16px 20px 16px 16px; gap: 14px; }
+  .feature-cell            { padding: 16px 20px; }
   .feature-cell-badge      { width: 30px; height: 30px; font-size: 14px; border-radius: 6px; }
+  .feature-cell-title-row  { gap: 10px; }
   .feature-cell-title-text { font-size: 24px; }
-  .feature-cell-desc       { font-size: 18px; }
+  .feature-cell-desc       { font-size: 18px; padding-left: 40px; }
   .agent-hero-title        { font-size: 32px !important; }
   .agent-hero-tag          { font-size: 14px !important; padding: 7px 16px !important; }
   .agent-hero-icon         { width: 124px !important; }
 }
 @media (min-width: 2560px) {
-  .feature-cell            { padding: 20px 24px 20px 20px; gap: 16px; }
+  .feature-cell            { padding: 20px 24px; }
   .feature-cell-badge      { width: 36px; height: 36px; font-size: 16px; border-radius: 7px; }
+  .feature-cell-title-row  { gap: 12px; }
   .feature-cell-title-text { font-size: 28px; }
-  .feature-cell-desc       { font-size: 22px; }
+  .feature-cell-desc       { font-size: 22px; padding-left: 48px; }
   .agent-hero-title        { font-size: 38px !important; }
   .agent-hero-tag          { font-size: 16px !important; padding: 8px 18px !important; }
   .agent-hero-icon         { width: 150px !important; }
@@ -388,13 +408,15 @@ const featureCellStyles = `
     borderRadius:'6px' ,
   }}
 >
- {features.map((feature, i) => (
+  {features.map((feature, i) => (
   <div key={i} className="feature-cell">
-    <span className="feature-cell-badge">{i + 1}</span>
     <div className="feature-cell-body">
-      <span className="feature-cell-title-text anseru-card-title">
-        {feature.title.replace(/\n/g, ' ')}
-      </span>
+      <div className="feature-cell-title-row">
+        <span className="feature-cell-badge">{i + 1}</span>
+        <span className="feature-cell-title-text anseru-card-title">
+          {feature.title.replace(/\n/g, ' ')}
+        </span>
+      </div>
       <p className="feature-cell-desc">{feature.description}</p>
     </div>
   </div>

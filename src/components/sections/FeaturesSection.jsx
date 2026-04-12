@@ -32,7 +32,7 @@ export function FeaturesSection() {
                 Modern Deal Teams
               </h2>
             </div>
-            <p className="hidden md:block text-base md:text-lg text-black/60 max-w-md leading-tight">
+            <p className="hidden md:block text-base md:text-lg text-black/60 max-w-md leading-tight pr-6" style={{fontWeight:'400'}}>
               Centralize knowledge, generate accurate responses, and collaborate seamlessly across teams.
             </p>
           </div>
