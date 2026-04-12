@@ -1,6 +1,6 @@
 from pathlib import Path
 import imghdr
-files = ['public/og-image.png', 'src/assets/Vector.png', 'src/assets/Anseru_3 2.png']
+files = ['public/og-image.png', 'src/assets/logo.webp', 'src/assets/Anseru_3 2.png']
 for name in files:
     p = Path(name)
     if p.exists():

@@ -6,8 +6,6 @@ import { useGsapContext } from '../../hooks/useGsapContext.js';
 import { CAROUSEL_SLIDES } from '../../data/carousel.js';
 import { CarouselSlidePanel } from '../cards/CarouselSlidePanel.jsx';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const SLIDE_COUNT = CAROUSEL_SLIDES.length;
 
 function MobileIndicators({ activeSlide, onGoTo }) {

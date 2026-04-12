@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import faqIconSrc from '../../assets/Frame (11).png';
+import faqIconSrc from '../../assets/Frame (11).png?format=webp&quality=80';
 
 export function FAQItem({ question, answer, isOpen, onToggle }) {
 

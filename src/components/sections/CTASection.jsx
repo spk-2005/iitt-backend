@@ -1,4 +1,4 @@
-import ctaBgSrc from '../../assets/151.png';
+import ctaBgSrc from '../../assets/151.png?format=webp&quality=80';
 import { Footer } from '../layout/Footer.jsx';
 
 export function CTASection() {

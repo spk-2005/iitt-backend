@@ -1,7 +1,7 @@
-import archerTabIcon from '../assets/Sud.png';
-import knoxTabIcon from '../assets/kg.png';
-import archerAgentIcon from '../assets/Frame (9).png';
-import knoxAgentIcon from '../assets/Frame (10).png';
+import archerTabIcon from '../assets/Sud.png?format=webp&quality=80';
+import knoxTabIcon from '../assets/kg.png?format=webp&quality=80';
+import archerAgentIcon from '../assets/Frame (9).png?format=webp&quality=80';
+import knoxAgentIcon from '../assets/Frame (10).png?format=webp&quality=80';
 
 export const AGENTS = [
   {
