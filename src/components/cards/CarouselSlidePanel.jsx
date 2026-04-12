@@ -33,6 +33,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
               >
                 {step}
               </h2>
+
               <div className="w-full space-y-5">
                 <p
                   className="anseru-section-description leading-relaxed max-w-[95%]"
@@ -70,9 +71,9 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                 />
                 <NoiseOverlay />
 
-                {/* Title block — fixed height anchor, ~90px tall */}
+                {/* Card title — fixed height anchor so image starts below it */}
                 <div
-                  className="relative z-20 shrink-0"
+                  className="relative z-20 space-y-2 carousel-card-title-block"
                   style={{ padding: 'clamp(16px, 2.5vw, 36px)' }}
                 >
                   <h2
@@ -85,27 +86,37 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                 </div>
 
                 {/*
-                  Image wrapper: absolutely positioned, starts right below
-                  the title block (top: 90px) and fills to the bottom edge.
-                  The image itself gets height:100% from CSS (desktop rule)
-                  so it fills this wrapper completely.
-                  No inline maxHeight — CSS handles everything.
+                  Image sits at bottom-right.
+                  maxHeight is intentionally NOT set inline here —
+                  it is fully controlled by the per-slide CSS classes
+                  in carousel.js (calc(100vh - Npx) per breakpoint).
+                  This lets the image fill the card from just below
+                  the title down to the bottom edge at every screen size,
+                  including HiDPI / 200 ppi displays and 2000 px+ monitors.
                 */}
-                <div
-  className="absolute z-10 bottom-0 right-0 flex items-end justify-end overflow-hidden"
-  style={{
-    top: 'clamp(70px, 10vw, 110px)',
+               {/* Replace the bottom image div entirely */}
+<div 
+  className="absolute z-10 bottom-0 right-0 flex items-end justify-end"
+  style={{ 
+    top: '90px',      /* start just below the title block */
     width: '100%',
+    height: 'calc(100% - 90px)'   /* fill remaining card height */
   }}
 >
-                  <img
-                    src={cardImage}
-                    loading={slide.index === 0 ? 'eager' : 'lazy'}
-                    alt={cardImageAlt}
-                    className={cardImageClass}
-                    style={{ width: cardImageWidth }}
-                  />
-                </div>
+  <img
+    src={cardImage}
+    loading={slide.index === 0 ? 'eager' : 'lazy'}
+    alt={cardImageAlt}
+    className={cardImageClass}
+    style={{
+      width: cardImageWidth || '92%',
+      height: '100%',          /* fill the wrapper height */
+      maxHeight: 'none',       /* kill any CSS class max-height */
+      objectFit: 'contain',
+      objectPosition: 'bottom right',
+    }}
+  />
+</div>
               </div>
             </div>
           </div>
