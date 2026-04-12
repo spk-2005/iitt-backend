@@ -1,7 +1,7 @@
-import livingIcon from '../assets/living.png';
-import collaborationIcon from '../assets/Frame.png';
-import evidenceIcon from '../assets/evidence.png';
-import governanceIcon from '../assets/governance.png';
+import livingIcon from '../assets/living.png?format=webp&quality=80';
+import collaborationIcon from '../assets/Frame.png?format=webp&quality=80';
+import evidenceIcon from '../assets/evidence.png?format=webp&quality=80';
+import governanceIcon from '../assets/governance.png?format=webp&quality=80';
 
 export const FEATURES = [
   {

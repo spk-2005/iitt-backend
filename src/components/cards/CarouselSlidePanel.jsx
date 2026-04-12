@@ -1,7 +1,7 @@
 import { NoiseOverlay } from '../primitives/NoiseOverlay.jsx';
 import { SectionBulletItem } from '../primitives/SectionBulletItem.jsx';
 
-import groupImgSrc from '../../assets/Group 1437253216.png';
+import groupImgSrc from '../../assets/Group 1437253216.png?format=webp&quality=80';
 
 export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false }) {
   const { step, cardGradientClass, cardImage, cardImageAlt, cardImageWidth, cardImageClass, description, bullets, height } = slide;
@@ -21,9 +21,9 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
   }}
 >
 
-  <h2 className="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug mb-4">
+  <h3 className="font-normal text-[#111111] text-[19px] md:text-[23px] leading-snug mb-4">
     {step}
-  </h2>
+  </h3>
 
   <div className="w-full space-y-5">
     <div className="space-y-3">
@@ -57,10 +57,10 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                 />
                 <NoiseOverlay />
                 <div className="relative z-20 p-6 md:p-8 space-y-2">
-                  <h2 className="font-medium max-w-[360px] text-[17px] md:text-[21px] leading-snug">
+                  <h3 className="font-medium max-w-[360px] text-[17px] md:text-[21px] leading-snug">
                     Turn complex RFPs <br /> into clear, winning
                     <br /> responses
-                  </h2>
+                  </h3>
                 </div>
                 <div className="absolute z-10 bottom-0 right-0 flex justify-end">
                   <img
@@ -84,7 +84,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
   return (
     <div className="shrink-0 min-h-full h-full flex flex-col overflow-hidden px-5 pb-5 box-border" style={{ width: '100vw' }}>
       {/* Step title */}
-      <h2 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h2>
+      <h3 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h3>
 
       {/* Gradient card — natural height, no clipping */}
       <div
@@ -98,9 +98,9 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
         />
         <NoiseOverlay />
         <div className="absolute top-0 left-0 z-20 p-5">
-          <h2 className="font-medium text-[16px] leading-snug max-w-55">
+          <h3 className="font-medium text-[16px] leading-snug max-w-55">
             Turn complex RFPs into clear, winning responses
-          </h2>
+          </h3>
         </div>
         <div className="absolute z-10 bottom-0 right-0 flex justify-end">
           <img

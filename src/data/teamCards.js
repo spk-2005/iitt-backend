@@ -1,6 +1,6 @@
-import salesCheckIcon from '../assets/Group.png';
-import securityCheckIcon from '../assets/Group (1).png';
-import complianceCheckIcon from '../assets/Group (2).png';
+import salesCheckIcon from '../assets/Group.png?format=webp&quality=80';
+import securityCheckIcon from '../assets/Group (1).png?format=webp&quality=80';
+import complianceCheckIcon from '../assets/Group (2).png?format=webp&quality=80';
 
 export const TEAM_CARDS = [
   {

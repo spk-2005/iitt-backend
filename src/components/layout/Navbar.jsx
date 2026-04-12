@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import anseruLogo from '../../assets/Vector.png';
+import anseruLogo from '../../assets/logo-400.webp';
 
 const NAV_LINKS = [
   { label: 'Home', sectionId: 'home' },

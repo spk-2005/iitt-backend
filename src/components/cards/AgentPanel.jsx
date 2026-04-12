@@ -73,7 +73,7 @@ function DesktopFeatureCell({ feature, borderClasses }) {
         className={`feature-cell border-[#00000020] ${borderClasses}`}
         style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}
       >
-        <h4 className="feature-cell-title anseru-card-title">{feature.title}</h4>
+        <h3 className="feature-cell-title anseru-card-title">{feature.title}</h3>
         <p className="feature-cell-desc anseru-section-tag">{feature.description}</p>
       </div>
     </>
@@ -189,15 +189,15 @@ function MobileFeatureGrid({ features }) {
       <div className="mobile-feature-grid">
         {/* Row 1 */}
         <div className="mobile-row">
-          <h4 className="cell-title left">{features[0].title}</h4>
-          <h4 className="cell-title right">{features[1].title}</h4>
+          <h3 className="cell-title left">{features[0].title}</h3>
+          <h3 className="cell-title right">{features[1].title}</h3>
           <p className="cell-desc left">{features[0].description}</p>
           <p className="cell-desc right">{features[1].description}</p>
         </div>
         {/* Row 2 */}
         <div className="mobile-row">
-          <h4 className="cell-title left">{features[2].title}</h4>
-          <h4 className="cell-title right">{features[3].title}</h4>
+          <h3 className="cell-title left">{features[2].title}</h3>
+          <h3 className="cell-title right">{features[3].title}</h3>
           <p className="cell-desc left">{features[2].description}</p>
           <p className="cell-desc right">{features[3].description}</p>
         </div>
@@ -270,19 +270,19 @@ export function AgentPanel({ agent, isDesktop = false }) {
   }}
 >
             <div className="feature-cell border-r border-b border-[#00000020]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
-              <h4 className="feature-cell-title anseru-card-title">{features[0].title}</h4>
+              <h3 className="feature-cell-title anseru-card-title">{features[0].title}</h3>
               <p className="feature-cell-desc anseru-section-tag">{features[0].description}</p>
             </div>
             <div className="feature-cell border-b border-[#00000020]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
-              <h4 className="feature-cell-title anseru-card-title">{features[1].title}</h4>
+              <h3 className="feature-cell-title anseru-card-title">{features[1].title}</h3>
               <p className="feature-cell-desc anseru-section-tag">{features[1].description}</p>
             </div>
             <div className="feature-cell border-r border-[#00000020]" style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
-              <h4 className="feature-cell-title anseru-card-title">{features[2].title}</h4>
+              <h3 className="feature-cell-title anseru-card-title">{features[2].title}</h3>
               <p className="feature-cell-desc anseru-section-tag">{features[2].description}</p>
             </div>
             <div className="feature-cell " style={{ padding: 'clamp(10px, 1.5cqw, 22px)' }}>
-              <h4 className="feature-cell-title anseru-card-title">{features[3].title}</h4>
+              <h3 className="feature-cell-title anseru-card-title">{features[3].title}</h3>
               <p className="feature-cell-desc anseru-section-tag">{features[3].description}</p>
             </div>
           </div>

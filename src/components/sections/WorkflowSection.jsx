@@ -234,14 +234,14 @@ useEffect(() => {
           }}>
             From RFP to Winning Proposal
           </h2>
-          <h4 style={{
+          <h3 style={{
             fontFamily: 'DM Sans, sans-serif', fontSize: 'clamp(24px,6vw,36px)',
             fontWeight: 400, lineHeight: 1.2, textAlign: 'center', width: '100%',
             margin: '20px 0 clamp(16px,4vw,24px)', letterSpacing: '-0.02em', color: '#000',
           }}>
             End-to-End<br />
             <span style={{ color: '#2C48DB' }}>Deal Intelligence</span>
-          </h4>
+          </h3>
         </div>
 
         {/* ── outerRef is tall — gives sticky its scroll budget ── */}

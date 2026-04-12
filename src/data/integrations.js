@@ -1,13 +1,13 @@
-import seismicIcon from '../assets/seismic icon.png';
-import driveIcon from '../assets/drive icon.png';
-import zendeskIcon from '../assets/zendesk icon.png';
-import onedriveIcon from '../assets/onedrive icon.png';
-import highspotIcon from '../assets/highspot icon.png';
-import slackIcon from '../assets/slack icon.png';
-import gongIcon from '../assets/gong icon.png';
-import hubspotIcon from '../assets/Hubspot Icon.png';
-import notionIcon from '../assets/notion icon.png';
-import teamsIcon from '../assets/teams icon.png';
+import seismicIcon from '../assets/seismic icon.png?format=webp&quality=80';
+import driveIcon from '../assets/drive icon.png?format=webp&quality=80';
+import zendeskIcon from '../assets/zendesk icon.png?format=webp&quality=80';
+import onedriveIcon from '../assets/onedrive icon.png?format=webp&quality=80';
+import highspotIcon from '../assets/highspot icon.png?format=webp&quality=80';
+import slackIcon from '../assets/slack icon.png?format=webp&quality=80';
+import gongIcon from '../assets/gong icon.png?format=webp&quality=80';
+import hubspotIcon from '../assets/Hubspot Icon.png?format=webp&quality=80';
+import notionIcon from '../assets/notion icon.png?format=webp&quality=80';
+import teamsIcon from '../assets/teams icon.png?format=webp&quality=80';
 
 export const INTEGRATION_COLUMNS = [
   {
