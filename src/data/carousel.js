@@ -9,48 +9,50 @@ style.textContent = `
   /* ── Base defaults ── */
   .carousel-card-img-slide1,
   .carousel-card-img-slide2,
+  .carousel-card-img-slide3,
   .carousel-card-img-slide4 {
     height: auto;
     object-fit: contain;
     display: block;
   }
 
-  .carousel-card-img-slide3,
-    height: auto;
-    
-    display: block;
+  /* ══ MOBILE ══ */
+  @media (min-width: 330px) and (max-width: 388px) {
+    .carousel-card-img-slide1 { width: 90% !important; max-height: 145px !important; }
+    .carousel-card-img-slide2 { width: 90% !important; max-height: 145px !important; }
+    .carousel-card-img-slide3 { width: 90% !important; max-height: 145px !important; }
+    .carousel-card-img-slide4 { width: 90% !important; max-height: 145px !important; }
   }
-  /* ══════════════════════════════════════
-     MOBILE  (< 1024px)
-     Keep existing mobile behaviour
-  ══════════════════════════════════════ */
-
-  @media (max-width: 389px) {
-    .carousel-card-img-slide1 { width: 85% !important; max-height: clamp(130px, 28vh, 180px) !important; }
-    .carousel-card-img-slide2 { width: 88% !important; max-height: clamp(100px, 18vh, 170px) !important; }
-    .carousel-card-img-slide3 { width: 92% !important; max-height: clamp(190px, 42vh, 270px) !important; }
-    .carousel-card-img-slide4 { width: 90% !important; max-height: clamp(140px, 30vh, 190px) !important; }
-  }
-  @media (min-width: 390px) and (max-width: 399px) {
-    .carousel-card-img-slide1 { width: 90% !important; max-height: clamp(100px, 32vh, 160px) !important; }
-    .carousel-card-img-slide2 { width: 85% !important; max-height: clamp(90px,  32vh, 170px) !important; }
-    .carousel-card-img-slide3 { width: 85% !important; max-height: clamp(120px, 50vh, 300px) !important; }
-    .carousel-card-img-slide4 { width: 95% !important; max-height: clamp(120px, 34vh, 160px) !important; }
-  }
-    
-  @media (min-width: 400px) and (max-width: 529px) {
-    .carousel-card-img-slide1 { width: 100% !important; max-height: clamp(200px, 32vh, 210px) !important; }
-    .carousel-card-img-slide2 { width: 85% !important; max-height: clamp(210px,  32vh, 240px) !important; }
-    .carousel-card-img-slide3 { width: 95% !important; max-height: clamp(210px, 50vh, 220px) !important; }
-    .carousel-card-img-slide4 { width: 95% !important; max-height: clamp(20px, 34vh, 220px) !important; }
-  }
-  @media (min-width: 640px) and (max-width: 1023px) {
-    .carousel-card-img-slide1 { width: 80% !important; max-height: clamp(180px, 34vh, 260px) !important; }
-    .carousel-card-img-slide2 { width: 80% !important; max-height: clamp(180px, 34vh, 260px) !important; }
-    .carousel-card-img-slide3 { width: 90% !important; max-height: clamp(240px, 44vh, 340px) !important; }
-    .carousel-card-img-slide4 { width: 85% !important; max-height: clamp(190px, 36vh, 270px) !important; }
-  }
-
+@media (min-width: 389px) and (max-width: 389px) {
+  .carousel-card-img-slide1 { width: 85% !important;  max-height: clamp(130px, 28vh, 180px) !important; }
+  .carousel-card-img-slide2 { width: 88% !important;  max-height: clamp(100px, 18vh, 170px) !important; }
+  .carousel-card-img-slide3 { width: 92% !important;  max-height: clamp(190px, 42vh, 270px) !important; }
+  .carousel-card-img-slide4 { width: 90% !important;  max-height: clamp(140px, 30vh, 190px) !important; }
+}
+@media (min-width: 390px) and (max-width: 399px) {
+  .carousel-card-img-slide1 { width: 90% !important;  max-height: clamp(100px, 32vh, 160px) !important; }
+  .carousel-card-img-slide2 { width: 85% !important;  max-height: clamp(90px,  32vh, 170px) !important; }
+  .carousel-card-img-slide3 { width: 85% !important;  max-height: clamp(120px, 50vh, 300px) !important; }
+  .carousel-card-img-slide4 { width: 95% !important;  max-height: clamp(120px, 34vh, 160px) !important; }
+}
+@media (min-width: 400px) and (max-width: 529px) {
+  .carousel-card-img-slide1 { width: 100% !important; max-height: clamp(200px, 32vh, 210px) !important; }
+  .carousel-card-img-slide2 { width: 85% !important;  max-height: clamp(210px, 32vh, 240px) !important; }
+  .carousel-card-img-slide3 { width: 95% !important;  max-height: clamp(210px, 50vh, 220px) !important; }
+  .carousel-card-img-slide4 { width: 95% !important;  max-height: clamp(20px,  34vh, 220px) !important; }
+}
+@media (min-width: 530px) and (max-width: 639px) {
+  .carousel-card-img-slide1 { width: 85% !important;  max-height: clamp(160px, 30vh, 220px) !important; }
+  .carousel-card-img-slide2 { width: 85% !important;  max-height: clamp(160px, 30vh, 220px) !important; }
+  .carousel-card-img-slide3 { width: 90% !important;  max-height: clamp(200px, 42vh, 300px) !important; }
+  .carousel-card-img-slide4 { width: 90% !important;  max-height: clamp(160px, 32vh, 230px) !important; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .carousel-card-img-slide1 { width: 80% !important;  max-height: clamp(180px, 34vh, 260px) !important; }
+  .carousel-card-img-slide2 { width: 80% !important;  max-height: clamp(180px, 34vh, 260px) !important; }
+  .carousel-card-img-slide3 { width: 90% !important;  max-height: clamp(240px, 44vh, 340px) !important; }
+  .carousel-card-img-slide4 { width: 85% !important;  max-height: clamp(190px, 36vh, 270px) !important; }
+}
   /* ══════════════════════════════════════
      DESKTOP  (≥ 1024px)
      Strategy: fill the card from ~80px below
