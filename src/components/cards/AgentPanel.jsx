@@ -349,11 +349,13 @@ const featureCellStyles = `
 
       if (isDesktop) {
         return (
-          <div className="w-1/2 flex flex-col lg:flex-row shrink-0 items-stretch">
+        <div className="w-1/2 h-full flex flex-col lg:flex-row shrink-0 items-stretch">
+
             <style>{featureCellStyles}</style>
 
             {/* ── Hero card ── */}
-            <div className="lg:w-[48%] p-3.5 bg-white border lg:border-b-0 lg:border-r border-[#e5e7eb] shrink-0">
+          <div className="lg:w-[48%] p-2 bg-white border lg:border-b-0 lg:border-r border-[#e5e7eb] shrink-0">
+
               <div
                 className="relative flex flex-col justify-between p-8 h-full overflow-hidden"
                 style={{ background: gradient }}
