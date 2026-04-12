@@ -386,7 +386,7 @@
       return (
         <section data-section id="workflow" className="scroll-mt-5">
           {/* CHANGE 1: remove md:min-h-screen, let content define height */}
-          <div className="w-full" style={{ fontFamily: 'Inter, sans-serif', overscrollBehavior: 'none' }}>
+          <div className="w-full" style={{  overscrollBehavior: 'none' }}>
 
             {/* Desktop header — unchanged */}
             <div className="hidden md:block max-w-300 mx-auto px-6">
@@ -399,7 +399,7 @@
                     <span className="text-gradient-brand">Winning Proposal</span>
                   </h2>
                 </div>
-                <p className="max-w-110 text-[15px] text-gray-500 leading-[1.65] pt-2">
+                <p className="max-w-110 text-[15px] text-gray-600 leading-[1.65] pt-2">
                   Anseru orchestrates the entire response lifecycle with AI agents analyzing requirements,
                   generating drafts, and enabling teams to refine and deliver high-quality proposals with speed
                   and precision.
