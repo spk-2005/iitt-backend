@@ -3,7 +3,7 @@
 const featureCellStyles = `
 .feature-cell {
   flex: 1;
-  border-radius: 8px;
+  
   background: #fafafa;
   position: relative;
   overflow: visible;
@@ -180,7 +180,7 @@ const featureCellStyles = `
 }
 @media (min-width: 1440px) and (max-width: 1919px) and (min-height: 800px) {
   .feature-cell            { padding: 14px 16px; }
-  .feature-cell-badge      { width: 26px; height: 26px; font-size: 13px; border-radius: 6px; }
+  .feature-cell-badge      { width: 26px; height: 26px; font-size: 13px;  }
   .feature-cell-title-row  { gap: 9px; }
   .feature-cell-title-text { font-size: 22px; }
   .feature-cell-desc       { font-size: 17px; padding-left: 35px; }
@@ -190,7 +190,7 @@ const featureCellStyles = `
 }
 @media (min-width: 1920px) and (max-width: 2559px) and (max-height: 1000px) {
   .feature-cell            { padding: 14px 18px; }
-  .feature-cell-badge      { width: 26px; height: 26px; font-size: 13px; border-radius: 6px; }
+  .feature-cell-badge      { width: 26px; height: 26px; font-size: 13px;  }
   .feature-cell-title-row  { gap: 9px; }
   .feature-cell-title-text { font-size: 20px; }
   .feature-cell-desc       { font-size: 15px; padding-left: 35px; }
@@ -200,7 +200,7 @@ const featureCellStyles = `
 }
 @media (min-width: 1920px) and (max-width: 2559px) and (min-height: 1000px) {
   .feature-cell            { padding: 16px 20px; }
-  .feature-cell-badge      { width: 30px; height: 30px; font-size: 14px; border-radius: 6px; }
+  .feature-cell-badge      { width: 30px; height: 30px; font-size: 14px;  }
   .feature-cell-title-row  { gap: 10px; }
   .feature-cell-title-text { font-size: 24px; }
   .feature-cell-desc       { font-size: 18px; padding-left: 40px; }
@@ -404,8 +404,7 @@ const featureCellStyles = `
   style={{
     outline: '1px solid rgba(0,0,0,0.125)',
     gap: '4px',              /* ← replaces space-evenly */
-    padding: '4px',          /* ← outer breathing room */
-    borderRadius:'6px' ,
+    padding: '4px',     
   }}
 >
   {features.map((feature, i) => (
