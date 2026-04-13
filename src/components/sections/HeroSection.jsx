@@ -2,7 +2,8 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
 import heroMobileSrc from '../../assets/hero-mob.png?format=webp&quality=80';
-import heroDesktopSrc from '../../assets/hero-3-2048.webp';
+import { DesktopHeroSvg } from '../cards/DesktopHeroSvg.jsx';
+
 
 // Served from /public/images for <link rel="preload"> in index.html to work
 const heroBgSrc = '/images/hero-bg.webp';
@@ -102,7 +103,7 @@ export function HeroSection() {
 
       {/* Below-fold workflow image */}
       <img src={heroMobileSrc} alt="" width={1596} height={1884} className="block md:hidden w-full" loading="lazy" />
-      <img src={heroDesktopSrc} alt="" width={5120} height={1884} className="hidden md:block w-full" loading="lazy" />
+      <DesktopHeroSvg className="hidden md:block w-full h-auto" />
 
       {/* Reveal text (mobile only) */}
       <div className="md:hidden w-full px-5 pt-6 pb-10">
