@@ -952,7 +952,7 @@
    elements already in-view don't pop harshly.
 ──────────────────────────────────────────────── */
 @keyframes svgEntrance {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(-12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -1000,7 +1000,7 @@
    because they operate in SVG-user-units, not CSS px.          */
 @media (max-width: 360px) {
   @keyframes svgEntrance {
-    from { opacity: 0; transform: translateY(6px); }
+    from { opacity: 0; transform: translateY(-6px); }
     to   { opacity: 1; transform: translateY(0);   }
   }
 
@@ -1017,7 +1017,7 @@
    Boost entrance translateY slightly for a more premium feel.  */
 @media (min-width: 420px) {
   @keyframes svgEntrance {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(-16px); }
     to   { opacity: 1; transform: translateY(0);    }
   }
 }
