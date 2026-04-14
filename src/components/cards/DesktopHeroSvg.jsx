@@ -364,7 +364,7 @@ export function DesktopHeroSvg({ className }) {
 <rect x="1244" y="291" width="64" height="7" rx="3" fill="#7D23F7" fillOpacity="0.15"/>
 </g>
 <rect x="1229" y="254" width="144" height="54" rx="7" stroke="url(#paint51_linear_1298_381)" strokeOpacity="0.22" strokeWidth="2"/>
-<line className="dashed-bg-line center-signal center-signal-0" x1="611.189" y1="192.99" x2="488.693" y2="133.7" stroke="url(#paint52_linear_1298_381)" strokeWidth="6" strokeDasharray="1.7 1.7"/>
+<line className="dashed-bg-line center-signal center-signal-0" x1="611.189" y1="192.99" x2="488.693" y2="133.7" stroke="url(#paint52_linear_1298_381)" strokeWidth="6" strokeDasharray="10 7"/>
 <line className="dashed-bg-line left-zone" opacity="0.36" x1="225.37" y1="282.361" x2="117.37" y2="232.361" stroke="url(#paint53_linear_1298_381)" strokeWidth="3" strokeDasharray="1.7 1.7" style={{'--draw-delay':'3.09s'}}/>
 <line className="dashed-bg-line left-zone" opacity="0.36" x1="-11.1492" y1="217.219" x2="65.3346" y2="126.036" stroke="url(#paint54_linear_1298_381)" strokeWidth="3" strokeDasharray="1.7 1.7" style={{'--draw-delay':'3.3s'}}/>
 <line className="dashed-bg-line left-zone" opacity="0.36" x1="413.35" y1="258.352" x2="307.35" y2="207.352" stroke="url(#paint55_linear_1298_381)" strokeWidth="3" style={{'--draw-delay':'2.92s'}}/>
@@ -373,12 +373,12 @@ export function DesktopHeroSvg({ className }) {
 <line className="dashed-bg-line left-zone" opacity="0.36" x1="394.024" y1="88.8611" x2="436.024" y2="52.8611" stroke="url(#paint58_linear_1298_381)" strokeWidth="3" style={{'--draw-delay':'2.94s'}}/>
 <line className="dashed-bg-line left-zone" opacity="0.36" x1="497.894" y1="351.013" x2="432.894" y2="280.013" stroke="url(#paint59_linear_1298_381)" strokeWidth="3" style={{'--draw-delay':'2.85s'}}/>
 <line className="dashed-bg-line left-zone" opacity="0.36" x1="546.973" y1="55.4998" x2="434.973" y2="53.4998" stroke="url(#paint60_linear_1298_381)" strokeWidth="3" style={{'--draw-delay':'2.8s'}}/>
-<line className="signal-line signal-line-4" opacity="0.36" y1="-1.5" x2="97.7445" y2="-1.5" transform="matrix(0.971921 -0.235307 0.633895 0.773419 711 378)" stroke="url(#paint66_linear_1298_381)" strokeWidth="3"/>
+<line className="signal-line signal-line-4" opacity="0.36" y1="-1.5" x2="97.7445" y2="-1.5" transform="matrix(0.971921 -0.235307 0.633895 0.773419 711 378)" stroke="url(#paint66_linear_1298_381)" strokeWidth="3" strokeDasharray="10 7"/>
 
 <line className="dashed-bg-line left-zone" opacity="0.36" x1="121.958" y1="349.079" x2="34.9581" y2="265.079" stroke="url(#paint62_linear_1298_381)" strokeWidth="3" strokeDasharray="1.7 1.7" style={{'--draw-delay':'3.18s'}}/>
-<line className="signal-line signal-line-1 center-signal center-signal-1" x1="668.085" y1="180.691" x2="750.085" y2="112.691" stroke="url(#paint63_linear_1298_381)" strokeWidth="6" strokeDasharray="1.7 1.7"/>
-<line className="signal-line signal-line-2 center-signal center-signal-2" x1="613.938" y1="257.29"  x2="543.937" y2="316.553" stroke="url(#paint64_linear_1298_381)" strokeWidth="6" strokeDasharray="1.7 1.7"/>
-<line className="signal-line signal-line-3 center-signal center-signal-3" x1="676.461" y1="245.38"  x2="780.461" y2="303.38"  stroke="url(#paint65_linear_1298_381)" strokeWidth="6" strokeDasharray="1.7 1.7"/>
+<line className="signal-line signal-line-1 center-signal center-signal-1" x1="668.085" y1="180.691" x2="750.085" y2="112.691" stroke="url(#paint63_linear_1298_381)" strokeWidth="6" strokeDasharray="10 7"/>
+<line className="signal-line signal-line-2 center-signal center-signal-2" x1="613.938" y1="257.29"  x2="543.937" y2="316.553" stroke="url(#paint64_linear_1298_381)" strokeWidth="6" strokeDasharray="10 7"/>
+<line className="signal-line signal-line-3 center-signal center-signal-3" x1="676.461" y1="245.38"  x2="780.461" y2="303.38"  stroke="url(#paint65_linear_1298_381)" strokeWidth="6" strokeDasharray="10 7"/>
 <circle className="title-node title-node-1" cx="695.5" cy="157.5" r="3.5" stroke="#1C32E6" strokeOpacity="0.78" strokeWidth="2"/>
 <circle className="title-node title-node-2" cx="561.5" cy="167.5" r="3.5" stroke="#1C32E6" strokeOpacity="0.78" strokeWidth="2"/>
 <circle className="title-node title-node-3" cx="581.5" cy="283.5" r="3.5" stroke="#1C32E6" strokeOpacity="0.78" strokeWidth="2"/>
