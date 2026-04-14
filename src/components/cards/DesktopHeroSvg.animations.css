@@ -83,18 +83,43 @@
 
 
 /* ─────────────────────────────────────────────
-   3. SIGNAL LINES — dash-by-dash left-to-right reveal
+   3. SIGNAL LINES — directional dash reveal
    ─────────────────────────────────────────────
-   Technique: strokeDasharray is set to "10 7" (10px dash,
-   7px gap) in SVG. We set stroke-dashoffset to the full
-   line length so all dashes are hidden behind the gap
-   offset. Animating dashoffset → 0 makes each dash appear
-   one-by-one from the start point (left/logo end) outward.
-   A glow pulses continuously after the reveal finishes.
+   Two directions:
+
+   dashReveal (center → dot, left-side lines 2 & 4):
+     Positive dashoffset (line-len → 0) reveals dashes
+     from the SVG x1 (center logo) outward toward the dot.
+
+   dashRevealReverse (dot → center, right-side lines 1 & 3):
+     Negative dashoffset (-line-len → 0) reveals dashes
+     from the SVG x2 (right dot) inward toward the center.
+     These fire FIRST so the signal appears to arrive from
+     the right before the left-side lines respond.
+
+   A glow pulses continuously after each reveal finishes.
 ──────────────────────────────────────────────── */
+
+/* Center → dot  (used by signal-line-2 & signal-line-4) */
 @keyframes dashReveal {
   0%   {
     stroke-dashoffset: var(--line-len);
+    opacity: 0;
+    filter: drop-shadow(0 0 0px var(--glow-color));
+  }
+  8%   { opacity: 1; }
+  60%  { filter: drop-shadow(0 0 5px var(--glow-color)); }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    filter: drop-shadow(0 0 3px var(--glow-color));
+  }
+}
+
+/* Dot → center  (used by signal-line-1 & signal-line-3, fires first) */
+@keyframes dashRevealReverse {
+  0%   {
+    stroke-dashoffset: calc(-1 * var(--line-len));
     opacity: 0;
     filter: drop-shadow(0 0 0px var(--glow-color));
   }
@@ -118,29 +143,51 @@
   opacity: 0;
   --glow-color: rgba(29, 128, 249, 0.7);
 }
+
+/* Legacy center-signal-0 (unchanged) */
 .center-signal-0 {
   --line-len: 140px;
   animation:
     dashReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.8s both,
     glowPulse  2.4s ease-in-out 3.2s infinite;
 }
+
+/* ── RIGHT-SIDE lines: dot → center, animate FIRST (2.0 s) ── */
+/* signal-line-1: goes center→top-right dot, reveal right→left */
 .center-signal-1 {
   --line-len: 108px;
   animation:
-    dashReveal 1.0s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both,
-    glowPulse  2.4s ease-in-out 3.3s infinite;
+    dashRevealReverse 1.0s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both,
+    glowPulse         2.4s ease-in-out 3.2s infinite;
 }
-.center-signal-2 {
-  --line-len: 98px;
-  animation:
-    dashReveal 0.95s cubic-bezier(0.16, 1, 0.3, 1) 2.2s both,
-    glowPulse  2.4s ease-in-out 3.4s infinite;
-}
+
+/* signal-line-3: goes center→bottom-right dot, reveal right→left */
 .center-signal-3 {
   --line-len: 125px;
   animation:
-    dashReveal 1.05s cubic-bezier(0.16, 1, 0.3, 1) 2.4s both,
+    dashRevealReverse 1.05s cubic-bezier(0.16, 1, 0.3, 1) 2.15s both,
+    glowPulse         2.4s ease-in-out 3.35s infinite;
+}
+
+/* ── LEFT-SIDE lines: center → dot, animate SECOND (2.35 s) ── */
+/* signal-line-2: goes center→bottom-left dot, reveal left→right */
+.center-signal-2 {
+  --line-len: 98px;
+  animation:
+    dashReveal 0.95s cubic-bezier(0.16, 1, 0.3, 1) 2.35s both,
     glowPulse  2.4s ease-in-out 3.5s infinite;
+}
+
+/* signal-line-4: also left/outward direction, reveal center→dot */
+.signal-line-4 {
+  stroke-dasharray: 10 7;
+  stroke-dashoffset: 98px;
+  opacity: 0;
+  --line-len: 98px;
+  --glow-color: rgba(29, 128, 249, 0.7);
+  animation:
+    dashReveal 0.95s cubic-bezier(0.16, 1, 0.3, 1) 2.5s both,
+    glowPulse  2.4s ease-in-out 3.65s infinite;
 }
 
 
@@ -302,24 +349,25 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   5b. ALL DASHED BACKGROUND LINES — dash-by-dash draw reveal
+   5b. ALL DASHED BACKGROUND LINES — dash-by-dash wave right→center→left
    ──────────────────────────────────────────────────────────────
-   Technique: each SVG line already has strokeDasharray set.
-   We set stroke-dashoffset to 300 (larger than any line length)
-   which hides all dashes behind the offset. Animating dashoffset
-   300 → 0 makes each dash materialise one-by-one from the line's
-   x1 (start) point outward.
+   THE WAVE: animation sweeps from the far-right edge of the SVG,
+   passes through the center, and finishes on the far-left edge.
 
-   Right-zone lines:  x1 is on the RIGHT side of the SVG, so the
-                      reveal travels right → left  ✓
-   Left-zone lines:   x1 is on the LEFT side, so the reveal
-                      travels left → right  ✓
+   This is driven entirely by --draw-delay already set inline on
+   every line in the JSX. The values are:
 
-   Every line already carries --draw-delay inline in the JSX.
-   right-zone base offset = 3.5s (after titles settle)
-   left-zone  uses its own larger --draw-delay values (2.8–3.3s)
+     right-zone lines :  0.21s – 0.75s   → fire FIRST  (rightmost)
+     center-signal    :  1.8s  – 2.4s    → fire MIDDLE (center logo)
+     left-zone lines  :  2.8s  – 3.3s    → fire LAST   (leftmost)
 
-   opacity="0.36" lines land at 0.36 via a separate keyframe.
+   Both zones use var(--draw-delay) directly as their animation
+   delay — no extra base offset needed. The natural stagger of
+   the existing delay values IS the right→center→left wave.
+
+   Technique: stroke-dashoffset starts at 300 (hides all dashes).
+   Animating to 0 reveals dashes one-by-one from the line's x1
+   endpoint. opacity="0.36" lines land at their authored opacity.
 ══════════════════════════════════════════════════════════════════ */
 
 @keyframes dashRevealFull {
@@ -350,33 +398,33 @@
   }
 }
 
-/* ── right-zone: reveal right → left, staggered by --draw-delay ── */
+/* ── ALL dashed-bg-line: hidden until their wave turn ── */
+.dashed-bg-line {
+  stroke-dashoffset: 300;
+  opacity: 0;
+}
+
+/* ── right-zone: fires first (0.21s–0.75s), sweeping right→center ── */
 .dashed-bg-line.right-zone {
-  stroke-dashoffset: 300;
-  opacity: 0;
-  animation: dashRevealFull 0.85s cubic-bezier(0.16, 1, 0.3, 1)
-             calc(3.5s + var(--draw-delay, 0s)) both;
+  animation: dashRevealFull 0.75s cubic-bezier(0.16, 1, 0.3, 1)
+             var(--draw-delay, 0.5s) both;
 }
-
 .dashed-bg-line.right-zone[opacity="0.36"] {
-  animation: dashRevealPartial 0.85s cubic-bezier(0.16, 1, 0.3, 1)
-             calc(3.5s + var(--draw-delay, 0s)) both;
+  animation: dashRevealPartial 0.75s cubic-bezier(0.16, 1, 0.3, 1)
+             var(--draw-delay, 0.5s) both;
 }
 
-/* ── left-zone: reveal left → right, uses its own --draw-delay ── */
+/* ── left-zone: fires last (2.8s–3.3s), sweeping center→left ── */
 .dashed-bg-line.left-zone {
-  stroke-dashoffset: 300;
-  opacity: 0;
-  animation: dashRevealFull 0.85s cubic-bezier(0.16, 1, 0.3, 1)
-             var(--draw-delay, 3.5s) both;
+  animation: dashRevealFull 0.75s cubic-bezier(0.16, 1, 0.3, 1)
+             var(--draw-delay, 3.0s) both;
 }
-
 .dashed-bg-line.left-zone[opacity="0.36"] {
-  animation: dashRevealPartial 0.85s cubic-bezier(0.16, 1, 0.3, 1)
-             var(--draw-delay, 3.5s) both;
+  animation: dashRevealPartial 0.75s cubic-bezier(0.16, 1, 0.3, 1)
+             var(--draw-delay, 3.0s) both;
 }
 
-/* ── center-signal lines keep their own animation from section 3 ── */
+/* ── center-signal: sits in the middle of the wave (1.8s–2.4s) ── */
 .dashed-bg-line.center-signal {
   stroke-dashoffset: var(--line-len);
   opacity: 0;
@@ -395,6 +443,15 @@
 @keyframes connectedReveal {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0);   }
+}
+@keyframes connectedReveallowopacity {
+  from {  transform: translateY(6px); }
+  to   {  transform: translateY(0);   }
+}
+
+.connected-item-lowop {
+  opacity: 0;
+  animation: connectedReveallowopacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 4.3s both;
 }
 
 .connected-item {
