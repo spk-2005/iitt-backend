@@ -2,8 +2,8 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
 import heroMobileSrc from '../../assets/hero-mob.png?format=webp&quality=80';
-import { DesktopHeroSvg } from '../svg/DesktopHeroSvg.jsx';
-import { MobileHeroSvg } from '../svg/MobileHeroSvg.jsx';
+import { DesktopHeroSvg } from '../sections/svg/DesktopHeroSvg.jsx';
+import { MobileHeroSvg } from '../sections/svg/MobileHeroSvg.jsx';
 
 
 // Served from /public/images for <link rel="preload"> in index.html to work

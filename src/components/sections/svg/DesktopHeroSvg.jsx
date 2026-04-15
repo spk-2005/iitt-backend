@@ -1,14 +1,18 @@
-import image0 from '../../assets/image-hero-1.png';
-import image1 from '../../assets/image 134 (2).png';
-import image2 from '../../assets/image 134 (1).png';
-import image3 from '../../assets/image-hero-134.png';
-import image4 from '../../assets/Dropbox (3).png';
-import image5 from '../../assets/onedrive-icon-(1).png';
-import image6 from '../../assets/Pdf.png';
-import image7 from '../../assets/Excel.png';
+
 import './DesktopHeroSvg.animations.css'
-import centerBg from '../../assets/Vector (1).png';
-import centerLogo from '../../assets/icon-hero(2).png';
+
+import image0 from '../../../assets/image-hero-1.png';
+import image1 from '../../../assets/image 134 (2).png';
+import image2 from '../../../assets/image 134 (1).png';
+import image3 from '../../../assets/image-hero-134.png';
+import image4 from '../../../assets/Dropbox (3).png';
+import image5 from '../../../assets/onedrive-icon-(1).png';
+import image6 from '../../../assets/Pdf.png';
+import image7 from '../../../assets/Excel.png';
+import centerBg from '../../../assets/Vector (1).png';
+import centerLogo from '../../../assets/icon-hero(2).png';
+
+
 
 export function DesktopHeroSvg({ className }) {
   return (

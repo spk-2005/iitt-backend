@@ -111,6 +111,17 @@
 .mobile-top-line-7  { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.40s both; }
 .mobile-top-line-8  { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both; }
 .mobile-top-line-9  { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.52s both; }
+.mobile-top-line-10 { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.58s both; }
+
+/* ── Top-right dashed lines (lines 11–18, x > 240) — previously missing ── */
+.mobile-top-line-11 { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.10s both; }
+.mobile-top-line-12 { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both; }
+.mobile-top-line-13 { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both; }
+.mobile-top-line-14 { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.30s both; }
+.mobile-top-line-15 { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both; }
+.mobile-top-line-16 { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both; }
+.mobile-top-line-17 { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both; }
+.mobile-top-line-18 { animation: mob-lineDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.54s both; }
 
 /* ── Top avatar circles + their label cards ──
    START HIDDEN. Only appear after their nearest line has fully drawn.

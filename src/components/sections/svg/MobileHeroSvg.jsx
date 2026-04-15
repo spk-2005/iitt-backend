@@ -1,15 +1,14 @@
-import image0 from '../../assets/image-hero-1.png';
-import image1 from '../../assets/image 134 (2).png';
-import image2 from '../../assets/image 134 (1).png';
-import image3 from '../../assets/image-hero-134.png';
-import image4 from '../../assets/Dropbox (3).png';
-import image5 from '../../assets/onedrive-icon-(1).png';
-import image6 from '../../assets/Pdf.png';
-import image7 from '../../assets/Excel.png';
+import image0 from '../../../assets/image-hero-1.png';
+import image1 from '../../../assets/image 134 (2).png';
+import image2 from '../../../assets/image 134 (1).png';
+import image3 from '../../../assets/image-hero-134.png';
+import image4 from '../../../assets/Dropbox (3).png';
+import image5 from '../../../assets/onedrive-icon-(1).png';
+import image6 from '../../../assets/Pdf.png';
+import image7 from '../../../assets/Excel.png';
+import centerBg from '../../../assets/Vector (1).png';
+import centerLogo from '../../../assets/icon-hero(2).png';
 import './MobileHeroSvg.animations.css'
-import centerBg from '../../assets/Vector (1).png';
-import centerLogo from '../../assets/icon-hero(2).png';
-
 
 export function MobileHeroSvg({ className }) {
   return (
@@ -319,6 +318,10 @@ export function MobileHeroSvg({ className }) {
 <circle cx="392.307" cy="78.2484" r="2.05696" fill="#D1D5DB"/>
 <circle cx="284.508" cy="100.33" r="1.21863" fill="#D1D5DB"/>
 <line x1="313.467" y1="113.698" x2="330.51" y2="67.8221" stroke="#D1D5DB" stroke-width="0.812418" stroke-dasharray="1.62 1.62" className="mobile-top-line mobile-top-line-14"/>
+<line x1="330.51" y1="67.8221" x2="420" y2="18" stroke="#D1D5DB" stroke-width="0.812418" stroke-dasharray="1.62 1.62" className="mobile-top-line mobile-top-line-15"/>
+<line x1="368.667" y1="58.7763" x2="450" y2="38" stroke="#D1D5DB" stroke-width="0.812418" stroke-dasharray="1.62 1.62" className="mobile-top-line mobile-top-line-16"/>
+<line x1="313.686" y1="113.59" x2="430" y2="90" stroke="#D1D5DB" stroke-width="0.812418" stroke-dasharray="1.62 1.62" className="mobile-top-line mobile-top-line-17"/>
+<line x1="392.307" y1="78.2484" x2="460" y2="55" stroke="#D1D5DB" stroke-width="0.812418" stroke-dasharray="1.62 1.62" className="mobile-top-line mobile-top-line-18"/>
 <circle cx="319.769" cy="98.5673" r="1.21863" fill="#D1D5DB"/>
 <g opacity="0.71">
 <rect className="mobile-bottom-panel mobile-panel-1" x="15.1434" y="191.143" width="53.6912" height="17.0367" rx="3.06467" stroke="url(#paint52_linear_1319_951)" stroke-width="0.286731"/>
