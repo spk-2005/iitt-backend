@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
 import heroMobileSrc from '../../assets/hero-mob.png?format=webp&quality=80';
-import heroDesktopSrc from '../../assets/hero-3-2048.webp';
+import heroDesktopSrc from '../../assets/hero (3).png';
 
 // Served from /public/images for <link rel="preload"> in index.html to work
 const heroBgSrc = '/images/hero-bg.webp';
