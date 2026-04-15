@@ -1,0 +1,769 @@
+/*
+ * DesktopHeroSvg.animations.css
+ * Complete animation layer — no layout, positioning, or sizing changes.
+ *
+ * ANIMATION TIMELINE (all delays from page load):
+ *  0.1s  – Center logo fades in
+ *  0.6s  – Center icon ring draws itself
+ *  1.05s – Wave rings ripple outward (3D pulse, inner→outer)
+ *  2.0s  – Signal lines draw toward 4 title nodes
+ *  2.2s  – Title nodes (blue circles) pop in
+ *  2.4s  – Title label boxes lift + fade in
+ *  3.0s  – Corner dotted grey lines draw in
+ *  3.6s  – Small grey dots pop on
+ *  3.8s  – Background images fade + drift up (only when connector line arrives)
+ *  4.2s  – Big roaming dot fades in, wanders forever
+ */
+
+
+/* ─────────────────────────────────────────────
+   1. CENTER LOGO
+──────────────────────────────────────────────── */
+@keyframes logoFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────
+   1b. CENTER SECTION — scale-up entrance + float
+──────────────────────────────────────────────── */
+
+.hero-center-logo {
+  /* Ensure the group doesn't move when the glint inside it moves */
+  transform-origin: 640.002px 217.881px;
+  transform-box: view-box;
+  animation:
+    centerSectionEntrance 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+@keyframes centerSectionEntrance {
+  0%   { opacity: 0; transform: scale(0.88) translateY(10px); }
+  60%  { opacity: 1; transform: scale(1.02) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+@keyframes centerFloat {
+  0%, 100% { transform: translateY(0px);   }
+  50%      { transform: translateY(-5px);  }
+}
+
+.logo-glint {
+  /* Initial state: Hidden to the left */
+  transform: translateX(-150px) skewX(-25deg);
+  opacity: 0;
+  
+  /* Trigger: Starts at 1.2s (after logo entrance)
+     Duration: 0.85s (from your reference)
+     'forwards' ensures it stays at the end position and doesn't loop
+  */
+  animation: singleKnifeShine 0.85s ease-in-out 1.2s forwards;
+}
+
+@keyframes singleKnifeShine {
+  0% {
+    transform: translateX(-150px) skewX(-25deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1; /* Fade in quickly as it starts moving */
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(150px) skewX(-25deg);
+    opacity: 0; /* Fade out at the end */
+  }
+}
+/* ─────────────────────────────────────────────
+   2. CENTER ICON RING
+──────────────────────────────────────────────── */
+@keyframes ringUnfold {
+  from { stroke-dashoffset: var(--circ); opacity: 0; }
+  8%   { opacity: 1; }
+  to   { stroke-dashoffset: 0; opacity: 1; }
+}
+
+.center-icon {
+  --circ: 228px;
+  stroke-dasharray: 228px;
+  stroke-dashoffset: 228px;
+  opacity: 0;
+  animation: ringUnfold 0.7s ease-out 0.6s forwards;
+}
+
+
+/* ─────────────────────────────────────────────
+   2b. WAVE RINGS — 3D ripple (opacity only, no position)
+──────────────────────────────────────────────── */
+
+@keyframes waterWave {
+  0%   {
+    opacity: 0;
+    transform: scale(0.82);
+    filter: blur(1.5px) drop-shadow(0 0 0px var(--wave-color));
+  }
+  18%  {
+    opacity: var(--wave-crest);
+    transform: scale(1.04);
+    filter: blur(0px) drop-shadow(0 0 8px var(--wave-color));
+  }
+  45%  {
+    opacity: var(--wave-trough);
+    transform: scale(0.97);
+    filter: blur(0.5px) drop-shadow(0 0 3px var(--wave-color));
+  }
+  72%  {
+    opacity: var(--wave-mid);
+    transform: scale(1.015);
+    filter: blur(0px) drop-shadow(0 0 5px var(--wave-color));
+  }
+  100% {
+    opacity: var(--wave-rest);
+    transform: scale(1);
+    filter: blur(0px) drop-shadow(0 0 2px var(--wave-color));
+  }
+}
+
+/* Continuous perpetual pulse after the intro wave settles */
+@keyframes waterPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: var(--wave-rest);
+    filter: drop-shadow(0 0 2px var(--wave-color));
+  }
+  50% {
+    transform: scale(1.035);
+    opacity: calc(var(--wave-rest) + 0.12);
+    filter: drop-shadow(0 0 7px var(--wave-color));
+  }
+}
+
+.center-wave {
+  opacity: 0;
+  transform-origin: 640px 217.88px; /* exact SVG center */
+  transform-box: view-box;
+}
+
+/* wave-1 — innermost ring, strongest glow */
+.center-wave-1 {
+  --wave-crest:  0.75;
+  --wave-trough: 0.18;
+  --wave-mid:    0.42;
+  --wave-rest:   0.38;
+  --wave-color:  rgba(29, 128, 249, 0.75);
+  animation:
+    waterWave  1.0s cubic-bezier(0.22, 0.61, 0.36, 1) 1.05s both,
+    waterPulse 3.2s ease-in-out 2.1s infinite;
+}
+
+/* wave-2 */
+.center-wave-2 {
+  --wave-crest:  0.62;
+  --wave-trough: 0.10;
+  --wave-mid:    0.32;
+  --wave-rest:   0.28;
+  --wave-color:  rgba(29, 128, 249, 0.60);
+  animation:
+    waterWave  1.0s cubic-bezier(0.22, 0.61, 0.36, 1) 1.24s both,
+    waterPulse 3.6s ease-in-out 2.3s infinite;
+}
+
+/* wave-3 */
+.center-wave-3 {
+  --wave-crest:  0.48;
+  --wave-trough: 0.06;
+  --wave-mid:    0.24;
+  --wave-rest:   0.20;
+  --wave-color:  rgba(231, 79, 98, 0.50);
+  animation:
+    waterWave  1.0s cubic-bezier(0.22, 0.61, 0.36, 1) 1.43s both,
+    waterPulse 4.0s ease-in-out 2.5s infinite;
+}
+
+/* wave-4 */
+.center-wave-4 {
+  --wave-crest:  0.32;
+  --wave-trough: 0.03;
+  --wave-mid:    0.14;
+  --wave-rest:   0.12;
+  --wave-color:  rgba(231, 79, 98, 0.40);
+  animation:
+    waterWave  1.0s cubic-bezier(0.22, 0.61, 0.36, 1) 1.62s both,
+    waterPulse 4.4s ease-in-out 2.7s infinite;
+}
+
+/* wave-5 — outermost, faintest */
+.center-wave-5 {
+  --wave-crest:  0.22;
+  --wave-trough: 0.01;
+  --wave-mid:    0.08;
+  --wave-rest:   0.07;
+  --wave-color:  rgba(125, 35, 247, 0.30);
+  animation:
+    waterWave  1.0s cubic-bezier(0.22, 0.61, 0.36, 1) 1.81s both,
+    waterPulse 5.0s ease-in-out 2.9s infinite;
+}
+/* ─────────────────────────────────────────────
+   3. SIGNAL LINES — directional dash reveal
+   ─────────────────────────────────────────────
+   Two directions:
+
+   dashReveal (center → dot, left-side lines 2 & 4):
+     Positive dashoffset (line-len → 0) reveals dashes
+     from the SVG x1 (center logo) outward toward the dot.
+
+   dashRevealReverse (dot → center, right-side lines 1 & 3):
+     Negative dashoffset (-line-len → 0) reveals dashes
+     from the SVG x2 (right dot) inward toward the center.
+     These fire FIRST so the signal appears to arrive from
+     the right before the left-side lines respond.
+
+   A glow pulses continuously after each reveal finishes.
+──────────────────────────────────────────────── */
+
+/* Center → dot  (used by signal-line-2 & signal-line-4) */
+@keyframes dashReveal {
+  0%   {
+    stroke-dashoffset: var(--line-len);
+    opacity: 0;
+    filter: drop-shadow(0 0 0px var(--glow-color));
+  }
+  8%   { opacity: 1; }
+  60%  { filter: drop-shadow(0 0 5px var(--glow-color)); }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    filter: drop-shadow(0 0 3px var(--glow-color));
+  }
+}
+
+/* Dot → center  (used by signal-line-1 & signal-line-3, fires first) */
+@keyframes dashRevealReverse {
+  0%   {
+    stroke-dashoffset: calc(-1 * var(--line-len));
+    opacity: 0;
+    filter: drop-shadow(0 0 0px var(--glow-color));
+  }
+  8%   { opacity: 1; }
+  60%  { filter: drop-shadow(0 0 5px var(--glow-color)); }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    filter: drop-shadow(0 0 3px var(--glow-color));
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% { filter: drop-shadow(0 0 2px var(--glow-color)); opacity: 1; }
+  50%       { filter: drop-shadow(0 0 7px var(--glow-color)); opacity: 0.85; }
+}
+
+.center-signal {
+  stroke-dasharray: 1.7 1.7;
+  stroke-dashoffset: var(--line-len);
+  opacity: 0;
+  --glow-color: rgba(29, 128, 249, 0.7);
+}
+
+/* Legacy center-signal-0 (unchanged) */
+.center-signal-0 {
+  --line-len: 140px;
+  animation:
+    dashReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.8s both,
+    glowPulse  2.4s ease-in-out 3.2s infinite;
+}
+
+/* ── RIGHT-SIDE lines: dot → center, animate FIRST (2.0s) ── */
+.center-signal-1 {
+  --line-len: 108px;
+  animation:
+    dashRevealReverse 1.0s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both,
+    glowPulse         2.4s ease-in-out 3.2s infinite;
+}
+
+.center-signal-3 {
+  --line-len: 125px;
+  animation:
+    dashRevealReverse 1.05s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both,
+    glowPulse         2.4s ease-in-out 3.2s infinite;
+}
+
+/* ── LEFT-SIDE lines: same timing + same direction as right ── */
+.center-signal-2 {
+  --line-len: 98px;
+  animation:
+    dashRevealReverse 1.0s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both,
+    glowPulse         2.4s ease-in-out 3.2s infinite;
+}
+
+.signal-line-4 {
+  stroke-dasharray: 10 7;
+  stroke-dashoffset: 98px;
+  opacity: 0;
+  --line-len: 98px;
+  --glow-color: rgba(29, 128, 249, 0.7);
+  animation:
+    dashRevealReverse 1.05s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both,
+    glowPulse         2.4s ease-in-out 3.2s infinite;
+}
+
+/* ─────────────────────────────────────────────
+   4. TITLE NODES — blue circles at line ends
+   Spring-in pop with scale + opacity.
+──────────────────────────────────────────────── */
+@keyframes nodeFadeScale {
+  0%   { opacity: 0; transform: scale(0.15); }
+  65%  { opacity: 1; transform: scale(1.4);  }
+  82%  { transform: scale(0.88); }
+  100% { opacity: 1; transform: scale(1);    }
+}
+
+.title-node {
+  opacity: 0;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.title-node-1 { animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s  forwards; }
+.title-node-2 { animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.35s forwards; }
+.title-node-3 { animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.5s  forwards; }
+.title-node-4 { animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.65s forwards; }
+
+
+/* ─────────────────────────────────────────────
+   5. TITLE LABEL BOXES — fade + lift
+   Four labels: Data (top-right), Humans (left),
+   Tools (bottom-left), Agents (far bottom-left)
+──────────────────────────────────────────────── */
+@keyframes labelReveal {
+  0%   { opacity: 0; transform: translateY(7px);  }
+  55%  { opacity: 1; transform: translateY(-2px); }
+  100% { opacity: 1; transform: translateY(0px);  }
+}
+
+.label-group { opacity: 0; }
+
+.label-data   { animation: labelReveal 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 2.4s  forwards; }
+.label-tools  { animation: labelReveal 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 2.55s forwards; }
+.label-humans { animation: labelReveal 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 2.7s  forwards; }
+.label-agents { animation: labelReveal 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 2.85s forwards; }
+
+
+/* ─────────────────────────────────────────────
+   6. CORNER DOTTED LINES — grey dashed lines draw in
+   via stroke-dashoffset after the labels appear.
+   All use class .corner-line-tl (top-left quad group).
+──────────────────────────────────────────────── */
+@keyframes drawCornerLine {
+  from { stroke-dashoffset: 200px; opacity: 0; }
+  6%   { opacity: 0.7; }
+  to   { stroke-dashoffset: 0; opacity: 1; }
+}
+
+.corner-line-tl {
+  stroke-dasharray: 200px;
+  stroke-dashoffset: 200px;
+  opacity: 0;
+  animation: drawCornerLine 0.65s ease-out 3.0s forwards;
+}
+
+/* Stagger each sibling line after the first */
+.corner-line-tl ~ .corner-line-tl                 { animation-delay: 3.15s; }
+.corner-line-tl ~ .corner-line-tl ~ .corner-line-tl { animation-delay: 3.3s; }
+.corner-line-tl ~ .corner-line-tl ~ .corner-line-tl ~ .corner-line-tl { animation-delay: 3.45s; }
+.corner-line-tl ~ .corner-line-tl ~ .corner-line-tl ~ .corner-line-tl ~ .corner-line-tl { animation-delay: 3.6s; }
+
+.corner-line-tr {
+  stroke-dasharray: 200px;
+  stroke-dashoffset: 200px;
+  opacity: 0;
+  animation: drawCornerLine 0.65s ease-out 3.1s forwards;
+}
+.corner-line-bl {
+  stroke-dasharray: 200px;
+  stroke-dashoffset: 200px;
+  opacity: 0;
+  animation: drawCornerLine 0.65s ease-out 3.25s forwards;
+}
+.corner-line-br {
+  stroke-dasharray: 200px;
+  stroke-dashoffset: 200px;
+  opacity: 0;
+  animation: drawCornerLine 0.65s ease-out 3.4s forwards;
+}
+
+
+/* ─────────────────────────────────────────────
+   7. SMALL GREY DOTS — spring pop after their lines draw
+──────────────────────────────────────────────── */
+@keyframes dotReveal {
+  0%   { opacity: 0; transform: scale(0);   }
+  65%  { opacity: 1; transform: scale(1.5); }
+  85%  { transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1);   }
+}
+
+.grey-dot {
+  opacity: 0;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.grey-dot-tl-1 { animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.65s forwards; }
+.grey-dot-tl-2 { animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.8s  forwards; }
+.grey-dot-tl-3 { animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.95s forwards; }
+
+
+/* ─────────────────────────────────────────────
+   8. BACKGROUND IMAGES & ICON CARDS
+   ══════════════════════════════════════════════
+   CORE RULE: Every image/card group starts at
+   opacity 0 and only becomes visible AFTER its
+   connector dashed line finishes drawing.
+
+   Signal line arrival times:
+     signal-0:  1.8s + 1.1s  = 2.9s  → top-left / Numa card
+     signal-1:  2.0s + 1.0s  = 3.0s  → top-right quadrant
+     signal-3:  2.15s + 1.05s = 3.2s → bottom-right quadrant
+     signal-2:  2.35s + 0.95s = 3.3s → bottom-left quadrant
+     signal-4:  2.5s + 0.95s = 3.45s → far-left / bottom zone
+──────────────────────────────────────────────── */
+
+/* ── Shared reveal keyframes ── */
+@keyframes imgReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0px); }
+}
+
+/* For groups that have their own partial SVG opacity value,
+   we animate from opacity-0 to their authored opacity using
+   a CSS variable --base-opacity (default 1). */
+@keyframes imgRevealPartialOpacity {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: var(--base-opacity, 1);
+    transform: translateY(0px);
+  }
+}
+
+/* ── ALL image/icon/card groups: hidden by default ── */
+.bg-img,
+.img-reveal-0,
+.img-reveal-1,
+.img-reveal-1b,
+.img-reveal-1c,
+.img-reveal-2,
+.img-reveal-3,
+.img-reveal-3b,
+.img-reveal-4,
+.bg-img-1,
+.bg-img-2,
+.bg-img-3,
+.bg-img-4 {
+  opacity: 0;
+}
+
+/* ── signal-0 arrival → 2.9s (top-left: Numa card area) ── */
+.img-reveal-0 {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 2.9s forwards;
+}
+
+/* ── signal-1 arrival → 3.0s (top-right zone) ── */
+.img-reveal-1 {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
+}
+.img-reveal-1b {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.1s forwards;
+}
+.img-reveal-1c {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
+}
+
+/* ── signal-3 arrival → 3.2s (bottom-right zone) ── */
+.img-reveal-3 {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
+}
+.img-reveal-3b {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.35s forwards;
+}
+
+/* ── signal-2 arrival → 3.3s (bottom-left zone) ── */
+.img-reveal-2 {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.3s forwards;
+}
+
+/* ── signal-4 arrival → 3.45s (far-left / bottom zone) ── */
+.img-reveal-4 {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.45s forwards;
+}
+
+/* ── Legacy bg-img-N classes (remapped to signal zones) ── */
+.bg-img-1 {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
+}
+.bg-img-2 {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
+}
+.bg-img-3 {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
+}
+.bg-img-4 {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.35s forwards;
+}
+
+/* ── bg-img base: hidden, revealed via bg-img-N zone class above ──
+   If a group has ONLY .bg-img (no zone class), it falls back to
+   signal-1 timing (3.0s). bg-img-N overrides this via specificity. */
+.bg-img:not(.bg-img-1):not(.bg-img-2):not(.bg-img-3):not(.bg-img-4) {
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
+}
+
+
+/* ─────────────────────────────────────────────
+   9. BIG ROAMING DOT — large grey dot (~r=7)
+   Wanders slowly between the four quadrant zones
+   of the 1280×471 SVG in a smooth infinite loop.
+──────────────────────────────────────────────── */
+@keyframes roamingDot {
+  0%   { transform: translate(0px,    0px);   opacity: 0; }
+  4%   { opacity: 1; }
+  18%  { transform: translate(952px,  3px);   opacity: 1; }
+  22%  { transform: translate(945px,  18px);  opacity: 1; }
+  40%  { transform: translate(900px,  332px); opacity: 1; }
+  44%  { transform: translate(880px,  340px); opacity: 1; }
+  62%  { transform: translate(50px,   338px); opacity: 1; }
+  66%  { transform: translate(42px,   320px); opacity: 1; }
+  82%  { transform: translate(-15px,  90px);  opacity: 1; }
+  96%  { transform: translate(0px,    0px);   opacity: 1; }
+  100% { transform: translate(0px,    0px);   opacity: 1; }
+}
+
+.big-roaming-dot {
+  opacity: 0;
+  transform-origin: 148px 58px;
+  animation: roamingDot 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.2s infinite;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   10. ALL DASHED BACKGROUND LINES — dash-by-dash wave right→center→left
+   ──────────────────────────────────────────────────────────────
+   Technique: stroke-dashoffset starts at 300 (hides all dashes).
+   Animating to 0 reveals dashes one-by-one from the line's x1
+   endpoint. opacity="0.36" lines land at their authored opacity.
+══════════════════════════════════════════════════════════════════ */
+
+@keyframes dashRevealFull {
+  from {
+    stroke-dashoffset: 300;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes dashRevealPartial {
+  from {
+    stroke-dashoffset: 300;
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.36;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0.36;
+  }
+}
+
+/* ── ALL dashed-bg-line: hidden until their wave turn ── */
+.dashed-bg-line {
+  stroke-dashoffset: 300;
+  opacity: 0;
+}
+
+/* ── right-zone + left-zone: fire simultaneously ── */
+.dashed-bg-line.right-zone {
+  animation: dashRevealFull 0.75s cubic-bezier(0.16, 1, 0.3, 1)
+             var(--draw-delay, 0.5s) both;
+}
+.dashed-bg-line.right-zone[opacity="0.36"] {
+  animation: dashRevealPartial 0.75s cubic-bezier(0.16, 1, 0.3, 1)
+             var(--draw-delay, 0.5s) both;
+}
+
+/* left-zone now uses same --draw-delay default as right-zone */
+.dashed-bg-line.left-zone {
+  animation: dashRevealFull 0.75s cubic-bezier(0.16, 1, 0.3, 1)
+             var(--draw-delay, 0.5s) both;
+}
+.dashed-bg-line.left-zone[opacity="0.36"] {
+  animation: dashRevealPartial 0.75s cubic-bezier(0.16, 1, 0.3, 1)
+             var(--draw-delay, 0.5s) both;
+}
+/* ── center-signal: sits in the middle of the wave (1.8s–2.4s) ── */
+.dashed-bg-line.center-signal {
+  stroke-dashoffset: var(--line-len);
+  opacity: 0;
+  animation:
+    dashReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.8s both,
+    glowPulse  2.4s ease-in-out 3.2s infinite;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   11. CONNECTED ITEMS — icons, avatars, coloured label rects
+   ══════════════════════════════════════════════════════════════════
+   CORE RULE: These items start INVISIBLE (opacity: 0) and only
+   appear AFTER the dashed connector line finishes reaching them.
+
+   Timing aligns with when the nearest dashed line completes:
+     right-zone dashed lines finish arriving: ~3.0–3.2s
+     left-zone  dashed lines finish arriving: ~3.3–3.45s
+══════════════════════════════════════════════════════════════════ */
+@keyframes connectedReveal {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+@keyframes connectedRevealPartial {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: var(--item-opacity, 1); transform: translateY(0); }
+}
+
+/* ── Base: ALL connected-item start hidden ── */
+.connected-item {
+  opacity: 0;
+}
+
+/* ── right-zone items reveal when right-zone lines arrive (~3.0s) ── */
+.connected-item.right-zone {
+  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
+}
+
+/* ── far-right-zone items reveal slightly after (3.15s) ── */
+.connected-item.far-right-zone {
+  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 3.15s forwards;
+}
+
+/* ── left-zone items reveal when left-zone lines arrive (~3.3s) ── */
+.connected-item.left-zone {
+  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 3.3s forwards;
+}
+
+/* ── Generic connected-item (no zone class): fallback to right-zone timing ── */
+.connected-item:not(.right-zone):not(.left-zone):not(.far-right-zone):not(.center-zone) {
+  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
+}
+
+/* ── center-zone: near-center items reveal at center signal timing ── */
+.connected-item.center-zone,
+.connected-item > .center-zone {
+  /* The parent group handles this; center-zone is inside connected-item */
+}
+
+/* ── Low-opacity connected items (e.g. opacity="0.52" in SVG) ──
+   Use a lift animation that doesn't fight with SVG attribute opacity.
+   The SVG opacity attribute is still respected after animation completes. */
+.connected-item-lowop {
+  opacity: 0;
+  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s both;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   12. TRAVERSING DOTS — grey circles that ride back and forth
+   along their matched dashed line, forever.
+
+   TIMELINE per dot
+   ────────────────
+   4.25 – 5.1 s   Pop-in (spring scale, staggered 50 ms apart)
+   4.65 – 5.5 s   Traverse begins (infinite, staggered)
+
+   Each traverse cycle:
+     0 % – 5 %   rest at start
+    45 % – 55 %  rest at far end
+    95 % – 100 % back at start
+   Easing: cubic-bezier(0.45, 0.05, 0.55, 0.95) — smooth S-curve
+
+   Cycle lengths vary (6 – 10 s) so dots never all peak together.
+   transform-box:fill-box + transform-origin:center anchors
+   the translate to each dot's own cx/cy.
+══════════════════════════════════════════════════════════════════ */
+
+/* Shared base — invisible until pop-in fires */
+.traversing-dot {
+  opacity: 0;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes dotPopIn {
+  0%   { opacity: 0; transform: scale(0);   }
+  60%  { opacity: 1; transform: scale(1.6); }
+  80%  {             transform: scale(0.85);}
+  100% { opacity: 1; transform: scale(1);   }
+}
+
+/* ── Unique traverse keyframes (one per dot) ── */
+@keyframes dotTraverse1  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-60px,-28px)}95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse2  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(69px,-69px)} 95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse3  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(43px,19px)}  95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse4  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(18px,-16px)} 95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse5  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(64px,38px)}  95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse6  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(38px,-31px)} 95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse7  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(49px,22px)}  95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse8  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(20px,-52px)} 95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse9  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(63px,39px)}  95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse10 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-41px,-20px)}95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse11 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-12px,-17px)}95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse12 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(37px,-17px)} 95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse13 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(50px,23px)}  95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse14 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-12px,-16px)}95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse15 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(18px,-52px)} 95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse16 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(38px,-18px)} 95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse17 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-38px,-172px)}95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse18 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-15px,-14px)}95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse19 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-6px,33px)}  95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse20 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-49px,-29px)}95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse21 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(61px,24px)}  95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse22 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-10px,15px)} 95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse23 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(46px,-17px)} 95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse24 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(32px,46px)}  95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse25 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-7px,19px)}  95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse26 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(13px,33px)}  95%,100%{transform:translate(0,0)}}
+
+/* ── Per-dot rules: pop-in (once) then traverse (infinite), staggered ── */
+.dot-1  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.25s both, dotTraverse1  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.65s infinite; }
+.dot-2  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.30s both, dotTraverse2  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.70s infinite; }
+.dot-3  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.35s both, dotTraverse3  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.75s infinite; }
+.dot-4  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.40s both, dotTraverse4  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.80s infinite; }
+.dot-5  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.45s both, dotTraverse5  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.85s infinite; }
+.dot-6  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.50s both, dotTraverse6  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.90s infinite; }
+.dot-7  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.55s both, dotTraverse7  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.95s infinite; }
+.dot-8  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.60s both, dotTraverse8  7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.00s infinite; }
+.dot-9  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.65s both, dotTraverse9  7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.05s infinite; }
+.dot-10 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.30s both, dotTraverse10 8s  cubic-bezier(0.45,0.05,0.55,0.95) 4.70s infinite; }
+.dot-11 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.35s both, dotTraverse11 6s  cubic-bezier(0.45,0.05,0.55,0.95) 4.75s infinite; }
+.dot-12 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.40s both, dotTraverse12 7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.80s infinite; }
+.dot-13 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.45s both, dotTraverse13 9s  cubic-bezier(0.45,0.05,0.55,0.95) 4.85s infinite; }
+.dot-14 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.50s both, dotTraverse14 6s  cubic-bezier(0.45,0.05,0.55,0.95) 4.90s infinite; }
+.dot-15 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.55s both, dotTraverse15 8s  cubic-bezier(0.45,0.05,0.55,0.95) 4.95s infinite; }
+.dot-16 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.60s both, dotTraverse16 7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.00s infinite; }
+.dot-17 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.65s both, dotTraverse17 10s cubic-bezier(0.45,0.05,0.55,0.95) 5.05s infinite; }
+.dot-18 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.70s both, dotTraverse18 6s  cubic-bezier(0.45,0.05,0.55,0.95) 5.10s infinite; }
+.dot-19 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.75s both, dotTraverse19 7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.15s infinite; }
+.dot-20 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.80s both, dotTraverse20 8s  cubic-bezier(0.45,0.05,0.55,0.95) 5.20s infinite; }
+.dot-21 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.85s both, dotTraverse21 7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.25s infinite; }
+.dot-22 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.90s both, dotTraverse22 6s  cubic-bezier(0.45,0.05,0.55,0.95) 5.30s infinite; }
+.dot-23 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.95s both, dotTraverse23 7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.35s infinite; }
+.dot-24 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 5.00s both, dotTraverse24 8s  cubic-bezier(0.45,0.05,0.55,0.95) 5.40s infinite; }
+.dot-25 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 5.05s both, dotTraverse25 6s  cubic-bezier(0.45,0.05,0.55,0.95) 5.45s infinite; }
+.dot-26 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 5.10s both, dotTraverse26 7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.50s infinite; }

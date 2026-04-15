@@ -2,7 +2,9 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
 import heroMobileSrc from '../../assets/hero-mob.png?format=webp&quality=80';
-import heroDesktopSrc from '../../assets/hero (3).png';
+import { DesktopHeroSvg } from '../sections/svg/DesktopHeroSvg.jsx';
+import { MobileHeroSvg } from '../sections/svg/MobileHeroSvg.jsx';
+
 
 // Served from /public/images for <link rel="preload"> in index.html to work
 const heroBgSrc = '/images/hero-bg.webp';
@@ -33,7 +35,7 @@ export function HeroSection() {
     <section data-section id="home" className="scroll-mt-12">
       {/* ── Mobile hero ─────────────────────────────────────────────── */}
       <div
-        className="md:hidden w-full flex flex-col justify-center md:hidden"
+        className="md:hidden w-full flex flex-col justify-center "
         style={{
           backgroundImage: `url(${heroBgSrc})`,
           backgroundSize: '100% 100%',
@@ -55,6 +57,7 @@ export function HeroSection() {
             Request Demo
           </a>
         </div>
+        
       </div>
 
       {/* ── Desktop hero ─────────────────────────────────────────────── */}
@@ -101,9 +104,12 @@ export function HeroSection() {
       </div>
 
       {/* Below-fold workflow image */}
-      <img src={heroMobileSrc} alt="" width={1596} height={1884} className="block md:hidden w-full" loading="lazy" />
-      <img src={heroDesktopSrc} alt="" width={5120} height={1884} className="hidden md:block w-full" loading="lazy" />
-
+      <div className="block md:hidden w-full">
+        <MobileHeroSvg className="w-full h-auto" />
+      </div>
+      <div className="hidden md:block w-full">
+        <DesktopHeroSvg className="w-full h-auto" />
+      </div>
       {/* Reveal text (mobile only) */}
       <div className="md:hidden w-full px-5 pt-6 pb-10">
         <p ref={revealRef} className="font-medium leading-[1.4]" style={{ fontSize: 'clamp(14px, 4.5vw, 20px)', color: '#111827' }}>
