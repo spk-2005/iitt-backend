@@ -39,7 +39,7 @@
   transform-origin: 640.002px 217.881px;
   transform-box: view-box;
   animation:
-    centerSectionEntrance 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both;
+    centerSectionEntrance 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both ,centerFloat 7.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both infinite;
 }
 
 
@@ -50,8 +50,11 @@
 }
 
 @keyframes centerFloat {
-  0%, 100% { transform: translateY(0px);   }
-  50%      { transform: translateY(-5px);  }
+  0% { transform: translateY(2px);   }
+  25%      { transform: translateY(-2px);  }
+  50%, 100%      { transform: translateY(2px);  }
+  
+  75%      { transform: translateY(-2px);  }
 }
 
 .logo-glint {
@@ -96,120 +99,82 @@
   stroke-dasharray: 228px;
   stroke-dashoffset: 228px;
   opacity: 0;
-  animation: ringUnfold 0.7s ease-out 0.6s forwards;
+  
 }
 
 
 /* ─────────────────────────────────────────────
-   2b. WAVE RINGS — 3D ripple (opacity only, no position)
+   2b. WAVE RINGS — water ripple expanding outward
+   Like the reference: each ring expands from its
+   natural size outward while fading, staggered so
+   waves appear to radiate from the center logo.
 ──────────────────────────────────────────────── */
 
-@keyframes waterWave {
-  0%   {
+/*
+ * SVG center: cx=640, cy=217.88
+ * Each circle has a fixed radius in SVG.
+ * We animate scale(1) → scale(1.18) + opacity 1→0
+ * so the ring visually "pulses outward" and fades,
+ * exactly like the CSS ripple reference.
+ * transform-box: fill-box anchors the scale to
+ * each circle's own centre (cx/cy).
+ */
+@keyframes svgRipple {
+  0% {
+    transform: scale(0.88);
     opacity: 0;
-    transform: scale(0.82);
-    filter: blur(1.5px) drop-shadow(0 0 0px var(--wave-color));
+    filter: blur(2px) drop-shadow(0 0 0px var(--wave-color));
   }
-  18%  {
-    opacity: var(--wave-crest);
-    transform: scale(1.04);
+  10% {
+    opacity: var(--wave-peak);
     filter: blur(0px) drop-shadow(0 0 8px var(--wave-color));
   }
-  45%  {
-    opacity: var(--wave-trough);
-    transform: scale(0.97);
-    filter: blur(0.5px) drop-shadow(0 0 3px var(--wave-color));
-  }
-  72%  {
-    opacity: var(--wave-mid);
-    transform: scale(1.015);
-    filter: blur(0px) drop-shadow(0 0 5px var(--wave-color));
-  }
   100% {
-    opacity: var(--wave-rest);
-    transform: scale(1);
-    filter: blur(0px) drop-shadow(0 0 2px var(--wave-color));
-  }
-}
-
-/* Continuous perpetual pulse after the intro wave settles */
-@keyframes waterPulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: var(--wave-rest);
-    filter: drop-shadow(0 0 2px var(--wave-color));
-  }
-  50% {
-    transform: scale(1.035);
-    opacity: calc(var(--wave-rest) + 0.12);
-    filter: drop-shadow(0 0 7px var(--wave-color));
+    transform: scale(1.22);
+    opacity: 0;
+    filter: blur(1px) drop-shadow(0 0 0px var(--wave-color));
   }
 }
 
 .center-wave {
   opacity: 0;
-  transform-origin: 640px 217.88px; /* exact SVG center */
+  transform-origin: 640px 217.88px;
   transform-box: view-box;
 }
 
-/* wave-1 — innermost ring, strongest glow */
+/* ── wave-1 — innermost, brightest, fastest cycle ── */
 .center-wave-1 {
-  --wave-crest:  0.75;
-  --wave-trough: 0.18;
-  --wave-mid:    0.42;
-  --wave-rest:   0.38;
-  --wave-color:  rgba(29, 128, 249, 0.75);
-  animation:
-    waterWave  1.0s cubic-bezier(0.22, 0.61, 0.36, 1) 1.05s both,
-    waterPulse 3.2s ease-in-out 2.1s infinite;
+  --wave-peak:  0.80;
+  --wave-color: rgba(29, 128, 249, 0.80);
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 1.05s ;
 }
 
-/* wave-2 */
+/* ── wave-2 ── */
 .center-wave-2 {
-  --wave-crest:  0.62;
-  --wave-trough: 0.10;
-  --wave-mid:    0.32;
-  --wave-rest:   0.28;
-  --wave-color:  rgba(29, 128, 249, 0.60);
-  animation:
-    waterWave  1.0s cubic-bezier(0.22, 0.61, 0.36, 1) 1.24s both,
-    waterPulse 3.6s ease-in-out 2.3s infinite;
+  --wave-peak:  0.65;
+  --wave-color: rgba(29, 128, 249, 0.65);
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 1.65s infinite;
 }
 
-/* wave-3 */
+/* ── wave-3 ── */
 .center-wave-3 {
-  --wave-crest:  0.48;
-  --wave-trough: 0.06;
-  --wave-mid:    0.24;
-  --wave-rest:   0.20;
-  --wave-color:  rgba(231, 79, 98, 0.50);
-  animation:
-    waterWave  1.0s cubic-bezier(0.22, 0.61, 0.36, 1) 1.43s both,
-    waterPulse 4.0s ease-in-out 2.5s infinite;
+  --wave-peak:  0.50;
+  --wave-color: rgba(125, 35, 247, 0.55);
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 2.25s infinite;
 }
 
-/* wave-4 */
+/* ── wave-4 ── */
 .center-wave-4 {
-  --wave-crest:  0.32;
-  --wave-trough: 0.03;
-  --wave-mid:    0.14;
-  --wave-rest:   0.12;
-  --wave-color:  rgba(231, 79, 98, 0.40);
-  animation:
-    waterWave  1.0s cubic-bezier(0.22, 0.61, 0.36, 1) 1.62s both,
-    waterPulse 4.4s ease-in-out 2.7s infinite;
+  --wave-peak:  0.35;
+  --wave-color: rgba(231, 79, 98, 0.45);
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 2.85s infinite;
 }
 
-/* wave-5 — outermost, faintest */
+/* ── wave-5 — outermost, faintest, slowest phase ── */
 .center-wave-5 {
-  --wave-crest:  0.22;
-  --wave-trough: 0.01;
-  --wave-mid:    0.08;
-  --wave-rest:   0.07;
-  --wave-color:  rgba(125, 35, 247, 0.30);
-  animation:
-    waterWave  1.0s cubic-bezier(0.22, 0.61, 0.36, 1) 1.81s both,
-    waterPulse 5.0s ease-in-out 2.9s infinite;
+  --wave-peak:  0.22;
+  --wave-color: rgba(231, 79, 98, 0.30);
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 3.45s infinite;
 }
 /* ─────────────────────────────────────────────
    3. SIGNAL LINES — directional dash reveal

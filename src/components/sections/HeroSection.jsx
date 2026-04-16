@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
 import heroMobileSrc from '../../assets/hero-mob.png?format=webp&quality=80';
 import { DesktopHeroSvg } from '../sections/svg/DesktopHeroSvg.jsx';
-import { MobileHeroSvg } from '../sections/svg/MobileHeroSvg.jsx';
 
 
 // Served from /public/images for <link rel="preload"> in index.html to work
