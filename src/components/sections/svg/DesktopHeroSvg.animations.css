@@ -39,7 +39,7 @@
   transform-origin: 640.002px 217.881px;
   transform-box: view-box;
   animation:
-    centerSectionEntrance 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both ,centerFloat 4.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both infinite;
+    centerSectionEntrance 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both ,centerFloat 15.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both infinite;
 }
 
 
@@ -47,29 +47,39 @@
   0%   { opacity: 0; transform: scale(0.88)  }
   60%  { opacity: 1; transform: scale(1.02)  }
   100% { opacity: 1; transform: scale(1)        }
-}
-@keyframes centerFloat{
-  0%, 100% {
-    /* Baseline position */
+}@keyframes centerFloat {
+  0% {
     transform: translateY(0) translateX(0) rotate(0deg);
-    animation-timing-function: ease-in-out;
   }
-  25% {
-    /* Slight drift and tilt */
-    transform: translateY(-2px) translateX(1px) rotate(1deg);
-    animation-timing-function: ease-in-out;
+  13% {
+    /* Fast, shallow bob to the right */
+    transform: translateY(-1.2px) translateX(2.1px) rotate(0.6deg);
   }
-  50% {
-    /* Peak height and opposite drift */
-    transform: translateY(-4px) translateX(-1px) rotate(-1deg);
-    animation-timing-function: ease-in-out;
+  27% {
+    /* Deeper dip, slight left drift */
+    transform: translateY(2.4px) translateX(-1.3px) rotate(-0.8deg);
   }
-  75% {
-    /* Dropping back down with a tilt */
-    transform: translateY(-1px) translateX(1px) rotate(0.5deg);
-    animation-timing-function: ease-in-out;
+  43% {
+    /* High peak, significant tilt */
+    transform: translateY(-4.8px) translateX(3.5px) rotate(1.2deg);
+  }
+  61% {
+    /* Mid-level suspension */
+    transform: translateY(-2.1px) translateX(-2.8px) rotate(-1.5deg);
+  }
+  79% {
+    /* Heavy drop, recovery phase */
+    transform: translateY(3.2px) translateX(1.1px) rotate(0.4deg);
+  }
+  91% {
+    /* Late wobble */
+    transform: translateY(-1.5px) translateX(-0.5px) rotate(-0.3deg);
+  }
+  100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
   }
 }
+
 
 .logo-glint {
   /* Initial state: Hidden to the left */
