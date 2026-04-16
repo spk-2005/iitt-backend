@@ -39,7 +39,7 @@
   transform-origin: 640.002px 217.881px;
   transform-box: view-box;
   animation:
-    centerSectionEntrance 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both ,centerFloat 7.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both infinite;
+    centerSectionEntrance 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both ,centerFloat 4.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both infinite;
 }
 
 
@@ -48,13 +48,27 @@
   60%  { opacity: 1; transform: scale(1.02)  }
   100% { opacity: 1; transform: scale(1)        }
 }
-
-@keyframes centerFloat {
-  0% { transform: translateY(2px);   }
-  25%      { transform: translateY(-2px);  }
-  50%, 100%      { transform: translateY(2px);  }
-  
-  75%      { transform: translateY(-2px);  }
+@keyframes centerFloat{
+  0%, 100% {
+    /* Baseline position */
+    transform: translateY(0) translateX(0) rotate(0deg);
+    animation-timing-function: ease-in-out;
+  }
+  25% {
+    /* Slight drift and tilt */
+    transform: translateY(-2px) translateX(1px) rotate(1deg);
+    animation-timing-function: ease-in-out;
+  }
+  50% {
+    /* Peak height and opposite drift */
+    transform: translateY(-4px) translateX(-1px) rotate(-1deg);
+    animation-timing-function: ease-in-out;
+  }
+  75% {
+    /* Dropping back down with a tilt */
+    transform: translateY(-1px) translateX(1px) rotate(0.5deg);
+    animation-timing-function: ease-in-out;
+  }
 }
 
 .logo-glint {
