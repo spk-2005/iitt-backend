@@ -292,7 +292,7 @@
 .center-signal-0 {
   --line-len: 140px;
   animation:
-    dashRevealReverse 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
+    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
     glowPulse 2.4s ease-in-out 3.0s infinite;
 }
 
@@ -300,14 +300,14 @@
 .center-signal-1 {
   --line-len: 108px;
   animation:
-    dashRevealReverse 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
+    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
     glowPulse 2.4s ease-in-out 3.0s infinite;
 }
 
 .center-signal-3 {
   --line-len: 125px;
   animation:
-    dashRevealReverse 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
+    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
     glowPulse 2.4s ease-in-out 3.0s infinite;
 }
 
@@ -315,7 +315,7 @@
 .center-signal-2 {
   --line-len: 98px;
   animation:
-    dashRevealReverse 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
+    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
     glowPulse 2.4s ease-in-out 3.0s infinite;
 }
 
@@ -326,7 +326,7 @@
   --line-len: 98px;
   --glow-color: rgba(29, 128, 249, 0.7);
   animation:
-    dashRevealReverse 1.05s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both,
+    dashRevealReverse 2.5s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both,
     glowPulse 2.4s ease-in-out 2.4s infinite;
 }
 
@@ -426,6 +426,30 @@
 .label-agents {
   --fly-x: 577.7px;
   --fly-y: -104.4px;
+  animation: flyOutFromCenter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 2.8s forwards;
+}
+
+.label-inner-humans {
+  --fly-x: -164px;
+  --fly-y: -74px;
+  animation: flyOutFromCenter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s forwards;
+}
+
+.label-inner-agents {
+  --fly-x: -110.5px;
+  --fly-y: 126px;
+  animation: flyOutFromCenter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 2.4s forwards;
+}
+
+.label-inner-tools {
+  --fly-x: 154px;
+  --fly-y: 106px;
+  animation: flyOutFromCenter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 2.6s forwards;
+}
+
+.label-inner-data {
+  --fly-x: 117.5px;
+  --fly-y: -94px;
   animation: flyOutFromCenter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 2.8s forwards;
 }
 
