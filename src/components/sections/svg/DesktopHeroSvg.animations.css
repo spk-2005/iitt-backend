@@ -20,8 +20,13 @@
    1. CENTER LOGO
 ──────────────────────────────────────────────── */
 @keyframes logoFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 
@@ -39,53 +44,32 @@
   transform-origin: 640.002px 217.881px;
   transform-box: view-box;
   animation:
-    centerSectionEntrance 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both ,centerFloat 15.0s cubic-bezier(0.34, 1.56, 0.64, 1) 4.1s both infinite;
+    centerSectionEntrance 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s both;
 }
 
 
 @keyframes centerSectionEntrance {
-  0%   { opacity: 0; transform: scale(0.88)  }
-  60%  { opacity: 1; transform: scale(1.02)  }
-  100% { opacity: 1; transform: scale(1)        }
-}@keyframes centerFloat {
   0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+    transform: scale(0.88)
   }
-  13% {
-    /* Fast, shallow bob to the right */
-    transform: translateY(-1.2px) translateX(2.1px) rotate(0.6deg);
+
+  60% {
+    opacity: 1;
+    transform: scale(1.02)
   }
-  27% {
-    /* Deeper dip, slight left drift */
-    transform: translateY(2.4px) translateX(-1.3px) rotate(-0.8deg);
-  }
-  43% {
-    /* High peak, significant tilt */
-    transform: translateY(-4.8px) translateX(3.5px) rotate(1.2deg);
-  }
-  61% {
-    /* Mid-level suspension */
-    transform: translateY(-2.1px) translateX(-2.8px) rotate(-1.5deg);
-  }
-  79% {
-    /* Heavy drop, recovery phase */
-    transform: translateY(3.2px) translateX(1.1px) rotate(0.4deg);
-  }
-  91% {
-    /* Late wobble */
-    transform: translateY(-1.5px) translateX(-0.5px) rotate(-0.3deg);
-  }
+
   100% {
-    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 1;
+    transform: scale(1)
   }
 }
-
 
 .logo-glint {
   /* Initial state: Hidden to the left */
   transform: translateX(-150px) skewX(-25deg);
   opacity: 0;
-  
+
   /* Trigger: Starts at 1.2s (after logo entrance)
      Duration: 0.85s (from your reference)
      'forwards' ensures it stays at the end position and doesn't loop
@@ -98,24 +82,40 @@
     transform: translateX(-150px) skewX(-25deg);
     opacity: 0;
   }
+
   20% {
-    opacity: 1; /* Fade in quickly as it starts moving */
+    opacity: 1;
+    /* Fade in quickly as it starts moving */
   }
+
   80% {
     opacity: 1;
   }
+
   100% {
     transform: translateX(150px) skewX(-25deg);
-    opacity: 0; /* Fade out at the end */
+    opacity: 0;
+    /* Fade out at the end */
   }
 }
+
 /* ─────────────────────────────────────────────
    2. CENTER ICON RING
 ──────────────────────────────────────────────── */
 @keyframes ringUnfold {
-  from { stroke-dashoffset: var(--circ); opacity: 0; }
-  8%   { opacity: 1; }
-  to   { stroke-dashoffset: 0; opacity: 1; }
+  from {
+    stroke-dashoffset: var(--circ);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
 }
 
 .center-icon {
@@ -123,7 +123,7 @@
   stroke-dasharray: 228px;
   stroke-dashoffset: 228px;
   opacity: 0;
-  
+
 }
 
 
@@ -149,10 +149,12 @@
     opacity: 0;
     filter: blur(2px) drop-shadow(0 0 0px var(--wave-color));
   }
+
   10% {
     opacity: var(--wave-peak);
     filter: blur(0px) drop-shadow(0 0 8px var(--wave-color));
   }
+
   100% {
     transform: scale(1.22);
     opacity: 0;
@@ -168,38 +170,39 @@
 
 /* ── wave-1 — innermost, brightest, fastest cycle ── */
 .center-wave-1 {
-  --wave-peak:  0.80;
+  --wave-peak: 0.80;
   --wave-color: rgba(29, 128, 249, 0.80);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 1.05s ;
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 1.05s;
 }
 
 /* ── wave-2 ── */
 .center-wave-2 {
-  --wave-peak:  0.65;
+  --wave-peak: 0.65;
   --wave-color: rgba(29, 128, 249, 0.65);
   animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 1.65s infinite;
 }
 
 /* ── wave-3 ── */
 .center-wave-3 {
-  --wave-peak:  0.50;
+  --wave-peak: 0.50;
   --wave-color: rgba(125, 35, 247, 0.55);
   animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 2.25s infinite;
 }
 
 /* ── wave-4 ── */
 .center-wave-4 {
-  --wave-peak:  0.35;
+  --wave-peak: 0.35;
   --wave-color: rgba(231, 79, 98, 0.45);
   animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 2.85s infinite;
 }
 
 /* ── wave-5 — outermost, faintest, slowest phase ── */
 .center-wave-5 {
-  --wave-peak:  0.22;
+  --wave-peak: 0.22;
   --wave-color: rgba(231, 79, 98, 0.30);
   animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 3.45s infinite;
 }
+
 /* ─────────────────────────────────────────────
    3. SIGNAL LINES — directional dash reveal
    ─────────────────────────────────────────────
@@ -220,13 +223,20 @@
 
 /* Center → dot  (used by signal-line-2 & signal-line-4) */
 @keyframes dashReveal {
-  0%   {
+  0% {
     stroke-dashoffset: var(--line-len);
     opacity: 0;
     filter: drop-shadow(0 0 0px var(--glow-color));
   }
-  8%   { opacity: 1; }
-  60%  { filter: drop-shadow(0 0 5px var(--glow-color)); }
+
+  8% {
+    opacity: 1;
+  }
+
+  60% {
+    filter: drop-shadow(0 0 5px var(--glow-color));
+  }
+
   100% {
     stroke-dashoffset: 0;
     opacity: 1;
@@ -236,13 +246,20 @@
 
 /* Dot → center  (used by signal-line-1 & signal-line-3, fires first) */
 @keyframes dashRevealReverse {
-  0%   {
+  0% {
     stroke-dashoffset: calc(-1 * var(--line-len));
     opacity: 0;
     filter: drop-shadow(0 0 0px var(--glow-color));
   }
-  8%   { opacity: 1; }
-  60%  { filter: drop-shadow(0 0 5px var(--glow-color)); }
+
+  8% {
+    opacity: 1;
+  }
+
+  60% {
+    filter: drop-shadow(0 0 5px var(--glow-color));
+  }
+
   100% {
     stroke-dashoffset: 0;
     opacity: 1;
@@ -251,8 +268,17 @@
 }
 
 @keyframes glowPulse {
-  0%, 100% { filter: drop-shadow(0 0 2px var(--glow-color)); opacity: 1; }
-  50%       { filter: drop-shadow(0 0 7px var(--glow-color)); opacity: 0.85; }
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 2px var(--glow-color));
+    opacity: 1;
+  }
+
+  50% {
+    filter: drop-shadow(0 0 7px var(--glow-color));
+    opacity: 0.85;
+  }
 }
 
 .center-signal {
@@ -266,31 +292,31 @@
 .center-signal-0 {
   --line-len: 140px;
   animation:
-    dashReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.8s both,
-    glowPulse  2.4s ease-in-out 3.2s infinite;
+    dashRevealReverse 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
+    glowPulse 2.4s ease-in-out 3.0s infinite;
 }
 
 /* ── RIGHT-SIDE lines: dot → center, animate FIRST (2.0s) ── */
 .center-signal-1 {
   --line-len: 108px;
   animation:
-    dashRevealReverse 1.0s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both,
-    glowPulse         2.4s ease-in-out 3.2s infinite;
+    dashRevealReverse 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
+    glowPulse 2.4s ease-in-out 3.0s infinite;
 }
 
 .center-signal-3 {
   --line-len: 125px;
   animation:
-    dashRevealReverse 1.05s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both,
-    glowPulse         2.4s ease-in-out 3.2s infinite;
+    dashRevealReverse 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
+    glowPulse 2.4s ease-in-out 3.0s infinite;
 }
 
 /* ── LEFT-SIDE lines: same timing + same direction as right ── */
 .center-signal-2 {
   --line-len: 98px;
   animation:
-    dashRevealReverse 1.0s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both,
-    glowPulse         2.4s ease-in-out 3.2s infinite;
+    dashRevealReverse 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
+    glowPulse 2.4s ease-in-out 3.0s infinite;
 }
 
 .signal-line-4 {
@@ -300,8 +326,8 @@
   --line-len: 98px;
   --glow-color: rgba(29, 128, 249, 0.7);
   animation:
-    dashRevealReverse 1.05s cubic-bezier(0.16, 1, 0.3, 1) 2.0s both,
-    glowPulse         2.4s ease-in-out 3.2s infinite;
+    dashRevealReverse 1.05s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both,
+    glowPulse 2.4s ease-in-out 2.4s infinite;
 }
 
 /* ─────────────────────────────────────────────
@@ -309,10 +335,24 @@
    Spring-in pop with scale + opacity.
 ──────────────────────────────────────────────── */
 @keyframes nodeFadeScale {
-  0%   { opacity: 0; transform: scale(0.15); }
-  65%  { opacity: 1; transform: scale(1.4);  }
-  82%  { transform: scale(0.88); }
-  100% { opacity: 1; transform: scale(1);    }
+  0% {
+    opacity: 0;
+    transform: scale(0.15);
+  }
+
+  65% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+
+  82% {
+    transform: scale(0.88);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .title-node {
@@ -321,10 +361,21 @@
   transform-box: fill-box;
 }
 
-.title-node-1 { animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s  forwards; }
-.title-node-2 { animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.35s forwards; }
-.title-node-3 { animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.5s  forwards; }
-.title-node-4 { animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.65s forwards; }
+.title-node-1 {
+  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s forwards;
+}
+
+.title-node-2 {
+  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.35s forwards;
+}
+
+.title-node-3 {
+  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.5s forwards;
+}
+
+.title-node-4 {
+  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.65s forwards;
+}
 
 
 /* ─────────────────────────────────────────────
@@ -332,18 +383,51 @@
    Four labels: Data (top-right), Humans (left),
    Tools (bottom-left), Agents (far bottom-left)
 ──────────────────────────────────────────────── */
-@keyframes labelReveal {
-  0%   { opacity: 0; transform: translateY(7px);  }
-  55%  { opacity: 1; transform: translateY(-2px); }
-  100% { opacity: 1; transform: translateY(0px);  }
+@keyframes flyOutFromCenter {
+  0% {
+    opacity: 0;
+    transform: translate(var(--fly-x, 0px), var(--fly-y, 0px)) scale(0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate(calc(var(--fly-x) * -0.05), calc(var(--fly-y) * -0.05)) scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
 }
 
-.label-group { opacity: 0; }
+.label-group {
+  opacity: 0;
+  transform-box: view-box;
+}
 
-.label-data   { animation: labelReveal 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 2.4s  forwards; }
-.label-tools  { animation: labelReveal 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 2.55s forwards; }
-.label-humans { animation: labelReveal 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 2.7s  forwards; }
-.label-agents { animation: labelReveal 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 2.85s forwards; }
+.label-data {
+  --fly-x: -91.5px;
+  --fly-y: 89.4px;
+  animation: flyOutFromCenter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s forwards;
+}
+
+.label-tools {
+  --fly-x: 319.7px;
+  --fly-y: -126.4px;
+  animation: flyOutFromCenter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 2.4s forwards;
+}
+
+.label-humans {
+  --fly-x: 461.7px;
+  --fly-y: 62.4px; /* Positive because center logo is BELOW this label in the SVG coordinate system */
+  animation: flyOutFromCenter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 2.6s forwards;
+}
+
+.label-agents {
+  --fly-x: 577.7px;
+  --fly-y: -104.4px;
+  animation: flyOutFromCenter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 2.8s forwards;
+}
 
 
 /* ─────────────────────────────────────────────
@@ -352,9 +436,19 @@
    All use class .corner-line-tl (top-left quad group).
 ──────────────────────────────────────────────── */
 @keyframes drawCornerLine {
-  from { stroke-dashoffset: 200px; opacity: 0; }
-  6%   { opacity: 0.7; }
-  to   { stroke-dashoffset: 0; opacity: 1; }
+  from {
+    stroke-dashoffset: 200px;
+    opacity: 0;
+  }
+
+  6% {
+    opacity: 0.7;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
 }
 
 .corner-line-tl {
@@ -365,10 +459,21 @@
 }
 
 /* Stagger each sibling line after the first */
-.corner-line-tl ~ .corner-line-tl                 { animation-delay: 3.15s; }
-.corner-line-tl ~ .corner-line-tl ~ .corner-line-tl { animation-delay: 3.3s; }
-.corner-line-tl ~ .corner-line-tl ~ .corner-line-tl ~ .corner-line-tl { animation-delay: 3.45s; }
-.corner-line-tl ~ .corner-line-tl ~ .corner-line-tl ~ .corner-line-tl ~ .corner-line-tl { animation-delay: 3.6s; }
+.corner-line-tl~.corner-line-tl {
+  animation-delay: 3.15s;
+}
+
+.corner-line-tl~.corner-line-tl~.corner-line-tl {
+  animation-delay: 3.3s;
+}
+
+.corner-line-tl~.corner-line-tl~.corner-line-tl~.corner-line-tl {
+  animation-delay: 3.45s;
+}
+
+.corner-line-tl~.corner-line-tl~.corner-line-tl~.corner-line-tl~.corner-line-tl {
+  animation-delay: 3.6s;
+}
 
 .corner-line-tr {
   stroke-dasharray: 200px;
@@ -376,12 +481,14 @@
   opacity: 0;
   animation: drawCornerLine 0.65s ease-out 3.1s forwards;
 }
+
 .corner-line-bl {
   stroke-dasharray: 200px;
   stroke-dashoffset: 200px;
   opacity: 0;
   animation: drawCornerLine 0.65s ease-out 3.25s forwards;
 }
+
 .corner-line-br {
   stroke-dasharray: 200px;
   stroke-dashoffset: 200px;
@@ -394,10 +501,24 @@
    7. SMALL GREY DOTS — spring pop after their lines draw
 ──────────────────────────────────────────────── */
 @keyframes dotReveal {
-  0%   { opacity: 0; transform: scale(0);   }
-  65%  { opacity: 1; transform: scale(1.5); }
-  85%  { transform: scale(0.85); }
-  100% { opacity: 1; transform: scale(1);   }
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  65% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+
+  85% {
+    transform: scale(0.85);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .grey-dot {
@@ -406,9 +527,17 @@
   transform-box: fill-box;
 }
 
-.grey-dot-tl-1 { animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.65s forwards; }
-.grey-dot-tl-2 { animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.8s  forwards; }
-.grey-dot-tl-3 { animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.95s forwards; }
+.grey-dot-tl-1 {
+  animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.65s forwards;
+}
+
+.grey-dot-tl-2 {
+  animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.8s forwards;
+}
+
+.grey-dot-tl-3 {
+  animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.95s forwards;
+}
 
 
 /* ─────────────────────────────────────────────
@@ -428,8 +557,15 @@
 
 /* ── Shared reveal keyframes ── */
 @keyframes imgReveal {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0px); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
 
 /* For groups that have their own partial SVG opacity value,
@@ -440,6 +576,7 @@
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: var(--base-opacity, 1);
     transform: translateY(0px);
@@ -472,9 +609,11 @@
 .img-reveal-1 {
   animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
 }
+
 .img-reveal-1b {
   animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.1s forwards;
 }
+
 .img-reveal-1c {
   animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
 }
@@ -483,6 +622,7 @@
 .img-reveal-3 {
   animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
 }
+
 .img-reveal-3b {
   animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.35s forwards;
 }
@@ -501,12 +641,15 @@
 .bg-img-1 {
   animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
 }
+
 .bg-img-2 {
   animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
 }
+
 .bg-img-3 {
   animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
 }
+
 .bg-img-4 {
   animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.35s forwards;
 }
@@ -525,17 +668,59 @@
    of the 1280×471 SVG in a smooth infinite loop.
 ──────────────────────────────────────────────── */
 @keyframes roamingDot {
-  0%   { transform: translate(0px,    0px);   opacity: 0; }
-  4%   { opacity: 1; }
-  18%  { transform: translate(952px,  3px);   opacity: 1; }
-  22%  { transform: translate(945px,  18px);  opacity: 1; }
-  40%  { transform: translate(900px,  332px); opacity: 1; }
-  44%  { transform: translate(880px,  340px); opacity: 1; }
-  62%  { transform: translate(50px,   338px); opacity: 1; }
-  66%  { transform: translate(42px,   320px); opacity: 1; }
-  82%  { transform: translate(-15px,  90px);  opacity: 1; }
-  96%  { transform: translate(0px,    0px);   opacity: 1; }
-  100% { transform: translate(0px,    0px);   opacity: 1; }
+  0% {
+    transform: translate(0px, 0px);
+    opacity: 0;
+  }
+
+  4% {
+    opacity: 1;
+  }
+
+  18% {
+    transform: translate(952px, 3px);
+    opacity: 1;
+  }
+
+  22% {
+    transform: translate(945px, 18px);
+    opacity: 1;
+  }
+
+  40% {
+    transform: translate(900px, 332px);
+    opacity: 1;
+  }
+
+  44% {
+    transform: translate(880px, 340px);
+    opacity: 1;
+  }
+
+  62% {
+    transform: translate(50px, 338px);
+    opacity: 1;
+  }
+
+  66% {
+    transform: translate(42px, 320px);
+    opacity: 1;
+  }
+
+  82% {
+    transform: translate(-15px, 90px);
+    opacity: 1;
+  }
+
+  96% {
+    transform: translate(0px, 0px);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(0px, 0px);
+    opacity: 1;
+  }
 }
 
 .big-roaming-dot {
@@ -557,9 +742,11 @@
     stroke-dashoffset: 300;
     opacity: 0;
   }
+
   8% {
     opacity: 1;
   }
+
   to {
     stroke-dashoffset: 0;
     opacity: 1;
@@ -571,9 +758,11 @@
     stroke-dashoffset: 300;
     opacity: 0;
   }
+
   8% {
     opacity: 0.36;
   }
+
   to {
     stroke-dashoffset: 0;
     opacity: 0.36;
@@ -588,30 +777,26 @@
 
 /* ── right-zone + left-zone: fire simultaneously ── */
 .dashed-bg-line.right-zone {
-  animation: dashRevealFull 0.75s cubic-bezier(0.16, 1, 0.3, 1)
-             var(--draw-delay, 0.5s) both;
+  animation: dashRevealFull 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--draw-delay, 0.5s) both;
 }
+
 .dashed-bg-line.right-zone[opacity="0.36"] {
-  animation: dashRevealPartial 0.75s cubic-bezier(0.16, 1, 0.3, 1)
-             var(--draw-delay, 0.5s) both;
+  animation: dashRevealPartial 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--draw-delay, 0.5s) both;
 }
 
 /* left-zone now uses same --draw-delay default as right-zone */
 .dashed-bg-line.left-zone {
-  animation: dashRevealFull 0.75s cubic-bezier(0.16, 1, 0.3, 1)
-             var(--draw-delay, 0.5s) both;
+  animation: dashRevealFull 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--draw-delay, 0.5s) both;
 }
+
 .dashed-bg-line.left-zone[opacity="0.36"] {
-  animation: dashRevealPartial 0.75s cubic-bezier(0.16, 1, 0.3, 1)
-             var(--draw-delay, 0.5s) both;
+  animation: dashRevealPartial 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--draw-delay, 0.5s) both;
 }
+
 /* ── center-signal: sits in the middle of the wave (1.8s–2.4s) ── */
 .dashed-bg-line.center-signal {
   stroke-dashoffset: var(--line-len);
   opacity: 0;
-  animation:
-    dashReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.8s both,
-    glowPulse  2.4s ease-in-out 3.2s infinite;
 }
 
 
@@ -626,12 +811,27 @@
      left-zone  dashed lines finish arriving: ~3.3–3.45s
 ══════════════════════════════════════════════════════════════════ */
 @keyframes connectedReveal {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0);   }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes connectedRevealPartial {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: var(--item-opacity, 1); transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: var(--item-opacity, 1);
+    transform: translateY(0);
+  }
 }
 
 /* ── Base: ALL connected-item start hidden ── */
@@ -661,7 +861,7 @@
 
 /* ── center-zone: near-center items reveal at center signal timing ── */
 .connected-item.center-zone,
-.connected-item > .center-zone {
+.connected-item>.center-zone {
   /* The parent group handles this; center-zone is inside connected-item */
 }
 
@@ -702,64 +902,653 @@
 }
 
 @keyframes dotPopIn {
-  0%   { opacity: 0; transform: scale(0);   }
-  60%  { opacity: 1; transform: scale(1.6); }
-  80%  {             transform: scale(0.85);}
-  100% { opacity: 1; transform: scale(1);   }
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1.6);
+  }
+
+  80% {
+    transform: scale(0.85);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* ── Unique traverse keyframes (one per dot) ── */
-@keyframes dotTraverse1  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-60px,-28px)}95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse2  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(69px,-69px)} 95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse3  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(43px,19px)}  95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse4  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(18px,-16px)} 95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse5  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(64px,38px)}  95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse6  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(38px,-31px)} 95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse7  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(49px,22px)}  95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse8  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(20px,-52px)} 95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse9  {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(63px,39px)}  95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse10 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-41px,-20px)}95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse11 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-12px,-17px)}95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse12 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(37px,-17px)} 95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse13 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(50px,23px)}  95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse14 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-12px,-16px)}95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse15 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(18px,-52px)} 95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse16 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(38px,-18px)} 95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse17 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-38px,-172px)}95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse18 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-15px,-14px)}95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse19 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-6px,33px)}  95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse20 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-49px,-29px)}95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse21 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(61px,24px)}  95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse22 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-10px,15px)} 95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse23 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(46px,-17px)} 95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse24 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(32px,46px)}  95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse25 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(-7px,19px)}  95%,100%{transform:translate(0,0)}}
-@keyframes dotTraverse26 {0%,5%{transform:translate(0,0)}45%,55%{transform:translate(13px,33px)}  95%,100%{transform:translate(0,0)}}
+@keyframes dotTraverse1 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(-60px, -28px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse2 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(69px, -69px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse3 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(43px, 19px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse4 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(18px, -16px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse5 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(64px, 38px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse6 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(38px, -31px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse7 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(49px, 22px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse8 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(20px, -52px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse9 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(63px, 39px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse10 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(-41px, -20px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse11 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(-12px, -17px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse12 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(37px, -17px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse13 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(50px, 23px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse14 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(-12px, -16px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse15 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(18px, -52px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse16 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(38px, -18px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse17 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(-38px, -172px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse18 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(-15px, -14px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse19 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(-6px, 33px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse20 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(-49px, -29px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse21 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(61px, 24px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse22 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(-10px, 15px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse23 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(46px, -17px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse24 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(32px, 46px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse25 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(-7px, 19px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
+
+@keyframes dotTraverse26 {
+
+  0%,
+  5% {
+    transform: translate(0, 0)
+  }
+
+  45%,
+  55% {
+    transform: translate(13px, 33px)
+  }
+
+  95%,
+  100% {
+    transform: translate(0, 0)
+  }
+}
 
 /* ── Per-dot rules: pop-in (once) then traverse (infinite), staggered ── */
-.dot-1  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.25s both, dotTraverse1  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.65s infinite; }
-.dot-2  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.30s both, dotTraverse2  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.70s infinite; }
-.dot-3  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.35s both, dotTraverse3  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.75s infinite; }
-.dot-4  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.40s both, dotTraverse4  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.80s infinite; }
-.dot-5  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.45s both, dotTraverse5  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.85s infinite; }
-.dot-6  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.50s both, dotTraverse6  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.90s infinite; }
-.dot-7  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.55s both, dotTraverse7  7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.95s infinite; }
-.dot-8  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.60s both, dotTraverse8  7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.00s infinite; }
-.dot-9  { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.65s both, dotTraverse9  7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.05s infinite; }
-.dot-10 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.30s both, dotTraverse10 8s  cubic-bezier(0.45,0.05,0.55,0.95) 4.70s infinite; }
-.dot-11 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.35s both, dotTraverse11 6s  cubic-bezier(0.45,0.05,0.55,0.95) 4.75s infinite; }
-.dot-12 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.40s both, dotTraverse12 7s  cubic-bezier(0.45,0.05,0.55,0.95) 4.80s infinite; }
-.dot-13 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.45s both, dotTraverse13 9s  cubic-bezier(0.45,0.05,0.55,0.95) 4.85s infinite; }
-.dot-14 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.50s both, dotTraverse14 6s  cubic-bezier(0.45,0.05,0.55,0.95) 4.90s infinite; }
-.dot-15 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.55s both, dotTraverse15 8s  cubic-bezier(0.45,0.05,0.55,0.95) 4.95s infinite; }
-.dot-16 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.60s both, dotTraverse16 7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.00s infinite; }
-.dot-17 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.65s both, dotTraverse17 10s cubic-bezier(0.45,0.05,0.55,0.95) 5.05s infinite; }
-.dot-18 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.70s both, dotTraverse18 6s  cubic-bezier(0.45,0.05,0.55,0.95) 5.10s infinite; }
-.dot-19 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.75s both, dotTraverse19 7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.15s infinite; }
-.dot-20 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.80s both, dotTraverse20 8s  cubic-bezier(0.45,0.05,0.55,0.95) 5.20s infinite; }
-.dot-21 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.85s both, dotTraverse21 7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.25s infinite; }
-.dot-22 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.90s both, dotTraverse22 6s  cubic-bezier(0.45,0.05,0.55,0.95) 5.30s infinite; }
-.dot-23 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 4.95s both, dotTraverse23 7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.35s infinite; }
-.dot-24 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 5.00s both, dotTraverse24 8s  cubic-bezier(0.45,0.05,0.55,0.95) 5.40s infinite; }
-.dot-25 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 5.05s both, dotTraverse25 6s  cubic-bezier(0.45,0.05,0.55,0.95) 5.45s infinite; }
-.dot-26 { animation: dotPopIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 5.10s both, dotTraverse26 7s  cubic-bezier(0.45,0.05,0.55,0.95) 5.50s infinite; }
+.dot-1 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.25s both, dotTraverse1 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.65s infinite;
+}
+
+.dot-2 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.30s both, dotTraverse2 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.70s infinite;
+}
+
+.dot-3 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.35s both, dotTraverse3 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.75s infinite;
+}
+
+.dot-4 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.40s both, dotTraverse4 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.80s infinite;
+}
+
+.dot-5 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.45s both, dotTraverse5 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.85s infinite;
+}
+
+.dot-6 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.50s both, dotTraverse6 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.90s infinite;
+}
+
+.dot-7 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.55s both, dotTraverse7 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.95s infinite;
+}
+
+.dot-8 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.60s both, dotTraverse8 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.00s infinite;
+}
+
+.dot-9 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.65s both, dotTraverse9 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.05s infinite;
+}
+
+.dot-10 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.30s both, dotTraverse10 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.70s infinite;
+}
+
+.dot-11 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.35s both, dotTraverse11 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.75s infinite;
+}
+
+.dot-12 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.40s both, dotTraverse12 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.80s infinite;
+}
+
+.dot-13 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.45s both, dotTraverse13 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.85s infinite;
+}
+
+.dot-14 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.50s both, dotTraverse14 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.90s infinite;
+}
+
+.dot-15 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.55s both, dotTraverse15 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.95s infinite;
+}
+
+.dot-16 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.60s both, dotTraverse16 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.00s infinite;
+}
+
+.dot-17 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.65s both, dotTraverse17 10s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.05s infinite;
+}
+
+.dot-18 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.70s both, dotTraverse18 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.10s infinite;
+}
+
+.dot-19 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.75s both, dotTraverse19 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.15s infinite;
+}
+
+.dot-20 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.80s both, dotTraverse20 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.20s infinite;
+}
+
+.dot-21 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.85s both, dotTraverse21 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.25s infinite;
+}
+
+.dot-22 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.90s both, dotTraverse22 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.30s infinite;
+}
+
+.dot-23 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.95s both, dotTraverse23 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.35s infinite;
+}
+
+.dot-24 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 5.00s both, dotTraverse24 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.40s infinite;
+}
+
+.dot-25 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 5.05s both, dotTraverse25 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.45s infinite;
+}
+
+.dot-26 {
+  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 5.10s both, dotTraverse26 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.50s infinite;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   13. CI-SLIDE — connected-item labels that slide in FROM their
+       connector-line direction, synchronized with the line draw.
+
+   Each .ci-slide group sets inline CSS custom props:
+     --ci-tx  : horizontal offset to start from (e.g. 30px, -28px)
+     --ci-ty  : vertical offset to start from  (e.g. -18px, 14px)
+     --ci-delay: when to start (matches line draw completion time)
+
+   The animation overrides the plain connectedReveal above for
+   all zone variants, replacing the vertical-only 6px lift with
+   a directional slide from the connected line origin.
+══════════════════════════════════════════════════════════════════ */
+
+@keyframes ciSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(var(--ci-tx, 0px), var(--ci-ty, 8px));
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+/* Override all zone-based animations for .ci-slide elements */
+.connected-item.ci-slide,
+.connected-item.ci-slide.right-zone,
+.connected-item.ci-slide.left-zone,
+.connected-item.ci-slide.far-right-zone {
+  animation: ciSlideIn 2s cubic-bezier(0.22, 0.61, 0.36, 1) var(--ci-delay, 1.0s) both !important;
+}
+
+@keyframes flowCardBorder {
+  0% {
+    stroke-dashoffset: 400;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.card-flow-animation {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  opacity: 0;
+  animation: flowCardBorder 1.5s cubic-bezier(0.16, 1, 0.3, 1) 2.5s forwards;
+}
