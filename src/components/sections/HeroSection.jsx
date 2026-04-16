@@ -41,6 +41,9 @@ export function HeroSection() {
           backgroundPosition: 'center',
         }}
       >
+          <h1 className="hidden">
+        Anseru - AI Agents for RFPs and Security Questionnaires | Deal Intelligence Platform
+      </h1>
         {/* pt-16 clears the fixed navbar (~64px); px/pb give breathing room matching the screenshot */}
         <div className="px-5 pt-18 pb-7">
           <h1
@@ -61,6 +64,7 @@ export function HeroSection() {
 
       {/* ── Desktop hero ─────────────────────────────────────────────── */}
       <div className="hidden md:block relative w-full pt-3 pb-3">
+        
         <div className="absolute inset-0 h-full w-full overflow-hidden">
           <img
             src={heroBgSrc}
@@ -100,6 +104,9 @@ export function HeroSection() {
             </div>
           </div>
         </div>
+          <h1 className="hidden-h1 md:hidden">
+        Anseru - AI Agents for RFPs and Security Questionnaires | Deal Intelligence Platform
+      </h1>
       </div>
 
       {/* Below-fold workflow image */}
