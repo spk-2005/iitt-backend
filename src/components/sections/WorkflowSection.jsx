@@ -111,8 +111,8 @@
       const revealedRef = useRef(0);
 
   useEffect(() => {
-    rowRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; } });
-    segRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; } });
+    rowRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; } });
+    segRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; } });
 
     const totalNodes = RFP_NODES.length;
     const SCROLL_PER_NODE = 60;
@@ -134,12 +134,12 @@
       rowRefs.current.forEach((el, i) => {
         if (!el) return;
         el.style.transition = animate ? 'opacity 0.4s ease' : 'none';
-        el.style.opacity = i < count ? '1' : '0.25';
+        el.style.opacity = i < count ? '1' : '0.45';
       });
       segRefs.current.forEach((el, i) => {
         if (!el) return;
         el.style.transition = animate ? 'opacity 0.3s ease' : 'none';
-        el.style.opacity = i < count - 1 ? '0.5' : '0.25';
+        el.style.opacity = i < count - 1 ? '0.5' : '0.45';
       });
     };
 
@@ -156,10 +156,10 @@
         if (revealedRef.current !== 0) {
           revealedRef.current = 0;
           rowRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; }
           });
           segRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; }
           });
         }
         return;
@@ -171,10 +171,10 @@
         if (revealedRef.current !== 0) {
           revealedRef.current = 0;
           rowRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; }
           });
           segRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; }
           });
         }
         return;
@@ -225,7 +225,7 @@
             padding: '20px 20px 0',
             width: '100%',
           }}>
-            <p style={{ fontSize: 'clamp(14px,3vw,15px)', color: '#6B7280', marginBottom: 3 }}>
+            <p style={{ fontSize: 'clamp(14px,3vw,15px)', color: '#525252', marginBottom: 3 }}>
               The Future of RFP Responses
             </p>
             <h2 style={{
@@ -234,14 +234,14 @@
             }}>
               From RFP to Winning Proposal
             </h2>
-            <h3 style={{
+            <h2 style={{
               fontFamily: 'DM Sans, sans-serif', fontSize: 'clamp(24px,6vw,36px)',
               fontWeight: 400, lineHeight: 1.2, textAlign: 'center', width: '100%',
               margin: '20px 0 clamp(16px,4vw,24px)', letterSpacing: '-0.02em', color: '#000',
             }}>
               End-to-End<br />
               <span style={{ color: '#2C48DB' }}>Deal Intelligence</span>
-            </h3>
+            </h2>
           </div>
 
           {/* ── outerRef is tall — gives sticky its scroll budget ── */}
@@ -284,7 +284,7 @@
                           background: '#d9d9d9',
                           zIndex: 0,
                           pointerEvents: 'none',
-                          opacity: 0.25,
+                          opacity: 0.45,
                         }}
                       />
                     ))}
@@ -297,7 +297,7 @@
                           display: 'flex', alignItems: 'flex-start', gap: 12,
                           height: ROW_H, minHeight: ROW_H,
                           position: 'relative', zIndex: 2,
-                          opacity: 0.25,
+                          opacity: 0.45,
                         }}
                       >
                         <div style={{
@@ -359,7 +359,7 @@
                           </p>
                           <p style={{
                             margin: 0, fontSize: 'clamp(11px,3.2vw,13px)',
-                            color: '#666', lineHeight: 1.35, minHeight: '2.7em',
+                            color: '#444', lineHeight: 1.35, minHeight: '2.7em',
                             overflow: 'hidden', display: '-webkit-box',
                             WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
                           }}>

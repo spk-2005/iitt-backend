@@ -83,12 +83,12 @@ export function SecuritySection() {
                     <img src={node.icon} loading="lazy" alt="" width={40} height={40} className="w-full h-full object-contain" />
                   </div>
                   <div className="pt-1">
-                    <h4
+                    <h3
                       className="font-medium text-[#111827] leading-snug mb-1"
                       style={{ fontSize: 'clamp(15px, 4vw, 17px)' }}
                     >
                       {node.title}
-                    </h4>
+                    </h3>
                     <p
                       className="text-gray-600 leading-relaxed"
                       style={{ fontSize: 'clamp(13px, 3.5vw, 14px)' }}

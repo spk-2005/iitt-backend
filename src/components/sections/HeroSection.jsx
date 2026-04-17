@@ -41,9 +41,9 @@ export function HeroSection() {
           backgroundPosition: 'center',
         }}
       >
-          <h1 className="hidden">
-        Anseru - AI Agents for RFPs and Security Questionnaires | Deal Intelligence Platform
-      </h1>
+        <div className="hidden">
+          Anseru - AI Agents for RFPs and Security Questionnaires | Deal Intelligence Platform
+        </div>
         {/* pt-16 clears the fixed navbar (~64px); px/pb give breathing room matching the screenshot */}
         <div className="px-5 pt-18 pb-7">
           <h1
@@ -54,6 +54,7 @@ export function HeroSection() {
           </h1>
           <a
             href="https://calendly.com/kg-goutham-anseru"
+            aria-label="Request a demo for Anseru platform (mobile)"
             className="inline-block bg-white text-black text-sm font-medium px-5 py-2.5 rounded-[5px] hover:bg-gray-100 transition"
           >
             Request Demo
@@ -81,15 +82,16 @@ export function HeroSection() {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center h-full">
             <div className="space-y-6 pt-24 pb-10 text-left overflow-visible">
 
-              <h1 className="anseru-section-title text-white">
+              <h2 className="anseru-section-title text-white">
                 AI Agents for RFPs and Security
                 <br />
                 Questionnaires | Deal Intelligence
                 <br />
                 Platform
-              </h1>
+              </h2>
               <a
                 href="https://calendly.com/kg-goutham-anseru"
+                aria-label="Request a demo for Anseru platform (desktop)"
                 className="inline-block bg-white text-black text-sm font-medium px-5 py-2.5 rounded-[5px] hover:bg-gray-100 transition"
               >
                 Request Demo
@@ -104,9 +106,9 @@ export function HeroSection() {
             </div>
           </div>
         </div>
-          <h1 className="hidden-h1 md:hidden">
-        Anseru - AI Agents for RFPs and Security Questionnaires | Deal Intelligence Platform
-      </h1>
+        <div className="hidden-h1 md:hidden hidden">
+          Anseru - AI Agents for RFPs and Security Questionnaires | Deal Intelligence Platform
+        </div>
       </div>
 
       {/* Below-fold workflow image */}
@@ -128,7 +130,7 @@ export function HeroSection() {
       <div className="md:hidden w-full px-5 pt-6 pb-10">
         <p ref={revealRef} className="font-medium leading-[1.4]" style={{ fontSize: 'clamp(14px, 4.5vw, 20px)', color: '#111827' }}>
           {words.map((word, i) => (
-            <span key={i} className="reveal-word" style={{ color: '#d1d5db' }}>
+            <span key={i} className="reveal-word" style={{ color: '#6b7280' }}>
               {word}{' '}
             </span>
           ))}

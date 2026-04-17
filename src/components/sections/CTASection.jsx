@@ -47,22 +47,23 @@ export function CTASection() {
 
             {/* Button */}
             <div className="md:ml-29">
-              <a href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: '#000',
-                  color: '#fff',
-                  padding: `clamp(10px,2vw,14px) clamp(24px,5vw,40px)`,
-                  borderRadius: '6px',
-                  fontSize: 'clamp(13px,3.5vw,15px)',
-                  fontWeight: 500,
-                  textDecoration: 'none',
-                  whiteSpace: 'nowrap',
-                }}>
-                Request Demo
-              </a>
+                <a href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
+                  aria-label="Request a demo for Enterprise deals"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: '#000',
+                    color: '#fff',
+                    padding: `clamp(10px,2vw,14px) clamp(24px,5vw,40px)`,
+                    borderRadius: '6px',
+                    fontSize: 'clamp(13px,3.5vw,15px)',
+                    fontWeight: 500,
+                    textDecoration: 'none',
+                    whiteSpace: 'nowrap',
+                  }}>
+                  Request Demo
+                </a>
             </div>
           </div>
         </div> {/* ✅ Fixed: closing div is now inside the grid */}
@@ -78,6 +79,7 @@ export function CTASection() {
         </h2>
         
           <a href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
+          aria-label="Talk to Founders about Deal Intelligent Infrastructure"
           className="bg-black text-white px-8 py-3.5 md:px-10 md:py-3 rounded-md text-sm md:text-xl hover:bg-gray-800 transition shadow-sm shrink-0"
         >
           Talk to Founders

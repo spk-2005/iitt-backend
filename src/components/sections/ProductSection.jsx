@@ -267,9 +267,11 @@ export function ProductSection({ agentsRef }) {
                   key={i}
                   onClick={() => goToAgent(i)}
                   aria-label={`Go to agent ${i + 1}`}
-                  className={`rounded-full transition-all duration-300 ${i === activeAgent ? 'w-5 h-2 bg-gray-700' : 'w-2 h-2 bg-gray-300'
-                    }`}
-                />
+                  className="flex items-center justify-center w-11 h-11"
+                >
+                  <div className={`rounded-full transition-all duration-300 ${i === activeAgent ? 'w-5 h-2 bg-gray-700' : 'w-2 h-2 bg-gray-300'
+                    }`} />
+                </button>
               ))}
             </div>
           </div>

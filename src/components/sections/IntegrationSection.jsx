@@ -44,6 +44,7 @@ export function IntegrationSection() {
   <div>
     
      <a href="https://calendly.com/kg-goutham-anseru/30min?back=1&month=2026-04"
+      aria-label="Request a demo for Tool Integrations"
       style={{
         display: 'inline-flex',
         alignItems: 'center',
