@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
-import heroMobileSrc from '../../assets/hero-mob.png?format=webp&quality=80';
+import heroMobileSrc from '../../assets/hero-mob.png?format=webp&width=1000&quality=80';
 import { DesktopHeroSvg } from '../sections/svg/DesktopHeroSvg.jsx';
 
 
@@ -127,7 +127,7 @@ export function HeroSection() {
         <DesktopHeroSvg className="w-full h-auto" />
       </div>
       {/* Reveal text (mobile only) */}
-      <div className="md:hidden w-full px-5 pt-6 pb-10">
+      <div className="md:hidden w-full px-5 pt-6 pb-10 min-h-[160px]">
         <p ref={revealRef} className="font-medium leading-[1.4]" style={{ fontSize: 'clamp(14px, 4.5vw, 20px)', color: '#111827' }}>
           {words.map((word, i) => (
             <span key={i} className="reveal-word" style={{ color: '#525252' }}>

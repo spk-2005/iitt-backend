@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ── Fonts (non-blocking) ──────────────────────────────────────── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" />
 
     <!-- ── Primary meta ─────────────────────────────────────────────── -->
@@ -205,7 +205,7 @@
 
     <!-- ── Hero image preloads (LCP) ────────────────────────────────── -->
     <link rel="preload" as="image" type="image/webp" href="/images/hero-bg.webp" fetchpriority="high" media="(min-width: 768px)" />
-    <link rel="preload" as="image" type="image/webp" href="/src/assets/hero-mob.png?format=webp&quality=80" fetchpriority="high" media="(max-width: 767px)" />
+    <link rel="preload" as="image" type="image/webp" href="/src/assets/hero-mob.png?format=webp&width=1000&quality=80" fetchpriority="high" media="(max-width: 767px)" />
 
 
     <!-- ── Favicons & PWA ────────────────────────────────────────────── -->
