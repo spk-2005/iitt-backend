@@ -1,6 +1,7 @@
     import { useRef, useEffect } from 'react';
     import { RFPWorkflowDiagram } from '../workflow/RFPWorkflowDiagram.jsx';
     import { RFP_NODES } from '../../data/rfpWorkflow.js';
+    import { useMediaQuery } from '../../hooks/useMediaQuery.js';
 
     const ROW_H = 82;
     const COL_W = 49.5;
@@ -117,18 +118,14 @@
     const totalNodes = RFP_NODES.length;
     const SCROLL_PER_NODE = 60;
     const totalScrollBudget = totalNodes * SCROLL_PER_NODE;
+    const stickyH = totalNodes * ROW_H + 40;
 
     const setOuterHeight = () => {
       if (!outerRef.current) return;
-      const stickyEl = outerRef.current.querySelector('[data-sticky]');
-      const stickyH = stickyEl ? stickyEl.offsetHeight : 0;
       outerRef.current.style.height = `${stickyH + totalScrollBudget}px`;
     };
 
-    // Defer so DOM is painted and offsetHeight is accurate
-    const rafId = requestAnimationFrame(() => {
-      setOuterHeight();
-    });
+    setOuterHeight();
 
     const revealUpTo = (count, animate) => {
       rowRefs.current.forEach((el, i) => {
@@ -205,10 +202,13 @@
     window.visualViewport?.addEventListener('resize', onResize);
     window.addEventListener('resize', onResize);
 
-    onScroll();
+    let initialRafId;
+    initialRafId = requestAnimationFrame(() => {
+      onScroll();
+    });
 
     return () => {
-      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(initialRafId);
       window.removeEventListener('scroll', onScroll);
       window.visualViewport?.removeEventListener('resize', onResize);
       window.removeEventListener('resize', onResize);
@@ -383,6 +383,7 @@
     // WorkflowSection.jsx
 
     export function WorkflowSection() {
+      const isDesktop = useMediaQuery('(min-width: 768px)');
       return (
         <section data-section id="workflow" className="scroll-mt-5">
           {/* CHANGE 1: remove md:min-h-screen, let content define height */}
@@ -408,23 +409,23 @@
             </div>
 
             {/* CHANGE 2: constrain diagram width so aspect ratio keeps height in check */}
-          <div className="hidden md:block" style={{ maxWidth: 'min(1070px, 92vw)', margin: '0 auto', width: '100%' }}>
-  <div style={{
-    position: 'relative',
-    width: '100%',
-    aspectRatio: '1100 / 850',   // ← match new viewBox ratio
-    overflow: 'visible',          // ← never clip
-    marginTop: '20px',           // ← pull up to close gap with header
-  }}>
-    <RFPWorkflowDiagram />
-  </div>
-</div>
-
-            {/* Mobile — unchanged */}
-            <div className="md:hidden pt-10 pb-10">
-              <MobileWorkflowList />
-            </div>
-
+            {isDesktop ? (
+              <div className="hidden md:block" style={{ maxWidth: 'min(1070px, 92vw)', margin: '0 auto', width: '100%' }}>
+                <div style={{
+                  position: 'relative',
+                  width: '100%',
+                  aspectRatio: '1100 / 850',   // ← match new viewBox ratio
+                  overflow: 'visible',          // ← never clip
+                  marginTop: '20px',           // ← pull up to close gap with header
+                }}>
+                  <RFPWorkflowDiagram />
+                </div>
+              </div>
+            ) : (
+              <div className="md:hidden pt-10 pb-10">
+                <MobileWorkflowList />
+              </div>
+            )}
           </div>
         </section>
       );

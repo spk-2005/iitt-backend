@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
 import { DesktopHeroSvg } from '../sections/svg/DesktopHeroSvg.jsx';
+import { useMediaQuery } from '../../hooks/useMediaQuery.js';
 const heroMobileSrc = '/images/hero-mob.webp';
 
 
@@ -13,6 +14,7 @@ const REVEAL_TEXT =
 
 export function HeroSection() {
   const revealRef = useRef(null);
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
   useGsapContext(revealRef, () => {
     const words = revealRef.current.querySelectorAll('.reveal-word');
@@ -123,9 +125,11 @@ export function HeroSection() {
                 fetchpriority="high"
               />
       
-      <div className="hidden md:block w-full">
-        <DesktopHeroSvg className="w-full h-auto" />
-      </div>
+      {isDesktop && (
+        <div className="hidden md:block w-full">
+          <DesktopHeroSvg className="w-full h-auto" />
+        </div>
+      )}
       {/* Reveal text (mobile only) */}
       <div className="md:hidden w-full px-5 pt-6 pb-10 min-h-[160px]">
         <p ref={revealRef} className="font-medium leading-[1.4]" style={{ fontSize: 'clamp(14px, 4.5vw, 20px)', color: '#111827' }}>
