@@ -12,6 +12,9 @@ const SecuritySection = lazy(() => import('./components/sections/SecuritySection
 const FeaturesSection = lazy(() => import('./components/sections/FeaturesSection.jsx').then(module => ({ default: module.FeaturesSection })));
 const FAQSection = lazy(() => import('./components/sections/FAQSection.jsx').then(module => ({ default: module.FAQSection })));
 const CTASection = lazy(() => import('./components/sections/CTASection.jsx').then(module => ({ default: module.CTASection })));
+import { Footer } from './components/layout/Footer.jsx';
+import AnseruPrivacyPolicy from './pages/PrivacyPolicy.jsx';
+import AnseruTermsOfService from './pages/TermsOfServices.jsx';
 
 export default function App() {
   const carouselRef = useRef(null);
@@ -21,8 +24,32 @@ export default function App() {
   // and 200vh agents sections one slide at a time.
   useScrollSnap(carouselRef, agentsRef);
 
+  if (window.location.pathname === '/privacy-policy') {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-1 mt-20">
+          <AnseruPrivacyPolicy />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (window.location.pathname === '/terms-of-service') {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-1 mt-20">
+          <AnseruTermsOfService />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <main>
         <HeroSection />
@@ -38,6 +65,7 @@ export default function App() {
           <CTASection />
         </Suspense>
       </main>
-    </>
+      <Footer />
+    </div>
   );
 }

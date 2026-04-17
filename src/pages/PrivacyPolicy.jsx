@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const sections = [
   { id: "introduction", title: "1. Introduction" },
@@ -18,21 +18,83 @@ const sections = [
   { id: "governing", title: "15. Governing Law" },
 ];
 
+// Brand colors extracted from logo gradient (purple → pink)
+const brand = {
+  purple: "#7B5CF5",
+  mid: "#A855C8",
+  pink: "#C85FA8",
+  gradient: "linear-gradient(135deg, #7B5CF5 0%, #A855C8 50%, #C85FA8 100%)",
+  gradientSubtle: "linear-gradient(135deg, rgba(123,92,245,0.08) 0%, rgba(200,95,168,0.08) 100%)",
+  gradientBorder: "rgba(168,85,200,0.25)",
+  pillBg: "linear-gradient(135deg, rgba(123,92,245,0.10), rgba(200,95,168,0.10))",
+};
+
+function GradientText({ children, style = {} }) {
+  return (
+    <span
+      style={{
+        background: brand.gradient,
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+        ...style,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function GradientDot() {
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        width: 10,
+        height: 10,
+        borderRadius: "50%",
+        background: brand.gradient,
+        marginRight: 10,
+        flexShrink: 0,
+        marginTop: 6,
+      }}
+    />
+  );
+}
+
 function TableOfContents({ activeSection }) {
   return (
-    <nav style={styles.toc}>
-      <div style={styles.tocHeader}>Contents</div>
-      <ul style={styles.tocList}>
+    <nav className="bg-white border border-gray-200 rounded-xl p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+      <div className="text-[11px] font-bold tracking-[1.5px] uppercase text-gray-500 mb-4">
+        Contents
+      </div>
+      <ul className="flex flex-col gap-1.5 m-0 p-0 list-none">
         {sections.map((s) => (
           <li key={s.id}>
             <a
               href={`#${s.id}`}
-              style={{
-                ...styles.tocLink,
-                ...(activeSection === s.id ? styles.tocLinkActive : {}),
-              }}
+              className="flex items-center gap-2 px-3 py-2 rounded-md text-[13.5px] no-underline transition-all duration-200"
+              style={
+                activeSection === s.id
+                  ? {
+                      color: brand.purple,
+                      background: "rgba(123,92,245,0.09)",
+                      fontWeight: 500,
+                    }
+                  : { color: "#4b5563" }
+              }
             >
-              {activeSection === s.id && <span style={styles.tocDot} />}
+              {activeSection === s.id && (
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: brand.gradient,
+                    flexShrink: 0,
+                  }}
+                />
+              )}
               {s.title}
             </a>
           </li>
@@ -43,20 +105,38 @@ function TableOfContents({ activeSection }) {
 }
 
 function SectionHeader({ children }) {
-  return <h2 style={styles.sectionHeader}>{children}</h2>;
+  return (
+    <h2 className="font-sans text-[24px] font-semibold text-gray-900 mb-5 tracking-tight flex items-center gap-2">
+      <GradientDot />
+      {children}
+    </h2>
+  );
 }
 
 function SubHeader({ children }) {
-  return <h3 style={styles.subHeader}>{children}</h3>;
+  return (
+    <h3 className="font-sans text-[17px] font-medium text-gray-900 mt-8 mb-4">
+      {children}
+    </h3>
+  );
 }
 
 function BulletList({ items }) {
   return (
-    <ul style={styles.bulletList}>
+    <ul className="space-y-3 mb-6 ml-1">
       {items.map((item, i) => (
-        <li key={i} style={styles.bulletItem}>
-          <span style={styles.bulletDot}>·</span>
-          <span>{item}</span>
+        <li key={i} className="flex items-start gap-3">
+          <span
+            style={{
+              width: 7,
+              height: 7,
+              borderRadius: "50%",
+              background: brand.gradient,
+              flexShrink: 0,
+              marginTop: 8,
+            }}
+          />
+          <span className="text-gray-600 text-[15.5px] leading-relaxed">{item}</span>
         </li>
       ))}
     </ul>
@@ -64,12 +144,21 @@ function BulletList({ items }) {
 }
 
 function InfoBox({ children }) {
-  return <div style={styles.infoBox}>{children}</div>;
+  return (
+    <div
+      className="rounded-lg p-5 text-[14.5px] leading-relaxed text-gray-700 my-8"
+      style={{
+        background: brand.gradientSubtle,
+        border: `0.5px solid ${brand.gradientBorder}`,
+      }}
+    >
+      {children}
+    </div>
+  );
 }
 
 export default function AnseruPrivacyPolicy() {
   const [activeSection, setActiveSection] = useState("introduction");
-  const sectionRefs = useRef({});
 
   useEffect(() => {
     const observers = [];
@@ -89,85 +178,128 @@ export default function AnseruPrivacyPolicy() {
   }, []);
 
   return (
-    <div style={styles.root}>
-      {/* Header */}
-      <header style={styles.header}>
-        <div style={styles.headerInner}>
-          <div style={styles.logo}>
-            <span style={styles.logoText}>anseru</span>
-            <span style={styles.logoAi}>.ai</span>
-          </div>
-          <div style={styles.headerMeta}>
-            <span style={styles.badge}>Privacy Policy</span>
-            <span style={styles.metaDate}>Last Updated: April 17, 2026</span>
-          </div>
-        </div>
-      </header>
-
+    <div className="bg-white text-gray-900 font-sans min-h-screen">
       {/* Hero */}
-      <div style={styles.hero}>
-        <div style={styles.heroInner}>
-          <h1 style={styles.heroTitle}>Privacy Policy</h1>
-          <p style={styles.heroSub}>
-            How Anseru.ai collects, uses, and protects your personal data.
+      <div
+        className="border-b border-gray-100 px-6 py-16 md:py-4 relative overflow-hidden"
+        style={{ background: "#fff" }}
+      >
+        {/* Ambient glow blobs */}
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            top: -80,
+            right: -80,
+            width: 400,
+            height: 400,
+            background:
+              "radial-gradient(circle, rgba(123,92,245,0.13) 0%, transparent 70%)",
+            borderRadius: "50%",
+          }}
+        />
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            bottom: -60,
+            left: -60,
+            width: 280,
+            height: 280,
+            background:
+              "radial-gradient(circle, rgba(200,95,168,0.11) 0%, transparent 70%)",
+            borderRadius: "50%",
+          }}
+        />
+
+        <div className="max-w-6xl mx-auto relative">
+          {/* Legal badge */}
+          <span
+            className="inline-block px-3 py-1 rounded-full text-[12px] font-bold mb-4 uppercase tracking-wider"
+            style={{
+              background: brand.pillBg,
+              color: brand.mid,
+              border: `0.5px solid ${brand.gradientBorder}`,
+            }}
+          >
+            Legal
+          </span>
+
+          {/* Title with gradient */}
+          <h1
+            className="text-4xl md:text-[52px] font-semibold tracking-tight mb-6"
+            style={{
+              background: brand.gradient,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Privacy Policy
+          </h1>
+
+          <p className="text-[18px] text-gray-500 max-w-2xl leading-relaxed">
+            How Anseru collects, uses, and protects your personal data.
           </p>
-        </div>
-        <div style={styles.heroDecor} aria-hidden="true">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} style={{ ...styles.heroDot, ...getHeroDotStyle(i) }} />
-          ))}
+          <p className="text-[14px] text-gray-400 mt-8 font-medium">
+            Last Updated: April 17, 2026
+          </p>
         </div>
       </div>
 
       {/* Layout */}
-      <div style={styles.layout}>
+      <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
         {/* Sidebar */}
-        <aside style={styles.sidebar}>
-          <div style={styles.sidebarSticky}>
-            <TableOfContents activeSection={activeSection} />
-            <div style={styles.contactCard}>
-              <div style={styles.contactCardTitle}>Questions?</div>
-              <p style={styles.contactCardText}>
-                Contact our Data Protection Officer
-              </p>
-              <a href="mailto:privacy@anseru.ai" style={styles.contactLink}>
-                privacy@anseru.ai
-              </a>
+        <aside className="hidden lg:block w-[280px] shrink-0 sticky top-24">
+          <TableOfContents activeSection={activeSection} />
+
+          <div
+            className="mt-8 rounded-xl p-6 border"
+            style={{
+              background: brand.gradientSubtle,
+              borderColor: brand.gradientBorder,
+            }}
+          >
+            <div className="font-semibold text-[15px] mb-2 text-gray-900">
+              Questions?
             </div>
+            <p className="text-[14px] text-gray-600 leading-relaxed mb-4">
+              Contact our Data Protection Officer for any inquiries.
+            </p>
+            <a
+              href="mailto:privacy@anseru.ai"
+              className="text-[14px] font-medium no-underline transition-opacity hover:opacity-75"
+              style={{
+                background: brand.gradient,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              privacy@anseru.ai
+            </a>
           </div>
         </aside>
 
         {/* Main content */}
-        <main style={styles.main}>
-          {/* 1 */}
-          <section id="introduction" style={styles.section}>
+        <main className="flex-1 min-w-0 max-w-3xl">
+
+          <section id="introduction" className="mb-16 scroll-mt-24">
             <SectionHeader>1. Introduction</SectionHeader>
-            <p style={styles.p}>
-              Anseru.ai ("Anseru", "we", "us", or "our") provides an AI-powered
-              RFP and proposal automation platform designed exclusively for
-              business customers. We are committed to protecting the privacy and
-              security of the personal data we process in connection with
-              delivering our Services.
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">
+              Anseru ("Anseru", "we", "us", or "our") provides an AI-powered RFP and proposal automation platform designed exclusively for business customers. We are committed to protecting the privacy and security of the personal data we process in connection with delivering our Services.
             </p>
-            <p style={styles.p}>
-              This Privacy Policy ("Policy") describes how we collect, use,
-              share, and protect personal data when you access or use the Anseru
-              platform, website, or related services (collectively, "Services").
-              It also describes your rights and choices regarding that data.
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">
+              This Privacy Policy ("Policy") describes how we collect, use, share, and protect personal data when you access or use the Anseru platform, website, or related services (collectively, "Services"). It also describes your rights and choices regarding that data.
             </p>
-            <p style={styles.p}>
-              By accessing or using the Services, you acknowledge that you have
-              read and understood this Policy. If you do not agree, please
-              discontinue use of the Services.
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">
+              By accessing or using the Services, you acknowledge that you have read and understood this Policy. If you do not agree, please discontinue use of the Services.
             </p>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 2 */}
-          <section id="scope" style={styles.section}>
+          <section id="scope" className="mb-16 scroll-mt-24">
             <SectionHeader>2. Scope and Who This Policy Applies To</SectionHeader>
-            <p style={styles.p}>This Policy applies to:</p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">This Policy applies to:</p>
             <BulletList
               items={[
                 "Users — individuals who access the Anseru platform on behalf of a subscribing business organisation.",
@@ -176,23 +308,17 @@ export default function AnseruPrivacyPolicy() {
               ]}
             />
             <InfoBox>
-              <strong>Note to End Users:</strong> Where Anseru is made available
-              to you through your employer or another organisation ("Customer"),
-              that organisation controls the account and the data processed
-              within it. Privacy inquiries relating to Customer-controlled data
-              should first be directed to your organisation's administrator.
-              Anseru acts as a data processor with respect to Customer Data.
+              <strong>Note to End Users:</strong> Where Anseru is made available to you through your employer or another organisation ("Customer"), that organisation controls the account and the data processed within it. Privacy inquiries relating to Customer-controlled data should first be directed to your organisation's administrator. Anseru acts as a data processor with respect to Customer Data.
             </InfoBox>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 3 */}
-          <section id="information-collect" style={styles.section}>
+          <section id="information-collect" className="mb-16 scroll-mt-24">
             <SectionHeader>3. Information We Collect</SectionHeader>
 
             <SubHeader>3.1 Information You Provide Directly</SubHeader>
-            <p style={styles.p}>We collect personal data when you:</p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">We collect personal data when you:</p>
             <BulletList
               items={[
                 "Register for an account — name, work email address, job title, employer name, phone number, and billing information.",
@@ -203,10 +329,7 @@ export default function AnseruPrivacyPolicy() {
             />
 
             <SubHeader>3.2 Information Collected Automatically</SubHeader>
-            <p style={styles.p}>
-              When you visit our website or use the platform, we automatically
-              collect:
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">When you visit our website or use the platform, we automatically collect:</p>
             <BulletList
               items={[
                 "Device and connection data — IP address, browser type, operating system, device identifiers, and referring URLs.",
@@ -217,9 +340,7 @@ export default function AnseruPrivacyPolicy() {
             />
 
             <SubHeader>3.3 Information from Third-Party Sources</SubHeader>
-            <p style={styles.p}>
-              We may receive personal data about you from:
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">We may receive personal data about you from:</p>
             <BulletList
               items={[
                 "Third-party integrations you connect to your account (e.g., Google Drive, CRM tools, SSO providers). The data we receive depends on the permissions you grant.",
@@ -229,14 +350,11 @@ export default function AnseruPrivacyPolicy() {
             />
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 4 */}
-          <section id="how-we-use" style={styles.section}>
+          <section id="how-we-use" className="mb-16 scroll-mt-24">
             <SectionHeader>4. How We Use Your Information</SectionHeader>
-            <p style={styles.p}>
-              We use the personal data we collect for the following purposes:
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">We use the personal data we collect for the following purposes:</p>
             <BulletList
               items={[
                 "Service delivery — to create and manage your account, authenticate you, process transactions, and operate the platform.",
@@ -250,22 +368,14 @@ export default function AnseruPrivacyPolicy() {
             />
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 5 */}
-          <section id="how-we-share" style={styles.section}>
+          <section id="how-we-share" className="mb-16 scroll-mt-24">
             <SectionHeader>5. How We Share Your Information</SectionHeader>
-            <p style={styles.p}>
-              We do not sell personal data to third parties. We may share
-              personal data in the following circumstances:
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">We do not sell personal data to third parties. We may share personal data in the following circumstances:</p>
 
             <SubHeader>5.1 Service Providers (Sub-Processors)</SubHeader>
-            <p style={styles.p}>
-              We engage trusted third-party service providers who process data
-              on our behalf under contractual data processing agreements. These
-              include:
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">We engage trusted third-party service providers who process data on our behalf under contractual data processing agreements. These include:</p>
             <BulletList
               items={[
                 "Cloud infrastructure and hosting providers (e.g., AWS, Microsoft Azure)",
@@ -276,50 +386,23 @@ export default function AnseruPrivacyPolicy() {
                 "Payment processors",
               ]}
             />
-            <p style={styles.p}>
-              All sub-processors are bound by confidentiality obligations and
-              are permitted to process data only as instructed by us.
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">All sub-processors are bound by confidentiality obligations and are permitted to process data only as instructed by us.</p>
 
             <SubHeader>5.2 Within Your Organisation</SubHeader>
-            <p style={styles.p}>
-              If your account is administered by your employer, certain account
-              information and usage data may be visible to your organisation's
-              administrators.
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">If your account is administered by your employer, certain account information and usage data may be visible to your organisation's administrators.</p>
 
             <SubHeader>5.3 Legal and Regulatory Disclosure</SubHeader>
-            <p style={styles.p}>
-              We may disclose personal data when required by law, regulation,
-              legal process, or a valid governmental or court order — including
-              under India's DPDPA and applicable laws in other jurisdictions.
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">We may disclose personal data when required by law, regulation, legal process, or a valid governmental or court order — including under India's DPDPA and applicable laws in other jurisdictions.</p>
 
             <SubHeader>5.4 Business Transfers</SubHeader>
-            <p style={styles.p}>
-              In the event of a merger, acquisition, restructuring, or sale of
-              assets, personal data may be transferred as part of the
-              transaction. Affected users will be notified via email or a
-              prominent notice on the Services.
-            </p>
-
-            <SubHeader>5.5 With Your Consent</SubHeader>
-            <p style={styles.p}>
-              We may share your data with third parties for other purposes where
-              you have given explicit consent.
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">In the event of a merger, acquisition, restructuring, or sale of assets, personal data may be transferred as part of the transaction. Affected users will be notified via email or a prominent notice on the Services.</p>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 6 */}
-          <section id="data-storage" style={styles.section}>
+          <section id="data-storage" className="mb-16 scroll-mt-24">
             <SectionHeader>6. Data Storage and Security</SectionHeader>
-            <p style={styles.p}>
-              Personal data is primarily stored on servers located in the United
-              States and/or India. We implement industry-standard technical and
-              organisational measures to protect your data, including:
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">Personal data is primarily stored on servers located in the United States and/or India. We implement industry-standard technical and organisational measures to protect your data, including:</p>
             <BulletList
               items={[
                 "Encryption of data in transit (TLS) and at rest (AES-256)",
@@ -328,24 +411,14 @@ export default function AnseruPrivacyPolicy() {
                 "Incident response procedures",
               ]}
             />
-            <p style={styles.p}>
-              No method of transmission over the internet is 100% secure. While
-              we strive to protect your personal data, we cannot guarantee
-              absolute security. You are responsible for keeping your account
-              credentials confidential.
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">No method of transmission over the internet is 100% secure. While we strive to protect your personal data, we cannot guarantee absolute security. You are responsible for keeping your account credentials confidential.</p>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 7 */}
-          <section id="data-retention" style={styles.section}>
+          <section id="data-retention" className="mb-16 scroll-mt-24">
             <SectionHeader>7. Data Retention</SectionHeader>
-            <p style={styles.p}>
-              We retain personal data for as long as necessary to fulfil the
-              purposes described in this Policy, unless a longer retention
-              period is required by law.
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">We retain personal data for as long as necessary to fulfil the purposes described in this Policy, unless a longer retention period is required by law.</p>
             <BulletList
               items={[
                 "Account data — retained for the duration of your account and for a reasonable period thereafter (typically 90 days post-termination) for legal, audit, or dispute-resolution purposes.",
@@ -354,24 +427,14 @@ export default function AnseruPrivacyPolicy() {
                 "Usage and log data — typically retained for up to 12 months for security monitoring and analytics.",
               ]}
             />
-            <p style={styles.p}>
-              Upon verified request, or when data is no longer required, we
-              will securely delete or anonymise personal data.
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">Upon verified request, or when data is no longer required, we will securely delete or anonymise personal data.</p>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 8 */}
-          <section id="international" style={styles.section}>
+          <section id="international" className="mb-16 scroll-mt-24">
             <SectionHeader>8. International Data Transfers</SectionHeader>
-            <p style={styles.p}>
-              Anseru is headquartered in India. Some of our service providers
-              and sub-processors are located outside India, including in the
-              United States and the European Union. When we transfer personal
-              data internationally, we put appropriate safeguards in place, such
-              as:
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">Anseru is headquartered in India. Some of our service providers and sub-processors are located outside India, including in the United States and the European Union. When we transfer personal data internationally, we put appropriate safeguards in place, such as:</p>
             <BulletList
               items={[
                 "Standard Contractual Clauses (SCCs) approved by the European Commission (for EEA residents).",
@@ -380,22 +443,15 @@ export default function AnseruPrivacyPolicy() {
               ]}
             />
             <InfoBox>
-              <strong>For EEA residents:</strong> Where Anseru processes your
-              data as a controller, we rely on applicable legal bases including
-              contractual necessity, legitimate interests, and consent. You may
-              contact us for a copy of the applicable transfer mechanism.
+              <strong>For EEA residents:</strong> Where Anseru processes your data as a controller, we rely on applicable legal bases including contractual necessity, legitimate interests, and consent. You may contact us for a copy of the applicable transfer mechanism.
             </InfoBox>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 9 */}
-          <section id="cookies" style={styles.section}>
+          <section id="cookies" className="mb-16 scroll-mt-24">
             <SectionHeader>9. Cookie Policy</SectionHeader>
-            <p style={styles.p}>
-              Our website uses cookies and similar tracking technologies. We use
-              the following categories of cookies:
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">Our website uses cookies and similar tracking technologies. We use the following categories of cookies:</p>
             <BulletList
               items={[
                 "Strictly Necessary Cookies — essential for the website to function (e.g., session management, security). You cannot opt out of these.",
@@ -403,529 +459,161 @@ export default function AnseruPrivacyPolicy() {
                 "Marketing Cookies — used to deliver relevant advertisements. These are set only with your consent.",
               ]}
             />
-            <p style={styles.p}>
-              When you visit our website, a cookie banner will provide options
-              to accept, reject, or customise non-essential cookies. You may
-              also control cookies through your browser settings, though
-              disabling certain cookies may affect functionality.
-            </p>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">When you visit our website, a cookie banner will provide options to accept, reject, or customise non-essential cookies. You may also control cookies through your browser settings, though disabling certain cookies may affect functionality.</p>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 10 */}
-          <section id="your-rights" style={styles.section}>
+          <section id="your-rights" className="mb-16 scroll-mt-24">
             <SectionHeader>10. Your Rights</SectionHeader>
-            <p style={styles.p}>
-              Depending on your location and applicable law, you may have the
-              following rights regarding your personal data:
-            </p>
-            <div style={styles.rightsGrid}>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-8">Depending on your location and applicable law, you may have the following rights regarding your personal data:</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               {[
                 { right: "Right to Access", desc: "Request a copy of the personal data we hold about you." },
                 { right: "Right to Rectification", desc: "Request correction of inaccurate or incomplete data." },
-                { right: "Right to Erasure", desc: "Request deletion of your personal data (subject to legal retention obligations)." },
-                { right: "Right to Restriction", desc: "Request that we limit the processing of your data in certain circumstances." },
+                { right: "Right to Erasure", desc: "Request deletion of your personal data." },
+                { right: "Right to Restriction", desc: "Limit the processing of your data." },
                 { right: "Right to Data Portability", desc: "Receive your data in a structured, machine-readable format." },
-                { right: "Right to Object", desc: "Object to processing based on legitimate interests or for direct marketing purposes." },
-                { right: "Right to Withdraw Consent", desc: "Where processing is based on consent, withdraw it at any time without affecting prior processing." },
-                { right: "Right to Opt Out of Marketing", desc: "Unsubscribe from marketing communications at any time via the unsubscribe link in our emails or by contacting us." },
+                { right: "Right to Object", desc: "Object to processing based on legitimate interests." },
+                { right: "Right to Withdraw Consent", desc: "Withdraw consent at any time without affecting prior processing." },
+                { right: "Right to Opt Out of Marketing", desc: "Unsubscribe from marketing communications at any time." },
               ].map((item) => (
-                <div key={item.right} style={styles.rightCard}>
-                  <div style={styles.rightCardTitle}>{item.right}</div>
-                  <div style={styles.rightCardDesc}>{item.desc}</div>
+                <div
+                  key={item.right}
+                  className="rounded-lg p-5"
+                  style={{
+                    background: brand.gradientSubtle,
+                    border: `0.5px solid ${brand.gradientBorder}`,
+                  }}
+                >
+                  <div
+                    className="font-semibold mb-1.5 text-[15px]"
+                    style={{
+                      background: brand.gradient,
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    {item.right}
+                  </div>
+                  <div className="text-[14px] text-gray-500 leading-relaxed">{item.desc}</div>
                 </div>
               ))}
             </div>
             <InfoBox>
-              <strong>Note:</strong> If the Services are administered by your
-              employer, please direct data rights requests to your
-              organisation's administrator in the first instance. We will
-              respond to all verified requests within 30 days (or as required
-              by applicable law).
+              <strong>Note:</strong> If the Services are administered by your employer, please direct data rights requests to your organisation's administrator in the first instance. We will respond to all verified requests within 30 days (or as required by applicable law).
             </InfoBox>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 11 */}
-          <section id="childrens" style={styles.section}>
+          <section id="childrens" className="mb-16 scroll-mt-24">
             <SectionHeader>11. Children's Privacy</SectionHeader>
-            <p style={styles.p}>
-              Our Services are not directed to individuals under the age of 18.
-              We do not knowingly collect personal data from minors. If we
-              become aware that personal data of a minor has been collected, we
-              will take steps to delete it promptly. If you believe a minor has
-              provided us with personal data, please contact us immediately.
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">
+              Our Services are not directed to individuals under the age of 18. We do not knowingly collect personal data from minors. If we become aware that personal data of a minor has been collected, we will take steps to delete it promptly. If you believe a minor has provided us with personal data, please contact us immediately.
             </p>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 12 */}
-          <section id="third-party" style={styles.section}>
-            <SectionHeader>12. Third-Party Links and Integrations</SectionHeader>
-            <p style={styles.p}>
-              Our platform and website may contain links to third-party websites
-              or integrations with third-party services. This Policy does not
-              apply to those third parties. We encourage you to review the
-              privacy policies of any third-party services you interact with. We
-              are not responsible for the privacy practices of third parties.
+          <section id="third-party" className="mb-16 scroll-mt-24">
+            <SectionHeader>12. Third-Party Links</SectionHeader>
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">
+              Our platform and website may contain links to third-party websites or integrations with third-party services. This Policy does not apply to those third parties. We encourage you to review the privacy policies of any third-party services you interact with. We are not responsible for the privacy practices of third parties.
             </p>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 13 */}
-          <section id="changes" style={styles.section}>
+          <section id="changes" className="mb-16 scroll-mt-24">
             <SectionHeader>13. Changes to This Policy</SectionHeader>
-            <p style={styles.p}>
-              We may update this Privacy Policy from time to time. Material
-              changes will be communicated via email or a prominent notice
-              within the Services at least 30 days before taking effect. The
-              "Last Updated" date at the top of this document indicates when the
-              most recent changes were made. Continued use of the Services after
-              changes take effect constitutes acceptance of the updated Policy.
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">
+              We may update this Privacy Policy from time to time. Material changes will be communicated via email or a prominent notice within the Services at least 30 days before taking effect. The "Last Updated" date at the top of this document indicates when the most recent changes were made. Continued use of the Services after changes take effect constitutes acceptance of the updated Policy.
             </p>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 14 */}
-          <section id="contact" style={styles.section}>
+          <section id="contact" className="mb-16 scroll-mt-24">
             <SectionHeader>14. Contact Us</SectionHeader>
-            <p style={styles.p}>
-              If you have any questions, concerns, or requests relating to this
-              Privacy Policy or the processing of your personal data, please
-              contact:
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-6">
+              If you have any questions, concerns, or requests relating to this Privacy Policy or the processing of your personal data, please contact:
             </p>
-            <div style={styles.contactBlock}>
-              <div style={styles.contactBlockLabel}>Data Protection Officer</div>
-              <div style={styles.contactBlockName}>Anseru.ai</div>
-              <div>
-                <span style={styles.contactFieldLabel}>Email: </span>
-                <a href="mailto:privacy@anseru.ai" style={styles.contactFieldLink}>
-                  privacy@anseru.ai
-                </a>
+            <div
+              className="rounded-xl p-6 mb-6"
+              style={{
+                background: brand.gradientSubtle,
+                border: `0.5px solid ${brand.gradientBorder}`,
+              }}
+            >
+              <div
+                className="font-semibold mb-1 text-[16px]"
+                style={{
+                  background: brand.gradient,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                Data Protection Officer
               </div>
-              <div>
-                <span style={styles.contactFieldLabel}>Website: </span>
-                <a href="https://anseru.ai" style={styles.contactFieldLink} target="_blank" rel="noreferrer">
-                  https://anseru.ai
-                </a>
+              <div className="text-gray-500 text-[15.5px] mb-5">Anseru.ai</div>
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center text-[15px]">
+                  <span className="text-gray-400 font-medium w-24">Email:</span>
+                  <a
+                    href="mailto:privacy@anseru.ai"
+                    className="no-underline transition-opacity hover:opacity-75"
+                    style={{
+                      background: brand.gradient,
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    privacy@anseru.ai
+                  </a>
+                </div>
+                <div className="flex items-center text-[15px]">
+                  <span className="text-gray-400 font-medium w-24">Website:</span>
+                  <a
+                    href="https://anseru.ai"
+                    className="no-underline transition-opacity hover:opacity-75"
+                    style={{
+                      background: brand.gradient,
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    https://anseru.ai
+                  </a>
+                </div>
               </div>
             </div>
-            <p style={styles.p}>
-              For EEA residents with unresolved complaints, you may also contact
-              your local data protection authority.
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">
+              For EEA residents with unresolved complaints, you may also contact your local data protection authority.
             </p>
           </section>
 
-          <div style={styles.divider} />
+          <hr className="border-gray-100 my-16" />
 
-          {/* 15 */}
-          <section id="governing" style={styles.section}>
+          <section id="governing" className="mb-16 scroll-mt-24">
             <SectionHeader>15. Governing Law</SectionHeader>
-            <p style={styles.p}>
-              This Privacy Policy is governed by the laws of India, including
-              the Digital Personal Data Protection Act, 2023 (DPDPA) and rules
-              made thereunder, as well as other applicable Indian laws. To the
-              extent that users are located in the EEA or UK, relevant
-              provisions of the GDPR and UK GDPR also apply to the processing
-              of their personal data.
+            <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">
+              This Privacy Policy is governed by the laws of India, including the Digital Personal Data Protection Act, 2023 (DPDPA) and rules made thereunder, as well as other applicable Indian laws. To the extent that users are located in the EEA or UK, relevant provisions of the GDPR and UK GDPR also apply to the processing of their personal data.
             </p>
+
+            {/* Footer gradient bar */}
+            <div
+              className="mt-16 h-1 rounded-full"
+              style={{ background: brand.gradient }}
+            />
           </section>
+
         </main>
       </div>
-
-      {/* Footer */}
-      <footer style={styles.footer}>
-        <div style={styles.footerInner}>
-          <div style={styles.footerLogo}>
-            <span style={styles.logoText}>anseru</span>
-            <span style={styles.logoAi}>.ai</span>
-          </div>
-          <div style={styles.footerLinks}>
-            <a href="https://anseru.ai" style={styles.footerLink}>Home</a>
-            <span style={styles.footerSep}>·</span>
-            <a href="mailto:privacy@anseru.ai" style={styles.footerLink}>privacy@anseru.ai</a>
-          </div>
-          <div style={styles.footerCopy}>
-            © {new Date().getFullYear()} Anseru.ai. All rights reserved.
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
-
-function getHeroDotStyle(i) {
-  const positions = [
-    { top: "20%", left: "8%", width: 80, opacity: 0.12 },
-    { top: "60%", left: "15%", width: 40, opacity: 0.08 },
-    { top: "30%", right: "12%", width: 60, opacity: 0.1 },
-    { top: "70%", right: "20%", width: 100, opacity: 0.07 },
-    { top: "10%", left: "50%", width: 30, opacity: 0.09 },
-    { top: "80%", left: "45%", width: 50, opacity: 0.06 },
-  ];
-  const p = positions[i];
-  return {
-    position: "absolute",
-    width: p.width,
-    height: p.width,
-    borderRadius: "50%",
-    background: "white",
-    opacity: p.opacity,
-    top: p.top,
-    left: p.left,
-    right: p.right,
-  };
-}
-
-const styles = {
-  root: {
-    fontFamily: "'Georgia', 'Times New Roman', serif",
-    background: "#f8f7f5",
-    color: "#1a1a1a",
-    minHeight: "100vh",
-  },
-  // Header
-  header: {
-    background: "#0e0e0e",
-    borderBottom: "1px solid #2a2a2a",
-  },
-  headerInner: {
-    maxWidth: 1200,
-    margin: "0 auto",
-    padding: "16px 32px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  logo: { display: "flex", alignItems: "baseline" },
-  logoText: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 22,
-    fontWeight: 700,
-    color: "#ffffff",
-    letterSpacing: "-0.5px",
-  },
-  logoAi: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 22,
-    fontWeight: 700,
-    color: "#4f9cf9",
-    letterSpacing: "-0.5px",
-  },
-  headerMeta: { display: "flex", alignItems: "center", gap: 16 },
-  badge: {
-    background: "#1a2a3a",
-    color: "#4f9cf9",
-    border: "1px solid #2a4a6a",
-    padding: "4px 12px",
-    borderRadius: 20,
-    fontSize: 12,
-    fontFamily: "'Georgia', sans-serif",
-    letterSpacing: "0.5px",
-  },
-  metaDate: {
-    color: "#666",
-    fontSize: 13,
-    fontFamily: "'Georgia', sans-serif",
-  },
-  // Hero
-  hero: {
-    background: "linear-gradient(135deg, #0e1a2e 0%, #1a2e4a 50%, #0e2233 100%)",
-    padding: "64px 32px",
-    position: "relative",
-    overflow: "hidden",
-  },
-  heroInner: {
-    maxWidth: 1200,
-    margin: "0 auto",
-    position: "relative",
-    zIndex: 1,
-  },
-  heroTitle: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 48,
-    fontWeight: 700,
-    color: "#ffffff",
-    margin: "0 0 16px",
-    letterSpacing: "-1px",
-  },
-  heroSub: {
-    fontFamily: "'Georgia', sans-serif",
-    fontSize: 18,
-    color: "#8ab4d4",
-    margin: 0,
-    maxWidth: 500,
-    lineHeight: 1.6,
-  },
-  heroDecor: {
-    position: "absolute",
-    inset: 0,
-    pointerEvents: "none",
-  },
-  heroDot: {},
-  // Layout
-  layout: {
-    maxWidth: 1200,
-    margin: "0 auto",
-    padding: "48px 32px",
-    display: "flex",
-    gap: 48,
-    alignItems: "flex-start",
-  },
-  // Sidebar
-  sidebar: {
-    width: 260,
-    flexShrink: 0,
-  },
-  sidebarSticky: {
-    position: "sticky",
-    top: 24,
-    display: "flex",
-    flexDirection: "column",
-    gap: 24,
-  },
-  toc: {
-    background: "#ffffff",
-    border: "1px solid #e8e4e0",
-    borderRadius: 8,
-    padding: "20px",
-  },
-  tocHeader: {
-    fontFamily: "'Georgia', sans-serif",
-    fontSize: 11,
-    fontWeight: 700,
-    letterSpacing: "1.5px",
-    textTransform: "uppercase",
-    color: "#888",
-    marginBottom: 16,
-  },
-  tocList: {
-    listStyle: "none",
-    margin: 0,
-    padding: 0,
-    display: "flex",
-    flexDirection: "column",
-    gap: 2,
-  },
-  tocLink: {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-    padding: "6px 8px",
-    borderRadius: 4,
-    fontSize: 12.5,
-    color: "#555",
-    textDecoration: "none",
-    fontFamily: "'Georgia', sans-serif",
-    lineHeight: 1.4,
-    transition: "all 0.15s",
-  },
-  tocLinkActive: {
-    color: "#1a5fa8",
-    background: "#eef4ff",
-    fontWeight: 600,
-  },
-  tocDot: {
-    width: 5,
-    height: 5,
-    borderRadius: "50%",
-    background: "#4f9cf9",
-    flexShrink: 0,
-  },
-  contactCard: {
-    background: "linear-gradient(135deg, #0e1a2e, #1a3050)",
-    borderRadius: 8,
-    padding: "20px",
-    color: "#fff",
-  },
-  contactCardTitle: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 15,
-    fontWeight: 700,
-    marginBottom: 8,
-    color: "#fff",
-  },
-  contactCardText: {
-    fontFamily: "'Georgia', sans-serif",
-    fontSize: 13,
-    color: "#8ab4d4",
-    margin: "0 0 12px",
-    lineHeight: 1.5,
-  },
-  contactLink: {
-    color: "#4f9cf9",
-    textDecoration: "none",
-    fontSize: 13,
-    fontFamily: "'Georgia', sans-serif",
-  },
-  // Main
-  main: {
-    flex: 1,
-    minWidth: 0,
-  },
-  section: {
-    marginBottom: 8,
-  },
-  sectionHeader: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 24,
-    fontWeight: 700,
-    color: "#0e1a2e",
-    margin: "0 0 20px",
-    letterSpacing: "-0.3px",
-  },
-  subHeader: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 16,
-    fontWeight: 700,
-    color: "#1a3050",
-    margin: "24px 0 12px",
-  },
-  p: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 15.5,
-    lineHeight: 1.8,
-    color: "#333",
-    margin: "0 0 16px",
-  },
-  divider: {
-    height: 1,
-    background: "linear-gradient(90deg, #ddd 0%, transparent 100%)",
-    margin: "40px 0",
-  },
-  bulletList: {
-    listStyle: "none",
-    margin: "0 0 16px",
-    padding: 0,
-    display: "flex",
-    flexDirection: "column",
-    gap: 10,
-  },
-  bulletItem: {
-    display: "flex",
-    gap: 12,
-    fontSize: 15.5,
-    lineHeight: 1.7,
-    color: "#333",
-    fontFamily: "'Georgia', serif",
-  },
-  bulletDot: {
-    color: "#4f9cf9",
-    fontSize: 20,
-    lineHeight: 1.4,
-    flexShrink: 0,
-  },
-  infoBox: {
-    background: "#f0f6ff",
-    borderLeft: "3px solid #4f9cf9",
-    borderRadius: "0 6px 6px 0",
-    padding: "16px 20px",
-    fontFamily: "'Georgia', serif",
-    fontSize: 14.5,
-    lineHeight: 1.7,
-    color: "#2a4060",
-    marginTop: 20,
-  },
-  rightsGrid: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 16,
-    margin: "20px 0",
-  },
-  rightCard: {
-    background: "#ffffff",
-    border: "1px solid #e0dcd8",
-    borderRadius: 8,
-    padding: "16px 18px",
-  },
-  rightCardTitle: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 14,
-    fontWeight: 700,
-    color: "#1a3050",
-    marginBottom: 6,
-  },
-  rightCardDesc: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 13.5,
-    lineHeight: 1.6,
-    color: "#555",
-  },
-  contactBlock: {
-    background: "#ffffff",
-    border: "1px solid #e0dcd8",
-    borderRadius: 8,
-    padding: "24px",
-    margin: "20px 0",
-    display: "flex",
-    flexDirection: "column",
-    gap: 8,
-  },
-  contactBlockLabel: {
-    fontFamily: "'Georgia', sans-serif",
-    fontSize: 11,
-    fontWeight: 700,
-    letterSpacing: "1.5px",
-    textTransform: "uppercase",
-    color: "#4f9cf9",
-    marginBottom: 4,
-  },
-  contactBlockName: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 18,
-    fontWeight: 700,
-    color: "#0e1a2e",
-    marginBottom: 8,
-  },
-  contactFieldLabel: {
-    fontFamily: "'Georgia', sans-serif",
-    fontSize: 14,
-    color: "#888",
-  },
-  contactFieldLink: {
-    fontFamily: "'Georgia', sans-serif",
-    fontSize: 14,
-    color: "#1a5fa8",
-    textDecoration: "none",
-  },
-  // Footer
-  footer: {
-    background: "#0e0e0e",
-    borderTop: "1px solid #2a2a2a",
-    padding: "32px",
-  },
-  footerInner: {
-    maxWidth: 1200,
-    margin: "0 auto",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-    gap: 16,
-  },
-  footerLogo: { display: "flex", alignItems: "baseline" },
-  footerLinks: {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-  },
-  footerLink: {
-    color: "#888",
-    textDecoration: "none",
-    fontSize: 13,
-    fontFamily: "'Georgia', sans-serif",
-  },
-  footerSep: {
-    color: "#444",
-  },
-  footerCopy: {
-    color: "#555",
-    fontSize: 13,
-    fontFamily: "'Georgia', sans-serif",
-  },
-};
