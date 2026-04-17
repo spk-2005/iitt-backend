@@ -54,6 +54,11 @@ export function Navbar() {
   }
 
   function handleNavClick(e, sectionId, idx) {
+    const legalPages = ['/privacy-policy', '/terms-of-service'];
+    if (legalPages.includes(window.location.pathname)) {
+      window.location.href = sectionId === 'home' ? '/' : `/#${sectionId}`;
+      return;
+    }
     activeIdxRef.current = idx;
     activeBtnRef.current = e.currentTarget;
     // Use snappy transition on click
@@ -177,7 +182,17 @@ useEffect(() => {
       <nav id="navbar" className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
         {/* Logo */}
-        <button className="flex items-center cursor-pointer" onClick={() => scrollToSection('home')}>
+        <button
+          className="flex items-center cursor-pointer"
+          onClick={() => {
+            const legalPages = ['/privacy-policy', '/terms-of-service'];
+            if (legalPages.includes(window.location.pathname)) {
+              window.location.href = '/';
+            } else {
+              scrollToSection('home');
+            }
+          }}
+        >
           <img
             src={anseruLogo}
             srcSet={anseruLogoSrcset}
@@ -258,7 +273,15 @@ useEffect(() => {
           {NAV_LINKS.map(({ label, sectionId }) => (
             <button
               key={sectionId}
-              onClick={() => { scrollToSection(sectionId); setMenuOpen(false); }}
+              onClick={() => {
+                const legalPages = ['/privacy-policy', '/terms-of-service'];
+                if (legalPages.includes(window.location.pathname)) {
+                  window.location.href = sectionId === 'home' ? '/' : `/#${sectionId}`;
+                } else {
+                  scrollToSection(sectionId);
+                }
+                setMenuOpen(false);
+              }}
               className="block text-sm font-medium text-gray-600 hover:text-black cursor-pointer"
             >
               {label}

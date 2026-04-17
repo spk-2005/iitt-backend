@@ -246,7 +246,7 @@ export default function AnseruPrivacyPolicy() {
       </div>
 
       {/* Layout */}
-      <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+      <div className="max-w-6xl mx-auto px-6 py-16 md:py-4 flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
         {/* Sidebar */}
         <aside className="hidden lg:block w-[280px] shrink-0 sticky top-24">
           <TableOfContents activeSection={activeSection} />
