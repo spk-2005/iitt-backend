@@ -89,19 +89,22 @@ html {
     font-family: 'DM Sans', sans-serif;
   }
 
-  h1, .h1 {
+  h1,
+  .h1 {
     font-size: 36px;
     line-height: 1;
     letter-spacing: -0.03em;
   }
 
-  h2, .h2 {
+  h2,
+  .h2 {
     font-size: 32px;
     line-height: 1;
     letter-spacing: -0.02em;
   }
 
-  h3, .h3 {
+  h3,
+  .h3 {
     font-size: 24px;
     line-height: 1;
     letter-spacing: -0.02em;
@@ -125,14 +128,21 @@ html {
     letter-spacing: 0;
   }
 
-  h1, .h1,
-  h2, .h2,
-  h3, .h3,
-  h4, .h4,
-  h5, .h5,
-  h6, .h6 {
+  h1,
+  .h1,
+  h2,
+  .h2,
+  h3,
+  .h3,
+  h4,
+  .h4,
+  h5,
+  .h5,
+  h6,
+  .h6 {
     font-family: 'DM Sans', sans-serif;
-    font-weight: 400; /* Regular as per image */
+    font-weight: 400;
+    /* Regular as per image */
   }
 }
 
@@ -215,38 +225,61 @@ html {
   @apply text-[24px] font-normal whitespace-pre-line leading-none tracking-[-0.02em];
 }
 
-.anseru-h4{
+.anseru-h4 {
   @apply text-[20px] font-normal whitespace-pre-line leading-[1.4] tracking-[-0.02em];
 }
+
 /* ── 3D flip cards ─────────────────────────────────────────────── */
 @media (hover: hover) {
   .team-card:hover .team-card-inner {
     transform: rotateY(180deg);
   }
 }
+
 .team-card.flipped .team-card-inner {
   transform: rotateY(180deg);
 }
+
 .team-card-inner {
   will-change: transform;
 }
+
 .integration-col {
   will-change: transform;
 }
 
 /* ── Integration infinite scroll columns ───────────────────────── */
 @keyframes integrationUp {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-50%); }
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-50%);
+  }
 }
+
 @keyframes integrationDown {
-  from { transform: translateY(-50%); }
-  to   { transform: translateY(0); }
+  from {
+    transform: translateY(-50%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* ── Blink-fade for Go-to-top button ───────────────────────────── */
 @keyframes blink-fade {
-  0%   { opacity: 0.25; }
-  50%  { opacity: 1; }
-  100% { opacity: 0.25; }
+  0% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.25;
+  }
 }
