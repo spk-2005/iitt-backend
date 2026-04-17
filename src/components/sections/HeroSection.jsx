@@ -134,7 +134,7 @@ export function HeroSection() {
       )}
       {/* Reveal text (mobile only) */}
       <div className="md:hidden w-full px-5 pt-6 pb-10 min-h-[160px]">
-        <p ref={revealRef} className="font-medium leading-[1.4]" style={{ fontSize: 'clamp(16px, 5.5vw, 20px)', color: '#111827' }}>
+        <p ref={revealRef} className="font-medium leading-[1.4]" style={{ fontSize: 'clamp(14px, 4.5vw, 20px)', color: '#111827' }}>
           {words.map((word, i) => (
             <span key={i} className="reveal-word" style={{ color: '#525252' }}>
               {word}{' '}
