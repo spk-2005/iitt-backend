@@ -136,6 +136,82 @@
     waterDropEntrance 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 3.1s both,
     ringUnfold 1.2s ease-out 4.2s forwards;
 }
+/* ─────────────────────────────────────────────
+   2b. WAVE RINGS — water ripple expanding outward
+   Like the reference: each ring expands from its
+   natural size outward while fading, staggered so
+   waves appear to radiate from the center logo.
+──────────────────────────────────────────────── */
+
+/*
+ * SVG center: cx=640, cy=217.88
+ * Each circle has a fixed radius in SVG.
+ * We animate scale(1) → scale(1.18) + opacity 1→0
+ * so the ring visually "pulses outward" and fades,
+ * exactly like the CSS ripple reference.
+ * transform-box: fill-box anchors the scale to
+ * each circle's own centre (cx/cy).
+ */
+@keyframes svgRipple {
+  0% {
+    transform: scale(0.88);
+    opacity: 0;
+    filter: blur(2px) drop-shadow(0 0 0px var(--wave-color));
+  }
+
+  10% {
+    opacity: var(--wave-peak);
+    filter: blur(0px) drop-shadow(0 0 8px var(--wave-color));
+  }
+
+  100% {
+    transform: scale(1.22);
+    opacity: 0;
+    filter: blur(1px) drop-shadow(0 0 0px var(--wave-color));
+  }
+}
+
+.center-wave {
+  opacity: 0;
+  transform-origin: 640px 217.88px;
+  transform-box: view-box;
+}
+
+/* ── wave-1 — innermost, brightest, fastest cycle ── */
+.center-wave-1 {
+  --wave-peak: 0.80;
+  --wave-color: rgba(29, 128, 249, 0.80);
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 4.5s infinite;
+}
+
+/* ── wave-2 ── */
+.center-wave-2 {
+  --wave-peak: 0.65;
+  --wave-color: rgba(29, 128, 249, 0.65);
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 4.5s infinite;
+}
+
+/* ── wave-3 ── */
+.center-wave-3 {
+  --wave-peak: 0.50;
+  --wave-color: rgba(125, 35, 247, 0.55);
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 4.5s infinite;
+}
+
+/* ── wave-4 ── */
+.center-wave-4 {
+  --wave-peak: 0.35;
+  --wave-color: rgba(231, 79, 98, 0.45);
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 4.5s infinite;
+}
+
+/* ── wave-5 — outermost, faintest, slowest phase ── */
+.center-wave-5 {
+  --wave-peak: 0.22;
+  --wave-color: rgba(231, 79, 98, 0.30);
+  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 4.5s infinite;
+}
+
 
 /* ─────────────────────────────────────────────
    3. SIGNAL LINES — directional dash reveal
@@ -384,8 +460,8 @@
 }
 
 .label-inner-data {
-  --fly-x: -117.5px;
-  --fly-y: 76.9px;
+  --fly-x: -169px;
+  --fly-y: 110.4px;
   animation: flyOutFromCenter 2s cubic-bezier(0.22, 0.61, 0.36, 1) 4.2s both;
 }
 
