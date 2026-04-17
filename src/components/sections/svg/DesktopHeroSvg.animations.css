@@ -32,34 +32,17 @@
    1b. CENTER SECTION — scale-up entrance + float
 ──────────────────────────────────────────────── */
 
-@keyframes waterDropEntrance {
+@keyframes logoPulseEntrance {
   0% {
-    /* Extreme vertical stretch for the "teardrop" look while falling */
-    transform: translateY(-800px) scaleY(2.2) scaleX(0.55);
+    transform: scale(0);
     opacity: 0;
   }
-
-  20% {
+  60% {
+    transform: scale(1.2);
     opacity: 1;
   }
-
-  60% {
-    /* Landed state: snap back to normal before squash */
-    transform: translateY(0) scaleY(1) scaleX(1);
-  }
-
-  75% {
-    /* Impact Squash: wide and flat */
-    transform: translateY(12px) scaleY(0.5) scaleX(1.4);
-  }
-
-  90% {
-    /* Subtle bounce back up */
-    transform: translateY(-5px) scaleY(1.1) scaleX(0.95);
-  }
-
   100% {
-    transform: translateY(0) scaleY(1) scaleX(1);
+    transform: scale(1);
     opacity: 1;
   }
 }
@@ -68,7 +51,7 @@
   /* Ensure the group doesn't move when the glint inside it moves */
   transform-origin: 640.002px 217.881px;
   transform-box: view-box;
-  animation: waterDropEntrance 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 3.1s both;
+  animation: logoPulseEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 3.1s both;
 }
 
 .logo-glint {
@@ -133,7 +116,7 @@
   transform-box: view-box;
   /* Sync with logo drop */
   animation:
-    waterDropEntrance 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 3.1s both,
+    logoPulseEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 3.1s both,
     ringUnfold 1.2s ease-out 4.2s forwards;
 }
 /* ─────────────────────────────────────────────
@@ -143,32 +126,19 @@
    waves appear to radiate from the center logo.
 ──────────────────────────────────────────────── */
 
-/*
- * SVG center: cx=640, cy=217.88
- * Each circle has a fixed radius in SVG.
- * We animate scale(1) → scale(1.18) + opacity 1→0
- * so the ring visually "pulses outward" and fades,
- * exactly like the CSS ripple reference.
- * transform-box: fill-box anchors the scale to
- * each circle's own centre (cx/cy).
- */
-@keyframes svgRipple {
-  0% {
-    transform: scale(0.88);
-    opacity: 0;
-    filter: blur(2px) drop-shadow(0 0 0px var(--wave-color));
-  }
+@keyframes rotateCW {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
-  10% {
-    opacity: var(--wave-peak);
-    filter: blur(0px) drop-shadow(0 0 8px var(--wave-color));
-  }
+@keyframes rotateACW {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
 
-  100% {
-    transform: scale(1.22);
-    opacity: 0;
-    filter: blur(1px) drop-shadow(0 0 0px var(--wave-color));
-  }
+@keyframes waveFadeIn {
+  from { opacity: 0; }
+  to { opacity: var(--wave-peak); }
 }
 
 .center-wave {
@@ -181,35 +151,45 @@
 .center-wave-1 {
   --wave-peak: 0.80;
   --wave-color: rgba(29, 128, 249, 0.80);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 4.5s infinite;
+  animation: 
+    waveFadeIn 1s ease-out 4.3s forwards,
+    rotateCW 12s linear 4.3s infinite;
 }
 
 /* ── wave-2 ── */
 .center-wave-2 {
   --wave-peak: 0.65;
   --wave-color: rgba(29, 128, 249, 0.65);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 4.5s infinite;
+  animation: 
+    waveFadeIn 1s ease-out 4.4s forwards,
+    rotateACW 15s linear 4.4s infinite;
 }
 
 /* ── wave-3 ── */
 .center-wave-3 {
   --wave-peak: 0.50;
   --wave-color: rgba(125, 35, 247, 0.55);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 4.5s infinite;
+  animation: 
+    waveFadeIn 1s ease-out 4.5s forwards,
+    rotateCW 18s linear 4.5s infinite;
 }
 
 /* ── wave-4 ── */
 .center-wave-4 {
   --wave-peak: 0.35;
   --wave-color: rgba(231, 79, 98, 0.45);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 4.5s infinite;
+  animation: 
+    waveFadeIn 1s ease-out 4.6s forwards,
+    rotateACW 21s linear 4.6s infinite;
 }
 
 /* ── wave-5 — outermost, faintest, slowest phase ── */
 .center-wave-5 {
   --wave-peak: 0.22;
   --wave-color: rgba(231, 79, 98, 0.30);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 4.5s infinite;
+  animation: 
+    waveFadeIn 1s ease-out 4.7s forwards,
+    rotateCW 25s linear 4.7s infinite;
 }
 
 
