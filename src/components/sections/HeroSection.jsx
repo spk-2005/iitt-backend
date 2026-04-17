@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
-import heroMobileSrc from '../../assets/hero-mob.png?format=webp&w=800&quality=80';
+import heroMobileSrc from '../../assets/hero-mob.png?format=webp&w=640&quality=80';
 import { DesktopHeroSvg } from '../sections/svg/DesktopHeroSvg.jsx';
 
 
@@ -116,8 +116,8 @@ export function HeroSection() {
               <img 
                 src={heroMobileSrc} 
                 alt="Product Interface Illustration" 
-                width={1596} 
-                height={1884} 
+                width={640} 
+                height={756} 
                 className="block md:hidden w-full" 
                 loading="eager" 
                 fetchpriority="high"

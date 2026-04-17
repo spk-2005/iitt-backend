@@ -109,8 +109,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
     loading={slide.index === 0 ? 'eager' : 'lazy'}
     alt={cardImageAlt}
     className={cardImageClass}
-    width={800}
-    height={520}
+    width={640}
+    height={416}
     style={{
       width: cardImageWidth || '92%',
       height: 'auto',          /* fill the wrapper height proportionally */
@@ -175,8 +175,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
             src={cardImage}
             loading={slide.index === 0 ? 'eager' : 'lazy'}
             alt={cardImageAlt}
-            width={500}
-            height={333}
+            width={640}
+            height={420}
             className={cardImageClass}
             style={{
               width: cardImageWidth,

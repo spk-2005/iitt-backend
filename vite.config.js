@@ -5,4 +5,15 @@ import { imagetools } from 'vite-imagetools'
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), imagetools()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['react', 'react-dom'],
+          'gsap': ['gsap'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 600,
+  },
 })

@@ -1,7 +1,7 @@
-import slide1Img from '../assets/Intro-Page-900.webp?w=700';
-import slide2Img from '../assets/Intro Page (1).png?format=webp&w=800&quality=80';
-import slide3Img from '../assets/Intro Page (3).png?format=webp&w=800&quality=80';
-import slide4Img from '../assets/Intro Page (4).png?format=webp&w=800&quality=80';
+import slide1Img from '../assets/Intro-Page-900.webp?w=640';
+import slide2Img from '../assets/Intro Page (1).png?format=webp&w=640&quality=80';
+import slide3Img from '../assets/Intro Page (3).png?format=webp&w=640&quality=80';
+import slide4Img from '../assets/Intro Page (4).png?format=webp&w=640&quality=80';
 
 const style = document.createElement('style');
 style.textContent = `
