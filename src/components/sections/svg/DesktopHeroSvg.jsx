@@ -472,6 +472,7 @@ export function DesktopHeroSvg({ className }) {
           </linearGradient>
         </defs>
 
+
         <g className="hero-center-logo">
           <image href={centerBg} x="606.688" y="184.567" width="66.628" height="66.628"
             clipPath="url(#centerCircleClip)" preserveAspectRatio="xMidYMid slice" />
@@ -486,19 +487,7 @@ export function DesktopHeroSvg({ className }) {
           />
           <circle cx="640.002" cy="217.881" r="36.3141" stroke="url(#paint74_linear_1298_381)" strokeWidth="1.32051" className="center-icon" />
         </g>
-        <g filter="url(#filter30_d_1298_381)" className="center-wave center-wave-4" style={{ transformOrigin: '640px 217.88px', transformBox: 'view-box' }}>
-          <circle cx="639.999" cy="217.88" r="89.3547" stroke="url(#paint75_linear_1298_381)" strokeOpacity="0.5" strokeWidth="2.64103" strokeDasharray="0.88 0.88" shapeRendering="crispEdges" />
-        </g>
-        <g filter="url(#filter31_d_1298_381)" className="center-wave center-wave-3" style={{ transformOrigin: '640px 217.88px', transformBox: 'view-box' }}>
-          <circle cx="640" cy="217.881" r="75.2692" stroke="url(#paint76_linear_1298_381)" strokeOpacity="0.5" strokeWidth="2.64103" strokeDasharray="0.88 0.88" shapeRendering="crispEdges" />
-        </g>
-        <g filter="url(#filter32_d_1298_381)" className="center-wave center-wave-2">
-          <circle cx="640" cy="217.88" r="61.1838" stroke="url(#paint77_linear_1298_381)" strokeOpacity="0.58" strokeWidth="2.64103" strokeDasharray="0.88 0.88" shapeRendering="crispEdges" />
-        </g>
-        <circle cx="639.998" cy="217.88" r="47.9786" stroke="url(#paint78_linear_1298_381)" strokeOpacity="0.31" strokeWidth="2.64103" strokeDasharray="0.88 0.88" className="center-wave center-wave-1" />
-        <circle cx="640" cy="217" r="101.679" stroke="url(#paint79_linear_1298_381)" strokeOpacity="0.58" strokeWidth="2.64103" strokeDasharray="0.88 0.88" className="center-wave center-wave-5" />
         <circle cx="640.002" cy="217.881" r="36.3141" stroke="url(#paint74_linear_1298_381)" strokeWidth="1.32051" />
-        <circle cx="639.999" cy="217.88" r="89.3547" stroke="url(#paint75_linear_1298_381)" strokeOpacity="0.1" strokeWidth="2.64103" strokeDasharray="0.88 0.88" shapeRendering="crispEdges" />
 
         {/* Moving big grey dot — wanders slowly between the 4 quadrants */}
 
@@ -1150,6 +1139,16 @@ export function DesktopHeroSvg({ className }) {
         <clipPath id="centerCircleClip">
           <circle cx="640.002" cy="217.881" r="36.3141" />
         </clipPath>
+        <filter id="sectionWaveFilter" x="-200%" y="-200%" width="500%" height="500%">
+          {/* 3D Depth: Dark shadow and light highlight to create a beveled ripple look */}
+          <feDropShadow dx="4" dy="4" stdDeviation="8" floodColor="black" floodOpacity="0.2" result="dark" />
+          <feDropShadow dx="-4" dy="-4" stdDeviation="8" floodColor="white" floodOpacity="0.3" in="SourceGraphic" result="light" />
+          <feMerge>
+            <feMergeNode in="dark" />
+            <feMergeNode in="light" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
       </defs>
     </svg>
 
