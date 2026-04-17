@@ -4,7 +4,7 @@ import { SectionBulletItem } from '../primitives/SectionBulletItem.jsx';
 import groupImgSrc from '../../assets/Group 1437253216.png';
 
 export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false }) {
-  const { step, cardGradientClass, cardImage, cardImageSrcset, cardImageAlt, cardImageWidth, cardImageClass, description, bullets } = slide;
+  const { step, cardGradientClass, cardImage, cardImageAlt, cardImageWidth, cardImageClass, description, bullets } = slide;
 
   if (isDesktop) {
     return (
@@ -27,12 +27,12 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                 transform: isActive ? 'translateY(0px)' : 'translateY(16px)',
               }}
             >
-              <h3
+              <h2
                 className="font-normal text-[#111111] leading-snug mb-4"
                 style={{ fontSize: 'clamp(15px, 1.4vw, 26px)' }}
               >
                 {step}
-              </h3>
+              </h2>
 
               <div className="w-full space-y-5">
                 <p
@@ -67,8 +67,6 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                   src={groupImgSrc}
                   loading={slide.index === 0 ? 'eager' : 'lazy'}
                   alt=""
-                  width={120}
-                  height={120}
                   className="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10"
                 />
                 <NoiseOverlay />
@@ -78,12 +76,12 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                   className="relative z-20 space-y-2 carousel-card-title-block"
                   style={{ padding: 'clamp(16px, 2.5vw, 36px)'}}
                 >
-                  <h3
+                  <h2
                     className="font-medium max-w-[360px] leading-snug"
                     style={{ fontSize: 'clamp(13px, 1.3vw, 22px)' }}
                   >
                     Turn complex RFPs  into <br />clear, winning responses
-                  </h3>
+                  </h2>
                 </div>
 
                 {/*
@@ -106,16 +104,12 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
 >
   <img
     src={cardImage}
-    srcSet={cardImageSrcset}
-    sizes="(max-width: 639px) 400px, 640px"
     loading={slide.index === 0 ? 'eager' : 'lazy'}
     alt={cardImageAlt}
     className={cardImageClass}
-    width={640}
-    height={416}
     style={{
       width: cardImageWidth || '92%',
-      height: 'auto',          /* fill the wrapper height proportionally */
+      height: '100%',          /* fill the wrapper height */
       maxHeight: 'none',       /* kill any CSS class max-height */
       objectFit: 'contain',
       objectPosition: 'bottom right',
@@ -153,7 +147,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
   // ── Mobile ──────────────────────────────────────────────────────────────
   return (
     <div className="shrink-0 min-h-full h-full flex flex-col overflow-hidden px-5 pb-5 box-border" style={{ width: '100vw' }}>
-      <h3 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h3>
+      <h2 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h2>
 
       <div
         className={`text-white relative overflow-hidden shadow-lg rounded-[10px] ${cardGradientClass}`}
@@ -162,29 +156,22 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
         <img
           src={groupImgSrc}
           alt=""
-          width={80}
-          height={80}
           className="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10"
         />
         <NoiseOverlay />
         <div className="absolute top-0 left-0 z-20 p-5">
-          <h3 className="font-medium text-[16px] leading-snug max-w-55">
+          <h2 className="font-medium text-[16px] leading-snug max-w-55">
             Turn complex RFPs into clear, winning responses
-          </h3>
+          </h2>
         </div>
         <div className="absolute z-10 bottom-0 right-0 flex justify-end">
           <img
             src={cardImage}
-            srcSet={cardImageSrcset}
-            sizes="(max-width: 639px) 400px, 640px"
             loading={slide.index === 0 ? 'eager' : 'lazy'}
             alt={cardImageAlt}
-            width={640}
-            height={420}
             className={cardImageClass}
             style={{
               width: cardImageWidth,
-              height: 'auto',
               maxHeight: 'clamp(220px, 72%, 520px)',
             }}
           />
@@ -192,7 +179,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
       </div>
 
       <div className="pt-4 space-y-3 flex-1 overflow-y-auto">
-        <p className="text-[#111827] text-[15px] leading-relaxed opacity-80">{description}</p>
+        <p className="text-[#6b7280] text-[15px] leading-relaxed">{description}</p>
         <div className="space-y-2 pt-1">
           {bullets.map((bullet, i) => (
             <SectionBulletItem key={i}>{bullet}</SectionBulletItem>
