@@ -15,7 +15,6 @@
  *  4.2s  – Big roaming dot fades in, wanders forever
  */
 
-
 /* ─────────────────────────────────────────────
    1. CENTER LOGO
 ──────────────────────────────────────────────── */
@@ -29,39 +28,31 @@
   }
 }
 
-
-
-
 /* ─────────────────────────────────────────────
    1b. CENTER SECTION — scale-up entrance + float
 ──────────────────────────────────────────────── */
-
-
-
 
 .hero-center-logo {
   /* Ensure the group doesn't move when the glint inside it moves */
   transform-origin: 640.002px 217.881px;
   transform-box: view-box;
-  animation:
-    centerSectionEntrance 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s both;
+  animation: centerSectionEntrance 1s cubic-bezier(0.34, 1.56, 0.64, 1) 2.6s both;
 }
-
 
 @keyframes centerSectionEntrance {
   0% {
     opacity: 0;
-    transform: scale(0.88)
+    transform: scale(0.88);
   }
 
   60% {
     opacity: 1;
-    transform: scale(1.02)
+    transform: scale(1.02);
   }
 
   100% {
     opacity: 1;
-    transform: scale(1)
+    transform: scale(1);
   }
 }
 
@@ -70,11 +61,11 @@
   transform: translateX(-150px) skewX(-25deg);
   opacity: 0;
 
-  /* Trigger: Starts at 1.2s (after logo entrance)
+  /* Trigger: Starts at 3.2s (after logo entrance)
      Duration: 0.85s (from your reference)
      'forwards' ensures it stays at the end position and doesn't loop
   */
-  animation: singleKnifeShine 0.85s ease-in-out 4.5s forwards;
+  animation: singleKnifeShine 0.85s ease-in-out 6.5s forwards;
 }
 
 @keyframes singleKnifeShine {
@@ -123,9 +114,8 @@
   stroke-dasharray: 228px;
   stroke-dashoffset: 228px;
   opacity: 0;
-
+  animation: ringUnfold 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 2.6s forwards;
 }
-
 
 /* ─────────────────────────────────────────────
    2b. WAVE RINGS — water ripple expanding outward
@@ -170,37 +160,37 @@
 
 /* ── wave-1 — innermost, brightest, fastest cycle ── */
 .center-wave-1 {
-  --wave-peak: 0.80;
-  --wave-color: rgba(29, 128, 249, 0.80);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 1.05s;
+  --wave-peak: 0.8;
+  --wave-color: rgba(29, 128, 249, 0.8);
+  animation: svgRipple 3s cubic-bezier(0, 0.2, 0.8, 1) 3.05s;
 }
 
 /* ── wave-2 ── */
 .center-wave-2 {
   --wave-peak: 0.65;
   --wave-color: rgba(29, 128, 249, 0.65);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 1.65s infinite;
+  animation: svgRipple 3s cubic-bezier(0, 0.2, 0.8, 1) 3.65s infinite;
 }
 
 /* ── wave-3 ── */
 .center-wave-3 {
-  --wave-peak: 0.50;
+  --wave-peak: 0.5;
   --wave-color: rgba(125, 35, 247, 0.55);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 2.25s infinite;
+  animation: svgRipple 3s cubic-bezier(0, 0.2, 0.8, 1) 4.25s infinite;
 }
 
 /* ── wave-4 ── */
 .center-wave-4 {
   --wave-peak: 0.35;
   --wave-color: rgba(231, 79, 98, 0.45);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 2.85s infinite;
+  animation: svgRipple 3s cubic-bezier(0, 0.2, 0.8, 1) 4.85s infinite;
 }
 
 /* ── wave-5 — outermost, faintest, slowest phase ── */
 .center-wave-5 {
   --wave-peak: 0.22;
-  --wave-color: rgba(231, 79, 98, 0.30);
-  animation: svgRipple 3.0s cubic-bezier(0, 0.2, 0.8, 1) 3.45s infinite;
+  --wave-color: rgba(231, 79, 98, 0.3);
+  animation: svgRipple 3s cubic-bezier(0, 0.2, 0.8, 1) 5.45s infinite;
 }
 
 /* ─────────────────────────────────────────────
@@ -292,31 +282,31 @@
 .center-signal-0 {
   --line-len: 140px;
   animation:
-    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
-    glowPulse 2.4s ease-in-out 3.0s infinite;
+    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 3.2s both,
+    glowPulse 2.4s ease-in-out 5s infinite;
 }
 
 /* ── RIGHT-SIDE lines: dot → center, animate FIRST (2.0s) ── */
 .center-signal-1 {
   --line-len: 108px;
   animation:
-    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
-    glowPulse 2.4s ease-in-out 3.0s infinite;
+    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 3.2s both,
+    glowPulse 2.4s ease-in-out 5s infinite;
 }
 
 .center-signal-3 {
   --line-len: 125px;
   animation:
-    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
-    glowPulse 2.4s ease-in-out 3.0s infinite;
+    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 3.2s both,
+    glowPulse 2.4s ease-in-out 5s infinite;
 }
 
 /* ── LEFT-SIDE lines: same timing + same direction as right ── */
 .center-signal-2 {
   --line-len: 98px;
   animation:
-    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both,
-    glowPulse 2.4s ease-in-out 3.0s infinite;
+    dashRevealReverse 2.5s cubic-bezier(0.4, 0, 0.2, 1) 3.2s both,
+    glowPulse 2.4s ease-in-out 5s infinite;
 }
 
 .signal-line-4 {
@@ -326,8 +316,8 @@
   --line-len: 98px;
   --glow-color: rgba(29, 128, 249, 0.7);
   animation:
-    dashRevealReverse 2.5s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both,
-    glowPulse 2.4s ease-in-out 2.4s infinite;
+    dashRevealReverse 2.5s cubic-bezier(0.16, 1, 0.3, 1) 3.2s both,
+    glowPulse 2.4s ease-in-out 4.4s infinite;
 }
 
 /* ─────────────────────────────────────────────
@@ -362,21 +352,20 @@
 }
 
 .title-node-1 {
-  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s forwards;
+  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 4.2s forwards;
 }
 
 .title-node-2 {
-  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.35s forwards;
+  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 4.35s forwards;
 }
 
 .title-node-3 {
-  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.5s forwards;
+  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 4.5s forwards;
 }
 
 .title-node-4 {
-  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2.65s forwards;
+  animation: nodeFadeScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 4.65s forwards;
 }
-
 
 /* ─────────────────────────────────────────────
    5. TITLE LABEL BOXES — fade + lift
@@ -404,54 +393,53 @@
   transform-box: view-box;
 }
 
-.label-data {
-  --fly-x: -117.5px;
-  --fly-y: 76.9px;
-  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both;
-}
-
+/* ── Outer Peripheral Action Labels ("search", "comments", "edits") ──
+   These flow locally from their nearby dashed lines (using ciSlideIn),
+   which triggers later in the sequence. */
 .label-tools {
-  --fly-x: 280px;
-  --fly-y: -140.1px;
-  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both;
+  --ci-tx: 40px;
+  --ci-ty: 15px;
+  --ci-delay: 0s;
+  animation: ciSlideIn 2s cubic-bezier(0.22, 0.61, 0.36, 1) var(--ci-delay) both;
 }
 
 .label-humans {
-  --fly-x: 410px;
-  --fly-y: -75.6px;
-  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both;
+  --ci-tx: -30px;
+  --ci-ty: 30px;
+  --ci-delay: 0.1s;
+  animation: ciSlideIn 2s cubic-bezier(0.22, 0.61, 0.36, 1) var(--ci-delay) both;
 }
 
 .label-agents {
-  --fly-x: 543px;
-  --fly-y: -117.1px;
-  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both;
+  --ci-tx: -40px;
+  --ci-ty: 15px;
+  --ci-delay: 0s;
+  animation: ciSlideIn 2s cubic-bezier(0.22, 0.61, 0.36, 1) var(--ci-delay) both;
 }
 
 .label-inner-humans {
   --fly-x: 164px;
   --fly-y: 56.9px;
-  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both;
+  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 3.2s both;
 }
 
 .label-inner-agents {
   --fly-x: 110.5px;
   --fly-y: -143.1px;
-  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both;
+  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 3.2s both;
 }
 
 .label-inner-tools {
   --fly-x: -154px;
   --fly-y: -123.1px;
-  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both;
+  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 3.2s both;
 }
 
 .label-inner-data {
   --fly-x: -117.5px;
   --fly-y: 76.9px;
-  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1.2s both;
+  animation: flyOutFromCenter 2.5s cubic-bezier(0.4, 0, 0.2, 1) 3.2s both;
 }
-
 
 /* ─────────────────────────────────────────────
    6. CORNER DOTTED LINES — grey dashed lines draw in
@@ -478,47 +466,46 @@
   stroke-dasharray: 200px;
   stroke-dashoffset: 200px;
   opacity: 0;
-  animation: drawCornerLine 0.65s ease-out 3.0s forwards;
+  animation: drawCornerLine 0.65s ease-out 0.5s forwards;
 }
 
 /* Stagger each sibling line after the first */
 .corner-line-tl~.corner-line-tl {
-  animation-delay: 3.15s;
+  animation-delay: 0.65s;
 }
 
 .corner-line-tl~.corner-line-tl~.corner-line-tl {
-  animation-delay: 3.3s;
+  animation-delay: 0.8s;
 }
 
 .corner-line-tl~.corner-line-tl~.corner-line-tl~.corner-line-tl {
-  animation-delay: 3.45s;
+  animation-delay: 0.95s;
 }
 
 .corner-line-tl~.corner-line-tl~.corner-line-tl~.corner-line-tl~.corner-line-tl {
-  animation-delay: 3.6s;
+  animation-delay: 1.1s;
 }
 
 .corner-line-tr {
   stroke-dasharray: 200px;
   stroke-dashoffset: 200px;
   opacity: 0;
-  animation: drawCornerLine 0.65s ease-out 3.1s forwards;
+  animation: drawCornerLine 0.65s ease-out 0.6s forwards;
 }
 
 .corner-line-bl {
   stroke-dasharray: 200px;
   stroke-dashoffset: 200px;
   opacity: 0;
-  animation: drawCornerLine 0.65s ease-out 3.25s forwards;
+  animation: drawCornerLine 0.65s ease-out 0.75s forwards;
 }
 
 .corner-line-br {
   stroke-dasharray: 200px;
   stroke-dashoffset: 200px;
   opacity: 0;
-  animation: drawCornerLine 0.65s ease-out 3.4s forwards;
+  animation: drawCornerLine 0.65s ease-out 0.9s forwards;
 }
-
 
 /* ─────────────────────────────────────────────
    7. SMALL GREY DOTS — spring pop after their lines draw
@@ -551,17 +538,16 @@
 }
 
 .grey-dot-tl-1 {
-  animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.65s forwards;
+  animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 1.15s forwards;
 }
 
 .grey-dot-tl-2 {
-  animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.8s forwards;
+  animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 1.3s forwards;
 }
 
 .grey-dot-tl-3 {
-  animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 3.95s forwards;
+  animation: dotReveal 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) 1.45s forwards;
 }
-
 
 /* ─────────────────────────────────────────────
    8. BACKGROUND IMAGES & ICON CARDS
@@ -625,65 +611,64 @@
 
 /* ── signal-0 arrival → 2.9s (top-left: Numa card area) ── */
 .img-reveal-0 {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 2.9s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.4s forwards;
 }
 
 /* ── signal-1 arrival → 3.0s (top-right zone) ── */
 .img-reveal-1 {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s forwards;
 }
 
 .img-reveal-1b {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.1s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.6s forwards;
 }
 
 .img-reveal-1c {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.7s forwards;
 }
 
 /* ── signal-3 arrival → 3.2s (bottom-right zone) ── */
 .img-reveal-3 {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.7s forwards;
 }
 
 .img-reveal-3b {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.35s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.85s forwards;
 }
 
 /* ── signal-2 arrival → 3.3s (bottom-left zone) ── */
 .img-reveal-2 {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.3s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.8s forwards;
 }
 
 /* ── signal-4 arrival → 3.45s (far-left / bottom zone) ── */
 .img-reveal-4 {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.45s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.95s forwards;
 }
 
 /* ── Legacy bg-img-N classes (remapped to signal zones) ── */
 .bg-img-1 {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s forwards;
 }
 
 .bg-img-2 {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.7s forwards;
 }
 
 .bg-img-3 {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.2s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.7s forwards;
 }
 
 .bg-img-4 {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.35s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.85s forwards;
 }
 
 /* ── bg-img base: hidden, revealed via bg-img-N zone class above ──
    If a group has ONLY .bg-img (no zone class), it falls back to
    signal-1 timing (3.0s). bg-img-N overrides this via specificity. */
 .bg-img:not(.bg-img-1):not(.bg-img-2):not(.bg-img-3):not(.bg-img-4) {
-  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
+  animation: imgReveal 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s forwards;
 }
-
 
 /* ─────────────────────────────────────────────
    9. BIG ROAMING DOT — large grey dot (~r=7)
@@ -749,7 +734,7 @@
 .big-roaming-dot {
   opacity: 0;
   transform-origin: 148px 58px;
-  animation: roamingDot 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.2s infinite;
+  animation: roamingDot 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) 1.7s infinite;
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -800,20 +785,20 @@
 
 /* ── right-zone + left-zone: fire simultaneously ── */
 .dashed-bg-line.right-zone {
-  animation: dashRevealFull 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--draw-delay, 0.5s) both;
+  animation: dashRevealFull 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) var(--draw-delay, 0.5s) both;
 }
 
 .dashed-bg-line.right-zone[opacity="0.36"] {
-  animation: dashRevealPartial 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--draw-delay, 0.5s) both;
+  animation: dashRevealPartial 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) var(--draw-delay, 0.5s) both;
 }
 
 /* left-zone now uses same --draw-delay default as right-zone */
 .dashed-bg-line.left-zone {
-  animation: dashRevealFull 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--draw-delay, 0.5s) both;
+  animation: dashRevealFull 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) var(--draw-delay, 0.5s) both;
 }
 
 .dashed-bg-line.left-zone[opacity="0.36"] {
-  animation: dashRevealPartial 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--draw-delay, 0.5s) both;
+  animation: dashRevealPartial 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) var(--draw-delay, 0.5s) both;
 }
 
 /* ── center-signal: sits in the middle of the wave (1.8s–2.4s) ── */
@@ -821,7 +806,6 @@
   stroke-dashoffset: var(--line-len);
   opacity: 0;
 }
-
 
 /* ══════════════════════════════════════════════════════════════════
    11. CONNECTED ITEMS — icons, avatars, coloured label rects
@@ -864,22 +848,22 @@
 
 /* ── right-zone items reveal when right-zone lines arrive (~3.0s) ── */
 .connected-item.right-zone {
-  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
+  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s forwards;
 }
 
 /* ── far-right-zone items reveal slightly after (3.15s) ── */
 .connected-item.far-right-zone {
-  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 3.15s forwards;
+  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.65s forwards;
 }
 
 /* ── left-zone items reveal when left-zone lines arrive (~3.3s) ── */
 .connected-item.left-zone {
-  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 3.3s forwards;
+  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.8s forwards;
 }
 
 /* ── Generic connected-item (no zone class): fallback to right-zone timing ── */
 .connected-item:not(.right-zone):not(.left-zone):not(.far-right-zone):not(.center-zone) {
-  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s forwards;
+  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s forwards;
 }
 
 /* ── center-zone: near-center items reveal at center signal timing ── */
@@ -893,9 +877,8 @@
    The SVG opacity attribute is still respected after animation completes. */
 .connected-item-lowop {
   opacity: 0;
-  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 3.0s both;
+  animation: connectedReveal 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s both;
 }
-
 
 /* ══════════════════════════════════════════════════════════════════
    12. TRAVERSING DOTS — grey circles that ride back and forth
@@ -950,17 +933,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(-60px, -28px)
+    transform: translate(-60px, -28px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -968,17 +951,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(69px, -69px)
+    transform: translate(69px, -69px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -986,17 +969,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(43px, 19px)
+    transform: translate(43px, 19px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1004,17 +987,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(18px, -16px)
+    transform: translate(18px, -16px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1022,17 +1005,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(64px, 38px)
+    transform: translate(64px, 38px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1040,17 +1023,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(38px, -31px)
+    transform: translate(38px, -31px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1058,17 +1041,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(49px, 22px)
+    transform: translate(49px, 22px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1076,17 +1059,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(20px, -52px)
+    transform: translate(20px, -52px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1094,17 +1077,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(63px, 39px)
+    transform: translate(63px, 39px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1112,17 +1095,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(-41px, -20px)
+    transform: translate(-41px, -20px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1130,17 +1113,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(-12px, -17px)
+    transform: translate(-12px, -17px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1148,17 +1131,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(37px, -17px)
+    transform: translate(37px, -17px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1166,17 +1149,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(50px, 23px)
+    transform: translate(50px, 23px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1184,17 +1167,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(-12px, -16px)
+    transform: translate(-12px, -16px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1202,17 +1185,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(18px, -52px)
+    transform: translate(18px, -52px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1220,17 +1203,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(38px, -18px)
+    transform: translate(38px, -18px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1238,17 +1221,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(-38px, -172px)
+    transform: translate(-38px, -172px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1256,17 +1239,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(-15px, -14px)
+    transform: translate(-15px, -14px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1274,17 +1257,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(-6px, 33px)
+    transform: translate(-6px, 33px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1292,17 +1275,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(-49px, -29px)
+    transform: translate(-49px, -29px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1310,17 +1293,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(61px, 24px)
+    transform: translate(61px, 24px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1328,17 +1311,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(-10px, 15px)
+    transform: translate(-10px, 15px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1346,17 +1329,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(46px, -17px)
+    transform: translate(46px, -17px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1364,17 +1347,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(32px, 46px)
+    transform: translate(32px, 46px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1382,17 +1365,17 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(-7px, 19px)
+    transform: translate(-7px, 19px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
@@ -1400,123 +1383,175 @@
 
   0%,
   5% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 
   45%,
   55% {
-    transform: translate(13px, 33px)
+    transform: translate(13px, 33px);
   }
 
   95%,
   100% {
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
 }
 
 /* ── Per-dot rules: pop-in (once) then traverse (infinite), staggered ── */
 .dot-1 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.25s both, dotTraverse1 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.65s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.75s both,
+    dotTraverse1 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.15s infinite;
 }
 
 .dot-2 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.30s both, dotTraverse2 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.70s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.8s both,
+    dotTraverse2 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.2s infinite;
 }
 
 .dot-3 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.35s both, dotTraverse3 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.75s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.85s both,
+    dotTraverse3 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.25s infinite;
 }
 
 .dot-4 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.40s both, dotTraverse4 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.80s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.9s both,
+    dotTraverse4 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.3s infinite;
 }
 
 .dot-5 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.45s both, dotTraverse5 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.85s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.95s both,
+    dotTraverse5 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.35s infinite;
 }
 
 .dot-6 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.50s both, dotTraverse6 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.90s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2s both,
+    dotTraverse6 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.4s infinite;
 }
 
 .dot-7 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.55s both, dotTraverse7 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.95s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.05s both,
+    dotTraverse7 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.45s infinite;
 }
 
 .dot-8 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.60s both, dotTraverse8 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.00s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.1s both,
+    dotTraverse8 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.5s infinite;
 }
 
 .dot-9 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.65s both, dotTraverse9 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.05s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.15s both,
+    dotTraverse9 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.55s infinite;
 }
 
 .dot-10 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.30s both, dotTraverse10 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.70s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.8s both,
+    dotTraverse10 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.2s infinite;
 }
 
 .dot-11 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.35s both, dotTraverse11 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.75s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.85s both,
+    dotTraverse11 3.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.25s infinite;
 }
 
 .dot-12 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.40s both, dotTraverse12 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.80s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.9s both,
+    dotTraverse12 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.3s infinite;
 }
 
 .dot-13 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.45s both, dotTraverse13 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.85s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.95s both,
+    dotTraverse13 6.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.35s infinite;
 }
 
 .dot-14 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.50s both, dotTraverse14 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.90s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2s both,
+    dotTraverse14 3.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.4s infinite;
 }
 
 .dot-15 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.55s both, dotTraverse15 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) 4.95s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.05s both,
+    dotTraverse15 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.45s infinite;
 }
 
 .dot-16 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.60s both, dotTraverse16 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.00s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.1s both,
+    dotTraverse16 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.5s infinite;
 }
 
 .dot-17 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.65s both, dotTraverse17 10s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.05s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.15s both,
+    dotTraverse17 7.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.55s infinite;
 }
 
 .dot-18 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.70s both, dotTraverse18 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.10s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s both,
+    dotTraverse18 3.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.6s infinite;
 }
 
 .dot-19 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.75s both, dotTraverse19 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.15s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.25s both,
+    dotTraverse19 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.65s infinite;
 }
 
 .dot-20 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.80s both, dotTraverse20 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.20s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.3s both,
+    dotTraverse20 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.7s infinite;
 }
 
 .dot-21 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.85s both, dotTraverse21 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.25s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.35s both,
+    dotTraverse21 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.75s infinite;
 }
 
 .dot-22 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.90s both, dotTraverse22 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.30s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.4s both,
+    dotTraverse22 3.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.8s infinite;
 }
 
 .dot-23 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 4.95s both, dotTraverse23 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.35s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.45s both,
+    dotTraverse23 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.85s infinite;
 }
 
 .dot-24 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 5.00s both, dotTraverse24 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.40s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.5s both,
+    dotTraverse24 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.9s infinite;
 }
 
 .dot-25 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 5.05s both, dotTraverse25 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.45s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.55s both,
+    dotTraverse25 3.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 2.95s infinite;
 }
 
 .dot-26 {
-  animation: dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 5.10s both, dotTraverse26 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) 5.50s infinite;
+  animation:
+    dotPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.6s both,
+    dotTraverse26 4.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 3s infinite;
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -1550,7 +1585,7 @@
 .connected-item.ci-slide.right-zone,
 .connected-item.ci-slide.left-zone,
 .connected-item.ci-slide.far-right-zone {
-  animation: ciSlideIn 2s cubic-bezier(0.22, 0.61, 0.36, 1) var(--ci-delay, 1.0s) both !important;
+  animation: ciSlideIn 3s cubic-bezier(0.22, 0.61, 0.36, 1) calc(var(--ci-delay, 2.5s) - 0.85s) both !important;
 }
 
 @keyframes flowCardBorder {
@@ -1573,5 +1608,5 @@
   stroke-dasharray: 400;
   stroke-dashoffset: 400;
   opacity: 0;
-  animation: flowCardBorder 1.5s cubic-bezier(0.16, 1, 0.3, 1) 2.5s forwards;
+  animation: flowCardBorder 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0s forwards;
 }
