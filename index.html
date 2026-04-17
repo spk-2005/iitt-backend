@@ -7,9 +7,7 @@
     <!-- ── Fonts (non-blocking) ──────────────────────────────────────── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" /></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" />
 
     <!-- ── Primary meta ─────────────────────────────────────────────── -->
     <title>Anseru | AI Agents for RFPs and Security Questionnaires</title>
@@ -139,14 +137,6 @@
         },
         {
           "@type": "Question",
-          "name": "What is Anseru?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Anseru is a deal intelligence platform designed for enterprise sales teams. It helps companies respond to RFPs, security questionnaires, and compliance requests by turning past deal knowledge into structured, reusable intelligence using AI agents."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "How is Anseru different from traditional RFP tools?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -213,8 +203,9 @@
     }
     </script>
 
-    <!-- ── Hero image preload (LCP) ────────────────────────────────── -->
-    <link rel="preload" as="image" type="image/webp" href="/images/hero-bg.webp" fetchpriority="high" />
+    <!-- ── Hero image preloads (LCP) ────────────────────────────────── -->
+    <link rel="preload" as="image" type="image/webp" href="/images/hero-bg.webp" fetchpriority="high" media="(min-width: 768px)" />
+    <link rel="preload" as="image" type="image/png" href="/images/hero-mob.png" fetchpriority="high" media="(max-width: 767px)" />
 
 
     <!-- ── Favicons & PWA ────────────────────────────────────────────── -->

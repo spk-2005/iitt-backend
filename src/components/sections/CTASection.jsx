@@ -10,6 +10,8 @@ export function CTASection() {
   <img
     src={ctaBgSrc}
     loading="lazy"
+    width={720}
+    height={520}
     className="absolute inset-0 w-full h-full object-cover"
     alt=""
   />

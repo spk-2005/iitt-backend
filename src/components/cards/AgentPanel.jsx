@@ -121,7 +121,7 @@ const featureCellStyles = `
 .feature-cell-desc {
   display: block;
   line-height: 1.55;
-  color: #6b7280 !important;
+  color: #525b63 !important;
   hyphens: none;
   -webkit-hyphens: none;
   word-break: normal;
@@ -327,15 +327,15 @@ const featureCellStyles = `
           <div className="mobile-feature-grid">
             {/* Row 1 */}
             <div className="mobile-row">
-              <h4 className="cell-title left">{features[0].title.replace(/\n/g, ' ')}</h4>
-              <h4 className="cell-title right">{features[1].title.replace(/\n/g, ' ')}</h4>
+              <h3 className="cell-title left">{features[0].title.replace(/\n/g, ' ')}</h3>
+              <h3 className="cell-title right">{features[1].title.replace(/\n/g, ' ')}</h3>
               <p className="cell-desc left">{features[0].description}</p>
               <p className="cell-desc right">{features[1].description}</p>
             </div>
             {/* Row 2 */}
             <div className="mobile-row">
-              <h4 className="cell-title left">{features[2].title.replace(/\n/g, ' ')}</h4>
-              <h4 className="cell-title right">{features[3].title.replace(/\n/g, ' ')}</h4>
+              <h3 className="cell-title left">{features[2].title.replace(/\n/g, ' ')}</h3>
+              <h3 className="cell-title right">{features[3].title.replace(/\n/g, ' ')}</h3>
               <p className="cell-desc left">{features[2].description}</p>
               <p className="cell-desc right">{features[3].description}</p>
             </div>

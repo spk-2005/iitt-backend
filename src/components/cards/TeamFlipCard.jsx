@@ -90,7 +90,7 @@ export function TeamFlipCard({ card }) {
             <h3 className="font-normal text-[#111827] mb-2 md:mb-3 text-[18px] md:text-[24px] leading-tight whitespace-pre-line">
               {card.title}
             </h3>
-            <p className="text-[#6b7280] text-[13px] md:text-[14px] leading-relaxed pr-4">{card.description}</p>
+            <p className="text-gray-600 text-[13px] md:text-[14px] leading-relaxed pr-4">{card.description}</p>
             <div className="flex flex-col md:flex-row justify-center items-center mt-auto mb-4 md:mb-6 pt-4 md:pt-6">
               <div className={`${ICON_WIDTHS[card.frontSvg]} md:h-50 opacity-90 flex items-center justify-center`}>
                 <FrontSvg />
@@ -127,7 +127,7 @@ export function TeamFlipCard({ card }) {
                   const parts = text.split(card.benefitHighlight.text);
                   return (
                     <div key={i} className="flex items-start gap-4">
-                      <img src={card.checkIcon} loading="lazy" alt="" className="w-6 h-6 object-contain mt-0.5 shrink-0" />
+                      <img src={card.checkIcon} loading="lazy" alt="" width={24} height={24} className="w-6 h-6 object-contain mt-0.5 shrink-0" />
                       <p className="text-[#6b7280] text-[13px] md:text-[14px] leading-relaxed">
                         {parts[0]}
                         <span className="text-[#2C48DB] font-semibold">{card.benefitHighlight.text}</span>
@@ -138,7 +138,7 @@ export function TeamFlipCard({ card }) {
                 }
                 return (
                   <div key={i} className="flex items-start gap-4">
-                    <img src={card.checkIcon} loading="lazy" alt="" className="w-6 h-6 object-contain mt-0.5 shrink-0" />
+                    <img src={card.checkIcon} loading="lazy" alt="" width={24} height={24} className="w-6 h-6 object-contain mt-0.5 shrink-0" />
                     <p className="anseru-section-description text-[13px] md:text-[15px] leading-normal">{benefit}</p>
                   </div>
                 );

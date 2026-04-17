@@ -13,7 +13,7 @@ export function FAQItem({ question, answer, isOpen, onToggle }) {
       >
         <div className="flex  items-center gap-3">
           <img src={faqIconSrc} loading="lazy" alt="" width={16} height={16} className="w-4 h-4 md:w-auto md:h-auto shrink-0" />
-          <span className="text-black font-normal leading-snug" style={{ fontSize: 'clamp(13px,3.5vw,15px)' }}>{question}</span>
+          <h3 className="text-black font-normal leading-snug" style={{ fontSize: 'clamp(13px,3.5vw,15px)' }}>{question}</h3>
         </div>
         <span className="text-black text-base md:text-lg leading-none ml-4 shrink-0 font-light">
           {isOpen ? '−' : '+'}

@@ -62,8 +62,8 @@ export function SecuritySection() {
                          <img src={node.icon} loading="lazy" alt="" width={48} height={48} />
                       </div>
                       <div className={node.labelClass}>
-                        <h4 className="font-medium text-[#111827] mb-1.5 leading-tight">{node.title}</h4>
-                        <p className="text-[14px] text-[#6b7280] leading-relaxed m-1">{node.description}</p>
+                        <h3 className="font-medium text-[#111827] mb-1.5 leading-tight" style={{ fontSize: '20px' }}>{node.title}</h3>
+                        <p className="text-[14px] text-gray-600 leading-relaxed m-1">{node.description}</p>
                       </div>
                     </div>
                   ))}
@@ -83,14 +83,14 @@ export function SecuritySection() {
                     <img src={node.icon} loading="lazy" alt="" width={40} height={40} className="w-full h-full object-contain" />
                   </div>
                   <div className="pt-1">
-                    <h3
+                    <h4
                       className="font-medium text-[#111827] leading-snug mb-1"
                       style={{ fontSize: 'clamp(15px, 4vw, 17px)' }}
                     >
                       {node.title}
-                    </h3>
+                    </h4>
                     <p
-                      className="text-[#6b7280] leading-relaxed"
+                      className="text-gray-600 leading-relaxed"
                       style={{ fontSize: 'clamp(13px, 3.5vw, 14px)' }}
                     >
                       {node.description}

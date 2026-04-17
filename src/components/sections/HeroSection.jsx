@@ -112,7 +112,7 @@ export function HeroSection() {
       {/* Below-fold workflow image */}
       
               <img 
-                src={heroMobileSrc} 
+                src="/images/hero-mob.png" 
                 alt="Product Interface Illustration" 
                 width={1596} 
                 height={1884} 

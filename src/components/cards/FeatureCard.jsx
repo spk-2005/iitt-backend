@@ -10,7 +10,7 @@ export function FeatureCard({ feature, isActive, onActivate, onDeactivate, isMob
           className="w-20 md:w-[104px] flex items-center justify-center"
           style={{ backgroundColor: '#1c36e4' }}
         >
-          <img src={iconSrc} loading="lazy" className="w-10 md:w-16" alt="" />
+          <img src={iconSrc} loading="lazy" width={64} height={64} className="w-10 md:w-16" alt="" />
         </div>
       )}
       <div
@@ -24,7 +24,7 @@ export function FeatureCard({ feature, isActive, onActivate, onDeactivate, isMob
           className="w-20 md:w-[104px] flex items-center justify-center"
           style={{ backgroundColor: '#1c36e4' }}
         >
-          <img src={iconSrc} loading="lazy" className="w-10 md:w-16" alt="" />
+          <img src={iconSrc} loading="lazy" width={64} height={64} className="w-10 md:w-16" alt="" />
         </div>
       )}
     </div>
@@ -50,10 +50,10 @@ export function FeatureCard({ feature, isActive, onActivate, onDeactivate, isMob
         </button>
       </div>
 
-      <p className={`text-gray-500 leading-relaxed ${isActive ? 'hidden' : ''}`} style={{ fontSize: 'clamp(13px, 3.5vw, 15px)' }}>
+      <p className={`text-gray-600 leading-relaxed ${isActive ? 'hidden' : ''}`} style={{ fontSize: 'clamp(13px, 3.5vw, 15px)' }}>
         {shortDesc}
       </p>
-      <p className={`text-gray-500 leading-relaxed ${isActive ? '' : 'hidden'}`} style={{ fontSize: 'clamp(13px, 3.5vw, 15px)' }}>
+      <p className={`text-gray-600 leading-relaxed ${isActive ? '' : 'hidden'}`} style={{ fontSize: 'clamp(13px, 3.5vw, 15px)' }}>
         {longDesc}
       </p>
 
