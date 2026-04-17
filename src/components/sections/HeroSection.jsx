@@ -114,13 +114,13 @@ export function HeroSection() {
       {/* Below-fold workflow image */}
       
               <img 
-                src="/images/hero-mob.png" 
+                src={heroMobileSrc} 
                 alt="Product Interface Illustration" 
                 width={1596} 
                 height={1884} 
                 className="block md:hidden w-full" 
                 loading="eager" 
-                fetchPriority="high"
+                fetchpriority="high"
               />
       
       <div className="hidden md:block w-full">
@@ -130,7 +130,7 @@ export function HeroSection() {
       <div className="md:hidden w-full px-5 pt-6 pb-10">
         <p ref={revealRef} className="font-medium leading-[1.4]" style={{ fontSize: 'clamp(14px, 4.5vw, 20px)', color: '#111827' }}>
           {words.map((word, i) => (
-            <span key={i} className="reveal-word" style={{ color: '#6b7280' }}>
+            <span key={i} className="reveal-word" style={{ color: '#525252' }}>
               {word}{' '}
             </span>
           ))}

@@ -12,7 +12,7 @@ export function SectionBulletItem({ children }) {
           fill="#a1a1aa"
         />
       </svg>
-      <span className="text-[#666666] text-[15px] md:text-[15px] font-normal leading-relaxed">
+      <span className="text-[#333333] text-[15px] md:text-[15px] font-normal leading-relaxed">
         {children}
       </span>
     </div>

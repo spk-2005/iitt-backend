@@ -40,20 +40,20 @@ export function FeatureCard({ feature, isActive, onActivate, onDeactivate, isMob
           style={{ fontSize: 'clamp(22px, 6vw, 28px)', letterSpacing: '-0.02em' }}
         >{title}</h3>
         <button
-          className="lg:hidden shrink-0 mt-0.5 text-gray-400 transition-transform duration-300"
+          className="lg:hidden shrink-0 mt-0.5 text-black hover:text-gray-700 transition-all duration-300 w-11 h-11 flex items-center justify-center -mr-2 -mt-2"
           style={{ transform: isActive && isMobile ? 'rotate(180deg)' : 'rotate(0deg)' }}
-          aria-label="Expand"
+          aria-label="Expand feature details"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M6 9l6 6 6-6" />
           </svg>
         </button>
       </div>
 
-      <p className={`text-gray-600 leading-relaxed ${isActive ? 'hidden' : ''}`} style={{ fontSize: 'clamp(13px, 3.5vw, 15px)' }}>
+      <p className={`text-gray-700 leading-relaxed ${isActive ? 'hidden' : ''}`} style={{ fontSize: 'clamp(13px, 3.5vw, 15px)' }}>
         {shortDesc}
       </p>
-      <p className={`text-gray-600 leading-relaxed ${isActive ? '' : 'hidden'}`} style={{ fontSize: 'clamp(13px, 3.5vw, 15px)' }}>
+      <p className={`text-gray-700 leading-relaxed ${isActive ? '' : 'hidden'}`} style={{ fontSize: 'clamp(13px, 3.5vw, 15px)' }}>
         {longDesc}
       </p>
 
@@ -82,7 +82,7 @@ export function FeatureCard({ feature, isActive, onActivate, onDeactivate, isMob
                 >
                   <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93" />
                 </svg>
-                <span className="text-sm md:text-[15px] text-gray-600">{bullet}</span>
+                <span className="text-sm md:text-[15px] text-gray-700">{bullet}</span>
               </li>
             ))}
           </ul>

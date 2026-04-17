@@ -27,12 +27,12 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                 transform: isActive ? 'translateY(0px)' : 'translateY(16px)',
               }}
             >
-              <h2
+              <h3
                 className="font-normal text-[#111111] leading-snug mb-4"
                 style={{ fontSize: 'clamp(15px, 1.4vw, 26px)' }}
               >
                 {step}
-              </h2>
+              </h3>
 
               <div className="w-full space-y-5">
                 <p
@@ -78,12 +78,12 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                   className="relative z-20 space-y-2 carousel-card-title-block"
                   style={{ padding: 'clamp(16px, 2.5vw, 36px)'}}
                 >
-                  <h2
+                  <h3
                     className="font-medium max-w-[360px] leading-snug"
                     style={{ fontSize: 'clamp(13px, 1.3vw, 22px)' }}
                   >
                     Turn complex RFPs  into <br />clear, winning responses
-                  </h2>
+                  </h3>
                 </div>
 
                 {/*
@@ -151,7 +151,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
   // ── Mobile ──────────────────────────────────────────────────────────────
   return (
     <div className="shrink-0 min-h-full h-full flex flex-col overflow-hidden px-5 pb-5 box-border" style={{ width: '100vw' }}>
-      <h2 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h2>
+      <h3 className="font-normal text-[#111111] text-[15px] leading-snug mb-3">{step}</h3>
 
       <div
         className={`text-white relative overflow-hidden shadow-lg rounded-[10px] ${cardGradientClass}`}
@@ -166,9 +166,9 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
         />
         <NoiseOverlay />
         <div className="absolute top-0 left-0 z-20 p-5">
-          <h2 className="font-medium text-[16px] leading-snug max-w-55">
+          <h3 className="font-medium text-[16px] leading-snug max-w-55">
             Turn complex RFPs into clear, winning responses
-          </h2>
+          </h3>
         </div>
         <div className="absolute z-10 bottom-0 right-0 flex justify-end">
           <img
@@ -187,7 +187,7 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
       </div>
 
       <div className="pt-4 space-y-3 flex-1 overflow-y-auto">
-        <p className="text-[#6b7280] text-[15px] leading-relaxed">{description}</p>
+        <p className="text-[#111827] text-[15px] leading-relaxed opacity-80">{description}</p>
         <div className="space-y-2 pt-1">
           {bullets.map((bullet, i) => (
             <SectionBulletItem key={i}>{bullet}</SectionBulletItem>

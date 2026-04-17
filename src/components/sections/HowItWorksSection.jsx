@@ -15,7 +15,7 @@ function MobileIndicators({ activeSlide, onGoTo }) {
         <button
           key={slide.index}
           onClick={() => onGoTo(i)}
-          className={`text-[10px] sm:text-[11px] font-medium transition-all cursor-pointer px-1.5 py-1.5 rounded-[8px] flex-1 text-center leading-tight ${
+          className={`text-[10px] sm:text-[11px] font-medium transition-all cursor-pointer px-1.5 min-h-11 rounded-[8px] flex-1 text-center leading-tight flex items-center justify-center ${
             activeSlide === i ? 'bg-black text-white' : 'text-gray-900 hover:bg-gray-200'
           }`}
         >
@@ -139,7 +139,7 @@ export function HowItWorksSection({ carouselRef }) {
                             behavior: 'smooth',
                           });
                         }}
-                        className={`text-[13px] font-medium transition-all cursor-pointer px-5 py-2.5 rounded-[8px] flex-1 text-center ${
+                        className={`text-[13px] font-medium transition-all cursor-pointer px-5 min-h-11 rounded-[8px] flex-1 text-center flex items-center justify-center ${
                           activeSlide === i
                             ? 'bg-black text-white shadow-sm'
                             : 'text-gray-900 hover:bg-gray-200'
@@ -240,14 +240,16 @@ export function HowItWorksSection({ carouselRef }) {
                   key={i}
                   onClick={() => goToSlide(i)}
                   aria-label={`Go to slide ${i + 1}`}
-                  className={`rounded-full transition-all duration-300 ${
+                  className="flex items-center justify-center w-11 h-11 -mx-2.5 -my-4.5"
+                >
+                  <div className={`rounded-full transition-all duration-300 ${
                     i === activeSlide ? 'bg-gray-700' : 'bg-gray-300'
                   }`}
                   style={{
                     width: i === activeSlide ? '20px' : '6px',
                     height: '6px',
-                  }}
-                />
+                  }} />
+                </button>
               ))}
             </div>
           </div>

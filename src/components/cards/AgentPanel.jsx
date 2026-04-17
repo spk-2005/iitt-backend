@@ -121,7 +121,7 @@ const featureCellStyles = `
 .feature-cell-desc {
   display: block;
   line-height: 1.55;
-  color: #525b63 !important;
+  color: #444 !important;
   hyphens: none;
   -webkit-hyphens: none;
   word-break: normal;
@@ -275,7 +275,7 @@ const featureCellStyles = `
       .cell-desc {
         font-size: 10px;
         line-height: 1.4;
-        color: #6b7280;
+        color: #111827;
         text-align: left;
         word-break: normal;
         overflow-wrap: normal;

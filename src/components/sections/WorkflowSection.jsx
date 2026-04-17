@@ -111,8 +111,8 @@
       const revealedRef = useRef(0);
 
   useEffect(() => {
-    rowRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; } });
-    segRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; } });
+    rowRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; } });
+    segRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; } });
 
     const totalNodes = RFP_NODES.length;
     const SCROLL_PER_NODE = 60;
@@ -134,12 +134,12 @@
       rowRefs.current.forEach((el, i) => {
         if (!el) return;
         el.style.transition = animate ? 'opacity 0.4s ease' : 'none';
-        el.style.opacity = i < count ? '1' : '0.45';
+        el.style.opacity = i < count ? '1' : '0.65';
       });
       segRefs.current.forEach((el, i) => {
         if (!el) return;
         el.style.transition = animate ? 'opacity 0.3s ease' : 'none';
-        el.style.opacity = i < count - 1 ? '0.5' : '0.45';
+        el.style.opacity = i < count - 1 ? '0.7' : '0.65';
       });
     };
 
@@ -156,10 +156,10 @@
         if (revealedRef.current !== 0) {
           revealedRef.current = 0;
           rowRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; }
           });
           segRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; }
           });
         }
         return;
@@ -171,10 +171,10 @@
         if (revealedRef.current !== 0) {
           revealedRef.current = 0;
           rowRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; }
           });
           segRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.45'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; }
           });
         }
         return;
@@ -225,7 +225,7 @@
             padding: '20px 20px 0',
             width: '100%',
           }}>
-            <p style={{ fontSize: 'clamp(14px,3vw,15px)', color: '#525252', marginBottom: 3 }}>
+            <p style={{ fontSize: 'clamp(14px,3vw,15px)', color: '#444', marginBottom: 3 }}>
               The Future of RFP Responses
             </p>
             <h2 style={{
@@ -284,7 +284,7 @@
                           background: '#d9d9d9',
                           zIndex: 0,
                           pointerEvents: 'none',
-                          opacity: 0.45,
+                          opacity: 0.65,
                         }}
                       />
                     ))}
@@ -297,7 +297,7 @@
                           display: 'flex', alignItems: 'flex-start', gap: 12,
                           height: ROW_H, minHeight: ROW_H,
                           position: 'relative', zIndex: 2,
-                          opacity: 0.45,
+                          opacity: 0.65,
                         }}
                       >
                         <div style={{
