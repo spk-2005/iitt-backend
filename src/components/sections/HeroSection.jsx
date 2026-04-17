@@ -1,7 +1,7 @@
-import { useRef } from 'react';
+import { useRef, lazy, Suspense } from 'react';
 import { gsap } from 'gsap';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
-import { DesktopHeroSvg } from '../sections/svg/DesktopHeroSvg.jsx';
+const DesktopHeroSvg = lazy(() => import('../sections/svg/DesktopHeroSvg.jsx').then(module => ({ default: module.DesktopHeroSvg })));
 import { useMediaQuery } from '../../hooks/useMediaQuery.js';
 const heroMobileSrc = '/images/hero-mob.webp';
 
@@ -127,7 +127,9 @@ export function HeroSection() {
       
       {isDesktop && (
         <div className="hidden md:block w-full">
-          <DesktopHeroSvg className="w-full h-auto" />
+          <Suspense fallback={null}>
+            <DesktopHeroSvg className="w-full h-auto" />
+          </Suspense>
         </div>
       )}
       {/* Reveal text (mobile only) */}

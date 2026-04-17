@@ -140,7 +140,10 @@
       });
     };
 
-    const onScroll = () => {
+    let ticking = false;
+    let latestScrollY = window.scrollY;
+
+    const onScrollRaw = () => {
       const outer = outerRef.current;
       const sticky = outer?.querySelector('[data-sticky]');
       if (!outer || !sticky) return;
@@ -191,6 +194,15 @@
         revealedRef.current = target;
         revealUpTo(revealedRef.current, true);
       }
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      latestScrollY = window.scrollY;
+      if (!ticking) {
+        requestAnimationFrame(onScrollRaw);
+        ticking = true;
+      }
     };
 
     // Recalc outer height on resize/viewport change (iOS address bar)
@@ -204,7 +216,7 @@
 
     let initialRafId;
     initialRafId = requestAnimationFrame(() => {
-      onScroll();
+      onScrollRaw();
     });
 
     return () => {

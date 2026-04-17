@@ -26,11 +26,10 @@ export default function App() {
       <Navbar />
       <main>
         <HeroSection />
-        <ProblemSection />
-        <HowItWorksSection carouselRef={carouselRef} />
-        <ProductSection agentsRef={agentsRef} />
-        
         <Suspense fallback={null}>
+          <ProblemSection />
+          <HowItWorksSection carouselRef={carouselRef} />
+          <ProductSection agentsRef={agentsRef} />
           <WorkflowSection />
           <IntegrationSection />
           <SecuritySection />
