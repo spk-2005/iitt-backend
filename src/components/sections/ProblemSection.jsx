@@ -119,12 +119,10 @@ function onDragEnd(e) {
                   key={i}
                   onClick={() => goTo(i)}
                   aria-label={`Go to card ${i + 1}`}
-                  className="flex items-center justify-center w-11 h-11"
-                >
-                  <div className={`rounded-full transition-all duration-300 ${
+                  className={`rounded-full transition-all duration-300 ${
                     i === activeCard ? 'w-5 h-2 bg-gray-700' : 'w-2 h-2 bg-gray-300'
-                  }`} />
-                </button>
+                  }`}
+                />
               ))}
             </div>
           </div>
