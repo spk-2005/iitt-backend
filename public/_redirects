@@ -1,0 +1,7 @@
+# Anseru SPA redirects
+# These tell Netlify to serve index.html for all routes
+# so the React app handles client-side routing.
+
+/privacy-policy     /index.html   200
+/terms-of-service   /index.html   200
+/*                  /index.html   200
