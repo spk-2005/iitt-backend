@@ -1,5 +1,4 @@
 import ctaBgSrc from '../../assets/151.png?format=webp&quality=80';
-import { Footer } from '../layout/Footer.jsx';
 
 export function CTASection() {
   return (
@@ -86,7 +85,6 @@ export function CTASection() {
         </a>
       </div>
 
-      <Footer />
     </div>
   );
 }
