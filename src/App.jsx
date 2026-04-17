@@ -2,11 +2,10 @@ import { useRef, lazy, Suspense } from 'react';
 import { useScrollSnap } from './hooks/useScrollSnap.js';
 import { Navbar } from './components/layout/Navbar.jsx';
 import { HeroSection } from './components/sections/HeroSection.jsx';
-import { ProblemSection } from './components/sections/ProblemSection.jsx';
-import { HowItWorksSection } from './components/sections/HowItWorksSection.jsx';
-import { ProductSection } from './components/sections/ProductSection.jsx';
-
-// Lazy load below-the-fold sections
+// Lazy load all below-the-fold sections
+const ProblemSection = lazy(() => import('./components/sections/ProblemSection.jsx').then(module => ({ default: module.ProblemSection })));
+const HowItWorksSection = lazy(() => import('./components/sections/HowItWorksSection.jsx').then(module => ({ default: module.HowItWorksSection })));
+const ProductSection = lazy(() => import('./components/sections/ProductSection.jsx').then(module => ({ default: module.ProductSection })));
 const WorkflowSection = lazy(() => import('./components/sections/WorkflowSection.jsx').then(module => ({ default: module.WorkflowSection })));
 const IntegrationSection = lazy(() => import('./components/sections/IntegrationSection.jsx').then(module => ({ default: module.IntegrationSection })));
 const SecuritySection = lazy(() => import('./components/sections/SecuritySection.jsx').then(module => ({ default: module.SecuritySection })));
