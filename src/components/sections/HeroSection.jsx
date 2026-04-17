@@ -111,7 +111,15 @@ export function HeroSection() {
 
       {/* Below-fold workflow image */}
       
-              <img src={heroMobileSrc} alt="" width={1596} height={1884} className="block md:hidden w-full" loading="lazy" />
+              <img 
+                src={heroMobileSrc} 
+                alt="Product Interface Illustration" 
+                width={1596} 
+                height={1884} 
+                className="block md:hidden w-full" 
+                loading="eager" 
+                fetchPriority="high"
+              />
       
       <div className="hidden md:block w-full">
         <DesktopHeroSvg className="w-full h-auto" />

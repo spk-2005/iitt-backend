@@ -366,6 +366,8 @@ const featureCellStyles = `
                     src={agentIcon}
                     loading="lazy"
                     alt=""
+                    width={100}
+                    height={100}
                     className="agent-hero-icon"
                     style={{ height: 'auto', opacity: 0.9 }}
                   />
@@ -447,6 +449,8 @@ const featureCellStyles = `
                   src={agentIcon}
                   loading="lazy"
                   alt=""
+                  width={92}
+                  height={92}
                   style={{ width: 'clamp(40px, 15vw, 92px)', height: 'auto', opacity: 0.9 }}
                 />
               </div>

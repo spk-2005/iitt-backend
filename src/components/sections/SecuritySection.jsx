@@ -41,14 +41,14 @@ export function SecuritySection() {
 
                   {/* Center shield + logo */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-45 h-50 z-10 flex items-center justify-center">
-                    <img src={shieldImg} loading="lazy" alt="" className="absolute inset-0 w-full h-full object-contain" />
+                    <img src={shieldImg} loading="lazy" alt="" width={180} height={200} className="absolute inset-0 w-full h-full object-contain" />
                     <div className="absolute inset-0 w-full h-full flex items-center justify-center z-0">
                       <svg viewBox="0 0 100 110" className="w-35 h-40 text-[#eee5e7]">
                         <path d="M50 0 L100 20 L100 60 C100 85 50 110 50 110 C50 110 0 85 0 60 L0 20 Z" fill="currentColor" />
                       </svg>
                     </div>
                     <div className="relative z-20 w-15 h-15 rounded-full shadow-lg flex items-center justify-center overflow-hidden bg-black">
-                      <img src={anseruLogo} loading="lazy" alt="Anseru Logo" className="w-full h-full object-cover scale-60" />
+                      <img src={anseruLogo} loading="lazy" alt="Anseru Logo" width={60} height={60} className="w-full h-full object-cover scale-60" />
                     </div>
                   </div>
 
@@ -59,7 +59,7 @@ export function SecuritySection() {
                         className={`relative w-21.5 h-21.5 rounded-full overflow-hidden flex items-center justify-center p-5 ${node.iconExtraClass ?? ''}`}
                         style={{ background: node.gradient }}
                       >
-                        <img src={node.icon} loading="lazy" alt="" />
+                         <img src={node.icon} loading="lazy" alt="" width={48} height={48} />
                       </div>
                       <div className={node.labelClass}>
                         <h4 className="font-medium text-[#111827] mb-1.5 leading-tight">{node.title}</h4>
@@ -80,7 +80,7 @@ export function SecuritySection() {
                     className="shrink-0 w-14.5 h-14.5 rounded-full flex items-center justify-center p-4 m-2"
                     style={{ background: node.gradient }}
                   >
-                    <img src={node.icon} loading="lazy" alt="" className="w-full h-full object-contain" />
+                    <img src={node.icon} loading="lazy" alt="" width={40} height={40} className="w-full h-full object-contain" />
                   </div>
                   <div className="pt-1">
                     <h3

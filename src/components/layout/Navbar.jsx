@@ -180,6 +180,8 @@ useEffect(() => {
           <img
             src={anseruLogo}
             alt="Anseru Logo"
+            width={196}
+            height={36}
             className="w-34 md:w-49 md:h-9 h-7 object-contain"
             loading="eager"
           />

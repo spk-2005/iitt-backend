@@ -67,6 +67,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
                   src={groupImgSrc}
                   loading={slide.index === 0 ? 'eager' : 'lazy'}
                   alt=""
+                  width={120}
+                  height={120}
                   className="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10"
                 />
                 <NoiseOverlay />
@@ -107,6 +109,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
     loading={slide.index === 0 ? 'eager' : 'lazy'}
     alt={cardImageAlt}
     className={cardImageClass}
+    width={800}
+    height={600}
     style={{
       width: cardImageWidth || '92%',
       height: '100%',          /* fill the wrapper height */
@@ -156,6 +160,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
         <img
           src={groupImgSrc}
           alt=""
+          width={80}
+          height={80}
           className="absolute top-0 right-0 w-[40%] h-[40%] object-contain pointer-events-none z-10"
         />
         <NoiseOverlay />
@@ -169,6 +175,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
             src={cardImage}
             loading={slide.index === 0 ? 'eager' : 'lazy'}
             alt={cardImageAlt}
+            width={400}
+            height={300}
             className={cardImageClass}
             style={{
               width: cardImageWidth,

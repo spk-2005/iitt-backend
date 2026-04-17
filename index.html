@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- ── Fonts (non-blocking) ──────────────────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" /></noscript>
+
     <!-- ── Primary meta ─────────────────────────────────────────────── -->
     <title>Anseru | AI Agents for RFPs and Security Questionnaires</title>
     <meta name="description" content="Anseru a vertical AI-Native B2B SaaS Platform that helps Modern Sales Teams win deals faster using AI Agents to draft context-aware responses to RFP's & Security Questionnaire grounded in your knowledge base keeping humans-in-loop." />
@@ -132,6 +139,14 @@
         },
         {
           "@type": "Question",
+          "name": "What is Anseru?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Anseru is a deal intelligence platform designed for enterprise sales teams. It helps companies respond to RFPs, security questionnaires, and compliance requests by turning past deal knowledge into structured, reusable intelligence using AI agents."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "How is Anseru different from traditional RFP tools?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -201,12 +216,6 @@
     <!-- ── Hero image preload (LCP) ────────────────────────────────── -->
     <link rel="preload" as="image" type="image/webp" href="/images/hero-bg.webp" fetchpriority="high" />
 
-    <!-- ── Fonts (non-blocking) ──────────────────────────────────────── -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" /></noscript>
 
     <!-- ── Favicons & PWA ────────────────────────────────────────────── -->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />

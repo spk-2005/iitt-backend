@@ -3,7 +3,7 @@ import { INTEGRATION_COLUMNS } from '../../data/integrations.js';
 function IntegrationIcon({ name, src }) {
   return (
     <div className="w-[80px] h-[80px] md:w-[110px] md:h-[110px] rounded-xl md:rounded-2xl border border-gray-100 bg-[#F3F3F3] flex items-center justify-center shadow-sm shrink-0">
-      <img src={src} loading="lazy" alt={name} className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+      <img src={src} loading="lazy" alt={name} width={40} height={40} className="w-8 h-8 md:w-10 md:h-10 object-contain" />
     </div>
   );
 }
