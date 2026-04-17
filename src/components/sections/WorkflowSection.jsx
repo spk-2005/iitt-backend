@@ -1,7 +1,6 @@
     import { useRef, useEffect } from 'react';
     import { RFPWorkflowDiagram } from '../workflow/RFPWorkflowDiagram.jsx';
     import { RFP_NODES } from '../../data/rfpWorkflow.js';
-    import { useMediaQuery } from '../../hooks/useMediaQuery.js';
 
     const ROW_H = 82;
     const COL_W = 49.5;
@@ -112,38 +111,39 @@
       const revealedRef = useRef(0);
 
   useEffect(() => {
-    rowRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; } });
-    segRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; } });
+    rowRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; } });
+    segRefs.current.forEach(el => { if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; } });
 
     const totalNodes = RFP_NODES.length;
     const SCROLL_PER_NODE = 60;
     const totalScrollBudget = totalNodes * SCROLL_PER_NODE;
-    const stickyH = totalNodes * ROW_H + 40;
 
     const setOuterHeight = () => {
       if (!outerRef.current) return;
+      const stickyEl = outerRef.current.querySelector('[data-sticky]');
+      const stickyH = stickyEl ? stickyEl.offsetHeight : 0;
       outerRef.current.style.height = `${stickyH + totalScrollBudget}px`;
     };
 
-    setOuterHeight();
+    // Defer so DOM is painted and offsetHeight is accurate
+    const rafId = requestAnimationFrame(() => {
+      setOuterHeight();
+    });
 
     const revealUpTo = (count, animate) => {
       rowRefs.current.forEach((el, i) => {
         if (!el) return;
         el.style.transition = animate ? 'opacity 0.4s ease' : 'none';
-        el.style.opacity = i < count ? '1' : '0.65';
+        el.style.opacity = i < count ? '1' : '0.25';
       });
       segRefs.current.forEach((el, i) => {
         if (!el) return;
         el.style.transition = animate ? 'opacity 0.3s ease' : 'none';
-        el.style.opacity = i < count - 1 ? '0.7' : '0.65';
+        el.style.opacity = i < count - 1 ? '0.5' : '0.25';
       });
     };
 
-    let ticking = false;
-    let latestScrollY = window.scrollY;
-
-    const onScrollRaw = () => {
+    const onScroll = () => {
       const outer = outerRef.current;
       const sticky = outer?.querySelector('[data-sticky]');
       if (!outer || !sticky) return;
@@ -156,10 +156,10 @@
         if (revealedRef.current !== 0) {
           revealedRef.current = 0;
           rowRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
           });
           segRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
           });
         }
         return;
@@ -171,10 +171,10 @@
         if (revealedRef.current !== 0) {
           revealedRef.current = 0;
           rowRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
           });
           segRefs.current.forEach(el => {
-            if (el) { el.style.transition = 'none'; el.style.opacity = '0.65'; }
+            if (el) { el.style.transition = 'none'; el.style.opacity = '0.25'; }
           });
         }
         return;
@@ -194,15 +194,6 @@
         revealedRef.current = target;
         revealUpTo(revealedRef.current, true);
       }
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      latestScrollY = window.scrollY;
-      if (!ticking) {
-        requestAnimationFrame(onScrollRaw);
-        ticking = true;
-      }
     };
 
     // Recalc outer height on resize/viewport change (iOS address bar)
@@ -214,13 +205,10 @@
     window.visualViewport?.addEventListener('resize', onResize);
     window.addEventListener('resize', onResize);
 
-    let initialRafId;
-    initialRafId = requestAnimationFrame(() => {
-      onScrollRaw();
-    });
+    onScroll();
 
     return () => {
-      cancelAnimationFrame(initialRafId);
+      cancelAnimationFrame(rafId);
       window.removeEventListener('scroll', onScroll);
       window.visualViewport?.removeEventListener('resize', onResize);
       window.removeEventListener('resize', onResize);
@@ -237,7 +225,7 @@
             padding: '20px 20px 0',
             width: '100%',
           }}>
-            <p style={{ fontSize: 'clamp(14px,3vw,15px)', color: '#444', marginBottom: 3 }}>
+            <p style={{ fontSize: 'clamp(14px,3vw,15px)', color: '#6B7280', marginBottom: 3 }}>
               The Future of RFP Responses
             </p>
             <h2 style={{
@@ -246,14 +234,14 @@
             }}>
               From RFP to Winning Proposal
             </h2>
-            <h2 style={{
+            <h4 style={{
               fontFamily: 'DM Sans, sans-serif', fontSize: 'clamp(24px,6vw,36px)',
               fontWeight: 400, lineHeight: 1.2, textAlign: 'center', width: '100%',
               margin: '20px 0 clamp(16px,4vw,24px)', letterSpacing: '-0.02em', color: '#000',
             }}>
               End-to-End<br />
               <span style={{ color: '#2C48DB' }}>Deal Intelligence</span>
-            </h2>
+            </h4>
           </div>
 
           {/* ── outerRef is tall — gives sticky its scroll budget ── */}
@@ -296,7 +284,7 @@
                           background: '#d9d9d9',
                           zIndex: 0,
                           pointerEvents: 'none',
-                          opacity: 0.65,
+                          opacity: 0.25,
                         }}
                       />
                     ))}
@@ -309,7 +297,7 @@
                           display: 'flex', alignItems: 'flex-start', gap: 12,
                           height: ROW_H, minHeight: ROW_H,
                           position: 'relative', zIndex: 2,
-                          opacity: 0.65,
+                          opacity: 0.25,
                         }}
                       >
                         <div style={{
@@ -371,7 +359,7 @@
                           </p>
                           <p style={{
                             margin: 0, fontSize: 'clamp(11px,3.2vw,13px)',
-                            color: '#444', lineHeight: 1.35, minHeight: '2.7em',
+                            color: '#666', lineHeight: 1.35, minHeight: '2.7em',
                             overflow: 'hidden', display: '-webkit-box',
                             WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
                           }}>
@@ -395,7 +383,6 @@
     // WorkflowSection.jsx
 
     export function WorkflowSection() {
-      const isDesktop = useMediaQuery('(min-width: 768px)');
       return (
         <section data-section id="workflow" className="scroll-mt-5">
           {/* CHANGE 1: remove md:min-h-screen, let content define height */}
@@ -421,23 +408,23 @@
             </div>
 
             {/* CHANGE 2: constrain diagram width so aspect ratio keeps height in check */}
-            {isDesktop ? (
-              <div className="hidden md:block" style={{ maxWidth: 'min(1070px, 92vw)', margin: '0 auto', width: '100%' }}>
-                <div style={{
-                  position: 'relative',
-                  width: '100%',
-                  aspectRatio: '1100 / 850',   // ← match new viewBox ratio
-                  overflow: 'visible',          // ← never clip
-                  marginTop: '20px',           // ← pull up to close gap with header
-                }}>
-                  <RFPWorkflowDiagram />
-                </div>
-              </div>
-            ) : (
-              <div className="md:hidden pt-10 pb-10">
-                <MobileWorkflowList />
-              </div>
-            )}
+          <div className="hidden md:block" style={{ maxWidth: 'min(1070px, 92vw)', margin: '0 auto', width: '100%' }}>
+  <div style={{
+    position: 'relative',
+    width: '100%',
+    aspectRatio: '1100 / 850',   // ← match new viewBox ratio
+    overflow: 'visible',          // ← never clip
+    marginTop: '20px',           // ← pull up to close gap with header
+  }}>
+    <RFPWorkflowDiagram />
+  </div>
+</div>
+
+            {/* Mobile — unchanged */}
+            <div className="md:hidden pt-10 pb-10">
+              <MobileWorkflowList />
+            </div>
+
           </div>
         </section>
       );
