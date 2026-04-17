@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGsapContext } from '../../hooks/useGsapContext.js';
-import heroMobileSrc from '../../assets/hero-mob.png?format=webp&width=1000&quality=80';
+import heroMobileSrc from '../../assets/hero-mob.png?format=webp&w=800&quality=80';
 import { DesktopHeroSvg } from '../sections/svg/DesktopHeroSvg.jsx';
 
 
