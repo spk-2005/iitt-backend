@@ -1,4 +1,4 @@
-import noiseSrc from '../../assets/noise-256.webp';
+import noiseSrc from '../../assets/noise-256.webp?w=256&format=webp&quality=50';
 
 export function NoiseOverlay({ className = '', style = {} }) {
   return (

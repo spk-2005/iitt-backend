@@ -1,7 +1,11 @@
 import slide1Img from '../assets/Intro-Page-900.webp?w=640';
+import slide1ImgSrcset from '../assets/Intro-Page-900.webp?w=400;640&format=webp&as=srcset';
 import slide2Img from '../assets/Intro Page (1).png?format=webp&w=640&quality=80';
+import slide2ImgSrcset from '../assets/Intro Page (1).png?w=400;640&format=webp&quality=80&as=srcset';
 import slide3Img from '../assets/Intro Page (3).png?format=webp&w=640&quality=80';
+import slide3ImgSrcset from '../assets/Intro Page (3).png?w=400;640&format=webp&quality=80&as=srcset';
 import slide4Img from '../assets/Intro Page (4).png?format=webp&w=640&quality=80';
+import slide4ImgSrcset from '../assets/Intro Page (4).png?w=400;640&format=webp&quality=80&as=srcset';
 
 const style = document.createElement('style');
 style.textContent = `
@@ -170,6 +174,7 @@ export const CAROUSEL_SLIDES = [
     tabLabel: 'Connect',
     cardGradientClass: 'card-gradient-a1',
     cardImage: slide1Img,
+    cardImageSrcset: slide1ImgSrcset,
     cardImageAlt: '1. Connect your knowledge',
     cardImageClass: 'carousel-card-img-slide1 h-auto object-top rounded-b-[10px]',
     description:
@@ -186,6 +191,7 @@ export const CAROUSEL_SLIDES = [
     tabLabel: 'Upload',
     cardGradientClass: 'card-gradient-a2',
     cardImage: slide2Img,
+    cardImageSrcset: slide2ImgSrcset,
     cardImageAlt: '2. Upload RFPs',
     cardImageClass: 'carousel-card-img-slide2 h-auto object-top rounded-b-[10px]',
     description:
@@ -202,6 +208,7 @@ export const CAROUSEL_SLIDES = [
     tabLabel: 'Respond',
     cardGradientClass: 'card-gradient-a3',
     cardImage: slide3Img,
+    cardImageSrcset: slide3ImgSrcset,
     cardImageAlt: '3. Generate AI Draft Responses',
     cardImageClass: 'carousel-card-img-slide3 object-top rounded-b-[10px]',
     description:
@@ -218,6 +225,7 @@ export const CAROUSEL_SLIDES = [
     tabLabel: 'Approve',
     cardGradientClass: 'card-gradient-a4',
     cardImage: slide4Img,
+    cardImageSrcset: slide4ImgSrcset,
     cardImageAlt: '4. SME Review & Approval',
     cardImageClass: 'carousel-card-img-slide4 h-auto object-top rounded-b-[10px]',
     description:

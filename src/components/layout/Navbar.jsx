@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import anseruLogo from '../../assets/logo-400.webp';
+import anseruLogoSrcset from '../../assets/logo-400.webp?w=200;400&format=webp&as=srcset';
 
 const NAV_LINKS = [
   { label: 'Home', sectionId: 'home' },
@@ -179,6 +180,8 @@ useEffect(() => {
         <button className="flex items-center cursor-pointer" onClick={() => scrollToSection('home')}>
           <img
             src={anseruLogo}
+            srcSet={anseruLogoSrcset}
+            sizes="(max-width: 768px) 152px, 200px"
             alt="Anseru Logo"
             width={196}
             height={36}

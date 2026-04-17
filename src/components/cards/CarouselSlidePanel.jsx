@@ -4,7 +4,7 @@ import { SectionBulletItem } from '../primitives/SectionBulletItem.jsx';
 import groupImgSrc from '../../assets/Group 1437253216.png';
 
 export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false }) {
-  const { step, cardGradientClass, cardImage, cardImageAlt, cardImageWidth, cardImageClass, description, bullets } = slide;
+  const { step, cardGradientClass, cardImage, cardImageSrcset, cardImageAlt, cardImageWidth, cardImageClass, description, bullets } = slide;
 
   if (isDesktop) {
     return (
@@ -106,6 +106,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
 >
   <img
     src={cardImage}
+    srcSet={cardImageSrcset}
+    sizes="(max-width: 639px) 400px, 640px"
     loading={slide.index === 0 ? 'eager' : 'lazy'}
     alt={cardImageAlt}
     className={cardImageClass}
@@ -173,6 +175,8 @@ export function CarouselSlidePanel({ slide, isDesktop = false, isActive = false 
         <div className="absolute z-10 bottom-0 right-0 flex justify-end">
           <img
             src={cardImage}
+            srcSet={cardImageSrcset}
+            sizes="(max-width: 639px) 400px, 640px"
             loading={slide.index === 0 ? 'eager' : 'lazy'}
             alt={cardImageAlt}
             width={640}
