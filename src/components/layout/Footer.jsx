@@ -1,6 +1,6 @@
 import logoSrc from '../../assets/logo-400.webp';
 import logoSrcset from '../../assets/logo-400.webp?w=200;400&format=webp&as=srcset';
-
+import AnseruPrivacyPolicy from '../../pages/PrivacyPolicy';
 export function Footer() {
   return (
     <footer className="w-full bg-[#f4f4f5]">
@@ -20,7 +20,7 @@ export function Footer() {
         <p className="text-[14px] text-gray-600">© 2026 Anseru Inc. All rights reserved.</p>
         <div className="flex gap-6 text-[14px]">
           <a href="#terms" className="text-gray-600 hover:text-black transition">Terms of Service</a>
-          <a href="#privacy" className="text-gray-600 hover:text-black transition">Privacy Policy</a>
+          <a href={AnseruPrivacyPolicy} className="text-gray-600 hover:text-black transition">Privacy Policy</a>
         </div>
       </div>
     </footer>
