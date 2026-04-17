@@ -12,13 +12,17 @@ const inlineCssPlugin = () => {
       let newHtml = html;
       const cssFiles = Object.keys(context.bundle).filter(fileName => fileName.endsWith('.css'));
       cssFiles.forEach(cssFile => {
-        const cssAsset = context.bundle[cssFile];
-        if (cssAsset && cssAsset.type === 'asset' && cssAsset.source) {
-          const cssContent = cssAsset.source;
-          const fileName = cssFile.split('/').pop();
-          const regex = new RegExp(`<link[^>]*href="[^"]*${fileName}"[^>]*>`, 'i');
-          newHtml = newHtml.replace(regex, `<style>${cssContent}</style>`);
-          delete context.bundle[cssFile];
+        if (cssFile.includes('index-')) {
+          const cssAsset = context.bundle[cssFile];
+          if (cssAsset && cssAsset.type === 'asset' && cssAsset.source) {
+            const cssContent = cssAsset.source;
+            const fileName = cssFile.split('/').pop();
+            const regex = new RegExp(`<link[^>]*href="[^"]*${fileName}"[^>]*>`, 'i');
+            if (regex.test(newHtml)) {
+              newHtml = newHtml.replace(regex, `<style>${cssContent}</style>`);
+              delete context.bundle[cssFile];
+            }
+          }
         }
       });
       return newHtml;
