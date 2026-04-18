@@ -32,26 +32,79 @@
    1b. CENTER SECTION — scale-up entrance + float
 ──────────────────────────────────────────────── */
 
-@keyframes logoPulseEntrance {
+@keyframes logoEntranceBloop {
   0% {
-    transform: scale(0);
+    transform: scale3d(0, 0, 0);
     opacity: 0;
   }
-  60% {
-    transform: scale(1.2);
+
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
     opacity: 1;
   }
+
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    transform: scale3d(.95, 1.05, 1);
+  }
+
+  75% {
+    transform: scale3d(1.05, .95, 1);
+  }
+
   100% {
-    transform: scale(1);
+    transform: scale3d(1, 1, 1);
     opacity: 1;
   }
 }
+
+@keyframes logoBloop {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    transform: scale3d(.95, 1.05, 1);
+  }
+
+  75% {
+    transform: scale3d(1.05, .95, 1);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 
 .hero-center-logo {
   /* Ensure the group doesn't move when the glint inside it moves */
   transform-origin: 640.002px 217.881px;
   transform-box: view-box;
-  animation: logoPulseEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 3.1s both;
+  animation: logoEntranceBloop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 3.1s both;
+}
+
+.hero-center-logo:hover {
+  animation: logoBloop 1s linear both;
 }
 
 .logo-glint {
@@ -116,29 +169,48 @@
   transform-box: view-box;
   /* Sync with logo drop */
   animation:
-    logoPulseEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 3.1s both,
+    logoEntranceBloop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 3.1s both,
     ringUnfold 1.2s ease-out 4.2s forwards;
 }
-/* ─────────────────────────────────────────────
-   2b. WAVE RINGS — water ripple expanding outward
-   Like the reference: each ring expands from its
-   natural size outward while fading, staggered so
-   waves appear to radiate from the center logo.
-──────────────────────────────────────────────── */
+
+/* ══════════════════════════════════════════════════════════════════════════
+   2b. SEQUENTIAL PULSE WAVE RINGS
+   
+   5 rings pulse outward one by one — outer ring fades → inner ring appears.
+   Each ring: fades in at full size, holds, then fades out.
+   Stagger: 0.8s between each ring. Period: 4s per ring.
+   The "gap" between rings is natural — only one ring peaks at a time.
+══════════════════════════════════════════════════════════════════════════ */
 
 @keyframes rotateCW {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
 
 @keyframes rotateACW {
   from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
+  to   { transform: rotate(0deg); }
 }
 
-@keyframes waveFadeIn {
-  from { opacity: 0; }
-  to { opacity: var(--wave-peak); }
+/*
+  Pure opacity pulse — the ring stays at its natural scale.
+  Fades in, holds at peak, then fades out cleanly.
+  The stagger creates the "gap" between rings — at any moment
+  only one ring is near peak visibility.
+*/
+@keyframes waveRingPulse {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: var(--wp);
+  }
+  60% {
+    opacity: var(--wp);
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .center-wave {
@@ -147,50 +219,264 @@
   transform-box: view-box;
 }
 
-/* ── wave-1 — innermost, brightest, fastest cycle ── */
+/* 
+  Rings 1–5 (inner to outer). Each fires 0.8s after the previous.
+  Period = 4s (5 rings × 0.8s stagger = 4s → seamless loop).
+  Ring 1 = innermost, Ring 5 = outermost.
+  Cascade direction: inner → outer (ring 1 leads, ring 5 follows).
+*/
 .center-wave-1 {
-  --wave-peak: 0.80;
-  --wave-color: rgba(29, 128, 249, 0.80);
-  animation: 
-    waveFadeIn 1s ease-out 4.3s forwards,
-    rotateCW 12s linear 4.3s infinite;
+  --wp: 0.72;
+  animation: waveRingPulse 4s ease-in-out 3.1s infinite;
 }
 
-/* ── wave-2 ── */
 .center-wave-2 {
-  --wave-peak: 0.65;
-  --wave-color: rgba(29, 128, 249, 0.65);
-  animation: 
-    waveFadeIn 1s ease-out 4.4s forwards,
-    rotateACW 15s linear 4.4s infinite;
+  --wp: 0.60;
+  animation: waveRingPulse 4s ease-in-out 3.9s infinite;
 }
 
-/* ── wave-3 ── */
 .center-wave-3 {
-  --wave-peak: 0.50;
-  --wave-color: rgba(125, 35, 247, 0.55);
-  animation: 
-    waveFadeIn 1s ease-out 4.5s forwards,
-    rotateCW 18s linear 4.5s infinite;
+  --wp: 0.48;
+  animation: waveRingPulse 4s ease-in-out 4.7s infinite;
 }
 
-/* ── wave-4 ── */
 .center-wave-4 {
-  --wave-peak: 0.35;
-  --wave-color: rgba(231, 79, 98, 0.45);
-  animation: 
-    waveFadeIn 1s ease-out 4.6s forwards,
-    rotateACW 21s linear 4.6s infinite;
+  --wp: 0.36;
+  animation: waveRingPulse 4s ease-in-out 5.5s infinite;
 }
 
-/* ── wave-5 — outermost, faintest, slowest phase ── */
 .center-wave-5 {
-  --wave-peak: 0.22;
-  --wave-color: rgba(231, 79, 98, 0.30);
-  animation: 
-    waveFadeIn 1s ease-out 4.7s forwards,
-    rotateCW 25s linear 4.7s infinite;
+  --wp: 0.22;
+  animation: waveRingPulse 4s ease-in-out 6.3s infinite;
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   2c. EXPANDING RIPPLE WAVES — one by one from center, spread across whole image
+   
+   Design:
+   • 8 rings, one launches every 2.8s → perpetual cascade
+   • Each ring expands from r=36 (logo edge) to fill the entire 1280×471 canvas
+     (diagonal ~1369px, so scale ≈ 38×)
+   • Shadow thickens as ring expands then fades — real water caustic behavior
+   • Thin stroke that narrows as it spreads — wave energy dissipates
+   • Very slow: 11s total per ring
+   
+   Element-hit reactions triggered via CSS custom property --wave-delay
+   on every .wave-hit element
+══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes bigRippleExpand {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+    stroke-width: 2.2px;
+    filter: drop-shadow(0 0 0px rgba(60, 65, 80, 0));
+  }
+
+  4% {
+    opacity: 0.32;
+    stroke-width: 2.0px;
+    filter: drop-shadow(0 5px 10px rgba(55, 62, 80, 0.28)) drop-shadow(0 -3px 6px rgba(230, 235, 245, 0.20));
+  }
+
+  20% {
+    opacity: 0.20;
+    stroke-width: 1.4px;
+    filter: drop-shadow(0 7px 16px rgba(50, 58, 78, 0.18)) drop-shadow(0 -2px 5px rgba(230, 235, 245, 0.12));
+  }
+
+  55% {
+    opacity: 0.08;
+    stroke-width: 0.8px;
+    filter: drop-shadow(0 9px 22px rgba(45, 52, 72, 0.10));
+  }
+
+  88% {
+    opacity: 0.02;
+    stroke-width: 0.3px;
+  }
+
+  100% {
+    transform: scale(38);
+    opacity: 0;
+    stroke-width: 0.1px;
+    filter: none;
+  }
+}
+
+.hero-ripple {
+  transform-origin: 640.002px 217.881px;
+  transform-box: view-box;
+  fill: none;
+  stroke: rgba(148, 155, 170, 0.55);
+  stroke-width: 2.2px;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity, filter;
+}
+
+/* 8 rings, 2.8s apart — first fires at logo appear (3.1s)
+   After ring-8 ends: ring-1 fires again at 3.1 + 8×11 = next loop
+   To make it loop: each ring repeats with period = 8 × 2.8s = 22.4s  */
+.ripple-1 {
+  animation: bigRippleExpand 11s cubic-bezier(0.15, 0.55, 0.35, 1.0) 3.1s infinite;
+}
+
+.ripple-2 {
+  animation: bigRippleExpand 11s cubic-bezier(0.15, 0.55, 0.35, 1.0) 5.9s infinite;
+}
+
+.ripple-3 {
+  animation: bigRippleExpand 11s cubic-bezier(0.15, 0.55, 0.35, 1.0) 8.7s infinite;
+}
+
+.ripple-4 {
+  animation: bigRippleExpand 11s cubic-bezier(0.15, 0.55, 0.35, 1.0) 11.5s infinite;
+}
+
+.ripple-5 {
+  animation: bigRippleExpand 11s cubic-bezier(0.15, 0.55, 0.35, 1.0) 14.3s infinite;
+}
+
+.ripple-6 {
+  animation: bigRippleExpand 11s cubic-bezier(0.15, 0.55, 0.35, 1.0) 17.1s infinite;
+}
+
+.ripple-7 {
+  animation: bigRippleExpand 11s cubic-bezier(0.15, 0.55, 0.35, 1.0) 19.9s infinite;
+}
+
+.ripple-8 {
+  animation: bigRippleExpand 11s cubic-bezier(0.15, 0.55, 0.35, 1.0) 22.7s infinite;
+}
+
+/* Hover: denser, faster waves */
+.hero-center-logo:hover~.hero-ripples .ripple-1 {
+  animation: bigRippleExpand 7s cubic-bezier(0.15, 0.55, 0.35, 1.0) 0.0s infinite;
+}
+
+.hero-center-logo:hover~.hero-ripples .ripple-2 {
+  animation: bigRippleExpand 7s cubic-bezier(0.15, 0.55, 0.35, 1.0) 1.75s infinite;
+}
+
+.hero-center-logo:hover~.hero-ripples .ripple-3 {
+  animation: bigRippleExpand 7s cubic-bezier(0.15, 0.55, 0.35, 1.0) 3.5s infinite;
+}
+
+.hero-center-logo:hover~.hero-ripples .ripple-4 {
+  animation: bigRippleExpand 7s cubic-bezier(0.15, 0.55, 0.35, 1.0) 5.25s infinite;
+}
+
+.hero-center-logo:hover~.hero-ripples .ripple-5 {
+  animation: bigRippleExpand 7s cubic-bezier(0.15, 0.55, 0.35, 1.0) 7.0s infinite;
+}
+
+.hero-center-logo:hover~.hero-ripples .ripple-6 {
+  animation: bigRippleExpand 7s cubic-bezier(0.15, 0.55, 0.35, 1.0) 8.75s infinite;
+}
+
+.hero-center-logo:hover~.hero-ripples .ripple-7 {
+  animation: bigRippleExpand 7s cubic-bezier(0.15, 0.55, 0.35, 1.0) 10.5s infinite;
+}
+
+.hero-center-logo:hover~.hero-ripples .ripple-8 {
+  animation: bigRippleExpand 7s cubic-bezier(0.15, 0.55, 0.35, 1.0) 12.25s infinite;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   2d. WAVE-HIT REACTION — elements respond when the expanding ring reaches them
+   
+   Physics:
+   • Wave speed ≈ 47.8 SVG-units/s (from r=36 to full canvas over 11s)
+   • Center = (640, 218)
+   • hit_time = 3.1s + (distance - 36) / 47.8
+   
+   Reaction effect: 
+   • Quick scale up (1.0 → 1.06) as wave arrives — element gets pushed
+   • Brief brightness/contrast flash — caustic light from water
+   • Slow settle back (1.06 → 1.0) — wave passes through
+   • Subtle drop-shadow brightens then fades
+   • Repeats every 22.4s (one full wave cycle)
+
+   Classes: .wave-hit  +  one of: .wh-near .wh-mid .wh-far .wh-farther .wh-edge
+   Each band has its own --wave-delay to match when the ring geometrically arrives.
+══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes waveHitReact {
+  0% {
+    transform: scale(1) translateY(0px);
+    filter: brightness(1) drop-shadow(0 0 0px rgba(180, 190, 210, 0));
+  }
+
+  8% {
+    transform: scale(1.055) translateY(-1.5px);
+    filter: brightness(1.12) drop-shadow(0 3px 8px rgba(160, 170, 195, 0.35)) drop-shadow(0 -2px 5px rgba(235, 240, 250, 0.28));
+  }
+
+  22% {
+    transform: scale(1.025) translateY(-0.8px);
+    filter: brightness(1.06) drop-shadow(0 2px 6px rgba(150, 160, 185, 0.20));
+  }
+
+  55% {
+    transform: scale(1.005) translateY(-0.2px);
+    filter: brightness(1.02) drop-shadow(0 1px 3px rgba(140, 150, 175, 0.10));
+  }
+
+  100% {
+    transform: scale(1) translateY(0px);
+    filter: brightness(1) drop-shadow(0 0 0px rgba(180, 190, 210, 0));
+  }
+}
+
+/* Base wave-hit class — elements gain this + a band class in JSX */
+.wave-hit {
+  transform-box: view-box;
+  will-change: transform, filter;
+  animation: waveHitReact 3.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--wave-delay, 5.6s) infinite;
+  /* period = 22.4s (8 ripples × 2.8s spacing), wave-hit repeats to match each ring */
+  animation-iteration-count: infinite;
+  /* We achieve "responds to each ring" by having animation duration 22.4s with the
+     actual hit moment at the start, long rest period = appears once per cycle */
+  animation: waveHitReact 22.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--wave-delay, 5.6s) infinite;
+}
+
+/* ── Distance bands with pre-calculated --wave-delay values ──
+   Format: hit_time = 3.1 + (dist-36)/47.8
+   Bands are named by approximate distance from center            */
+
+/* Band 0 — innermost: dist ≈ 150–180px → hit ≈ 5.6–6.1s */
+.wh-inner {
+  --wave-delay: 5.6s;
+}
+
+/* Band 1 — near: dist ≈ 220–300px → hit ≈ 7.1–8.6s */
+.wh-near {
+  --wave-delay: 7.1s;
+}
+
+/* Band 2 — mid: dist ≈ 330–360px → hit ≈ 9.2–9.8s */
+.wh-mid {
+  --wave-delay: 9.4s;
+}
+
+/* Band 3 — far: dist ≈ 410–440px → hit ≈ 11.1–11.4s */
+.wh-far {
+  --wave-delay: 11.1s;
+}
+
+/* Band 4 — farther: dist ≈ 470–510px → hit ≈ 12.0–12.8s */
+.wh-farther {
+  --wave-delay: 12.4s;
+}
+
+/* Band 5 — edge: dist ≈ 520–580px → hit ≈ 13.2–14.2s */
+.wh-edge {
+  --wave-delay: 13.5s;
+}
+
 
 
 /* ─────────────────────────────────────────────
