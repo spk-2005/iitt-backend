@@ -249,11 +249,11 @@ export function ProductSection({ agentsRef }) {
                 }}
               >
                 {AGENTS.map((agent) => (
-                 <div
-  key={agent.id}
-  className="shrink-0 h-full overflow-hidden px-4 sm:px-6 pb-4"
-  style={{ width: '100vw' }}
->
+                  <div
+                    key={agent.id}
+                    className="shrink-0 h-full overflow-hidden px-4 sm:px-6 pb-4"
+                    style={{ width: '100vw' }}
+                  >
                     <AgentPanel agent={agent} isDesktop={false} />
                   </div>
                 ))}
@@ -261,17 +261,15 @@ export function ProductSection({ agentsRef }) {
             </div>
 
             {/* Dot indicators — fixed height */}
-            <div className="shrink-0 flex justify-center gap-2 py-3">
+             <div className="shrink-0 flex justify-center gap-2 py-3">
               {AGENTS.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => goToAgent(i)}
                   aria-label={`Go to agent ${i + 1}`}
-                  className="flex items-center justify-center w-11 h-11"
-                >
-                  <div className={`rounded-full transition-all duration-300 ${i === activeAgent ? 'w-5 h-2 bg-gray-700' : 'w-2 h-2 bg-gray-300'
-                    }`} />
-                </button>
+                  className={`rounded-full transition-all duration-300 ${i === activeAgent ? 'w-5 h-2 bg-gray-700' : 'w-2 h-2 bg-gray-300'
+                    }`}
+                />
               ))}
             </div>
           </div>

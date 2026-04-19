@@ -28,30 +28,30 @@ export function ProblemSection() {
     resetInterval();
     return () => clearInterval(intervalRef.current);
   }, []);
-function onDragStart(e) {
-  dragStartX.current = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-  isDragging.current = true;
-  // Pause auto-advance while user is holding
-  clearInterval(intervalRef.current);
-}
-
-function onDragEnd(e) {
-  if (!isDragging.current || dragStartX.current === null) return;
-  isDragging.current = false;
-  const endX = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX;
-  const diff = dragStartX.current - endX;
-  if (Math.abs(diff) > 40) {
-    setActiveCard((prev) => {
-      const next = diff > 0
-        ? Math.min(prev + 1, CARD_COUNT - 1)
-        : Math.max(prev - 1, 0);
-      return next;
-    });
+  function onDragStart(e) {
+    dragStartX.current = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+    isDragging.current = true;
+    // Pause auto-advance while user is holding
+    clearInterval(intervalRef.current);
   }
-  dragStartX.current = null;
-  // Resume auto-advance after user releases
-  resetInterval();
-}
+
+  function onDragEnd(e) {
+    if (!isDragging.current || dragStartX.current === null) return;
+    isDragging.current = false;
+    const endX = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX;
+    const diff = dragStartX.current - endX;
+    if (Math.abs(diff) > 40) {
+      setActiveCard((prev) => {
+        const next = diff > 0
+          ? Math.min(prev + 1, CARD_COUNT - 1)
+          : Math.max(prev - 1, 0);
+        return next;
+      });
+    }
+    dragStartX.current = null;
+    // Resume auto-advance after user releases
+    resetInterval();
+  }
 
   // Update track transform
   useEffect(() => {
@@ -106,25 +106,23 @@ function onDragEnd(e) {
               }}
             >
               {TEAM_CARDS.map((card) => (
-              <div key={card.id} className="shrink-0 px-6 flex justify-center" style={{ width: '100vw' }}>
+                <div key={card.id} className="shrink-0 px-6 flex justify-center" style={{ width: '100vw' }}>
                   <TeamFlipCard card={card} />
                 </div>
               ))}
             </div>
 
             {/* Dot indicators */}
-            <div className="flex justify-center gap-2 pt-4 pb-2">
+          <div className="flex justify-center gap-2 pt-4 pb-2">
               {TEAM_CARDS.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => goTo(i)}
                   aria-label={`Go to card ${i + 1}`}
-                  className="flex items-center justify-center w-11 h-11"
-                >
-                  <div className={`rounded-full transition-all duration-300 ${
+                  className={`rounded-full transition-all duration-300 ${
                     i === activeCard ? 'w-5 h-2 bg-gray-700' : 'w-2 h-2 bg-gray-300'
-                  }`} />
-                </button>
+                  }`}
+                />
               ))}
             </div>
           </div>

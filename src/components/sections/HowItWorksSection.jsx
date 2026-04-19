@@ -231,7 +231,7 @@ export function HowItWorksSection({ carouselRef }) {
             </div>
 
             {/* ── Dots ── */}
-            <div
+              <div
               className="shrink-0 flex justify-center gap-2"
               style={{ paddingTop: 'clamp(4px, 0.8dvh, 10px)', paddingBottom: 'clamp(4px, 0.8dvh, 10px)' }}
             >
@@ -240,16 +240,14 @@ export function HowItWorksSection({ carouselRef }) {
                   key={i}
                   onClick={() => goToSlide(i)}
                   aria-label={`Go to slide ${i + 1}`}
-                  className="flex items-center justify-center w-11 h-11 -mx-2.5 -my-4.5"
-                >
-                  <div className={`rounded-full transition-all duration-300 ${
+                  className={`rounded-full transition-all duration-300 ${
                     i === activeSlide ? 'bg-gray-700' : 'bg-gray-300'
                   }`}
                   style={{
                     width: i === activeSlide ? '20px' : '6px',
                     height: '6px',
-                  }} />
-                </button>
+                  }}
+                />
               ))}
             </div>
           </div>
