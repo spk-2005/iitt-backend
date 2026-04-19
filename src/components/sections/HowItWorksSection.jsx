@@ -240,14 +240,16 @@ export function HowItWorksSection({ carouselRef }) {
                   key={i}
                   onClick={() => goToSlide(i)}
                   aria-label={`Go to slide ${i + 1}`}
-                  className={`rounded-full transition-all duration-300 ${
+                  className="flex items-center justify-center w-3 h-11"
+                >
+                  <div className={`rounded-full transition-all duration-300 ${
                     i === activeSlide ? 'bg-gray-700' : 'bg-gray-300'
                   }`}
                   style={{
                     width: i === activeSlide ? '20px' : '6px',
                     height: '6px',
-                  }}
-                />
+                  }} />
+                </button>
               ))}
             </div>
           </div>
