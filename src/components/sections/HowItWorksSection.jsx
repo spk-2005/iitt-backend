@@ -15,7 +15,7 @@ function MobileIndicators({ activeSlide, onGoTo }) {
         <button
           key={slide.index}
           onClick={() => onGoTo(i)}
-          className={`text-[10px] sm:text-[11px] font-medium transition-all cursor-pointer px-1.5 min-h-11 rounded-[8px] flex-1 text-center leading-tight flex items-center justify-center ${
+          className={`text-[10px] sm:text-[11px] font-medium transition-all cursor-pointer px-1.5 py-1.5 rounded-[8px] flex-1 text-center leading-tight ${
             activeSlide === i ? 'bg-black text-white' : 'text-gray-900 hover:bg-gray-200'
           }`}
         >
@@ -139,7 +139,7 @@ export function HowItWorksSection({ carouselRef }) {
                             behavior: 'smooth',
                           });
                         }}
-                        className={`text-[13px] font-medium transition-all cursor-pointer px-5 min-h-11 rounded-[8px] flex-1 text-center flex items-center justify-center ${
+                        className={`text-[13px] font-medium transition-all cursor-pointer px-5 py-2.5 rounded-[8px] flex-1 text-center ${
                           activeSlide === i
                             ? 'bg-black text-white shadow-sm'
                             : 'text-gray-900 hover:bg-gray-200'
@@ -229,7 +229,6 @@ export function HowItWorksSection({ carouselRef }) {
                 ))}
               </div>
             </div>
-
             {/* ── Dots ── */}
               <div
               className="shrink-0 flex justify-center gap-2"
