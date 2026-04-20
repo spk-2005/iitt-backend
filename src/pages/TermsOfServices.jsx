@@ -21,13 +21,13 @@ const sections = [
 ];
 
 const brand = {
-  purple: "#7B5CF5",
-  mid: "#A855C8",
-  pink: "#C85FA8",
-  gradient: "linear-gradient(135deg, #7B5CF5 0%, #A855C8 50%, #C85FA8 100%)",
-  gradientSubtle: "linear-gradient(135deg, rgba(123,92,245,0.08) 0%, rgba(200,95,168,0.08) 100%)",
-  gradientBorder: "rgba(168,85,200,0.25)",
-  pillBg: "linear-gradient(135deg, rgba(123,92,245,0.10), rgba(200,95,168,0.10))",
+  blue: "#201CAE",
+  mid: "#8E65F1",
+  red: "#E74F62",
+  gradient: "linear-gradient(135deg, #201CAE 0%, #E74F62 100%)",
+  gradientSubtle: "linear-gradient(135deg, rgba(32, 28, 174, 0.08) 0%, rgba(231, 79, 98, 0.08) 100%)",
+  gradientBorder: "rgba(32, 28, 174, 0.2)",
+  pillBg: "linear-gradient(135deg, rgba(32, 28, 174, 0.1), rgba(231, 79, 98, 0.1))",
 };
 
 function GradientDot() {
@@ -38,7 +38,7 @@ function GradientDot() {
         width: 10,
         height: 10,
         borderRadius: "50%",
-        background: brand.gradient,
+        background: "#000",
         marginRight: 10,
         flexShrink: 0,
         marginTop: 6,
@@ -69,24 +69,14 @@ function TableOfContents({ activeSection }) {
           <li key={s.id} ref={activeSection === s.id ? activeRef : null}>
             <a
               href={`#${s.id}`}
-              className="flex items-center gap-2 px-3 py-2 rounded-md text-[13.5px] no-underline transition-all duration-200"
+              className="flex items-center gap-2 px-3 py-2 rounded-md text-[13.5px] no-underline transition-all duration-200 toc-link"
               style={
                 activeSection === s.id
-                  ? { color: brand.purple, background: "rgba(123,92,245,0.09)", fontWeight: 500 }
+                  ? { color: brand.blue, background: "rgba(32, 28, 174, 0.09)", fontWeight: 500 }
                   : { color: "#4b5563" }
               }
             >
-              {activeSection === s.id && (
-                <span
-                  style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: brand.gradient,
-                    flexShrink: 0,
-                  }}
-                />
-              )}
+
               {s.title}
             </a>
           </li>
@@ -98,8 +88,7 @@ function TableOfContents({ activeSection }) {
 
 function SectionHeader({ children }) {
   return (
-    <h2 className="font-sans text-[24px] font-semibold text-gray-900 mb-5 tracking-tight flex items-center gap-2">
-      <GradientDot />
+    <h2 className="text-[24px] text-gray-900 mb-5 tracking-tight flex items-center gap-2">
       {children}
     </h2>
   );
@@ -107,7 +96,7 @@ function SectionHeader({ children }) {
 
 function SubHeader({ children }) {
   return (
-    <h3 className="font-sans text-[17px] font-medium text-gray-900 mt-8 mb-4">
+    <h3 className="text-[17px] font-medium text-gray-900 mt-8 mb-4">
       {children}
     </h3>
   );
@@ -123,7 +112,7 @@ function BulletList({ items }) {
               width: 7,
               height: 7,
               borderRadius: "50%",
-              background: brand.gradient,
+              background: "#000",
               flexShrink: 0,
               marginTop: 8,
             }}
@@ -168,17 +157,17 @@ export default function AnseruTermsOfService() {
   }, []);
 
   return (
-    <div className="bg-white text-gray-900 font-sans min-h-screen">
+    <div className="bg-white text-gray-900 min-h-screen">
 
       {/* Hero */}
       <div className="border-b border-gray-100 px-6 py-16 md:py-14 relative overflow-hidden">
         <div
           className="absolute pointer-events-none"
-          style={{ top: -80, right: -80, width: 400, height: 400, background: "radial-gradient(circle, rgba(123,92,245,0.13) 0%, transparent 70%)", borderRadius: "50%" }}
+          style={{ top: -80, right: -80, width: 400, height: 400, background: "radial-gradient(circle, rgba(29,128,249,0.13) 0%, transparent 70%)", borderRadius: "50%" }}
         />
         <div
           className="absolute pointer-events-none"
-          style={{ bottom: -60, left: -60, width: 280, height: 280, background: "radial-gradient(circle, rgba(200,95,168,0.11) 0%, transparent 70%)", borderRadius: "50%" }}
+          style={{ bottom: -60, left: -60, width: 280, height: 280, background: "radial-gradient(circle, rgba(231,79,98,0.11) 0%, transparent 70%)", borderRadius: "50%" }}
         />
         <div className="max-w-6xl mx-auto relative">
           <span
@@ -188,8 +177,7 @@ export default function AnseruTermsOfService() {
             Legal
           </span>
           <h1
-            className="text-4xl md:text-[52px] font-semibold tracking-tight mb-6"
-            style={{ background: brand.gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+            className="text-4xl md:text-[52px]  tracking-tight mb-6 text-gray-900"
           >
             Terms of Service
           </h1>
@@ -210,14 +198,14 @@ export default function AnseruTermsOfService() {
             className="mt-8 rounded-xl p-6 border"
             style={{ background: brand.gradientSubtle, borderColor: brand.gradientBorder }}
           >
-            <div className="font-semibold text-[15px] mb-2 text-gray-900">Questions?</div>
+            <div className="  text-[15px] mb-2 text-gray-900">Questions?</div>
             <p className="text-[14px] text-gray-600 leading-relaxed mb-4">
               Contact our legal team for any service-related inquiries.
             </p>
             <a
               href="mailto:legal@anseru.ai"
               className="text-[14px] font-medium no-underline transition-opacity hover:opacity-75"
-              style={{ background: brand.gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+              style={{ color: brand.blue }}
             >
               legal@anseru.ai
             </a>
@@ -232,7 +220,7 @@ export default function AnseruTermsOfService() {
             <SectionHeader>1. Agreement to Terms</SectionHeader>
             <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">
               These Terms of Service ("Terms") constitute a legally binding agreement between you, whether personally or on behalf of an entity ("you", "your"), and Anseru.ai ("Anseru", "we", "us", or "our"), concerning your access to and use of our AI-powered RFP and proposal automation platform, website, and related services (collectively, the "Services"). Our platform is accessible at{" "}
-              <a href="https://anseru.ai" className="underline" style={{ color: brand.purple }}>https://anseru.ai</a>.
+              <a href="https://anseru.ai" className="underline" style={{ color: brand.blue }}>https://anseru.ai</a>.
             </p>
             <p className="text-gray-600 text-[15.5px] leading-[1.8] mb-5">
               By accessing or using the Services, you confirm that: (a) you have read, understood, and agreed to be bound by these Terms; (b) you have the legal capacity to enter into this agreement and are not a minor in your jurisdiction of residence; and (c) if entering on behalf of a company or entity, you have the authority to bind that entity to these Terms.
@@ -568,7 +556,7 @@ export default function AnseruTermsOfService() {
 
             <InfoBox>
               For details on how Anseru collects, uses, and protects personal data, please refer to our{" "}
-              <a href="https://anseru.ai/privacy" style={{ color: brand.purple }}>Privacy Policy</a>. Your use of the Services constitutes agreement to the Privacy Policy in addition to these Terms.
+              <a href="https://anseru.ai/privacy" style={{ color: brand.blue }}>Privacy Policy</a>. Your use of the Services constitutes agreement to the Privacy Policy in addition to these Terms.
             </InfoBox>
           </section>
 
@@ -675,8 +663,8 @@ export default function AnseruTermsOfService() {
                   style={{ background: brand.gradientSubtle, border: `0.5px solid ${brand.gradientBorder}` }}
                 >
                   <div
-                    className="font-semibold mb-1.5 text-[15px]"
-                    style={{ background: brand.gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+                    className="mb-1.5 text-[15px]"
+                    style={{ color: "#201CAE" }}
                   >
                     {item.region}
                   </div>
@@ -764,8 +752,8 @@ export default function AnseruTermsOfService() {
               style={{ background: brand.gradientSubtle, border: `0.5px solid ${brand.gradientBorder}` }}
             >
               <div
-                className="font-semibold mb-1 text-[16px]"
-                style={{ background: brand.gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+                className="mb-1 text-[16px]"
+                style={{ color: brand.blue }}
               >
                 Legal Team
               </div>
@@ -776,7 +764,7 @@ export default function AnseruTermsOfService() {
                   <a
                     href="mailto:legal@anseru.ai"
                     className="no-underline transition-opacity hover:opacity-75"
-                    style={{ background: brand.gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+                    style={{ color: brand.blue }}
                   >
                     legal@anseru.ai
                   </a>
@@ -796,7 +784,7 @@ export default function AnseruTermsOfService() {
                   <a
                     href="https://anseru.ai"
                     className="no-underline transition-opacity hover:opacity-75"
-                    style={{ background: brand.gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+                    style={{ color: brand.blue }}
                   >
                     https://anseru.ai
                   </a>

@@ -292,9 +292,15 @@ html {
   background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(123, 92, 245, 0.2);
+  background: linear-gradient(to bottom, #040079d4, #2a23ffac);
   border-radius: 10px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(123, 92, 245, 0.4);
-}
+  background: linear-gradient(to bottom, #040079b7, #2a23ff9c);
+}
+
+/* TOC sidebar link hover */
+.toc-link:hover {
+  color: #040079 !important;
+  background: rgba(32, 28, 174, 0.05);
+}
