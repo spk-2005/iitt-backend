@@ -26,10 +26,10 @@ const brand = {
   blue: "#201CAE",
   mid: "#8E65F1",
   red: "#E74F62",
-  gradient: "linear-gradient(135deg, #201CAE 0%, #E74F62 100%)",
-  gradientSubtle: "linear-gradient(135deg, rgba(32, 28, 174, 0.08) 0%, rgba(231, 79, 98, 0.08) 100%)",
-  gradientBorder: "rgba(32, 28, 174, 0.2)",
-  pillBg: "linear-gradient(135deg, rgba(32, 28, 174, 0.1), rgba(231, 79, 98, 0.1))",
+  gradient: "#201CAE",
+  gradientSubtle: "rgba(32, 28, 174, 0.05)",
+  gradientBorder: "rgba(32, 28, 174, 0.15)",
+  pillBg: "#f3f4f6",
 };
 
 function GradientText({ children, style = {} }) {
@@ -110,7 +110,7 @@ function TableOfContents({ activeSection }) {
 
 function SectionHeader({ children }) {
   return (
-    <h2 className=" text-[24px] font-semibold text-gray-900 mb-5 tracking-tight flex items-center gap-2">
+    <h2 className=" text-[24px]  text-gray-900 mb-5 tracking-tight flex items-center gap-2">
       {children}
     </h2>
   );
@@ -184,14 +184,6 @@ export default function AnseruPrivacyPolicy() {
     <div className="bg-white text-gray-900 min-h-screen">
       {/* Hero */}
       <div className="border-b border-gray-100 px-6 py-16 md:py-4 relative overflow-hidden" style={{ background: "#fff" }}>
-        <div
-          className="absolute pointer-events-none"
-          style={{ top: -80, right: -80, width: 400, height: 400, background: "radial-gradient(circle, rgba(29,128,249,0.13) 0%, transparent 70%)", borderRadius: "50%" }}
-        />
-        <div
-          className="absolute pointer-events-none"
-          style={{ bottom: -60, left: -60, width: 280, height: 280, background: "radial-gradient(circle, rgba(231,79,98,0.11) 0%, transparent 70%)", borderRadius: "50%" }}
-        />
         <div className="max-w-6xl mx-auto relative">
           <span
             className="inline-block px-3 py-1 rounded-full text-[12px] font-bold mb-4 uppercase tracking-wider"
@@ -207,7 +199,7 @@ export default function AnseruPrivacyPolicy() {
           <p className="text-[18px] text-gray-500 max-w-2xl leading-relaxed">
             How Anseru collects, uses, and protects your personal data.
           </p>
-          <p className="text-[14px] text-gray-400 mt-8 font-medium">Last Updated: April 17, 2026</p>
+          <p className="text-[14px] text-gray-400 mt-3 font-medium">Last Updated: April 17, 2026</p>
         </div>
       </div>
 
@@ -220,7 +212,7 @@ export default function AnseruPrivacyPolicy() {
             className="mt-8 rounded-xl p-6 border"
             style={{ background: brand.gradientSubtle, borderColor: brand.gradientBorder }}
           >
-            <div className="font-semibold text-[15px] mb-2 text-gray-900">Questions?</div>
+            <div className=" text-[15px] mb-2 text-gray-900">Questions?</div>
             <p className="text-[14px] text-gray-600 leading-relaxed mb-4">
               Contact our Data Protection Officer for any inquiries.
             </p>
@@ -511,7 +503,7 @@ export default function AnseruPrivacyPolicy() {
                   style={{ background: brand.gradientSubtle, border: `0.5px solid ${brand.gradientBorder}` }}
                 >
                   <div
-                    className="font-semibold mb-1.5 text-[15px]"
+                    className=" mb-1.5 text-[15px]"
                     style={{ background: brand.gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
                   >
                     {item.right}
@@ -647,7 +639,7 @@ export default function AnseruPrivacyPolicy() {
               style={{ background: brand.gradientSubtle, border: `0.5px solid ${brand.gradientBorder}` }}
             >
               <div
-                className="font-semibold mb-1 text-[16px]"
+                className=" mb-1 text-[16px]"
                 style={{ background: brand.gradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
               >
                 Data Protection Officer
@@ -691,7 +683,7 @@ export default function AnseruPrivacyPolicy() {
             </p>
 
             {/* Footer gradient bar */}
-            <div className="mt-16 h-1 rounded-full" style={{ background: brand.gradient }} />
+            <div className="mt-16 h-px bg-gray-100" />
           </section>
 
         </main>
