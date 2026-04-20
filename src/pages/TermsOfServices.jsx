@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const sections = [
   { id: "agreement", title: "1. Agreement to Terms" },
@@ -48,14 +48,25 @@ function GradientDot() {
 }
 
 function TableOfContents({ activeSection }) {
+  const activeRef = useRef(null);
+
+  useEffect(() => {
+    if (activeRef.current) {
+      activeRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  }, [activeSection]);
+
   return (
-    <nav className="bg-white border border-gray-200 rounded-xl p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
-      <div className="text-[11px] font-bold tracking-[1.5px] uppercase text-gray-500 mb-4">
+    <nav className="bg-white border border-gray-200 rounded-xl px-5 pb-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] max-h-[calc(100vh-200px)] overflow-y-auto custom-scrollbar">
+      <div className="text-[11px] font-bold tracking-[1.5px] uppercase text-gray-500 pt-6 pb-4 sticky top-0 bg-white z-10">
         Contents
       </div>
       <ul className="flex flex-col gap-1.5 m-0 p-0 list-none">
         {sections.map((s) => (
-          <li key={s.id}>
+          <li key={s.id} ref={activeSection === s.id ? activeRef : null}>
             <a
               href={`#${s.id}`}
               className="flex items-center gap-2 px-3 py-2 rounded-md text-[13.5px] no-underline transition-all duration-200"
